@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Lantern Teaser</title>
+<meta name="description" content="Someone is still on the road. Watch the lantern.">
+<meta property="og:site_name" content="littlehill">
+<meta property="og:type" content="website">
+<meta property="og:title" content="littlehill · a light on the hill">
+<meta property="og:description" content="Someone is still on the road. Watch the lantern.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@little_hill01">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23141c30%27/%3E%3Crect x=%2712%27 y=%279%27 width=%278%27 height=%2713%27 rx=%272%27 fill=%27%23f2b45a%27/%3E%3Crect x=%2714%27 y=%276%27 width=%274%27 height=%273%27 fill=%27%23e8e4da%27/%3E%3Crect x=%2711%27 y=%2722%27 width=%2710%27 height=%272%27 fill=%27%23e8e4da%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400;600&family=Karla:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/tokens.css">
+<style>
+/* littlehill · pre-auction teaser (prototype 21 Oct 2026)
+   One lantern on an empty platform blinks a message in Morse (≤2 flashes/s, WCAG ≤3).
+   Reduced motion = no blinking, the code is shown as dots and dashes instead. No countdown, no fake numbers. */
+:root{
+  --sky-top:var(--lh-sky-night-top); --sky-low:var(--lh-sky-teaser-low); --horizon:var(--lh-sky-dusk-low);
+  --ink:var(--lh-ink); --muted:var(--lh-muted); --fog:var(--lh-fog); --lantern:var(--lh-lantern); --glow:rgba(var(--lh-lantern-rgb),.45); --unlit:var(--lh-unlit); --rail:var(--lh-rail);
+  --f-hand:"Caveat","Sriracha",cursive; --f-body:"Karla","IBM Plex Sans Thai",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:linear-gradient(180deg,var(--sky-top),var(--sky-low) 70%,var(--horizon));color:var(--ink);font:16px/1.6 var(--f-body);overflow-x:hidden}
+html[lang="th"]{--f-hand:"Sriracha","Caveat",cursive}
+.wrap{max-width:640px;margin:0 auto;padding-block:28px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:18px;position:relative;z-index:2}
+canvas.stars{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.brand{font:700 26px/1 var(--f-hand)}
+.langsw{display:flex;gap:2px;border:1px solid rgba(var(--lh-ink-rgb),.25);border-radius:999px;padding:2px}
+.langsw button{font:500 12px var(--f-mono);background:transparent;color:var(--ink);border:0;border-radius:999px;padding:3px 9px;cursor:pointer}
+.langsw button[aria-pressed="true"]{background:var(--ink);color:var(--lh-night)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--lantern);outline-offset:3px}
+
+.scene{position:relative;height:clamp(260px,52vh,420px);border-radius:14px;overflow:hidden;background:radial-gradient(80% 60% at 50% 100%,rgba(var(--lh-fog-rgb),.25),transparent 70%)}
+.scene svg{position:absolute;inset:0;width:100%;height:100%}
+.lamp{position:absolute;left:50%;top:34%;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:var(--unlit);transition:background .08s,box-shadow .08s}
+.lamp.on{background:var(--lantern);box-shadow:0 0 30px 14px var(--glow),0 0 90px 30px rgba(var(--lh-lantern-rgb),.18)}
+.lamp.still{background:var(--lantern);box-shadow:0 0 22px 8px var(--glow)}
+.fog{position:absolute;left:-10%;right:-10%;bottom:-6%;height:45%;background:radial-gradient(60% 70% at 30% 70%,rgba(var(--lh-fog-rgb),.4),transparent 70%),radial-gradient(50% 60% at 75% 80%,rgba(var(--lh-fog-rgb),.32),transparent 70%)}
+@media (prefers-reduced-motion:no-preference){.fog{animation:drift 80s linear infinite alternate}@keyframes drift{from{transform:translateX(-4%)}to{transform:translateX(4%)}}}
+
+.delta{font:500 26px/1.25 var(--f-hand);margin:0;text-align:center}
+.delta small{display:block;font:12px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.code{font:500 20px/1.6 var(--f-mono);letter-spacing:.15em;text-align:center;color:var(--lantern);word-break:break-word;margin:0}
+.hint{color:var(--muted);text-align:center;margin:0;font-size:15px}
+.reveal{background:var(--lh-paper);color:var(--lh-paper-ink);border-radius:10px;padding:16px 18px;text-align:center;box-shadow:0 10px 30px rgba(var(--lh-shadow-rgb),.35)}
+.reveal h2{margin:0;font:700 30px/1.15 var(--f-hand)}
+.reveal p{margin:6px 0 0}
+.reveal time{font:500 18px var(--f-mono)}
+/* P10 · 24 Oct (Dell): arrival date = the headline (matches the Morse) · bidding date = smaller second line */
+.reveal .rv-date{margin:4px 0 0}
+.reveal .rv-date time{font-size:20px}
+.reveal .rv-sub{margin:10px 0 0;font-size:14px;color:var(--lh-paper-muted-strong)}
+.reveal .rv-sub time{font-size:14px}
+.reveal time,#rv-your,#rv-s2{white-space:nowrap}
+/* P10: when the page is taller than the screen (date revealed), the sky keeps its horizon colour below instead of restarting at the top colour */
+body{background-color:var(--horizon);background-repeat:no-repeat}
+.links{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.links a{color:var(--ink);text-decoration:none;border:1px solid rgba(var(--lh-ink-rgb),.3);border-radius:999px;padding:6px 14px;font-size:14px}
+.links a:hover{border-color:var(--lantern)}
+.demo{border:1px dashed var(--lh-lantern-soft);border-radius:10px;padding:12px 14px;display:grid;gap:8px;background:rgba(var(--lh-night-rgb),.75);font-size:14px}
+.demo b{color:var(--lh-lantern-soft)}
+.demo .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.demo button,.demo input{font:inherit;font-size:13px;background:transparent;color:var(--ink);border:1px solid rgba(var(--lh-ink-rgb),.3);border-radius:999px;padding:4px 12px}
+.demo input{border-radius:8px;width:9em;text-transform:uppercase}
+</style>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/scene.css">
+</head>
+<body>
+
+
+<canvas class="stars" id="stars" aria-hidden="true"></canvas>
+<main class="wrap">
+  <div class="top">
+    <a class="brand" href="../">littlehill</a>
+    <nav class="lh-nav" aria-label="littlehill"><a data-k="traveller" href="../traveller/001/">Traveller No.001</a><a data-k="auction" href="../auction/">Auction</a><a data-k="rules" href="../rules/">Boarding rules</a><a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a></nav>
+    <span class="langsw" role="group" aria-label="Language"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="th" aria-pressed="false">ไทย</button></span>
+  </div>
+
+  <div class="scene lh-scene" id="scene" aria-hidden="true">
+    <div class="ly wide" style="--d:2"><svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 280 C70 258 120 264 180 270 C250 246 320 252 380 264 C450 248 520 244 600 258 L600 400 L0 400Z" fill="var(--lh-hill-far)"/></svg></div>
+    <div class="ly wide" style="--d:4"><div class="fogband far"></div></div>
+    <div class="ly wide" style="--d:6"><svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 306 C90 292 150 298 210 301 C290 288 360 295 420 299 C500 290 550 293 600 296 L600 400 L0 400Z" fill="var(--lh-hill-near)"/></svg></div>
+    <div class="ly" style="--d:9">
+      <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 330 L600 330 L600 400 L0 400Z" fill="var(--lh-rail)"/>
+        <path d="M0 318 L600 318 L600 330 L0 330Z" fill="var(--lh-train)"/>
+        <g stroke="var(--lh-rail-line)" stroke-width="3"><line x1="0" y1="352" x2="600" y2="352"/><line x1="0" y1="372" x2="600" y2="372"/></g>
+        <g fill="var(--lh-rail)"><rect x="160" y="150" width="8" height="170"/><rect x="432" y="150" width="8" height="170"/><rect x="150" y="146" width="300" height="7"/>
+          <rect x="250" y="292" width="100" height="6"/><rect x="258" y="298" width="5" height="20"/><rect x="337" y="298" width="5" height="20"/>
+          <rect x="380" y="230" width="4" height="88"/><rect x="368" y="222" width="28" height="12" rx="2"/></g>
+        <line x1="392" y1="234" x2="392" y2="262" stroke="var(--lh-rail-line)" stroke-width="1.5"/>
+      </svg>
+      <span class="lamp" id="lamp"></span>
+    </div>
+    <div class="ly" style="--d:12"><svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMax slice">
+      <g class="train" transform="translate(-1400 0)">
+        <g fill="var(--lh-train)"><rect x="0" y="300" width="190" height="62" rx="6"/><rect x="198" y="300" width="190" height="62" rx="6"/><rect x="396" y="300" width="204" height="62" rx="12"/></g>
+        <g fill="var(--lh-lantern-soft)" opacity=".9"><rect x="16" y="312" width="26" height="16"/><rect x="58" y="312" width="26" height="16"/><rect x="100" y="312" width="26" height="16"/><rect x="142" y="312" width="26" height="16"/>
+          <rect x="214" y="312" width="26" height="16"/><rect x="256" y="312" width="26" height="16"/><rect x="298" y="312" width="26" height="16"/><rect x="340" y="312" width="26" height="16"/>
+          <rect x="412" y="312" width="26" height="16"/><rect x="454" y="312" width="26" height="16"/><rect x="496" y="312" width="26" height="16"/></g>
+        <circle cx="598" cy="340" r="30" fill="url(#lh-hl)"/>
+      </g>
+      <defs><radialGradient id="lh-hl"><stop offset="0" stop-color="#ffe2b0"/><stop offset=".3" stop-color="rgba(242,180,90,.5)"/><stop offset="1" stop-color="rgba(242,180,90,0)"/></radialGradient></defs>
+    </svg></div>
+    <div class="ly" style="--d:15"><div class="fog"></div></div>
+  </div>
+
+  <section id="puzzle">
+    <p class="delta" id="delta">“The lantern's been blinking all night. I think it's saying something.”<small id="who">— Delta</small></p>
+  </section>
+  <p class="code" id="code" hidden></p>
+  <p class="hint" id="hint">Watch the lantern. Short and long. Answer on <b>@little_hill01</b> when the fog lifts.</p>
+
+  <section class="reveal" id="reveal" hidden aria-live="polite">
+    <h2 id="rv-h">Traveller No.001 arrives</h2>
+    <p class="rv-date" id="rv-p"><time id="rv-t" datetime=""></time> <span id="rv-your">· your time</span></p>
+    <p class="rv-sub" id="rv-sub" hidden><span id="rv-s1">Bidding opens</span> <time id="rv-bt" datetime=""></time> <span id="rv-s2">with Episode 4</span></p>
+  </section>
+
+  <div class="links">
+    <a id="l-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">@little_hill01 on X</a>
+    <a id="l-rules" href="../rules/" target="_blank" rel="noopener">Boarding rules</a>
+    <a data-lh-ctx="traveller" href="../traveller/001/" hidden>Meet Traveller No.001 →</a>
+  </div>
+</main>
+
+<script src="../assets/live.js"></script>
+<script>
+(function(){
+  /* What the real page reads from state.json: {mode:"teaser"|"reveal", morse:"MMM DD", opensAt:"YYYY-MM-DDTHH:MM:00Z"} */
+  var CFG={mode:"teaser",morse:"",opensAt:null}; /* P10: no built-in date · the lantern waits (lit, still) until state.json says what to blink */
+  var AOPENS=null; /* state.json auction.opensAt (bidding opens with ep4) */
+  var M={A:".-",B:"-...",C:"-.-.",D:"-..",E:".",F:"..-.",G:"--.",H:"....",I:"..",J:".---",K:"-.-",L:".-..",M:"--",N:"-.",O:"---",P:".--.",Q:"--.-",R:".-.",S:"...",T:"-",U:"..-",V:"...-",W:".--",X:"-..-",Y:"-.--",Z:"--..",
+    "0":"-----","1":".----","2":"..---","3":"...--","4":"....-","5":".....","6":"-....","7":"--...","8":"---..","9":"----."};
+  var TX={en:{delta:"“The lantern's been blinking all night. I think it's saying something.”",who:"— Delta",
+      hint:'Watch the lantern. Short and long. Answer on <b>@little_hill01</b> when the fog lifts.',
+      arrives:"Traveller No.001 arrives",opens:"Bidding opens",ep4:"with Episode 4",your:"your time",x:"@little_hill01 on X",rules:"Boarding rules",loc:undefined,
+      dRev:"“It stopped blinking. I guess they found out.”"},
+    th:{delta:"“โคมกระพริบมาทั้งคืนแล้ว ฉันว่ามันพยายามบอกอะไรอยู่”",who:"— Delta",
+      hint:'ดูโคมดี ๆ สั้นกับยาว · เฉลยที่ <b>@little_hill01</b> ตอนหมอกจาง',
+      arrives:"Traveller No.001 มาถึง",opens:"เปิดบิด",ep4:"พร้อมตอนที่ 4",your:"เวลาของคุณ",x:"@little_hill01 บน X",rules:"กติกา (Boarding rules)",loc:"th-TH",
+      dRev:"“เลิกกระพริบแล้ว สงสัยมีคนรู้แล้วล่ะ”"}};
+  var LANG="en";try{LANG=localStorage.getItem("lh-lang")||"";}catch(e){}
+  if(!LANG)LANG=(navigator.language||"").toLowerCase().indexOf("th")===0?"th":"en";
+  var $=function(id){return document.getElementById(id);};
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var forceCode=false;
+
+  function toCode(msg){return msg.toUpperCase().split(" ").map(function(w){return w.split("").map(function(c){return M[c]||"";}).filter(Boolean).join(" ");}).join("  /  ");}
+  /* timeline of [on?, units]: dot 1, dash 3, gap in letter 1, letter 3, word 7, loop pause 14 */
+  function plan(msg){var seq=[];msg.toUpperCase().split(" ").forEach(function(w,wi){if(wi)seq.push([0,7]);w.split("").forEach(function(c,ci){var m=M[c];if(!m)return;if(ci)seq.push([0,3]);m.split("").forEach(function(s,si){if(si)seq.push([0,1]);seq.push([1,s==="."?1:3]);});});});seq.push([0,14]);return seq;}
+  var UNIT=320, timer=null;
+  function blink(msg){clearTimeout(timer);var seq=plan(msg),i=0,lamp=$("lamp");lamp.classList.remove("still");
+    (function step(){var s=seq[i%seq.length];lamp.classList.toggle("on",!!s[0]);i++;timer=setTimeout(step,s[1]*UNIT);})();}
+  function stop(){clearTimeout(timer);$("lamp").classList.remove("on");}
+
+  function fmt(iso){try{return new Intl.DateTimeFormat(TX[LANG].loc,{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",timeZoneName:"short"}).format(new Date(iso));}catch(e){return iso;}}
+  function render(){
+    var t=TX[LANG];document.documentElement.lang=LANG;
+    [].forEach.call(document.querySelectorAll(".langsw button"),function(b){b.setAttribute("aria-pressed",b.getAttribute("data-set")===LANG?"true":"false");});
+    $("who").textContent=t.who;$("hint").innerHTML=t.hint;$("l-x").textContent=t.x;$("l-rules").textContent=t.rules;
+    if(CFG.mode==="reveal"){stop();$("lamp").classList.add("still");
+      $("delta").firstChild.textContent=t.dRev;$("code").hidden=true;$("hint").hidden=true;$("reveal").hidden=false;
+      $("rv-p").hidden=!CFG.opensAt;if(CFG.opensAt){$("rv-t").setAttribute("datetime",CFG.opensAt);$("rv-t").textContent=fmt(CFG.opensAt);}
+      $("rv-h").textContent=t.arrives;$("rv-your").textContent="· "+t.your;
+      /* second line only when the bidding date is set (state.json auction.opensAt) */
+      var bo=Date.parse(AOPENS||"");$("rv-sub").hidden=isNaN(bo);
+      if(!isNaN(bo)){$("rv-bt").setAttribute("datetime",AOPENS);$("rv-bt").textContent=fmt(AOPENS);$("rv-s1").textContent=t.opens;$("rv-s2").textContent=t.ep4;}
+    }else{
+      $("delta").firstChild.textContent=t.delta;$("reveal").hidden=true;$("hint").hidden=false;
+      if(!CFG.morse){stop();$("lamp").classList.add("still");$("code").hidden=true;return;}
+      var showCode=reduce||forceCode;$("code").hidden=!showCode;$("code").textContent=toCode(CFG.morse);
+      if(showCode){stop();$("lamp").classList.add("still");}else if(!timer){blink(CFG.morse);}
+    }
+  }
+  document.querySelector(".langsw").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;LANG=b.getAttribute("data-set");try{localStorage.setItem("lh-lang",LANG);}catch(_){}render();});
+
+  (function(){var c=$("stars"),x=c.getContext("2d");function draw(){c.width=innerWidth;c.height=innerHeight;var seed=11;function r(){seed=(seed*16807)%2147483647;return seed/2147483647;}
+    for(var i=0;i<120;i++){x.fillStyle="rgba(232,228,218,"+(0.2+r()*0.55)+")";x.beginPath();x.arc(r()*c.width,r()*c.height*0.55,r()*1.1+.2,0,7);x.fill();}}draw();addEventListener("resize",draw);})();
+  function load(){(window.lhLive?lhLive.get("../state.json?t="+Date.now()):fetch("../state.json?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();})).then(function(j){if(window.lhLive&&lhLive.personalize)lhLive.personalize(j);var s=j.teaser||{};var ao=(j.auction||{}).opensAt||null;if(ao!==AOPENS){AOPENS=ao;if(CFG.mode==="reveal")render();}var changed=s.morse!==CFG.morse||s.mode!==CFG.mode;for(var k in s)CFG[k]=s[k];if(changed){timer=null;stop();}render();
+      if(CFG.mode==="reveal"&&window.LHScene)LHScene.event(document.getElementById("scene"),"reveal",Date.now()<Date.parse(CFG.opensAt||""));}).catch(function(){});}
+  render();load();setInterval(load,60000);
+})();
+</script>
+
+<script src="../assets/nav.js" data-root="../" data-page="teaser" defer></script>
+<script src="../assets/scene.js"></script>
+<script>LHScene.init(document.getElementById("scene"));</script>
+</body>
+</html>

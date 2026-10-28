@@ -1,0 +1,50 @@
+/* littlehill · shared station-sign nav (thin layer on top of each page's own look) */
+.lh-nav{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;font:500 .7rem/1.4 "IBM Plex Mono",ui-monospace,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase}
+.lh-nav a{color:inherit;opacity:.72;text-decoration:none;border-bottom:1px solid transparent;padding:6px 0;white-space:nowrap}
+.lh-nav a:hover{opacity:1;border-bottom-color:currentColor}
+.lh-nav a:focus-visible{opacity:1;outline:2px solid var(--lh-lantern);outline-offset:3px;border-radius:2px}
+.lh-nav a[aria-current="page"]{opacity:1;color:var(--lh-lantern)}
+.lh-nav a[hidden]{display:none}
+.lh-nav .lh-x{letter-spacing:.04em;text-transform:none}
+/* inside a page's top bar: on narrow screens the sign drops to its own line under brand + language */
+.top .lh-nav{order:3;flex-basis:100%}
+@media (min-width:720px){.top .lh-nav{order:0;flex-basis:auto;margin-left:auto;margin-right:6px}}
+a.brand,a.lh-home{color:inherit;text-decoration:none}
+/* rules page: one thin night strip above both language versions */
+.lh-bar{background:var(--lh-night);color:var(--lh-ink);display:flex;align-items:center;gap:4px 16px;flex-wrap:wrap;padding:8px max(16px,env(safe-area-inset-right,0px)) 4px max(16px,env(safe-area-inset-left,0px))}
+.lh-bar .lh-home{font:700 1.25rem/1 "Caveat","Sriracha",cursive;margin-right:4px}
+html[lang="th"] .lh-bar .lh-home{font-family:"Caveat",cursive}
+/* contextual links */
+.lh-ctx{display:inline-block;margin-top:8px;color:var(--lh-lantern);text-decoration:none;border-bottom:1px solid rgba(var(--lh-lantern-rgb),.45);font-size:.95rem}
+.lh-ctx:hover{border-bottom-color:var(--lh-lantern)}
+.lh-ctx[hidden]{display:none}
+.lh-foot{margin:28px auto 0;max-width:760px;padding:0 16px 18px;display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;font:500 .72rem "IBM Plex Mono",monospace;letter-spacing:.08em}
+.lh-foot a{color:inherit;opacity:.75}
+
+.top:has(.lh-nav){flex-wrap:wrap}
+.card .lh-ctx{color:var(--lh-stamp-wait);border-bottom-color:rgba(var(--lh-stamp-wait-rgb),.4);font-size:.9rem}
+.lh-backrow{margin:28px 0 0}
+.lh-back{font:500 .8rem "IBM Plex Mono",monospace;letter-spacing:.06em;color:var(--lantern,var(--lh-day-lantern));text-decoration:none;border-bottom:1px solid currentColor}
+
+/* P10 · page-to-page transition: CSS only, same-site links · the hand-lettered name stays put while the page cross-fades.
+   Browsers without support simply change page as before. Reduced motion = no transition. */
+@view-transition{navigation:auto}
+a.brand,a.lh-home{view-transition-name:lh-brand}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.45s}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
+/* H3 · closed → next steps (rail with three lanterns · the current one breathes slowly · reduced motion = still) */
+.lh-steps{list-style:none;margin:14px auto 2px;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;max-width:480px;position:relative;font:500 .74rem/1.4 var(--f-mono);letter-spacing:.04em;color:var(--lh-cream-2)}
+.lh-steps[hidden],.lh-stepnote[hidden]{display:none}
+.lh-steps::before{content:"";position:absolute;left:16.66%;right:16.66%;top:8px;height:0;border-top:2px dotted rgba(var(--lh-ink-rgb),.28)}
+.lh-steps li{position:relative;text-align:center;padding:24px 4px 0;text-wrap:balance}
+.lh-steps li::before{content:"";position:absolute;top:1px;left:50%;width:15px;height:15px;margin-left:-7.5px;border-radius:50%;background:var(--lh-unlit);box-shadow:inset 0 0 0 1px rgba(var(--lh-ink-rgb),.3)}
+.lh-steps li.done::before{background:var(--lh-lantern-soft);box-shadow:none;opacity:.75}
+.lh-steps li.now{color:var(--lh-cream-4);font-weight:600}
+.lh-steps li.now::before{background:var(--lh-lantern);box-shadow:0 0 12px 4px rgba(var(--lh-lantern-rgb),.45)}
+@media (prefers-reduced-motion:no-preference){.lh-steps li.now::before{animation:lh-breathe 4s ease-in-out infinite}}
+@keyframes lh-breathe{0%,100%{opacity:1;box-shadow:0 0 14px 5px rgba(var(--lh-lantern-rgb),.5)}50%{opacity:.5;box-shadow:0 0 3px 1px rgba(var(--lh-lantern-rgb),.12)}}
+.lh-steps.start{margin-left:0}
+.lh-stepnote{margin:8px 0 0;font-size:.84rem;color:var(--lh-cream-3)}
+/* the strip pushes the rule line lower into the brighter fog on the closed sky */
+html[data-sky="closed"] .note{color:var(--lh-cream-3)}
+html[data-sky="closed"] .thb{color:var(--lh-cream-2)}

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- prototype page (24 Oct 2026) · keep noindex until Dell switches it on AND links it -->
+<meta name="robots" content="noindex,nofollow">
+<title>Owners' Wall · littlehill</title>
+<meta name="description" content="The people littlehill travellers went home with, shown only if they asked to be.">
+<meta property="og:site_name" content="littlehill">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Owners' wall · littlehill">
+<meta property="og:description" content="The people littlehill travellers went home with, shown only if they asked to be.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@little_hill01">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23141c30%27/%3E%3Crect x=%2712%27 y=%279%27 width=%278%27 height=%2713%27 rx=%272%27 fill=%27%23f2b45a%27/%3E%3Crect x=%2714%27 y=%276%27 width=%274%27 height=%273%27 fill=%27%23e8e4da%27/%3E%3Crect x=%2711%27 y=%2722%27 width=%2710%27 height=%272%27 fill=%27%23e8e4da%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400;600&family=Karla:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/future.css">
+<style>
+/* owners' wall: opt-in only · shows the handle the owner chose + which traveller · nothing else (no dates, no country, no links) */
+.wall{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.tag{padding:14px 14px 12px;display:grid;gap:4px;position:relative;transform:rotate(var(--r,0deg))}
+.tag::before{content:"";position:absolute;top:8px;right:10px;width:10px;height:10px;border-radius:50%;background:rgba(var(--lh-paper-ink-rgb),.18)}
+.tag .h{font:700 1.5rem/1.1 var(--f-hand);word-break:break-word}
+.tag a{font:500 .72rem var(--f-mono);letter-spacing:.08em;color:var(--lh-stamp-wait);text-decoration:none}
+.tag .was{font:500 .64rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--label)}
+.empty{border:1.5px dashed rgba(var(--lh-ink-rgb),.26);border-radius:8px;padding:22px 18px;color:var(--muted);text-align:center;margin-top:22px}
+.empty .hand{display:block;font-size:1.5rem;color:var(--ink);opacity:.8}
+html[lang="th"] .empty .hand{font-family:"Sriracha","Caveat",cursive;font-weight:400}
+.how{margin-top:26px;max-width:36em;background:rgba(var(--lh-deep-rgb),.5);border-radius:8px;padding:10px 12px}
+.how h2{font:500 .76rem var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.how ul{margin:0;padding-left:1.1em;color:var(--muted)}
+.how li{margin:2px 0}
+</style>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <a class="brand" href="../">littlehill</a>
+    <nav class="lh-nav" aria-label="littlehill"><a data-k="traveller" href="../traveller/001/">Traveller No.001</a><a data-k="auction" href="../auction/">Auction</a><a data-k="rules" href="../rules/">Boarding rules</a><a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a></nav>
+    <span class="langsw" role="group" aria-label="Language"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="th" aria-pressed="false">ไทย</button></span>
+  </div>
+
+  <p class="preview-bar" id="previewbar" hidden></p>
+  <section class="closed" id="closed" hidden></section>
+
+  <div id="content" hidden>
+    <header>
+      <span class="kicker" id="kicker">littlehill · owners' wall</span>
+      <h1 id="title">Owners' wall</h1>
+      <p class="lede" id="lede"></p>
+    </header>
+    <ul class="wall" id="wall"></ul>
+    <div class="empty" id="empty" hidden></div>
+    <section class="how" aria-labelledby="h-how">
+      <h2 id="h-how">How the wall works</h2>
+      <ul id="how"></ul>
+    </section>
+  </div>
+  <noscript><p class="lede">This page needs JavaScript. <a href="../">littlehill →</a></p></noscript>
+</main>
+
+<script type="application/json" id="fb-reg">{"slots":12,"travellers":[{"no":"001","page":"traveller/001/","owner":null,"ownerOptIn":false,"history":[]}]}</script>
+<script src="../assets/future.js"></script>
+<script>
+(function(){
+  var TX={
+    en:{kicker:"littlehill · owners' wall",title:"Owners' wall",lede:'Some travellers have gone home with someone. These are the owners who asked to be on the wall.',
+        with:'with Traveller No.{no} →',was:'travelled with No.{no}',
+        emptyH:'The wall is still bare.',emptyB:'Names go up only when an owner asks for it.',
+        howH:'How the wall works',
+        how:['Nobody is added without asking. Owners are off the wall unless they say yes.','Only the handle the owner picks is shown. No real names, places or dates.','Changed your mind? Ask and the name comes down.']},
+    th:{kicker:'littlehill · กำแพงเจ้าของ',title:'กำแพงเจ้าของ',lede:'นักเดินทางบางคนได้กลับบ้านกับใครสักคนแล้ว · ที่นี่คือเจ้าของที่ขอขึ้นกำแพงเอง',
+        with:'กับ Traveller No.{no} →',was:'เคยเดินทางกับ No.{no}',
+        emptyH:'กำแพงยังว่างอยู่',emptyB:'ชื่อจะขึ้นก็ต่อเมื่อเจ้าของขอเท่านั้น',
+        howH:'กำแพงนี้ทำงานยังไง',
+        how:['ไม่มีใครถูกใส่ชื่อโดยไม่ถาม · ถ้าเจ้าของไม่ตอบตกลง จะไม่อยู่บนกำแพง','แสดงแค่ชื่อเล่น (handle) ที่เจ้าของเลือก · ไม่มีชื่อจริง ที่อยู่ หรือวันที่','เปลี่ยนใจเมื่อไหร่ บอกได้เลย ชื่อจะถูกเอาออก']}};
+  var REG=LH.inline('fb-reg')||{travellers:[]};
+  var $=function(id){return document.getElementById(id);};
+  function clean(h){return typeof h==='string'?h.trim().slice(0,40):'';}
+  function entries(){var out=[];
+    (REG.travellers||[]).forEach(function(t){if(!t||!t.no)return;
+      if(t.ownerOptIn===true&&clean(t.owner))out.push({h:clean(t.owner),no:t.no,page:t.page,cur:true});
+      (t.history||[]).forEach(function(x){if(x&&x.optIn===true&&clean(x.owner))out.push({h:clean(x.owner),no:t.no,page:t.page,cur:false});});});
+    return out;}
+  function render(){
+    var L=TX[LH.lang],E=LH.esc,list=entries(),R=['-1.2deg','.8deg','-.4deg','1.1deg','-.9deg','.5deg'];
+    $('kicker').textContent=L.kicker;$('title').textContent=L.title;$('lede').textContent=L.lede;$('h-how').textContent=L.howH;
+    $('how').innerHTML=L.how.map(function(x){return '<li>'+E(x)+'</li>';}).join('');
+    $('wall').innerHTML=list.map(function(o,i){
+      var link=o.page?'<a href="../'+E(o.page)+'">'+E(L.with.replace('{no}',o.no))+'</a>':'';
+      return '<li class="tag paper" style="--r:'+R[i%R.length]+'"><span class="h">'+E(o.h)+'</span>'+(o.cur?link:'<span class="was">'+E(L.was.replace('{no}',o.no))+'</span>')+'</li>';}).join('');
+    $('wall').hidden=!list.length;
+    $('empty').hidden=!!list.length;
+    $('empty').innerHTML='<span class="hand">'+E(L.emptyH)+'</span>'+E(L.emptyB);
+  }
+  LH.start({key:'owners',root:'../',render:render}).then(function(show){
+    if(!show)return;
+    LH.get('../travellers/travellers.json').then(function(j){REG=j;LH.redraw();},function(){});
+  });
+})();
+</script>
+<script src="../assets/nav.js" data-root="../" data-page="owners" defer></script>
+</body>
+</html>

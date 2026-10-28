@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>littlehill</title>
+<meta name="description" content="A small world of sleepy travellers, one station at a time.">
+<meta property="og:site_name" content="littlehill">
+<meta property="og:type" content="website">
+<meta property="og:title" content="littlehill">
+<meta property="og:description" content="A small world of sleepy travellers, one station at a time.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@little_hill01">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23141c30%27/%3E%3Crect x=%2712%27 y=%279%27 width=%278%27 height=%2713%27 rx=%272%27 fill=%27%23f2b45a%27/%3E%3Crect x=%2714%27 y=%276%27 width=%274%27 height=%273%27 fill=%27%23e8e4da%27/%3E%3Crect x=%2711%27 y=%2722%27 width=%2710%27 height=%272%27 fill=%27%23e8e4da%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400&family=Karla:wght@400&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/scene.css">
+<link rel="stylesheet" href="assets/tokens.css">
+<style>
+/* the hill's front door: reads state.json and walks you to the page for tonight. Links stay visible if anything fails. */
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:linear-gradient(180deg,var(--lh-night) 0%,var(--lh-night-low) 70%,var(--lh-sky-gate-hz) 100%);color:var(--lh-ink);font:16px/1.6 "Karla","IBM Plex Sans Thai",system-ui,sans-serif;text-align:center;padding:24px 16px}
+.door{max-width:520px;display:grid;gap:14px;justify-items:center}
+.lamp{width:14px;height:18px;border-radius:50% 50% 45% 45%;background:var(--lh-lantern);box-shadow:0 0 22px 8px rgba(var(--lh-lantern-rgb),.35)}
+h1{margin:0;font:700 2.6rem/1 "Caveat","Sriracha",cursive}
+p{margin:0;color:var(--lh-muted)}
+.lh-nav{justify-content:center;font-size:.78rem}
+@media (prefers-reduced-motion:no-preference){.lamp{animation:glow 2.4s ease-in-out infinite alternate}}@keyframes glow{from{opacity:.7}to{opacity:1}}
+.door{width:100%}
+/* P10 · the front door gets one scene: the same 2.5D platform as the teaser, lantern lit and still */
+.scene{width:100%;height:clamp(200px,38vh,320px)}
+.scene svg{position:absolute;inset:0;width:100%;height:100%}
+.slamp{position:absolute;left:50%;top:34%;width:20px;height:20px;margin-left:-10px;border-radius:50%;background:var(--lh-lantern);box-shadow:0 0 22px 8px rgba(var(--lh-lantern-rgb),.45),0 0 70px 24px rgba(var(--lh-lantern-rgb),.15)}
+.fog{position:absolute;left:-10%;right:-10%;bottom:-6%;height:45%;background:radial-gradient(60% 70% at 30% 70%,rgba(var(--lh-fog-rgb),.4),transparent 70%),radial-gradient(50% 60% at 75% 80%,rgba(var(--lh-fog-rgb),.32),transparent 70%)}
+@media (prefers-reduced-motion:no-preference){.slamp{animation:glow 2.4s ease-in-out infinite alternate}.fog{animation:lhdrift 80s linear infinite alternate}}
+
+</style>
+</head>
+<body>
+<main class="door">
+    <div class="scene lh-scene" id="scene" aria-hidden="true">
+      <div class="ly wide" style="--d:2"><svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 280 C70 258 120 264 180 270 C250 246 320 252 380 264 C450 248 520 244 600 258 L600 400 L0 400Z" fill="var(--lh-hill-far)"/></svg></div>
+      <div class="ly wide" style="--d:4"><div class="fogband far"></div></div>
+      <div class="ly wide" style="--d:6"><svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 306 C90 292 150 298 210 301 C290 288 360 295 420 299 C500 290 550 293 600 296 L600 400 L0 400Z" fill="var(--lh-hill-near)"/></svg></div>
+      <div class="ly" style="--d:9">
+        <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMax slice">
+          <path d="M0 330 L600 330 L600 400 L0 400Z" fill="var(--lh-rail)"/>
+          <path d="M0 318 L600 318 L600 330 L0 330Z" fill="var(--lh-train)"/>
+          <g stroke="var(--lh-rail-line)" stroke-width="3"><line x1="0" y1="352" x2="600" y2="352"/><line x1="0" y1="372" x2="600" y2="372"/></g>
+          <g fill="var(--lh-rail)"><rect x="160" y="150" width="8" height="170"/><rect x="432" y="150" width="8" height="170"/><rect x="150" y="146" width="300" height="7"/>
+            <rect x="250" y="292" width="100" height="6"/><rect x="258" y="298" width="5" height="20"/><rect x="337" y="298" width="5" height="20"/>
+            <rect x="380" y="230" width="4" height="88"/><rect x="368" y="222" width="28" height="12" rx="2"/></g>
+          <line x1="392" y1="234" x2="392" y2="262" stroke="var(--lh-rail-line)" stroke-width="1.5"/>
+        </svg>
+        <span class="slamp"></span>
+      </div>
+      <div class="ly" style="--d:12"><svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMax slice">
+        <g class="train" transform="translate(-1400 0)">
+          <g fill="var(--lh-train)"><rect x="0" y="300" width="190" height="62" rx="6"/><rect x="198" y="300" width="190" height="62" rx="6"/><rect x="396" y="300" width="204" height="62" rx="12"/></g>
+          <g fill="var(--lh-lantern-soft)" opacity=".9"><rect x="16" y="312" width="26" height="16"/><rect x="58" y="312" width="26" height="16"/><rect x="100" y="312" width="26" height="16"/><rect x="142" y="312" width="26" height="16"/>
+            <rect x="214" y="312" width="26" height="16"/><rect x="256" y="312" width="26" height="16"/><rect x="298" y="312" width="26" height="16"/><rect x="340" y="312" width="26" height="16"/>
+            <rect x="412" y="312" width="26" height="16"/><rect x="454" y="312" width="26" height="16"/><rect x="496" y="312" width="26" height="16"/></g>
+          <circle cx="598" cy="340" r="30" fill="url(#lh-hl)"/>
+        </g>
+        <defs><radialGradient id="lh-hl"><stop offset="0" stop-color="#ffe2b0"/><stop offset=".3" stop-color="rgba(242,180,90,.5)"/><stop offset="1" stop-color="rgba(242,180,90,0)"/></radialGradient></defs>
+      </svg></div>
+      <div class="ly" style="--d:15"><div class="fog"></div></div>
+    </div>
+  <h1>littlehill</h1>
+  <p id="msg">Walking you to tonight's page…</p>
+  <nav class="lh-nav" aria-label="littlehill">
+    <a data-k="teaser" href="teaser/">The lantern</a>
+    <a data-k="traveller" href="traveller/001/">Traveller No.001</a>
+    <a data-k="auction" href="auction/">Auction</a>
+    <a data-k="rules" href="rules/">Boarding rules</a>
+    <a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a>
+  </nav>
+  <noscript><p>Pick a page above.</p></noscript>
+</main>
+<script src="assets/live.js"></script>
+<script>
+(function(){
+  /* stage → page: teaser → teaser/ · preview → traveller/001/ · open/extended/closed → auction/ · sold → traveller/001/ (registry) */
+  var th=false;try{th=(localStorage.getItem("lh-lang")||navigator.language||"").toLowerCase().indexOf("th")===0;}catch(e){}
+  if(th){document.documentElement.lang="th";document.getElementById("msg").textContent="กำลังพาไปหน้าของคืนนี้…";}
+  function pick(j){var st=(j.traveller||{}).stage||"teaser",as=(j.auction||{}).status||"";
+    if(as==="sold"||st==="sold")return"traveller/"+(window.lhLive&&lhLive.no?lhLive.no(j):"001")+"/";
+    if(st==="open"||st==="extended"||st==="closed")return"auction/";
+    if(st==="preview")return"traveller/"+(window.lhLive&&lhLive.no?lhLive.no(j):"001")+"/";
+    return"teaser/";}
+  function stay(){document.getElementById("msg").textContent=th?"เลือกหน้าที่อยากไปได้เลย":"Pick a page below.";}
+  var done=false;setTimeout(function(){if(!done)stay();},4000);
+  (window.lhLive?lhLive.get("state.json?t="+Date.now()):fetch("state.json?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}))
+    .then(function(j){done=true;location.replace(pick(j));}).catch(function(){done=true;stay();});
+})();
+</script>
+<script src="assets/scene.js"></script>
+<script>LHScene.init(document.getElementById("scene"));</script>
+</body>
+</html>

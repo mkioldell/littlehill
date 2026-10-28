@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- prototype page (24 Oct 2026) · keep noindex until Dell switches it on AND links it -->
+<meta name="robots" content="noindex,nofollow">
+<title>Station Atlas · littlehill</title>
+<meta name="description" content="The stops of littlehill, one episode at a time. The rest is still in the fog.">
+<meta property="og:site_name" content="littlehill">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Station atlas · littlehill">
+<meta property="og:description" content="The stops of littlehill, one episode at a time. The rest is still in the fog.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@little_hill01">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23141c30%27/%3E%3Crect x=%2712%27 y=%279%27 width=%278%27 height=%2713%27 rx=%272%27 fill=%27%23f2b45a%27/%3E%3Crect x=%2714%27 y=%276%27 width=%274%27 height=%273%27 fill=%27%23e8e4da%27/%3E%3Crect x=%2711%27 y=%2722%27 width=%2710%27 height=%272%27 fill=%27%23e8e4da%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400;600&family=Karla:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/future.css">
+<style>
+/* atlas: one rail line, one station per episode · out = lantern lit · not out = fog, no name */
+.count{font:500 .74rem var(--f-mono);letter-spacing:.1em;color:var(--muted);margin:10px 0 0}
+.line{list-style:none;margin:26px 0 0;padding:0;max-width:620px}
+.stop{position:relative;padding:0 0 26px 40px;min-height:56px}
+.stop::before{content:"";position:absolute;left:12px;top:18px;bottom:-4px;width:2px;background:var(--lantern);opacity:.55}
+.stop.fog::before{background:repeating-linear-gradient(180deg,rgba(var(--lh-ink-rgb),.28) 0 5px,transparent 5px 11px);opacity:1}
+.stop:last-child::before{display:none}
+.dot{position:absolute;left:4px;top:4px;width:18px;height:18px;border-radius:50%;background:var(--lantern);box-shadow:0 0 12px 3px var(--lantern-glow);border:3px solid var(--lh-on-lantern)}
+.fog .dot{background:var(--lh-unlit);box-shadow:none;border-color:rgba(var(--lh-ink-rgb),.22)}
+.lbl{font:500 .7rem var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.stop h2{margin:2px 0 0;font:700 1.7rem/1.1 var(--f-hand);color:var(--ink)}
+html[lang="th"] .stop h2,html[lang="th"] .fogtx{font-family:"Sriracha","Caveat",cursive;font-weight:400;font-size:1.4rem}
+.meta{margin:4px 0 0;font-size:.88rem;color:var(--muted)}
+.meta a{color:var(--lantern)}
+.trav{display:inline-block;margin-top:8px;font-size:.88rem;color:var(--paper-ink);background:var(--paper);border-radius:999px;padding:4px 12px;text-decoration:none}
+.fogtx{display:block;font:700 1.3rem/1.2 var(--f-hand);color:var(--muted)}
+.smudge{display:block;margin-top:6px;height:12px;width:min(60%,240px);border-radius:8px;background:linear-gradient(90deg,rgba(var(--lh-ink-rgb),.16),rgba(var(--lh-ink-rgb),.03));filter:blur(2px)}
+.fogwrap{position:relative}
+.fogwrap::after{content:"";position:absolute;left:-36px;right:0;top:-14px;bottom:-14px;background:radial-gradient(70% 60% at 30% 50%,var(--fog),transparent 70%);pointer-events:none}
+@media (prefers-reduced-motion:no-preference){.fogwrap::after{animation:drift 14s ease-in-out infinite alternate}}
+@keyframes drift{from{transform:translateX(-6px)}to{transform:translateX(6px)}}
+@media (min-width:720px){.stop{padding-left:48px}}
+/* P10: small text on the fog / lower sky gets the soft halo (sky and fog unchanged) */
+.stop h2{text-shadow:var(--lh-halo)}
+.lbl,.meta,.fogtx{text-shadow:var(--lh-halo-strong)}
+.line .lbl,.fogtx{color:var(--ink)} /* the episode number is the only fact a fog stop shows: full ink so it reads even low on the screen */
+.fogwrap{isolation:isolate}.fogwrap::after{z-index:-1} /* the fog drifts behind the words, not over them */
+/* P10 · ก4 rail (mock): one long rail, a small train sits at the stop you are looking at · ←/→ buttons, no swipe, no scroll-jacking
+   the list below stays (full overview + screen readers) */
+.railbox{margin:22px 0 4px;display:grid;gap:10px}
+.rail{position:relative;height:150px;overflow:hidden;border-radius:12px;background:radial-gradient(90% 70% at 50% 100%,rgba(var(--lh-fog-rgb),.18),transparent 70%)}
+.rail svg{position:absolute;left:0;top:0;height:150px}
+@media (prefers-reduced-motion:no-preference){.rail svg{transition:transform .9s cubic-bezier(.3,.7,.2,1)}.rail .tr{transition:transform .9s cubic-bezier(.3,.7,.2,1)}}
+.rail .nm{font:500 11px var(--f-mono);letter-spacing:.12em;fill:var(--lh-ink)}
+.rail .sel .nm{fill:var(--lh-lantern)}
+.railnav{display:grid;grid-template-columns:44px 1fr 44px;gap:10px;align-items:center}
+.railnav button{width:44px;height:44px;border-radius:999px;border:1px solid var(--rule);background:rgba(var(--lh-deep-rgb),.5);color:var(--ink);font-size:1.1rem;cursor:pointer}
+.railnav button:disabled{opacity:.35;cursor:default}
+.railcard{min-height:64px;background:rgba(var(--lh-deep-rgb),.5);border-radius:10px;padding:10px 12px}
+.railcard .lbl{display:block}
+.railcard b{display:block;font:700 1.45rem/1.15 var(--f-hand);color:var(--ink);margin-top:2px}
+html[lang="th"] .railcard b{font-family:"Sriracha","Caveat",cursive;font-weight:400;font-size:1.25rem}
+.railcard .meta{margin:2px 0 0}
+
+</style>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <a class="brand" href="../">littlehill</a>
+    <nav class="lh-nav" aria-label="littlehill"><a data-k="traveller" href="../traveller/001/">Traveller No.001</a><a data-k="auction" href="../auction/">Auction</a><a data-k="rules" href="../rules/">Boarding rules</a><a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a></nav>
+    <span class="langsw" role="group" aria-label="Language"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="th" aria-pressed="false">ไทย</button></span>
+  </div>
+
+  <p class="preview-bar" id="previewbar" hidden></p>
+  <section class="closed" id="closed" hidden></section>
+
+  <div id="content" hidden>
+    <header>
+      <span class="kicker" id="kicker">littlehill · station atlas</span>
+      <h1 id="title">Station atlas</h1>
+      <p class="lede" id="lede"></p>
+      <p class="count" id="count"></p>
+    </header>
+    <section class="railbox" aria-label="Rail">
+      <div class="rail" id="rail" aria-hidden="true"></div>
+      <div class="railnav"><button type="button" id="rprev" aria-label="Previous stop">←</button><div class="railcard" id="rcard" aria-live="polite"></div><button type="button" id="rnext" aria-label="Next stop">→</button></div>
+    </section>
+    <ol class="line" id="line"></ol>
+    <footer id="foot" style="margin-top:8px"></footer>
+  </div>
+  <noscript><p class="lede">This page needs JavaScript. <a href="../">littlehill →</a></p></noscript>
+</main>
+
+<script type="application/json" id="fb-atlas">{"season":1,"stops":[{"ep":1,"stop":"Stop 01","title":null,"outAt":null,"url":null,"travellers":[]},{"ep":2,"stop":"Stop 02","title":null,"outAt":null,"url":null,"travellers":[]},{"ep":3,"stop":"Stop 03","title":null,"outAt":null,"url":null,"travellers":[]},{"ep":4,"stop":"Stop 04","title":null,"outAt":null,"url":null,"travellers":["001"]},{"ep":5,"stop":"Stop 05","title":null,"outAt":null,"url":null,"travellers":[]},{"ep":6},{"ep":7},{"ep":8},{"ep":9},{"ep":10},{"ep":11},{"ep":12},{"ep":13},{"ep":14},{"ep":15},{"ep":16}]}</script>
+<script src="../assets/future.js"></script>
+<script>
+(function(){
+  var TX={
+    en:{kicker:'littlehill · station atlas',title:'Station atlas',lede:'Every episode is a stop on the line. A stop comes out of the fog on the day its episode is posted.',
+        count:'Season {s} · {n} of {t} stops out of the fog',ep:'Episode',posted:'Posted',watch:'See the episode ↗',fog:'Still in the fog',
+        trav:'Traveller No.{no} was first seen here →',foot:'New stops appear when their episode is posted. No dates are promised for the ones still in the fog.',
+        demo:'(preview: title not filled in yet)'},
+    th:{kicker:'littlehill · แผนที่สถานี',title:'แผนที่สถานี',lede:'ทุกตอนคือสถานีหนึ่งบนราง สถานีจะออกจากหมอกในวันที่ตอนนั้นลงจริง',
+        count:'ซีซัน {s} · ออกจากหมอกแล้ว {n} จาก {t} สถานี',ep:'ตอน',posted:'ลงเมื่อ',watch:'ดูตอนนี้ ↗',fog:'ยังอยู่ในหมอก',
+        trav:'Traveller No.{no} พบครั้งแรกที่นี่ →',foot:'สถานีใหม่จะโผล่เมื่อตอนนั้นลงจริง · สถานีที่ยังอยู่ในหมอกไม่มีวันที่สัญญาไว้',
+        demo:'(ตัวอย่าง: ยังไม่ได้ใส่ชื่อตอน)'}};
+  var A=LH.inline('fb-atlas')||{season:1,stops:[]};
+  var $=function(id){return document.getElementById(id);};
+  /* preview only: ?preview=1&demo=5 pretends episodes 1–5 are out, to check the look */
+  var demo=0;try{if(LH.preview)demo=+(new URLSearchParams(location.search).get('demo')||0)||0;}catch(e){}
+  function isOut(s){if(demo&&s.ep<=demo)return true;if(!s.outAt)return false;var t=Date.parse(s.outAt);return !isNaN(t)&&Date.now()>=t;}
+  function two(n){return n<10?'0'+n:''+n;}
+  function safeUrl(u){return typeof u==='string'&&/^https:\/\//i.test(u)?u:'';}
+
+  /* ก4 rail (mock) */
+  var sel=-1;
+  function drawRail(stops,L){
+    var NS='http://www.w3.org/2000/svg',W=110,H=150,n=stops.length,box=$('rail');
+    if(sel<0){sel=0;stops.forEach(function(s,i){if(isOut(s))sel=i;});}
+    var h='<svg viewBox="0 0 '+(W*n+W)+' '+H+'" width="'+(W*n+W)+'" xmlns="'+NS+'">'+
+      '<defs><radialGradient id="rg"><stop offset="0" stop-color="rgba(255,214,150,.9)"/><stop offset=".35" stop-color="rgba(242,180,90,.4)"/><stop offset="1" stop-color="rgba(242,180,90,0)"/></radialGradient>'+
+      '<radialGradient id="rf"><stop offset="0" stop-color="rgba(160,176,200,.75)"/><stop offset=".6" stop-color="rgba(143,161,184,.45)"/><stop offset="1" stop-color="rgba(143,161,184,0)"/></radialGradient></defs>'+
+      '<rect x="0" y="104" width="'+(W*n+W)+'" height="46" fill="var(--lh-train)"/>'+
+      '<line x1="0" y1="112" x2="'+(W*n+W)+'" y2="112" stroke="var(--lh-rail-line)" stroke-width="3"/><line x1="0" y1="122" x2="'+(W*n+W)+'" y2="122" stroke="var(--lh-rail-line)" stroke-width="3"/>';
+    stops.forEach(function(s,i){var x=W/2+W*i+W/2,o=isOut(s);
+      h+='<g class="'+(i===sel?'sel':'')+'">'+
+        '<rect x="'+(x-30)+'" y="96" width="60" height="8" fill="var(--lh-sky-dusk-low)"/>'+
+        (o?'<circle cx="'+(x-18)+'" cy="62" r="26" fill="url(#rg)"/>':'')+
+        '<rect x="'+(x-20)+'" y="68" width="3" height="28" fill="var(--lh-rail)"/>'+
+        '<rect x="'+(x-24)+'" y="56" width="11" height="13" rx="2" fill="'+(o?'var(--lh-lantern)':'var(--lh-unlit)')+'"/>'+
+        '<text class="nm" x="'+(x-2)+'" y="88">'+two(s.ep)+'</text>'+
+        (o?'':'<ellipse cx="'+x+'" cy="76" rx="52" ry="40" fill="url(#rf)"/>')+'</g>';});
+    var tx=W/2+W*sel+W/2;
+    h+='<g class="tr" style="transform:translateX('+(tx-44)+'px)"><rect x="0" y="92" width="88" height="22" rx="5" fill="var(--lh-night-low)"/>'+
+       '<rect x="8" y="97" width="14" height="8" fill="var(--lh-lantern-soft)"/><rect x="28" y="97" width="14" height="8" fill="var(--lh-lantern-soft)"/><rect x="48" y="97" width="14" height="8" fill="var(--lh-lantern-soft)"/><rect x="66" y="97" width="14" height="8" fill="var(--lh-lantern-soft)"/></g></svg>';
+    box.innerHTML=h;var sv=box.firstChild;sv.style.transform='translateX('+(box.clientWidth/2-tx)+'px)';
+    var s=stops[sel],o=isOut(s),c=$('rcard'),E=LH.esc;
+    c.innerHTML='<span class="lbl">'+L.ep+' '+two(s.ep)+(o&&s.stop?' · '+E(s.stop):'')+'</span>'+(o?(LH.loc(s.title)?'<b>'+E(LH.loc(s.title))+'</b>':'')+(s.outAt?'<p class="meta">'+L.posted+' '+E(LH.fmtDate(s.outAt))+'</p>':''):'<b>'+L.fog+'</b>');
+    $('rprev').disabled=sel<=0;$('rnext').disabled=sel>=n-1;
+    var th=LH.lang==='th';$('rprev').setAttribute('aria-label',th?'สถานีก่อนหน้า':'Previous stop');$('rnext').setAttribute('aria-label',th?'สถานีถัดไป':'Next stop');box.parentNode.setAttribute('aria-label',th?'ราง':'Rail');
+  }
+  $('rprev').addEventListener('click',function(){if(sel>0){sel--;LH.redraw();}});
+  $('rnext').addEventListener('click',function(){sel++;LH.redraw();});
+  addEventListener('resize',function(){LH.redraw();});
+  function render(){
+    var L=TX[LH.lang],E=LH.esc,stops=(A.stops||[]).slice().sort(function(a,b){return a.ep-b.ep;}),out=0;
+    $('kicker').textContent=L.kicker;$('title').textContent=L.title;$('lede').textContent=L.lede;$('foot').textContent=L.foot;
+    $('line').innerHTML=stops.map(function(s){
+      if(!isOut(s))return '<li class="stop fog"><span class="dot" aria-hidden="true"></span><div class="fogwrap"><span class="lbl">'+L.ep+' '+two(s.ep)+'</span><span class="fogtx">'+L.fog+'</span><span class="smudge" aria-hidden="true"></span></div></li>';
+      out++;
+      var title=LH.loc(s.title),url=safeUrl(s.url),date=s.outAt?LH.fmtDate(s.outAt):'';
+      var tr=(s.travellers||[]).map(function(no){no=String(no).replace(/\D/g,'');if(!no)return'';
+        return '<a class="trav" href="../traveller/'+E(no)+'/">'+E(L.trav.replace('{no}',no))+'</a>';}).join(' ');
+      return '<li class="stop"><span class="dot" aria-hidden="true"></span><span class="lbl">'+L.ep+' '+two(s.ep)+(s.stop?' · '+E(s.stop):'')+'</span>'+
+        (title?'<h2>'+E(title)+'</h2>':(demo?'<p class="meta">'+L.demo+'</p>':''))+
+        ((date||url)?'<p class="meta">'+(date?L.posted+' '+E(date):'')+(date&&url?' · ':'')+(url?'<a href="'+E(url)+'" target="_blank" rel="noopener">'+L.watch+'</a>':'')+'</p>':'')+tr+'</li>';
+    }).join('');
+    $('count').textContent=L.count.replace('{s}',A.season||1).replace('{n}',out).replace('{t}',stops.length);
+    sel=Math.min(sel,stops.length-1);drawRail(stops,L);
+  }
+  LH.start({key:'atlas',root:'../',render:render}).then(function(show){
+    if(!show)return;
+    LH.get('atlas.json').then(function(j){A=j;LH.redraw();},function(){});
+  });
+})();
+</script>
+<script src="../assets/nav.js" data-root="../" data-page="atlas" defer></script>
+</body>
+</html>

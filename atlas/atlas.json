@@ -1,0 +1,22 @@
+{
+  "_help": "แผนที่สถานี S1 · 1 ก้อน = 1 ตอน · ตอนจะ 'ออกจากหมอก' เมื่อ outAt มีค่าและถึงเวลานั้นแล้ว (UTC = เวลาไทย - 7 ชม. · ตัวอย่าง 20:00 ไทย = 13:00Z) · outAt = null → หมอก/ล็อก ไม่โชว์ชื่อ · url = ลิงก์โพสต์ตอนนั้น (DA/YouTube) ใส่หรือไม่ใส่ก็ได้ · travellers = เลข No. ที่พบครั้งแรกในตอนนั้น · ⚠️ ไฟล์นี้ใครก็เปิดอ่านได้ → ชื่อตอนที่ยังไม่ออก ใส่ title = null ไว้ก่อน (กันสปอยล์) · วันที่ตอนลง เติม outAt + title ({\"en\":\"…\",\"th\":\"…\"}) พร้อมกัน (P10 24 ต.ค.: ตั้ง null ทุกตอนแล้ว)",
+  "season": 1,
+  "stops": [
+    {"ep": 1,  "stop": "Stop 01", "title": null, "outAt": null, "url": null, "travellers": []},
+    {"ep": 2,  "stop": "Stop 02", "title": null, "outAt": null, "url": null, "travellers": []},
+    {"ep": 3,  "stop": "Stop 03", "title": null, "outAt": null, "url": null, "travellers": []},
+    {"ep": 4,  "stop": "Stop 04", "title": null, "outAt": null, "url": null, "travellers": ["001"]},
+    {"ep": 5,  "stop": "Stop 05", "title": null, "outAt": null, "url": null, "travellers": []},
+    {"ep": 6,  "stop": null, "title": null, "outAt": null, "url": null, "travellers": []},
+    {"ep": 7,  "stop": null, "title": null, "outAt": null, "url": null, "travellers": []},
+    {"ep": 8,  "stop": null, "title": null, "outAt": null, "url": null, "travellers": []},
+    {"ep": 9,  "stop": null, "title": null, "outAt": null, "url": null, "travellers": []},
+    {"ep": 10, "stop": null, "title": null, "outAt": null, "url": null, "travellers": []},
+    {"ep": 11, "stop": null, "title": null, "outAt": null, "url": null, "travellers": []},
+    {"ep": 12, "stop": null, "title": null, "outAt": null, "url": null, "travellers": []},
+    {"ep": 13, "stop": null, "title": null, "outAt": null, "url": null, "travellers": []},
+    {"ep": 14, "stop": null, "title": null, "outAt": null, "url": null, "travellers": []},
+    {"ep": 15, "stop": null, "title": null, "outAt": null, "url": null, "travellers": []},
+    {"ep": 16, "stop": null, "title": null, "outAt": null, "url": null, "travellers": []}
+  ]
+}

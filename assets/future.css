@@ -1,0 +1,43 @@
+/* littlehill · shared look for the prototype pages (travellers · atlas · owners · shop) · 24 Oct 2026
+   Same night palette as the registry/auction pages. Loaded BEFORE site.css so the shared nav keeps its own rules. */
+:root{color-scheme:dark;--sky-top:var(--lh-night);--sky-low:var(--lh-night-low);--horizon:var(--lh-sky-closed-hz);--ink:var(--lh-ink);--muted:var(--lh-cream-fog);--lantern:var(--lh-lantern);--lantern-glow:rgba(var(--lh-lantern-rgb),.35);
+  --paper:var(--lh-paper);--paper-ink:var(--lh-paper-ink);--label:var(--lh-paper-label);--rule:rgba(var(--lh-ink-rgb),.18);--fog:rgba(var(--lh-fog-rgb),.22);
+  --f-hand:"Caveat","Comic Sans MS",cursive;--f-body:"Karla","IBM Plex Sans Thai",system-ui,sans-serif;--f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;background:linear-gradient(180deg,var(--sky-top) 0%,var(--sky-low) 70%,var(--horizon) 100%) fixed;color:var(--ink);font:16px/1.55 var(--f-body)}
+html[lang="th"] body{font-family:"IBM Plex Sans Thai","Karla",system-ui,sans-serif}
+a{color:var(--lantern)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 56px;display:grid;gap:22px}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:10px 12px;flex-wrap:wrap}
+.brand{font:700 1.5rem/1 var(--f-hand);letter-spacing:.02em}
+.langsw{display:flex;gap:2px;border:1px solid var(--rule);border-radius:999px;padding:2px}
+.langsw button{font:500 .72rem var(--f-mono);background:transparent;color:var(--ink);border:0;border-radius:999px;padding:3px 9px;cursor:pointer;min-height:28px}
+.langsw button[aria-pressed="true"]{background:var(--ink);color:var(--lh-night)}
+.langsw button:focus-visible{outline:2px solid var(--lantern);outline-offset:2px}
+header h1{font:700 clamp(2.4rem,8vw,3.4rem)/1.05 var(--f-hand);margin:8px 0 6px}
+html[lang="th"] header h1,html[lang="th"] .hand{font-family:"Sriracha","Caveat",cursive;font-weight:400}
+html[lang="th"] header h1{font-size:clamp(2rem,7vw,2.8rem)}
+.kicker{font:500 .74rem var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.lede{color:var(--muted);margin:0;max-width:36em}
+.hand{font-family:var(--f-hand);font-weight:700}
+.mono{font-family:var(--f-mono)}
+footer{color:var(--muted);font-size:.85rem;background:rgba(var(--lh-deep-rgb),.5);border-radius:8px;padding:10px 12px}
+/* P10: page-end text sits in the same small dark box as the auction page's rules box (the sky behind it is not touched) */
+.endbox{background:rgba(var(--lh-deep-rgb),.5);border-radius:8px;padding:10px 12px}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--lantern);outline-offset:3px}
+
+/* gate: closed platform + preview banner */
+.closed{min-height:52vh;display:grid;place-content:center;text-align:center;gap:10px;padding:24px 8px}
+.closed .lamp{width:22px;height:30px;margin:0 auto 6px;border-radius:50% 50% 45% 45%;background:var(--lh-unlit);box-shadow:0 0 0 6px rgba(var(--lh-ink-rgb),.05)}
+.closed h1{font:700 clamp(2rem,7vw,2.8rem)/1.1 var(--f-hand);margin:0}
+.closed p{color:var(--muted);margin:0;max-width:30em}
+.preview-bar{font:500 .74rem/1.5 var(--f-mono);letter-spacing:.04em;color:var(--lh-on-lantern);background:var(--lantern);border-radius:8px;padding:8px 12px}
+
+/* paper card */
+.paper{background:var(--paper);color:var(--paper-ink);border-radius:8px;box-shadow:0 10px 28px rgba(var(--lh-shadow-rgb),.35)}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--lantern);color:var(--lh-on-lantern);font-weight:600;text-decoration:none;border-radius:999px;padding:11px 20px;border:0;font-family:inherit;font-size:1rem;min-height:44px}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--rule)}
+.chip{display:inline-block;font:600 .7rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:3px 9px;background:rgba(var(--lh-night-rgb),.82);color:var(--ink)}
+@media (prefers-reduced-motion:no-preference){.lift{transition:transform .2s ease,box-shadow .2s ease}.lift:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(var(--lh-shadow-rgb),.42)}}

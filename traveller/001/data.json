@@ -1,0 +1,366 @@
+{
+ "_help": "ข้อมูลหน้า Traveller No.001 · แก้ข้อความ (en/th) และชื่อไฟล์ภาพได้ที่นี่ · ภาพใส่ในโฟลเดอร์ img/ ข้าง ๆ ไฟล์นี้ · ช่องที่ยังไม่มีภาพจะแสดงกรอบประพร้อมชื่อไฟล์",
+ "no": "001",
+ "name": {
+  "en": "No.001",
+  "th": "No.001"
+ },
+ "epithet": {
+  "en": "[epithet — to be written]",
+  "th": "[ฉายา — รอเขียน]"
+ },
+ "quote": {
+  "en": "“Is it night yet?”",
+  "th": "“มืดหรือยัง?”"
+ },
+ "facts": [
+  {
+   "k": {
+    "en": "First seen",
+    "th": "พบครั้งแรก"
+   },
+   "v": {
+    "en": "Stop 04 · The Living House (Episode 4)",
+    "th": "Stop 04 · บ้านมีชีวิต (ตอน 4)"
+   }
+  },
+  {
+   "k": {
+    "en": "Always asks",
+    "th": "ชอบถาม"
+   },
+   "v": {
+    "en": "“Is it night yet?”",
+    "th": "“มืดหรือยัง?”"
+   }
+  },
+  {
+   "k": {
+    "en": "Carries",
+    "th": "พกติดตัว"
+   },
+   "v": {
+    "en": "[to be written]",
+    "th": "[รอเขียน]"
+   }
+  },
+  {
+   "k": {
+    "en": "Blanket",
+    "th": "ผ้าห่ม"
+   },
+   "v": {
+    "en": "[blanket code]",
+    "th": "[รหัสผ้าห่ม]"
+   },
+   "swatch": "blanket-tile"
+  }
+ ],
+ "images": {
+  "hero": {
+   "file": "hero.webp",
+   "size": "1200×1500",
+   "max": "250 KB",
+   "alt": {
+    "en": "Traveller No.001, full view",
+    "th": "Traveller No.001 เต็มตัว"
+   }
+  },
+  "silhouette": {
+   "file": "silhouette.webp",
+   "size": "1200×1500",
+   "max": "150 KB",
+   "alt": {
+    "en": "A shape in the fog",
+    "th": "เงาในหมอก"
+   }
+  },
+  "closer": {
+   "file": "closer.webp",
+   "size": "1200×1600",
+   "max": "250 KB",
+   "alt": {
+    "en": "Full body for the close look",
+    "th": "ภาพเต็มตัวสำหรับดูใกล้"
+   }
+  },
+  "blanket-tile": {
+   "file": "blanket-tile.webp",
+   "size": "600×600",
+   "max": "80 KB",
+   "alt": {
+    "en": "Blanket pattern",
+    "th": "ลายผ้าห่ม"
+   }
+  },
+  "passFront": {
+   "file": "pass-front.webp",
+   "size": "2400×1500 → 1200×750",
+   "max": "200 KB",
+   "alt": {
+    "en": "Traveller's Pass, front (name left blank)",
+    "th": "Traveller's Pass ด้านหน้า (ชื่อเว้นว่าง)"
+   }
+  },
+  "passBack": {
+   "file": "pass-back.webp",
+   "size": "2400×1500 → 1200×750",
+   "max": "200 KB",
+   "alt": {
+    "en": "Pass back: inspiration card, text blurred",
+    "th": "Pass ด้านหลัง: Inspiration card ข้อความเบลอ"
+   }
+  }
+ },
+ "gallery": [
+  {
+   "file": "g1-front.webp",
+   "large": "g1-front-2000.webp",
+   "cap": {
+    "en": "Front",
+    "th": "ด้านหน้า"
+   }
+  },
+  {
+   "file": "g2-face.webp",
+   "large": "g2-face-2000.webp",
+   "cap": {
+    "en": "Face",
+    "th": "ใบหน้า"
+   }
+  },
+  {
+   "file": "g3-34.webp",
+   "large": "g3-34-2000.webp",
+   "cap": {
+    "en": "Three-quarter view",
+    "th": "มุม 3/4"
+   }
+  },
+  {
+   "file": "g4-blanket.webp",
+   "large": "g4-blanket-2000.webp",
+   "cap": {
+    "en": "The blanket, close",
+    "th": "ผ้าห่มระยะใกล้"
+   }
+  },
+  {
+   "file": "g5-back-crop.webp",
+   "large": "g5-back-crop-2000.webp",
+   "cap": {
+    "en": "A corner of the back view (full view: Stage ticket)",
+    "th": "มุมหนึ่งของด้านหลัง (เต็ม: ตั๋ว Stage)"
+   }
+  }
+ ],
+ "gallerySpec": {
+  "size": "960×1200 (large: 2000 px long side)",
+  "max": "180 KB / 600 KB"
+ },
+ "hotspots": [
+  {
+   "x": 30,
+   "y": 22,
+   "t": {
+    "en": "[detail 1 — e.g. the lantern]",
+    "th": "[จุด 1 — เช่น โคม]"
+   }
+  },
+  {
+   "x": 62,
+   "y": 45,
+   "t": {
+    "en": "[detail 2 — e.g. the blanket fold]",
+    "th": "[จุด 2 — เช่น รอยพับผ้าห่ม]"
+   }
+  },
+  {
+   "x": 45,
+   "y": 78,
+   "t": {
+    "en": "[detail 3]",
+    "th": "[จุด 3]"
+   }
+  }
+ ],
+ "story": {
+  "en": [
+   "[Lot essay, 150–250 words: where No.001 was found, what they seem to be waiting for, one small habit. Plain, no selling.]"
+  ],
+  "th": [
+   "[เรื่องเล่า 150–250 คำ: พบที่ไหน ดูเหมือนรออะไร นิสัยเล็ก ๆ 1 อย่าง · เรียบ ๆ ไม่ขายของ]"
+  ]
+ },
+ "delta": {
+  "en": "[Delta's one line — handwritten later]",
+  "th": "[ประโยคเดียวของ Delta — ลายมือจริงภายหลัง]"
+ },
+ "tiers": [
+  {
+   "key": "traveller",
+   "name": "Traveller",
+   "price": 45,
+   "label": {
+    "en": "personal use",
+    "th": "ใช้ส่วนตัว"
+   },
+   "lead": {
+    "en": "Full-size files, a transparent PNG, the Traveller's Pass, wallpapers and a hand-lettered name.",
+    "th": "ไฟล์เต็ม · PNG พื้นใส · Traveller's Pass · วอลเปเปอร์ · ชื่อเขียนมือ"
+   },
+   "items": [
+    {
+     "t": {
+      "en": "Full-size PNG / JPEG + colour palette",
+      "th": "PNG / JPEG เต็ม + พาเลตสี"
+     },
+     "meta": "PNG · JPEG · within 48 h",
+     "img": "b-fullsize-sample.webp"
+    },
+    {
+     "t": {
+      "en": "Transparent PNG",
+      "th": "PNG พื้นใส"
+     },
+     "meta": "PNG · within 48 h",
+     "icon": "◌"
+    },
+    {
+     "t": {
+      "en": "Traveller's Pass, front + back",
+      "th": "Traveller's Pass หน้า + หลัง"
+     },
+     "meta": "PNG 2400×1500 · within 48 h",
+     "img": "b-pass-sample.webp"
+    },
+    {
+     "t": {
+      "en": "Wallpapers (phone + desktop)",
+      "th": "วอลเปเปอร์ (มือถือ + คอม)"
+     },
+     "meta": "PNG · within 48 h",
+     "icon": "▭"
+    },
+    {
+     "t": {
+      "en": "Hand-lettered name",
+      "th": "ชื่อเขียนมือ"
+     },
+     "meta": "PNG · within 48 h",
+     "icon": "✎"
+    }
+   ]
+  },
+  {
+   "key": "trader",
+   "name": "Trader",
+   "price": 350,
+   "label": {
+    "en": "commercial use",
+    "th": "เชิงพาณิชย์"
+   },
+   "lead": {
+    "en": "Everything in Traveller, plus commercial use and the layered PSD.",
+    "th": "ทุกอย่างใน Traveller + สิทธิ์เชิงพาณิชย์ + PSD แยกชั้น"
+   },
+   "items": [
+    {
+     "t": {
+      "en": "Commercial use",
+      "th": "สิทธิ์เชิงพาณิชย์"
+     },
+     "meta": "licence text · on payment",
+     "icon": "§"
+    },
+    {
+     "t": {
+      "en": "Layered PSD (lineart, base colours, shading, light, background)",
+      "th": "PSD แยกชั้น (เส้น · สีพื้น · เงา · แสง · ฉาก)"
+     },
+     "meta": "PSD · within 48 h",
+     "img": "b-psd-sample.webp"
+    }
+   ],
+   "after": {
+    "en": "Pay in two parts if you like: 50% within 48 hours, the rest within 30 days.",
+    "th": "แบ่งจ่าย 2 งวดได้: 50% ใน 48 ชม. ที่เหลือใน 30 วัน"
+   }
+  },
+  {
+   "key": "homeward",
+   "name": "Homeward",
+   "price": 600,
+   "label": {
+    "en": "homeward",
+    "th": "กลับบ้าน"
+   },
+   "lead": {
+    "en": "Everything in Trader, plus a Homeward illustration: No.001 waking up in their own room, under their own blanket.",
+    "th": "ทุกอย่างใน Trader + ภาพ Homeward: No.001 ตื่นนอนในห้องของตัวเอง ใต้ผ้าห่มของตัวเอง"
+   },
+   "items": [
+    {
+     "t": {
+      "en": "Homeward illustration (a corner shown — the face is for the winner)",
+      "th": "ภาพ Homeward (โชว์แค่มุมหนึ่ง — หน้าตอนตื่นเก็บไว้ให้ผู้ชนะ)"
+     },
+     "meta": "PNG · 4:5 · within 14 days",
+     "img": "b-homeward-crop.webp"
+    }
+   ],
+   "after": {
+    "en": "Delivered within 14 days. If anything delays it, I'll message you before the deadline.",
+    "th": "ส่งภายใน 14 วัน ถ้าช้าจะแจ้งก่อนครบกำหนด"
+   }
+  },
+  {
+   "key": "stage",
+   "name": "Stage",
+   "price": 1200,
+   "label": {
+    "en": "vtuber & game use",
+    "th": "VTuber & เกม"
+   },
+   "lead": {
+    "en": "Everything in Homeward, plus VTuber and game use, a front/back character sheet and an expression sheet.",
+    "th": "ทุกอย่างใน Homeward + สิทธิ์ VTuber/เกม + ชีตหน้า-หลัง + ชีตสีหน้า"
+   },
+   "items": [
+    {
+     "t": {
+      "en": "Front / back character sheet",
+      "th": "ชีตตัวละคร หน้า / หลัง"
+     },
+     "meta": "PNG · within 21 days",
+     "img": "b-sheet-crop.webp"
+    },
+    {
+     "t": {
+      "en": "Expression sheet, 3–4 faces",
+      "th": "ชีตสีหน้า 3–4 แบบ"
+     },
+     "meta": "PNG · within 21 days",
+     "icon": "·‿·",
+     "redact": true
+    },
+    {
+     "t": {
+      "en": "VTuber & game use (tell me before you use it)",
+      "th": "ใช้ทำ VTuber / เกมได้ (แจ้งก่อนใช้)"
+     },
+     "meta": "licence text · on payment",
+     "icon": "▶"
+    }
+   ],
+   "after": {
+    "en": "Sheets arrive within 21 days.",
+    "th": "ชีตส่งภายใน 21 วัน"
+   }
+  }
+ ],
+ "itemImgSpec": "600×600 · SAMPLE",
+ "_registry": "หน้าทะเบียนถาวร · เปิดหลังได้บ้าน + ส่งของครบ (ก่อนเปิดบิดตัวถัดไป): ใส่ {\"soldAt\": \"YYYY-MM-DDTHH:MM:00Z\"} (เวลา UTC) · หน้านี้เลิกอ่านประมูลสด ไม่มีป้ายบิด/นาฬิกา · ชื่อเจ้าของขึ้นเฉพาะเมื่อ ownerOptIn = true ใน travellers/travellers.json · null = ปิด",
+ "registry": null,
+ "daUrl": "https://www.deviantart.com/mkioldell"
+}

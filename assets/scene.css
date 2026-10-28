@@ -1,0 +1,20 @@
+/* littlehill · 2.5D platform scene (P10 · ก2/ก3) · shared by the front door and the teaser
+   Flat drawn layers stacked like a paper theatre. Each layer slides a little (--d = depth) with the mouse,
+   or with the page scroll on phones. Later, Dell's own layered art replaces the shapes layer by layer (ข2).
+   Reduced motion = layers still, fog still, no train. Decoration only: the whole scene is aria-hidden. */
+.lh-scene{position:relative;overflow:hidden;border-radius:14px;--px:0;--py:0;
+  background:radial-gradient(80% 60% at 50% 100%,rgba(var(--lh-fog-rgb),.25),transparent 70%)}
+.lh-scene .ly{position:absolute;inset:0;transform:translate3d(calc(var(--px)*var(--d,0)*1px),calc(var(--py)*var(--d,0)*1px),0);will-change:transform}
+.lh-scene .ly.wide{inset:-3% -5%}
+.lh-scene .ly svg{position:absolute;inset:0;width:100%;height:100%}
+.lh-scene .fogband{position:absolute;left:-12%;right:-12%;height:44%;bottom:-6%;
+  background:radial-gradient(60% 70% at 30% 70%,rgba(var(--lh-fog-rgb),.4),transparent 70%),radial-gradient(50% 60% at 75% 80%,rgba(var(--lh-fog-rgb),.32),transparent 70%)}
+.lh-scene .fogband.far{bottom:18%;height:30%;opacity:.5}
+@media (prefers-reduced-motion:no-preference){
+  .lh-scene .fogband{animation:lhdrift 80s linear infinite alternate}
+  .lh-scene .fogband.far{animation-duration:110s;animation-direction:alternate-reverse}
+}
+@keyframes lhdrift{from{transform:translateX(-4%)}to{transform:translateX(4%)}}
+/* the train (ก3): hidden; passes once when something real happens (date revealed · bidding opens · found a home) */
+.lh-scene .train{visibility:hidden}
+.lh-scene.passing .train{visibility:visible}

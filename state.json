@@ -1,0 +1,36 @@
+{
+  "_help": "แก้ค่าในไฟล์นี้จากมือถือ (แอป GitHub) · เวลาเป็น UTC (เวลาไทย - 7 ชม.) · เว็บเปลี่ยนตามใน 1–2 นาที",
+  "teaser": {
+    "mode": "teaser",
+    "morse": "NOV 30",
+    "opensAt": "2026-11-30T13:00:00Z"
+  },
+  "traveller": {
+    "stage": "preview",
+    "reveal": true,
+    "_stages": "teaser = เงาในหมอก · preview = ชมตัวละคร ยังไม่เปิดบิด · open = เปิดบิด · extended = ต่อเวลา · closed = ปิดรอจ่าย · sold = ได้บ้านแล้ว (ถ้า auction.status = sold หน้าเปลี่ยนเอง)"
+  },
+  "auction": {
+    "status": "soon",
+    "opensAt": "2026-12-03T13:00:00Z",
+    "openedAt": null,
+    "firstBidAt": null,
+    "closeAt": null,
+    "currency": "$",
+    "currentBid": 45,
+    "bidCount": 0,
+    "extensions": [],
+    "soldAt": null,
+    "winner": null,
+    "daUrl": "https://www.deviantart.com/mkioldell",
+    "updatedAt": null,
+    "_status": "soon = ยังไม่เปิด (โชว์ opensAt) · waiting = เปิดแล้ว รอบิดแรก · open = นับถอยหลัง · closed = ปิดแล้ว รอจ่าย · sold = จ่ายครบ ได้บ้านแล้ว · ค่าตัวอย่าง: วันจริงยังไม่ล็อก"
+  },
+  "pages": {
+    "_help": "หน้าต้นแบบ (ยังไม่ลิงก์จากหน้าไหน) · true = เปิดให้คนเห็น · false = ขึ้นป้าย 'ชานชาลายังไม่เปิด' · Dell ดูตัวอย่างได้เสมอด้วย ?preview=1",
+    "travellers": false,
+    "atlas": false,
+    "owners": false,
+    "shop": false
+  }
+}

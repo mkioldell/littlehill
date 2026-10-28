@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Boarding Rules</title>
+<meta name="description" content="How the auction works, what each ticket includes, and what you can do with your traveller.">
+<meta property="og:site_name" content="littlehill">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Boarding rules · littlehill">
+<meta property="og:description" content="How the auction works, what each ticket includes, and what you can do with your traveller.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@little_hill01">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23141c30%27/%3E%3Crect x=%2712%27 y=%279%27 width=%278%27 height=%2713%27 rx=%272%27 fill=%27%23f2b45a%27/%3E%3Crect x=%2714%27 y=%276%27 width=%274%27 height=%273%27 fill=%27%23e8e4da%27/%3E%3Crect x=%2711%27 y=%2722%27 width=%2710%27 height=%272%27 fill=%27%23e8e4da%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400;600&family=Karla:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/tokens.css">
+<style>
+/* littlehill · Boarding rules (prototype 21 Oct 2026)
+   Paper theme for long rules (design system "paper") · night band only in the header.
+   Important facts never move. Motion = one lantern glow, off under reduced motion. */
+:root{
+  --ground:var(--lh-day-ground); --raised:var(--lh-day-raised); --ink:var(--lh-paper-ink); --muted:var(--lh-day-muted); --hair:rgba(var(--lh-paper-ink-rgb),.16);
+  --lantern:var(--lh-day-lantern); --card:var(--lh-paper); --card-ink:var(--lh-paper-ink); --card-label:var(--lh-paper-label);
+  --night:var(--lh-night); --night-ink:var(--lh-ink); --night-muted:var(--lh-muted); --night-lantern:var(--lh-lantern);
+  --font-hand:"Caveat",cursive; --font-body:"Karla",system-ui,sans-serif; --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --shadow:0 1px 2px rgba(var(--lh-paper-ink-rgb),.08),0 10px 24px -14px rgba(var(--lh-paper-ink-rgb),.45);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--ground);color:var(--ink);font:16px/1.65 var(--font-body)}
+a{color:var(--lantern);text-underline-offset:3px}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--lantern);outline-offset:3px;border-radius:4px}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* header: the one night band */
+header{background:radial-gradient(120% 140% at 50% 120%,var(--lh-day-glow) 0%,var(--night) 60%);color:var(--night-ink);padding:40px 0 34px;position:relative;overflow:hidden}
+header .stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+header .wrap{position:relative}
+.kicker{font:500 12px/1 var(--font-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--night-muted)}
+h1{text-wrap:balance;font:700 clamp(44px,9vw,64px)/1 var(--font-hand);margin:10px 0 6px;color:var(--night-ink)}
+.lede{max-width:34em;margin:0;color:var(--night-ink)}
+.delta{font:500 22px/1.2 var(--font-hand);color:var(--night-lantern);margin:18px 0 0}
+.delta small{display:block;font:12px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--night-muted);margin-top:4px}
+.lamp{position:absolute;right:18px;top:-6px;width:14px;height:14px;border-radius:50%;background:var(--night-lantern);box-shadow:0 0 18px 6px rgba(var(--lh-lantern-rgb),.35)}
+@media (prefers-reduced-motion:no-preference){.lamp{animation:glow 5s ease-in-out infinite}@keyframes glow{50%{box-shadow:0 0 26px 10px rgba(var(--lh-lantern-rgb),.42)}}}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ground)}
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--ground) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--hair)}
+nav.toc ul{list-style:none;margin:0 auto;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:760px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav.toc a{display:inline-block;white-space:nowrap;font:500 13px var(--font-mono);color:var(--ink);text-decoration:none;padding:4px 10px;border:1px solid var(--hair);border-radius:999px;background:var(--raised)}
+nav.toc a:hover{border-color:var(--lantern)}
+
+section{padding:34px 0 6px;scroll-margin-top:calc(58px + env(safe-area-inset-top,0px))}
+h2{font:700 30px/1.1 var(--font-hand);margin:0 0 4px}
+h2 .no{font:500 12px var(--font-mono);letter-spacing:.14em;color:var(--card-label);vertical-align:middle;margin-right:8px}
+.sub{color:var(--muted);margin:0 0 16px}
+
+/* tickets */
+.tickets{display:grid;gap:12px}
+.ticket{background:var(--card);color:var(--card-ink);border-radius:12px;box-shadow:var(--shadow);display:grid;grid-template-columns:1fr auto;overflow:hidden;position:relative}
+.ticket::before,.ticket::after{content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:var(--ground);right:110px;transform:translateX(50%)}
+.ticket::before{top:-8px}.ticket::after{bottom:-8px}
+.t-main{padding:16px 18px;display:grid;gap:4px}
+.t-class{font:500 11px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--card-label)}
+.t-title{margin:0;font:700 28px/1 var(--font-hand)}
+.t-main p{margin:0;font-size:15px;line-height:1.5}
+.t-stub{border-left:2px dashed var(--card-label);width:110px;display:grid;place-items:center;text-align:center;padding:12px 6px}
+.t-price{font:500 26px/1.1 var(--font-mono);font-variant-numeric:tabular-nums}
+.note{font-size:14px;color:var(--muted);margin:12px 0 0}
+@media (max-width:420px){.ticket{grid-template-columns:1fr 88px}.t-stub{width:88px}.ticket::before,.ticket::after{right:88px}.t-price{font-size:22px}}
+
+/* rule boxes */
+.box{background:var(--raised);border:1px solid var(--hair);border-radius:12px;padding:16px 18px}
+.box + .box{margin-top:12px}
+.box h3{font:600 16px var(--font-body);margin:0 0 6px}
+.box ul + h3{margin-top:14px}
+.box ul,.box ol{margin:0;padding-left:1.2em}
+.box li{margin:4px 0}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 14px}
+.fact{background:var(--raised);border:1px solid var(--hair);border-radius:10px;padding:10px 12px}
+.fact b{display:block;font:500 20px var(--font-mono);font-variant-numeric:tabular-nums}
+.fact span{font-size:13px;color:var(--muted)}
+.pay{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0;padding:0;list-style:none}
+.pay li{font:500 13px var(--font-mono);border:1px solid var(--hair);border-radius:999px;padding:3px 10px;background:var(--ground)}
+.pay li.no{color:var(--muted);text-decoration:line-through}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.pass{background:var(--card);border-radius:10px;padding:14px 16px;font:14px/1.5 var(--font-mono);color:var(--card-ink);box-shadow:var(--shadow);margin-top:12px}
+.pass .h{letter-spacing:.2em;font-weight:500}
+details.full{margin-top:14px}
+details.full summary{cursor:pointer;font:600 15px var(--font-body)}
+details.full pre{white-space:pre-wrap;font:13px/1.55 var(--font-mono);background:var(--raised);border:1px solid var(--hair);border-radius:10px;padding:14px;overflow-x:auto}
+footer{margin-top:40px;padding:26px 0 40px;border-top:1px solid var(--hair);color:var(--muted);font-size:14px}
+footer .hand{font:500 22px var(--font-hand);color:var(--ink)}
+
+/* tickets open in place to show what's inside (no popup · works without JS) */
+details.tk{border-radius:12px}
+details.tk>summary{list-style:none;cursor:pointer;border-radius:12px}
+details.tk>summary::-webkit-details-marker{display:none}
+details.tk>summary:focus-visible{outline:2px solid var(--lantern);outline-offset:3px}
+.t-open{font:500 11px var(--font-mono);letter-spacing:.08em;color:var(--lantern);margin-top:6px}
+details.tk[open] .t-open .o{display:none}details.tk:not([open]) .t-open .c{display:none}
+.inside{margin:-6px 8px 0;background:var(--raised);border:1px solid var(--hair);border-top:0;border-radius:0 0 12px 12px;padding:16px 14px 14px}
+.inside h4{margin:0 0 10px;font:600 14px var(--font-body)}
+.inside .ex{font:11px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--lh-paper-muted-strong);margin:10px 0 0}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.it{display:grid;gap:6px;font-size:13px;line-height:1.35}
+.mk{aspect-ratio:3/4;border-radius:8px;background:var(--card);border:1px solid var(--hair);display:grid;place-items:center;font:11px var(--font-mono);color:var(--card-label);text-align:center;padding:6px;overflow:hidden}
+.mk.wide{aspect-ratio:16/10}
+.mk.chk{background:repeating-conic-gradient(var(--lh-day-tint-4) 0 25%,var(--lh-day-tint-5) 0 50%) 0 0/14px 14px}
+.sw{display:flex;gap:3px;width:80%}.sw i{flex:1;height:34px;border-radius:4px}
+.mk.pass{background:var(--card);font:9px/1.4 var(--font-mono);text-align:left;place-items:start;padding:8px}
+.mk.name{font:700 26px var(--font-hand);color:var(--ink)}
+.phones{display:flex;gap:6px;align-items:end}.phones b{display:block;background:linear-gradient(160deg,var(--lh-day-glow),var(--lh-night));border-radius:4px}
+.layers{display:grid;gap:4px;font:12px var(--font-mono)}
+.layers span{background:var(--card);border:1px solid var(--hair);border-radius:6px;padding:5px 8px;display:flex;justify-content:space-between}
+.layers span::after{content:"👁";opacity:.5}
+.stamp{display:inline-block;border:2px solid var(--lantern);color:var(--lantern);font:600 12px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:6px;transform:rotate(-3deg)}
+.blanket{aspect-ratio:4/3;border-radius:10px;background:repeating-linear-gradient(45deg,var(--lh-day-tint-2) 0 10px,var(--lh-day-tint-3) 10px 20px);display:grid;place-items:end start;padding:10px;font:11px var(--font-mono);color:var(--lh-paper-muted-strong)}
+.sheet{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sil{aspect-ratio:1/2;border-radius:40% 40% 10px 10px/20% 20% 10px 10px;background:var(--lh-day-tint-1)}
+.faces{display:flex;gap:8px;margin-top:8px}.faces i{width:38px;height:38px;border-radius:50%;background:var(--lh-day-tint-1);display:grid;place-items:center;font-style:normal;font-size:16px}
+@media (prefers-reduced-motion:no-preference){details.tk[open] .inside{animation:open .25s ease-out}@keyframes open{from{opacity:0;transform:translateY(-4px)}}}
+
+/* TH/EN */
+.lang{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:14px;display:flex;gap:2px;background:rgba(var(--lh-ink-rgb),.1);border:1px solid rgba(var(--lh-ink-rgb),.25);border-radius:999px;padding:2px;z-index:2}
+.lang button{font:500 12px var(--font-mono);color:var(--night-ink);background:transparent;border:0;border-radius:999px;padding:4px 10px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--night-ink);color:var(--night)}
+.lang button:focus-visible{outline:2px solid var(--night-lantern);outline-offset:2px}
+header .lamp{right:auto;left:min(55%,520px)}
+[data-lang="th"]{--font-body:"Karla","IBM Plex Sans Thai",system-ui,sans-serif;--font-hand:"Sriracha","Caveat",cursive}
+[data-lang="th"] body,[data-lang="th"]{font-family:var(--font-body)}
+[data-lang="th"] h1{font-size:clamp(36px,8vw,52px);line-height:1.15}
+[data-lang="th"] h2,[data-lang="th"] .t-title,[data-lang="th"] .hand{font-weight:400}
+.t-thb{font:12px var(--font-mono);color:var(--card-label);margin-top:2px}
+.thnote{font-size:13px;color:var(--night-muted);margin:14px 0 0;max-width:40em}
+</style>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<div class="lh-bar"><a class="lh-home" href="../">littlehill</a><nav class="lh-nav" aria-label="littlehill"><a data-k="traveller" href="../traveller/001/">Traveller No.001</a><a data-k="auction" href="../auction/">Auction</a><a data-k="rules" href="../rules/">Boarding rules</a><a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a></nav></div>
+
+<div data-lang="en" lang="en">
+
+<header>
+  <div class="lang" role="group" aria-label="Language"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="th" aria-pressed="false">ไทย</button></div>
+  <svg class="stars" aria-hidden="true" viewBox="0 0 760 220" preserveAspectRatio="xMidYMid slice">
+    <g fill="#e8e4da">
+      <circle cx="40" cy="30" r="1.2" opacity=".6"/><circle cx="120" cy="80" r=".9" opacity=".4"/><circle cx="210" cy="24" r="1.1" opacity=".5"/>
+      <circle cx="300" cy="60" r=".8" opacity=".35"/><circle cx="380" cy="18" r="1.3" opacity=".55"/><circle cx="470" cy="70" r=".9" opacity=".4"/>
+      <circle cx="560" cy="34" r="1.2" opacity=".5"/><circle cx="640" cy="90" r=".8" opacity=".35"/><circle cx="720" cy="40" r="1.1" opacity=".55"/>
+      <circle cx="90" cy="150" r=".8" opacity=".3"/><circle cx="690" cy="160" r=".9" opacity=".3"/><circle cx="520" cy="140" r=".7" opacity=".3"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <span class="lamp" aria-hidden="true"></span>
+    <span class="kicker">littlehill · adopt terms v3</span>
+    <h1>Boarding rules</h1>
+    <p class="lede">Everything you need to know before you bid on a littlehill Traveller: how the auction works, what each ticket gets you, and what you can do with your character.</p>
+    <p class="delta">“Read before you board. I'll wait.”<small>— Delta</small></p>
+  </div>
+</header>
+
+<nav class="toc" aria-label="On this page">
+  <ul>
+    <li><a href="#tickets">Tickets</a></li>
+    <li><a href="#auction">Auction &amp; payment</a></li>
+    <li><a href="#delivery">Delivery</a></li>
+    <li><a href="#rights">Your rights</a></li>
+    <li><a href="#fanworks">Fan works</a></li>
+    <li><a href="#small-print">Small print</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+  <section id="tickets" aria-labelledby="h-tickets">
+    <h2 id="h-tickets">Tickets</h2>
+    <p class="sub">The higher the winning bid, the more you get. Each ticket includes everything above it. Tap a ticket to see what's inside.</p>
+    <div class="tickets">
+      <details class="tk">
+        <summary class="ticket">
+          <div class="t-main"><span class="t-class">ticket · personal use</span><h3 class="t-title">Traveller</h3>
+            <p>Full-size PNG/JPEG (front view + colour palette; a small back view when the design has important back details), transparent PNG, a Traveller's Pass on your blanket pattern (the back is an Inspiration card), wallpapers and a hand-lettered name.</p><div class="t-open"><span class="o">What's inside ↓</span><span class="c">Close ↑</span></div></div>
+          <div class="t-stub"><span class="t-class">from</span><span class="t-price">$45</span></div>
+        </summary>
+        <div class="inside"><h4>What's in the box</h4><div class="items">
+<div class="it"><div class="mk" aria-hidden="true">front view<br>full size</div>Full-size PNG / JPEG</div>
+<div class="it"><div class="mk" aria-hidden="true"><div class="sw"><i style="background:#2a2620"></i><i style="background:#8fa1b8"></i><i style="background:#ece6d6"></i><i style="background:#9a5a0c"></i><i style="background:#b33b4a"></i></div></div>Colour palette</div>
+<div class="it"><div class="mk chk" aria-hidden="true">transparent</div>Transparent PNG</div>
+<div class="it"><div class="mk pass" aria-hidden="true">TRAVELLER'S PASS<br>Name: ……<br>First seen: Stop 04<br>With: you<br>No. 001</div>Traveller's Pass on your blanket pattern</div>
+<div class="it"><div class="mk wide" aria-hidden="true"><div class="phones"><b style="width:22px;height:40px"></b><b style="width:64px;height:40px"></b></div></div>Wallpapers (phone + desktop)</div>
+<div class="it"><div class="mk wide name" aria-hidden="true">Name</div>Hand-lettered name</div>
+<div class="it"><div class="mk" aria-hidden="true">INSPIRATION<br>3 things<br>behind the design</div>Inspiration card (back of the Pass)</div>
+</div><p class="ex">example layout · sample art comes with No.001</p></div>
+      </details>
+      <details class="tk">
+        <summary class="ticket">
+          <div class="t-main"><span class="t-class">ticket · commercial use</span><h3 class="t-title">Trader</h3>
+            <p>Commercial use, plus the layered PSD.</p><div class="t-open"><span class="o">What's inside ↓</span><span class="c">Close ↑</span></div></div>
+          <div class="t-stub"><span class="t-class">from</span><span class="t-price">$350</span></div>
+        </summary>
+        <div class="inside"><h4>Everything in Traveller, plus</h4><div class="two" style="align-items:start">
+<div class="layers" aria-label="Layered PSD (example)"><span>layer</span><span>layer</span><span>layer</span><span>layer</span></div>
+<div><span class="stamp">commercial use</span><p style="margin:10px 0 0;font-size:14px">Use your traveller on things you sell. Pay in two parts if you like (three parts from $1,200): 50% within 48 hours, the rest within 30 days.</p></div>
+</div><p class="ex">example layout · sample art comes with No.001</p></div>
+      </details>
+      <details class="tk">
+        <summary class="ticket">
+          <div class="t-main"><span class="t-class">ticket · homeward</span><h3 class="t-title">Homeward</h3>
+            <p>A "Homeward" illustration: your traveller waking up under their own blanket.</p><div class="t-open"><span class="o">What's inside ↓</span><span class="c">Close ↑</span></div></div>
+          <div class="t-stub"><span class="t-class">from</span><span class="t-price">$600</span></div>
+        </summary>
+        <div class="inside"><h4>Everything in Trader, plus</h4><div class="blanket">illustration · your traveller under their own blanket</div>
+<p style="margin:10px 0 0;font-size:14px">Delivered within 14 days of full payment. If anything delays it, I'll message you before the deadline.</p><p class="ex">example layout · sample art comes with No.001</p></div>
+      </details>
+      <details class="tk">
+        <summary class="ticket">
+          <div class="t-main"><span class="t-class">ticket · vtuber &amp; game use</span><h3 class="t-title">Stage</h3>
+            <p>VTuber and game use (please tell me before you use it), a full front/back character sheet and an expression sheet with 3–4 faces.</p><div class="t-open"><span class="o">What's inside ↓</span><span class="c">Close ↑</span></div></div>
+          <div class="t-stub"><span class="t-class">from</span><span class="t-price">$1,200</span></div>
+        </summary>
+        <div class="inside"><h4>Everything in Homeward, plus</h4><div class="two" style="align-items:start">
+<div><div class="sheet"><div class="sil" aria-hidden="true"></div><div class="sil" aria-hidden="true"></div></div><p style="margin:6px 0 0;font-size:13px">Front / back character sheet</p></div>
+<div><div class="faces" aria-hidden="true"><i>·‿·</i><i>·o·</i><i>-_-</i><i>^‿^</i></div><p style="margin:6px 0 0;font-size:13px">Expression sheet, 3–4 faces</p><p style="margin:10px 0 0"><span class="stamp">vtuber · game use</span></p></div>
+</div><p style="margin:10px 0 0;font-size:14px">Sheets arrive within 21 days of full payment. Please tell me before you use them in a stream or game.</p><p class="ex">example layout · sample art comes with No.001</p></div>
+      </details>
+    </div>
+    <p class="note">The Homeward illustration comes with the $600 ticket. If your bid ends lower, you can upgrade later by paying the difference.<br>Every ticket includes the Inspiration card. No hidden bonuses: everything you get is listed on these tickets.<br>What you see is what you get: design changes after purchase aren't included. Extra poses or outfits are not included.</p>
+    <div class="pass" aria-label="Example Traveller's Pass">
+      <div class="h">TRAVELLER'S PASS</div>
+      Name: (your traveller's name) · First seen: Stop 04, Episode 4<br>
+      Travelling with: (you) · Issued: (date) · No. 001
+    </div>
+    <p class="note">The Traveller's Pass is a small card from the world of littlehill with your traveller's name, where they were first seen, and who they travel with (you). Passes are numbered in order. No. 001 is the first.</p>
+  </section>
+
+  <section id="auction" aria-labelledby="h-auction">
+    <h2 id="h-auction">Auction &amp; payment</h2>
+    <p class="sub">Bids count on the DeviantArt auction post and the Facebook bid thread. Bidding opens with Episode 4 (Thursday 20:00 GMT+7).</p>
+    <div class="facts">
+      <div class="fact"><b>$45</b><span>starting bid · no auto-buy</span></div>
+      <div class="fact"><b>09:00</b><span>Thai time (GMT+7): the auction ends at the first 09:00 that is at least 48 hours after the first bid</span></div>
+      <div class="fact"><b>+15 min</b><span>a bid in the last 15 minutes moves the end to 15 minutes after that bid (as often as needed)</span></div>
+      <div class="fact"><b>48 h</b><span>to pay after the auction ends</span></div>
+    </div>
+    <div class="box">
+      <h3>How to bid</h3>
+      <ol>
+        <li>Reply to my <b>"Bid here"</b> comment for the starting bid. Later bids reply to the latest bid.</li>
+        <li>Each new bid must be at least <b>$5</b> above the current bid.</li>
+        <li>Bids are ordered by the time they were posted, on both threads. A bid less than $5 above an earlier bid doesn't count.</li>
+        <li>Thai bidders can bid in the Facebook bid thread too, and those bids count. I copy them to the DeviantArt thread as "$X from FB" with the time they were posted. A bid written only in baht counts at ฿34 per $1, rounded down to a whole dollar. The same rate is used for payment. The DeviantArt post always has the real current bid.</li>
+        <li>X (Twitter) is for announcements only. Bids there aren't counted.</li>
+        <li>Bid only if you intend to pay. Please don't edit or delete bids.</li>
+        <li>I may decline bids from accounts that look fake or empty.</li>
+      </ol>
+      <p style="margin:10px 0 0;font-size:14px">When the first bid arrives, I post the exact end time on DeviantArt and on the auction page. The countdown on the page shows it in your own time zone. A bid posted in the closing minute (for example at 09:00) still counts.</p>
+    </div>
+    <div class="box">
+      <h3>Paying</h3>
+      <ul class="pay" aria-label="Payment methods">
+        <li>card (Visa · Mastercard · Amex)</li><li>Apple Pay</li><li>Google Pay</li><li>Thai bank transfer · PromptPay (Thai buyers)</li><li>PayPal</li>
+      </ul>
+      <ul style="margin-top:10px">
+        <li>Cards, Apple Pay and Google Pay go through a Stripe payment link I send you. Thai buyers can pay by bank transfer (a PromptPay QR I send only to the winner). Prefer PayPal? Tell me, and I'll send a PayPal invoice instead.</li>
+        <li>If you don't pay within 48 hours, the next highest bidder gets 48 hours to buy at their own highest bid. I offer it to the third bidder at most. You may not be able to join my future auctions.</li>
+        <li>Paying in Thai baht? This auction uses a fixed rate of $1 = ฿34. It's set before bidding opens and doesn't change during the auction.</li>
+        <li><b>Watch for fakes:</b> I only contact winners from @little_hill01 (X), mkioldell (DeviantArt) and the littlehill Facebook page, and payment links and bank details only come from me. If someone else messages you, it isn't me.</li>
+        <li><b>Payment plan</b> for winning bids of $350 or more: 50% within 48 hours, the rest within 30 days. From $1,200 you can also pay in three parts: 50% within 48 hours, 25% within 30 days, 25% within 60 days. Files are sent once payment is complete. I'll remind you before each due date. If a part isn't paid by its date, what you've paid isn't refunded and the character returns to littlehill.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="delivery" aria-labelledby="h-delivery">
+    <h2 id="h-delivery">Delivery</h2>
+    <p class="sub">Counted from the day payment is complete.</p>
+    <div class="facts">
+      <div class="fact"><b>48 h</b><span>character files, after full payment</span></div>
+      <div class="fact"><b>14 days</b><span>Homeward illustration</span></div>
+      <div class="fact"><b>21 days</b><span>character sheet + expression sheet</span></div>
+    </div>
+    <p class="note">If anything delays the Homeward illustration, I'll message you before the deadline. Files are sent to you personally.</p>
+  </section>
+
+  <section id="rights" aria-labelledby="h-rights">
+    <h2 id="h-rights">Your rights</h2>
+    <div class="two">
+      <div class="box"><h3>You may</h3><ul>
+        <li>Rename them and write their story</li><li>Draw them and commission other artists</li>
+        <li>Edit or redesign them</li><li>Trade them or give them as a gift</li></ul></div>
+      <div class="box"><h3>Please</h3><ul>
+        <li>Credit littlehill as the original designer (for example on Toyhouse)</li>
+        <li>If you post my original art with your edits, say it's edited</li>
+        <li>Don't resell for more than you paid (plus what you spent on extra art)</li>
+        <li>Commercial use only from the $350 ticket; VTuber / game use only from the $1,200 ticket</li></ul></div>
+    </div>
+    <div class="box">
+      <h3>littlehill may</h3>
+      <ul>
+        <li>Show the design in my portfolio and posts.</li>
+        <li>Bring your traveller back as a small cameo in a later episode, under the name you give them and drawn from your latest reference (e.g. Toyhouse). If you'd rather they didn't, just tell me.</li>
+        <li>If your traveller appears in an episode, I can credit you as their owner by the name or handle you choose. This is optional: tell me if you'd like it. If the character changes owners later, earlier credits stay as they were.</li>
+        <li>Make its own merchandise using your blanket pattern.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Who owns what</h3>
+      <ul>
+        <li>The character is yours: you can name them, write their story and use them as listed above.</li>
+        <li>I keep the copyright of the artwork I drew.</li>
+        <li>If you trade or gift the character, these rights go with them. Please pass these terms on.</li>
+      </ul>
+      <h3>Changing owner</h3>
+      <ul>
+        <li>Tell me from your own account who the new owner is; they reply to confirm.</li>
+        <li>I re-issue the Traveller's Pass in their name (the old one is marked superseded; stamps carry over) and send them a new delivery link. Free for the digital Pass.</li>
+        <li>Rights and any bonus not yet delivered go with the character. Past episode credits stay as they were.</li>
+        <li>Transfers aren't accepted while a payment dispute is open.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="fanworks" aria-labelledby="h-fanworks">
+    <h2 id="h-fanworks">Fan works</h2>
+    <p class="sub">These apply to every character in littlehill, and every Traveller.</p>
+    <div class="two">
+      <div class="box"><h3>Welcome</h3><p style="margin:0">Fan art, memes, parody, fan fiction and cosplay. Non-commercial, please.</p></div>
+      <div class="box"><h3>NSFW</h3><p style="margin:0">Not prohibited, but it isn't official. Please don't use official littlehill tags or the logo on it.</p></div>
+    </div>
+  </section>
+
+  <section id="small-print" aria-labelledby="h-small">
+    <h2 id="h-small">Small print</h2>
+    <div class="box"><h3>Not allowed</h3><p style="margin:0">Please don't use the design for AI training, AI generation, or NFTs.</p></div>
+    <div class="box"><h3>Refunds</h3><p style="margin:0">No refunds once files are sent. If I can't deliver, you get a full refund. If a sheet is late, you can choose to wait or get back what you paid for it.</p></div>
+    <div class="box"><h3>Payment disputes</h3><p style="margin:0">If a payment is disputed or charged back after the files are sent, the adoption and its usage rights are cancelled and the character returns to littlehill. If something is wrong, please message me first.</p></div>
+    <div class="box"><h3>Age</h3><p style="margin:0">If you're under 18, please ask a parent or guardian before buying.</p></div>
+
+    <details class="full">
+      <summary>Read the full terms as one text (for copying)</summary>
+<pre>littlehill · Adopt Terms (v3)
+
+1. Auction &amp; payment
+   Starting bid $45. No auto-buy.
+   Reply to my "Bid here" comment for the starting bid; later bids reply
+   to the latest bid. Each new bid must be at least $5 above the current
+   bid. Bids count on the DeviantArt auction post and the Facebook
+   bid thread. Facebook bids are copied to the DeviantArt thread as
+   "$X from FB" with the time they were posted.
+   A bid written only in baht counts at 34 baht per $1, rounded down
+   to a whole dollar. The same rate is used for payment.
+   The DeviantArt post always has the real current bid.
+   Bids are ordered by post time on both threads; a bid less than $5
+   above an earlier bid doesn't count.
+   X (Twitter) is for announcements only; bids there aren't counted.
+   Bidding opens with Episode 4 (Thursday 20:00, Thai time GMT+7).
+   The auction ends at 09:00 Thai time (GMT+7) on the first 09:00 that
+   is at least 48 hours after the first bid. I post the exact end time
+   when the first bid arrives.
+   A bid in the last 15 minutes moves the end to 15 minutes after that
+   bid (as often as needed). A bid posted in the closing minute (for
+   example at 09:00) still counts.
+   Bid only if you intend to pay. Please don't edit or delete bids.
+   I may decline bids from accounts that look fake or empty.
+   Payment within 48 hours of the auction ending, by card, Apple Pay or
+   Google Pay (Stripe link), Thai bank transfer or a PayPal invoice.
+   If unpaid, the next highest bidder gets 48 hours to buy at their own
+   highest bid (down to the third bidder at most), and you may not be
+   able to join my future auctions.
+   Paying in Thai baht: a fixed rate of $1 = 34 baht for this auction,
+   set before bidding opens and unchanged during the auction.
+   I only contact winners from @little_hill01 (X), mkioldell
+   (DeviantArt) and the littlehill Facebook page, and payment links
+   and bank details only come from me. If someone else
+   messages you, it isn't me.
+   Payment plan for winning bids of $350 or more: 50% within 48 hours,
+   the rest within 30 days. From $1,200 you can also pay in three
+   parts: 50% within 48 hours, 25% within 30 days, 25% within 60 days.
+   Files are sent once payment is complete. I'll remind you before
+   each due date. If a part isn't paid by its date, what you've paid
+   isn't refunded and the character returns to littlehill.
+
+2. What you get (each level includes everything in the levels before it)
+   $45+    Full-size PNG/JPEG (front view + colour palette; a small back
+           view when the design has important back details), transparent
+           PNG, Traveller's Pass card on your blanket pattern with an
+           Inspiration card on the back, wallpapers, hand-lettered name,
+           and these terms.
+   $350+   Commercial use + layered PSD.
+   $600+   "Homeward" illustration: your traveller waking under their own
+           blanket.
+   $1,200+ VTuber / game use (please tell me before you use it)
+           + full front/back character sheet + expression sheet (3-4 faces).
+   Below $600, you can upgrade later by paying the difference.
+   Every level includes the Inspiration card. No hidden bonuses:
+   everything you get is listed here.
+   What you see is what you get. Not included: design changes after
+   purchase. Extra poses or outfits are not included.
+
+3. Delivery (counted from the day payment is complete)
+   Character files within 48 hours.
+   Homeward illustration within 14 days; if anything delays it, I'll
+   message you before the deadline.
+   Character sheet and expression sheet within 21 days.
+
+4. You may
+   Rename them, write their story, draw them, commission other artists,
+   edit or redesign them, trade them or give them as a gift.
+
+5. Please
+   Credit littlehill as the original designer (for example on Toyhouse).
+   If you post my original art with your edits, please say it's edited.
+   Don't resell for more than you paid (plus what you spent on extra art).
+   Commercial use only from the $350 level; VTuber / game use only from
+   the $1,200 level. You can upgrade later by paying the difference.
+
+6. littlehill may
+   Show the design in portfolio and posts.
+   Your traveller may return as a small cameo in a later episode, under
+   the name you give them and drawn from your latest reference
+   (e.g. Toyhouse). If you'd rather they didn't, just tell me.
+   If your traveller appears in an episode, the current owner can be
+   credited by the name or handle they choose (optional, on request).
+   If the character changes owners, earlier credits stay as they were.
+   littlehill may make its own merchandise using your blanket pattern.
+
+7. Fan works
+   Fan works follow the littlehill Fan Works Guidelines.
+
+7b. Not allowed
+   Please don't use this design for AI training, AI generation, or NFTs.
+
+8. Refunds
+   No refunds once files are sent. If I can't deliver, you get a full refund.
+   If a sheet is late, you can choose to wait or get back what you paid for it.
+
+8b. Payment disputes
+   If a payment is disputed or charged back after the files are sent,
+   the adoption and its usage rights are cancelled and the character
+   returns to littlehill. If something is wrong, please message me first.
+
+9. Age
+   If you're under 18, please ask a parent or guardian before buying.
+
+10. Who owns what
+   The character is yours: you can name them, write their story and
+   use them as listed above.
+   I keep the copyright of the artwork I drew.
+   If you trade or gift the character, these rights go with them.
+   Please pass these terms on.
+
+11. Changing owner
+   Tell me from your own account who the new owner is; they reply to
+   confirm.
+   I re-issue the Traveller's Pass in their name (the old one is marked
+   superseded; stamps carry over) and send them a new delivery link.
+   Free for the digital Pass.
+   Rights and any bonus not yet delivered go with the character. Past
+   episode credits stay as they were.
+   Transfers aren't accepted while a payment dispute is open.</pre>
+    </details>
+  </section>
+
+  <p class="lh-backrow"><a class="lh-back" data-lh-ctx="back" href="../traveller/001/">← Traveller No.001</a></p>
+  <footer>
+    <p class="hand">Questions before you board?</p>
+    <p>Message <b>@little_hill01</b> on X, send a note to <b>mkioldell</b> on DeviantArt, or message the <b>littlehill</b> Facebook page.<br>
+    Terms v3 · last updated 26 Oct 2026 · bidding means you agree to these rules.</p>
+  </footer>
+</main>
+</div>
+<div data-lang="th" lang="th" hidden>
+<header>
+  <div class="lang" role="group" aria-label="Language"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="th" aria-pressed="false">ไทย</button></div>
+  <svg class="stars" aria-hidden="true" viewBox="0 0 760 220" preserveAspectRatio="xMidYMid slice">
+    <g fill="#e8e4da">
+      <circle cx="40" cy="30" r="1.2" opacity=".6"/><circle cx="120" cy="80" r=".9" opacity=".4"/><circle cx="210" cy="24" r="1.1" opacity=".5"/>
+      <circle cx="300" cy="60" r=".8" opacity=".35"/><circle cx="380" cy="18" r="1.3" opacity=".55"/><circle cx="470" cy="70" r=".9" opacity=".4"/>
+      <circle cx="560" cy="34" r="1.2" opacity=".5"/><circle cx="640" cy="90" r=".8" opacity=".35"/><circle cx="720" cy="40" r="1.1" opacity=".55"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <span class="lamp" aria-hidden="true"></span>
+    <span class="kicker">littlehill · กติกา adopt v3</span>
+    <h1>กติกาก่อนขึ้นรถไฟ</h1>
+    <p class="lede">ทุกอย่างที่ควรรู้ก่อนบิด Traveller ของ littlehill: ประมูลยังไง ตั๋วแต่ละชั้นได้อะไร และทำอะไรกับตัวละครได้บ้าง</p>
+    <p class="delta">“อ่านก่อนขึ้นนะ ฉันรอได้”<small>— Delta</small></p>
+    <p class="thnote">ราคาจริงเป็นดอลลาร์สหรัฐ ($) · จ่ายเป็นบาทใช้ $1 = ฿34 (เรตของรอบนี้) · ถ้าภาษาไทยกับภาษาอังกฤษไม่ตรงกัน ให้ยึดภาษาอังกฤษ</p>
+  </div>
+</header>
+
+<nav class="toc" aria-label="ในหน้านี้">
+  <ul>
+    <li><a href="#tickets-th">ตั๋ว</a></li>
+    <li><a href="#auction-th">ประมูล &amp; จ่ายเงิน</a></li>
+    <li><a href="#delivery-th">ส่งงาน</a></li>
+    <li><a href="#rights-th">สิทธิ์ของคุณ</a></li>
+    <li><a href="#fanworks-th">แฟนอาร์ต</a></li>
+    <li><a href="#small-print-th">ข้อปลีกย่อย</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+  <section id="tickets-th" aria-labelledby="h-tickets-th">
+    <h2 id="h-tickets-th">ตั๋ว</h2>
+    <p class="sub">บิดปิดสูงขึ้น ได้มากขึ้น ตั๋วแต่ละชั้นได้ของชั้นที่อยู่ข้างบนทั้งหมดด้วย · แตะตั๋วเพื่อดูของข้างใน</p>
+    <div class="tickets">
+      <details class="tk">
+        <summary class="ticket">
+          <div class="t-main"><span class="t-class">ตั๋ว · ใช้ส่วนตัว</span><h3 class="t-title">Traveller</h3>
+            <p>ไฟล์ PNG/JPEG เต็มขนาด (ด้านหน้า + จานสี · มีภาพด้านหลังเล็ก ๆ เมื่อดีไซน์มีจุดสำคัญด้านหลัง) · PNG พื้นใส · การ์ด Traveller's Pass บนลายผ้าห่มของตัวคุณ (ด้านหลังเป็น Inspiration card) · วอลเปเปอร์ · ชื่อเขียนมือ</p><div class="t-open"><span class="o">ดูของข้างใน ↓</span><span class="c">ปิด ↑</span></div></div>
+          <div class="t-stub"><span class="t-class">เริ่ม</span><span class="t-price">$45</span><span class="t-thb">฿1,530</span></div>
+        </summary>
+        <div class="inside"><h4>ในกล่องมี</h4><div class="items">
+<div class="it"><div class="mk" aria-hidden="true">ด้านหน้า<br>เต็มขนาด</div>PNG / JPEG เต็มขนาด</div>
+<div class="it"><div class="mk" aria-hidden="true"><div class="sw"><i style="background:#2a2620"></i><i style="background:#8fa1b8"></i><i style="background:#ece6d6"></i><i style="background:#9a5a0c"></i><i style="background:#b33b4a"></i></div></div>จานสี</div>
+<div class="it"><div class="mk chk" aria-hidden="true">พื้นใส</div>PNG พื้นใส</div>
+<div class="it"><div class="mk pass" aria-hidden="true">TRAVELLER'S PASS<br>Name: ……<br>First seen: Stop 04<br>With: you<br>No. 001</div>Traveller's Pass บนลายผ้าห่มของตัวคุณ</div>
+<div class="it"><div class="mk wide" aria-hidden="true"><div class="phones"><b style="width:22px;height:40px"></b><b style="width:64px;height:40px"></b></div></div>วอลเปเปอร์ (มือถือ + คอม)</div>
+<div class="it"><div class="mk wide name" aria-hidden="true">Name</div>ชื่อเขียนมือ</div>
+<div class="it"><div class="mk" aria-hidden="true">INSPIRATION<br>3 สิ่ง<br>ที่มาของดีไซน์</div>Inspiration card (ด้านหลัง Pass)</div>
+</div><p class="ex">ตัวอย่างเลย์เอาต์ · ภาพจริงมาพร้อม No.001</p></div>
+      </details>
+      <details class="tk">
+        <summary class="ticket">
+          <div class="t-main"><span class="t-class">ตั๋ว · ใช้เชิงพาณิชย์</span><h3 class="t-title">Trader</h3>
+            <p>ใช้เชิงพาณิชย์ได้ + ไฟล์ PSD แยกเลเยอร์</p><div class="t-open"><span class="o">ดูของข้างใน ↓</span><span class="c">ปิด ↑</span></div></div>
+          <div class="t-stub"><span class="t-class">เริ่ม</span><span class="t-price">$350</span><span class="t-thb">฿11,900</span></div>
+        </summary>
+        <div class="inside"><h4>ได้ทุกอย่างของ Traveller และ</h4><div class="two" style="align-items:start">
+<div class="layers" aria-label="PSD แยกเลเยอร์ (ตัวอย่าง)"><span>layer</span><span>layer</span><span>layer</span><span>layer</span></div>
+<div><span class="stamp">commercial use</span><p style="margin:10px 0 0;font-size:14px">เอาตัวละครไปใช้กับของที่ขายได้ · แบ่งจ่ายได้ (ตั้งแต่ $1,200 แบ่ง 3 งวดได้): 50% ภายใน 48 ชม. ที่เหลือภายใน 30 วัน</p></div>
+</div><p class="ex">ตัวอย่างเลย์เอาต์ · ภาพจริงมาพร้อม No.001</p></div>
+      </details>
+      <details class="tk">
+        <summary class="ticket">
+          <div class="t-main"><span class="t-class">ตั๋ว · homeward</span><h3 class="t-title">Homeward</h3>
+            <p>ภาพ "Homeward": ตัวละครของคุณตื่นนอนใต้ผ้าห่มของตัวเอง</p><div class="t-open"><span class="o">ดูของข้างใน ↓</span><span class="c">ปิด ↑</span></div></div>
+          <div class="t-stub"><span class="t-class">เริ่ม</span><span class="t-price">$600</span><span class="t-thb">฿20,400</span></div>
+        </summary>
+        <div class="inside"><h4>ได้ทุกอย่างของ Trader และ</h4><div class="blanket">ภาพ · ตัวละครของคุณใต้ผ้าห่มของตัวเอง</div>
+<p style="margin:10px 0 0;font-size:14px">ส่งภายใน 14 วันหลังจ่ายครบ ถ้ามีเหตุให้ช้า จะแจ้งก่อนครบกำหนด</p><p class="ex">ตัวอย่างเลย์เอาต์ · ภาพจริงมาพร้อม No.001</p></div>
+      </details>
+      <details class="tk">
+        <summary class="ticket">
+          <div class="t-main"><span class="t-class">ตั๋ว · vtuber &amp; เกม</span><h3 class="t-title">Stage</h3>
+            <p>ใช้เป็น VTuber และในเกมได้ (บอกผมก่อนใช้) + ชีตตัวละครหน้า-หลังเต็มตัว + ชีตสีหน้า 3–4 แบบ</p><div class="t-open"><span class="o">ดูของข้างใน ↓</span><span class="c">ปิด ↑</span></div></div>
+          <div class="t-stub"><span class="t-class">เริ่ม</span><span class="t-price">$1,200</span><span class="t-thb">฿40,800</span></div>
+        </summary>
+        <div class="inside"><h4>ได้ทุกอย่างของ Homeward และ</h4><div class="two" style="align-items:start">
+<div><div class="sheet"><div class="sil" aria-hidden="true"></div><div class="sil" aria-hidden="true"></div></div><p style="margin:6px 0 0;font-size:13px">ชีตหน้า / หลัง</p></div>
+<div><div class="faces" aria-hidden="true"><i>·‿·</i><i>·o·</i><i>-_-</i><i>^‿^</i></div><p style="margin:6px 0 0;font-size:13px">ชีตสีหน้า 3–4 แบบ</p><p style="margin:10px 0 0"><span class="stamp">vtuber · game use</span></p></div>
+</div><p style="margin:10px 0 0;font-size:14px">ชีตส่งภายใน 21 วันหลังจ่ายครบ · บอกผมก่อนเอาไปใช้ในสตรีมหรือเกม</p><p class="ex">ตัวอย่างเลย์เอาต์ · ภาพจริงมาพร้อม No.001</p></div>
+      </details>
+    </div>
+    <p class="note">ภาพ Homeward มากับตั๋ว $600 · ถ้าบิดจบต่ำกว่านั้น อัปเกรดทีหลังได้ด้วยการจ่ายส่วนต่าง<br>ทุกตั๋วได้ Inspiration card · ไม่มีของแถมซ่อน: ของที่ได้ทั้งหมดเขียนไว้ในตั๋วแล้ว<br>ได้ตามที่เห็น: ไม่รวมการแก้ดีไซน์หลังซื้อ · ท่าหรือชุดเพิ่มไม่รวมในตั๋ว</p>
+    <div class="pass" aria-label="ตัวอย่าง Traveller's Pass">
+      <div class="h">TRAVELLER'S PASS</div>
+      Name: (ชื่อตัวละครของคุณ) · First seen: Stop 04, Episode 4<br>
+      Travelling with: (คุณ) · Issued: (วันที่) · No. 001
+    </div>
+    <p class="note">Traveller's Pass คือการ์ดเล็ก ๆ จากโลก littlehill มีชื่อตัวละคร จุดที่พบครั้งแรก และคนที่เดินทางด้วย (คุณ) · การ์ดมีเลขเรียงตามลำดับ No. 001 คือใบแรก</p>
+  </section>
+
+  <section id="auction-th" aria-labelledby="h-auction-th">
+    <h2 id="h-auction-th">ประมูล &amp; จ่ายเงิน</h2>
+    <p class="sub">บิดนับในโพสต์ประมูลบน DeviantArt และเธรดบิดบน Facebook · เปิดบิดพร้อมตอนที่ 4 (พฤหัส 20:00 เวลาไทย)</p>
+    <div class="facts">
+      <div class="fact"><b>$45</b><span>บิดเริ่มต้น (฿1,530) · ไม่มีปิดราคาทันที</span></div>
+      <div class="fact"><b>09:00</b><span>เวลาไทย (GMT+7): ประมูลจบตอน 09:00 ครั้งแรกที่ห่างจากบิดแรกอย่างน้อย 48 ชม.</span></div>
+      <div class="fact"><b>+15 นาที</b><span>มีบิดใน 15 นาทีสุดท้าย เวลาปิดเลื่อนไปเป็น 15 นาทีหลังบิดนั้น (เลื่อนได้เรื่อย ๆ)</span></div>
+      <div class="fact"><b>48 ชม.</b><span>ให้จ่ายเงินหลังประมูลจบ</span></div>
+    </div>
+    <div class="box">
+      <h3>วิธีบิด</h3>
+      <ol>
+        <li>บิดแรกให้ตอบใต้คอมเมนต์ <b>"Bid here"</b> ของผม บิดถัดไปตอบใต้บิดล่าสุด</li>
+        <li>บิดใหม่ต้องสูงกว่าบิดล่าสุดอย่างน้อย <b>$5</b></li>
+        <li>บิดเรียงตามเวลาที่โพสต์ทั้งสองเธรด · บิดที่สูงกว่าบิดก่อนหน้าไม่ถึง $5 ไม่นับ</li>
+        <li>คนไทยบิดในเธรดบิดบน Facebook ได้ และบิดนั้นนับ · ผมจะคัดลอกไปลงเธรด DeviantArt เป็น "$X from FB" พร้อมเวลาที่โพสต์ · บิดที่เขียนเป็นบาทล้วน ผมแปลงที่ ฿34 ต่อ $1 ปัดลงเป็นดอลลาร์เต็ม · ใช้เรตเดียวกันตอนจ่าย · ยอดบิดที่ใช้จริงอยู่บนโพสต์ DeviantArt เสมอ</li>
+        <li>X (Twitter) ใช้ประกาศอย่างเดียว · บิดที่นั่นไม่นับ</li>
+        <li>บิดเมื่อตั้งใจจะจ่ายจริงเท่านั้น · รบกวนอย่าแก้หรือลบบิด</li>
+        <li>ผมอาจไม่รับบิดจากบัญชีที่ดูเป็นบัญชีปลอมหรือบัญชีว่าง</li>
+      </ol>
+      <p style="margin:10px 0 0;font-size:14px">พอมีบิดแรก ผมจะประกาศเวลาจบที่แน่นอนบน DeviantArt และหน้าประมูล · ตัวนับถอยหลังบนหน้าเว็บแสดงเป็นเวลาท้องถิ่นของคุณ · บิดที่โพสต์ในนาทีปิด (เช่น 09:00) ยังนับ</p>
+    </div>
+    <div class="box">
+      <h3>การจ่ายเงิน</h3>
+      <ul class="pay" aria-label="ช่องทางจ่ายเงิน">
+        <li>บัตร (Visa · Mastercard · Amex)</li><li>Apple Pay</li><li>Google Pay</li><li>โอนผ่านธนาคาร · พร้อมเพย์ (คนไทย)</li><li>PayPal</li>
+      </ul>
+      <ul style="margin-top:10px">
+        <li>บัตร Apple Pay และ Google Pay จ่ายผ่านลิงก์ Stripe ที่ผมส่งให้ · คนไทยโอนผ่านแอปธนาคารได้ (QR พร้อมเพย์ ผมส่งให้ผู้ชนะทางแชตเท่านั้น) · อยากจ่ายผ่าน PayPal บอกได้ ผมจะส่งใบแจ้งหนี้ PayPal ให้แทน</li>
+        <li>ถ้าไม่จ่ายภายใน 48 ชม. ผู้บิดสูงสุดถัดไปจะได้สิทธิ์ซื้อในราคาบิดสูงสุดของเขาเอง ภายใน 48 ชม. (เสนอได้ถึงคนที่ 3) และคุณอาจเข้าร่วมประมูลครั้งหน้าไม่ได้</li>
+        <li>จ่ายเป็นบาท: รอบนี้ใช้เรตตายตัว $1 = ฿34 ประกาศก่อนเปิดบิด และไม่เปลี่ยนระหว่างประมูล</li>
+        <li><b>ระวังบัญชีปลอม:</b> ผมติดต่อผู้ชนะจาก @little_hill01 (X) · mkioldell (DeviantArt) และเพจ Facebook littlehill เท่านั้น ลิงก์จ่ายเงินและเลขบัญชีมาจากผมคนเดียว ถ้ามีคนอื่นทักมา ไม่ใช่ผมนะ</li>
+        <li><b>แบ่งจ่าย</b> สำหรับบิดปิดตั้งแต่ $350: 50% ภายใน 48 ชม. ที่เหลือภายใน 30 วัน · ปิดตั้งแต่ $1,200 เลือกแบ่ง 3 งวดได้: 50% ภายใน 48 ชม. · 25% ภายใน 30 วัน · 25% ภายใน 60 วัน · ส่งไฟล์เมื่อจ่ายครบ · ผมจะเตือนก่อนครบทุกงวด · ถ้างวดไหนไม่จ่ายภายในกำหนด ที่จ่ายแล้วไม่คืน และตัวละครกลับมาที่ littlehill</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="delivery-th" aria-labelledby="h-delivery-th">
+    <h2 id="h-delivery-th">ส่งงาน</h2>
+    <p class="sub">นับจากวันที่จ่ายครบ</p>
+    <div class="facts">
+      <div class="fact"><b>48 ชม.</b><span>ไฟล์ตัวละคร หลังจ่ายครบ</span></div>
+      <div class="fact"><b>14 วัน</b><span>ภาพ Homeward</span></div>
+      <div class="fact"><b>21 วัน</b><span>ชีตตัวละคร + ชีตสีหน้า</span></div>
+    </div>
+    <p class="note">ถ้ามีเหตุให้ภาพ Homeward ช้า ผมจะแจ้งก่อนครบกำหนด · ไฟล์ส่งถึงคุณโดยตรง</p>
+  </section>
+
+  <section id="rights-th" aria-labelledby="h-rights-th">
+    <h2 id="h-rights-th">สิทธิ์ของคุณ</h2>
+    <div class="two">
+      <div class="box"><h3>คุณทำได้</h3><ul>
+        <li>ตั้งชื่อใหม่และเขียนเรื่องของเขา</li><li>วาดเอง และจ้างศิลปินคนอื่นวาด</li>
+        <li>แก้หรือออกแบบใหม่</li><li>แลกหรือให้เป็นของขวัญ</li></ul></div>
+      <div class="box"><h3>ขอความร่วมมือ</h3><ul>
+        <li>ให้เครดิต littlehill เป็นผู้ออกแบบต้นฉบับ (เช่น บน Toyhouse)</li>
+        <li>ถ้าโพสต์ภาพต้นฉบับของผมที่คุณแก้แล้ว บอกว่าแก้</li>
+        <li>อย่าขายต่อแพงกว่าที่จ่ายมา (บวกค่าภาพเพิ่มที่จ้างไป)</li>
+        <li>ใช้เชิงพาณิชย์ได้ตั้งแต่ตั๋ว $350 · VTuber / เกม ตั้งแต่ตั๋ว $1,200</li></ul></div>
+    </div>
+    <div class="box">
+      <h3>littlehill ทำได้</h3>
+      <ul>
+        <li>โชว์ดีไซน์ในพอร์ตและโพสต์</li>
+        <li>ให้ตัวละครของคุณกลับมาโผล่สั้น ๆ ในตอนหลัง ด้วยชื่อที่คุณตั้ง วาดจากเรฟล่าสุดของคุณ (เช่น Toyhouse) · ถ้าไม่อยากให้โผล่ บอกได้เลย</li>
+        <li>ถ้าตัวละครของคุณได้โผล่ในตอน ผมใส่เครดิตคุณในฐานะเจ้าของได้ ด้วยชื่อหรือแฮนเดิลที่คุณเลือก · ไม่บังคับ บอกผมถ้าอยากให้ใส่ · ถ้าตัวละครเปลี่ยนเจ้าของภายหลัง เครดิตที่ใส่ไปแล้วคงไว้ตามเดิม</li>
+        <li>ทำสินค้าของ littlehill เองจากลายผ้าห่มของตัวคุณ</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>ใครเป็นเจ้าของอะไร</h3>
+      <ul>
+        <li>ตัวละครเป็นของคุณ: ตั้งชื่อ เขียนเรื่อง และใช้ได้ตามที่เขียนไว้ข้างบน</li>
+        <li>ผมเก็บลิขสิทธิ์ของภาพที่ผมวาด</li>
+        <li>ถ้าแลกหรือให้ตัวละครต่อ สิทธิ์เหล่านี้ไปด้วย · กรุณาส่งกติกานี้ต่อ</li>
+      </ul>
+      <h3>เปลี่ยนเจ้าของ</h3>
+      <ul>
+        <li>แจ้งผมจากบัญชีของคุณเองว่าเจ้าของใหม่คือใคร แล้วให้เจ้าของใหม่ตอบยืนยัน</li>
+        <li>ผมออก Traveller's Pass ใหม่ในชื่อเจ้าของใหม่ (ใบเก่าประทับว่าใช้แทนแล้ว · ตราที่ได้ยังอยู่ครบ) และส่งลิงก์รับของใหม่ให้ · Pass ดิจิทัลไม่มีค่าใช้จ่าย</li>
+        <li>สิทธิ์และของแถมที่ยังไม่ได้ส่ง ตามไปกับตัวละคร · เครดิตในตอนที่ผ่านมาคงไว้ตามเดิม</li>
+        <li>ระหว่างมีข้อโต้แย้งการจ่ายเงิน รับโอนไม่ได้</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="fanworks-th" aria-labelledby="h-fanworks-th">
+    <h2 id="h-fanworks-th">แฟนอาร์ต</h2>
+    <p class="sub">ใช้กับทุกตัวละครใน littlehill และ Traveller ทุกตัว</p>
+    <div class="two">
+      <div class="box"><h3>ยินดีเสมอ</h3><p style="margin:0">แฟนอาร์ต มีม ล้อเลียน แฟนฟิค และคอสเพลย์ · ไม่ใช่เชิงพาณิชย์นะ</p></div>
+      <div class="box"><h3>NSFW</h3><p style="margin:0">ไม่ห้าม แต่ไม่ใช่ของทางการ · กรุณาอย่าใช้แท็กหรือโลโก้ทางการของ littlehill</p></div>
+    </div>
+  </section>
+
+  <section id="small-print-th" aria-labelledby="h-small-th">
+    <h2 id="h-small-th">ข้อปลีกย่อย</h2>
+    <div class="box"><h3>ห้าม</h3><p style="margin:0">ห้ามใช้ดีไซน์นี้เทรน AI สร้างภาพด้วย AI หรือทำ NFT</p></div>
+    <div class="box"><h3>การคืนเงิน</h3><p style="margin:0">ส่งไฟล์แล้วไม่คืนเงิน · ถ้าผมส่งงานไม่ได้ คืนเงินเต็มจำนวน · ถ้าชีตช้า เลือกได้ว่าจะรอ หรือรับเงินคืนเท่าราคาของชีต</p></div>
+    <div class="box"><h3>ข้อโต้แย้งการจ่ายเงิน</h3><p style="margin:0">ถ้ามีการยื่นโต้แย้งหรือขอเงินคืนกับธนาคาร/บัตร (chargeback) หลังได้รับไฟล์แล้ว การ adopt และสิทธิ์การใช้งานจะถูกยกเลิก ตัวละครกลับมาเป็นของ littlehill · ถ้ามีปัญหาอะไร ทักผมก่อนนะ</p></div>
+    <div class="box"><h3>อายุ</h3><p style="margin:0">ถ้าอายุต่ำกว่า 18 ปี กรุณาขออนุญาตผู้ปกครองก่อนซื้อ</p></div>
+    <p class="note">ฉบับเต็มเป็นข้อความเดียวสำหรับคัดลอก มีในหน้าภาษาอังกฤษ (ฉบับที่ใช้ยึด)</p>
+  </section>
+
+  <p class="lh-backrow"><a class="lh-back" data-lh-ctx="back" href="../traveller/001/">← Traveller No.001</a></p>
+  <footer>
+    <p class="hand">มีคำถามก่อนขึ้นรถไฟ?</p>
+    <p>ทักมาที่ <b>@little_hill01</b> บน X · ส่ง note ถึง <b>mkioldell</b> บน DeviantArt หรือทักเพจ Facebook <b>littlehill</b><br>
+    กติกา v3 · อัปเดต 26 ต.ค. 2569 · การบิดถือว่ายอมรับกติกานี้</p>
+  </footer>
+</main>
+
+</div>
+<script>
+(function(){
+  var K="lh-lang";
+  function get(){try{return localStorage.getItem(K);}catch(e){return null;}}
+  function set(v){try{localStorage.setItem(K,v);}catch(e){}}
+  function apply(l){document.querySelectorAll("[data-lang]").forEach(function(b){b.hidden=b.getAttribute("data-lang")!==l;});
+    document.documentElement.lang=l;
+    document.querySelectorAll(".lang button").forEach(function(x){x.setAttribute("aria-pressed",x.getAttribute("data-set")===l?"true":"false");});}
+  var l=get()||((navigator.language||"").toLowerCase().indexOf("th")===0?"th":"en");
+  if(location.hash&&/-th$/.test(location.hash))l="th";
+  apply(l);
+  document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".lang button");if(!b)return;var v=b.getAttribute("data-set");set(v);apply(v);window.scrollTo(0,0);});
+})();
+</script>
+
+<script src="../assets/nav.js" data-root="../" data-page="rules" defer></script>
+</body>
+</html>

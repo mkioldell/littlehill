@@ -1,0 +1,70 @@
+/* littlehill · colour tokens (one file for the whole site) · P10 · 24 Oct 2026
+   Every colour the pages use lives here. Pages keep their own short names (--ink, --muted, --sky-top …)
+   but those now point at these tokens, so changing a value here changes it everywhere it is used.
+   Layers follow the world design system (P3): 1 core "The Line" → 2 zone → 3 stop → 4 traveller.
+   Rules: lantern = the one warm light on every page · stamp ink sits on cream paper only · info text >= 4.5:1.
+   "-rgb" twins are for see-through versions: rgba(var(--lh-ink-rgb),.16). Load this file BEFORE a page's own <style>.
+   Not covered: delivery/_template (private page, its own palette) and colours drawn inside SVG/HTML attributes. */
+:root{
+  /* ── 1 · core: night, ink, fog, lantern, paper ───────────────────────── */
+  --lh-night:#141c30;        --lh-night-rgb:20,28,48;     /* page ground, text on light buttons */
+  --lh-night-low:#2b3550;                                  /* lower sky, most pages */
+  --lh-deep-rgb:10,14,26;                                  /* dark boxes on the sky (auction rules/log) */
+  --lh-abyss-rgb:8,10,18;                                  /* image viewer backdrop */
+  --lh-ink:#e8e4da;          --lh-ink-rgb:232,228,218;    /* main text on night */
+  --lh-fog:#8fa1b8;          --lh-fog-rgb:143,161,184;    /* fog colour (decoration) */
+  --lh-lantern:#f2b45a;      --lh-lantern-rgb:242,180,90; /* the one warm light · main button */
+  --lh-lantern-glow:rgba(242,180,90,.35);
+  --lh-lantern-soft:#f0c27a; --lh-lantern-soft-rgb:240,194,122; /* "someone knocked" banner, demo boxes */
+  --lh-on-lantern:#241a0d;                                 /* text on a lantern button */
+  --lh-unlit:#3a3f4d;                                      /* a lantern that is not lit */
+  --lh-paper:#ece6d6;                                      /* registry card, tickets, notes */
+  --lh-paper-ink:#2a2620;    --lh-paper-ink-rgb:42,38,32;
+  --lh-paper-label:#6b6150;                                /* small labels on paper (5.0:1) */
+  --lh-paper-muted:#7a705c;                                /* ⚠ 3.9:1 on paper → small text uses --lh-paper-muted-strong */
+  --lh-paper-muted-strong:#5e5544;                         /* small text on paper (6.0:1) · auction card since P2 */
+  --lh-paper-hatch-a:#d9d1bd; --lh-paper-hatch-b:#e3dcc9;  /* striped "art goes here" boxes */
+  --lh-shadow-rgb:0,0,0;
+  /* soft dark halo behind small text where fog or a bright horizon passes under it (same as the auction sold labels, P2) */
+  --lh-halo:0 0 2px rgba(10,14,26,.6),0 0 8px rgba(10,14,26,.5),0 0 18px rgba(10,14,26,.4);
+  --lh-halo-strong:0 0 2px rgba(10,14,26,.85),0 0 6px rgba(10,14,26,.7),0 0 16px rgba(10,14,26,.55); /* for text sitting on fog itself */
+
+  /* ── secondary text on the night sky (muted cream, just bright enough) ─ */
+  --lh-muted:#a3acbd;          /* gate · teaser · future pages */
+  --lh-muted-cool:#9aa3b5;     /* traveller page (before P10) */
+  --lh-muted-cream:#b2b3b8;    /* auction: shift name, general secondary (P2) */
+  --lh-cream-1:#c7c5c3;        /* auction: rules box + log on dusk/dawn/closed skies */
+  --lh-cream-2:#dedacf;        /* auction: rules line under the price, sold eyebrow */
+  --lh-cream-3:#f0ebdf;        /* auction sold: "Closed …" line */
+  --lh-cream-4:#f4f0e6;        /* auction sold: date inside that line */
+  --lh-cream-fog:#cfccc6;      /* secondary text on pages where text scrolls over a fog band (traveller, future pages) · P10 */
+
+  /* ── registry stamps (on paper only) ───────────────────────────────── */
+  --lh-stamp-wait:#8a3b2e;   --lh-stamp-wait-rgb:138,59,46; /* small red links on paper cards (Meet No.001 · Open page …) */
+  --lh-stamp-home:#2f6b4a;                                   /* "Found a home" */
+  --lh-stamp-stop:#8c2a33;                                   /* stamp ink (P3 · Dell 24 Oct) · seal red, not orange · the "Looking for a home" stamp on paper cards (P10) · 6.8:1 on the card */
+
+  /* ── skies: auction shifts (top / low / horizon) ───────────────────── */
+  --lh-sky-dusk-top:#1b2440;   --lh-sky-dusk-low:#3a4566;   --lh-sky-dusk-hz:#c9835a;
+  --lh-sky-night-top:#0f1628;  --lh-sky-night-low:#1f2a47;  --lh-sky-night-hz:#5a5f86;
+  --lh-sky-two-top:#0a0f1d;    --lh-sky-two-low:#141c33;    --lh-sky-two-hz:#2c3556;
+  --lh-sky-dawn-top:#1a2236;   --lh-sky-dawn-low:#36445f;   --lh-sky-dawn-hz:#7d8aa3;
+  --lh-sky-closed-top:#121a2c; --lh-sky-closed-low:#2a3550; --lh-sky-closed-hz:#6f7895;
+  --lh-sky-sold-top:#2a3557;   --lh-sky-sold-low:#7f86a8;   --lh-sky-sold-hz:#f2c48a;
+
+  /* ── skies: other pages ─────────────────────────────────────────────── */
+  --lh-sky-teaser-low:#1d2843;   /* teaser: top = night-top, horizon = dusk-low */
+  --lh-rail:#0b101c;             /* teaser platform iron */
+  --lh-sky-gate-hz:#5a4a4a;      /* front door: warm earth at the bottom */
+  --lh-sky-trav-floor:#3a3a4c;   /* traveller page: bottom of the sky */
+  --lh-window-top:#2a3048; --lh-window-low:#1c2236; --lh-viewer-btn:#0d1120; /* traveller page: train window, viewer */
+
+  /* ── 2.5D scene layers (P10 · placeholder shapes until Dell's layered art, ข2) ── */
+  --lh-hill-far:#1a2238; --lh-hill-near:#131a2c; --lh-train:#141a2a; --lh-rail-line:#2a3248;
+
+  /* ── day paper (Boarding rules is a light page) ─────────────────────── */
+  --lh-day-ground:#f1ece0; --lh-day-raised:#fbf8f1; --lh-day-muted:#5f584c;
+  --lh-day-lantern:#93560b;      /* lantern colour that reads on paper · P10: #9a5a0c → #93560b so small text on the cream card passes 4.5 (4.39 → 4.71) */
+  --lh-day-glow:#24324a;         /* rules header night glow */
+  --lh-day-tint-1:#cfc6b4; --lh-day-tint-2:#d8cdb4; --lh-day-tint-3:#e9e1cf; --lh-day-tint-4:#e2dccd; --lh-day-tint-5:#f6f2e8; /* rules illustrations */
+}

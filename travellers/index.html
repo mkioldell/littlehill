@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- prototype page (24 Oct 2026) · keep noindex until Dell switches it on AND links it -->
+<meta name="robots" content="noindex,nofollow">
+<title>Traveller Registry · littlehill</title>
+<meta name="description" content="Every littlehill traveller, where they were first seen, and who they travel with now.">
+<meta property="og:site_name" content="littlehill">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Traveller registry · littlehill">
+<meta property="og:description" content="Every littlehill traveller, where they were first seen, and who they travel with now.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@little_hill01">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23141c30%27/%3E%3Crect x=%2712%27 y=%279%27 width=%278%27 height=%2713%27 rx=%272%27 fill=%27%23f2b45a%27/%3E%3Crect x=%2714%27 y=%276%27 width=%274%27 height=%273%27 fill=%27%23e8e4da%27/%3E%3Crect x=%2711%27 y=%2722%27 width=%2710%27 height=%272%27 fill=%27%23e8e4da%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400;600&family=Karla:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/future.css">
+<style>
+/* registry: one card per No. · real travellers read their own traveller/NNN/data.json · empty No. = "not yet boarded" */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:14px;list-style:none;margin:0;padding:0}
+.grid>li{display:grid}
+.card{display:grid;grid-template-rows:auto 1fr;overflow:hidden;text-decoration:none;color:var(--paper-ink)}
+.pic{aspect-ratio:4/5;background:repeating-linear-gradient(135deg,var(--lh-paper-hatch-a) 0 6px,var(--lh-paper-hatch-b) 6px 12px);display:grid;place-items:center;position:relative;font:500 .72rem var(--f-mono);color:var(--lh-paper-muted-strong)}
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.body{padding:12px 14px 14px;display:grid;gap:4px;align-content:start}
+.body h2{margin:0;font:700 1.55rem/1.05 var(--f-hand)}
+html[lang="th"] .body h2,html[lang="th"] .status{font-family:"Sriracha","Caveat",cursive;font-weight:400}
+.epi{font-size:.88rem;color:var(--label);margin:0}
+.seen{font-size:.84rem;margin:2px 0 0;color:var(--paper-ink)}
+.k{display:block;font:500 .64rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--label)}
+.status{font:700 1.08rem var(--f-hand);color:var(--lh-stamp-stop);margin-top:2px}
+.status.home{color:var(--lh-stamp-home)}
+.with{font-size:.84rem;margin:0}
+.go{font:500 .7rem var(--f-mono);letter-spacing:.08em;color:var(--lh-stamp-wait);margin-top:4px}
+/* empty No. */
+.ghost{border:1.5px dashed rgba(var(--lh-ink-rgb),.26);border-radius:8px;min-height:100%;display:grid;align-content:end;gap:2px;padding:14px;background:radial-gradient(80% 60% at 50% 35%,var(--fog),transparent 70%);color:var(--muted)}
+.ghost .mono{font-size:.74rem;letter-spacing:.14em}
+.ghost .hand{font-size:1.3rem;color:var(--muted)}
+.ghost::before{content:"";display:block;aspect-ratio:4/5;margin:-4px -4px 8px}
+/* P10: the 'not yet boarded' words sit on a little fog; soft halo keeps them readable */
+.ghost .mono,.ghost .hand{text-shadow:var(--lh-halo-strong)}
+@media (max-width:400px){.body{padding:10px 11px 12px}.body h2{font-size:1.35rem}.ghost::before{aspect-ratio:4/4}}
+</style>
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <a class="brand" href="../">littlehill</a>
+    <nav class="lh-nav" aria-label="littlehill"><a data-k="traveller" href="../traveller/001/">Traveller No.001</a><a data-k="auction" href="../auction/">Auction</a><a data-k="rules" href="../rules/">Boarding rules</a><a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a></nav>
+    <span class="langsw" role="group" aria-label="Language"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="th" aria-pressed="false">ไทย</button></span>
+  </div>
+
+  <p class="preview-bar" id="previewbar" hidden></p>
+  <section class="closed" id="closed" hidden></section>
+
+  <div id="content" hidden>
+    <header>
+      <span class="kicker" id="kicker">littlehill · station register</span>
+      <h1 id="title">Traveller registry</h1>
+      <p class="lede" id="lede"></p>
+    </header>
+    <ul class="grid" id="grid" style="margin-top:22px"></ul>
+    <footer id="foot" style="margin-top:28px"></footer>
+  </div>
+  <noscript><p class="lede">This page needs JavaScript. <a href="../">littlehill →</a></p></noscript>
+</main>
+
+<!-- used only when the JSON files can't be fetched (e.g. opened straight from the computer) -->
+<script type="application/json" id="fb-reg">{"slots":12,"travellers":[{"no":"001","page":"traveller/001/","data":"traveller/001/data.json","img":"traveller/001/img/hero.webp","stage":"preview","liveFromState":true,"firstSeenEp":4,"owner":null,"ownerOptIn":false,"ownerSince":null,"history":[]}]}</script>
+<script type="application/json" id="fb-001">{"no":"001","name":{"en":"No.001","th":"No.001"},"epithet":{"en":"[epithet — to be written]","th":"[ฉายา — รอเขียน]"},"facts":[{"k":{"en":"First seen","th":"พบครั้งแรก"},"v":{"en":"Stop 04 · The Living House (Episode 4)","th":"Stop 04 · บ้านมีชีวิต (ตอน 4)"}}]}</script>
+<script src="../assets/future.js"></script>
+<script>
+(function(){
+  var TX={
+    en:{kicker:'littlehill · station register',title:'Traveller registry',lede:'Every traveller who has passed through littlehill, where they were first seen, and who they travel with now.',
+        seen:'First seen',with:'Travelling with',open:'Open page →',empty:'Not yet boarded',
+        st:{preview:'Arriving soon',open:'Looking for a home',extended:'Looking for a home',closed:'Bidding closed',sold:'Found a home'},
+        foot:'Owners are shown by the handle they choose, and only if they ask to be. Earlier owners appear as "previous holder" unless they agreed to be named.',prev:'previous holder',earlier:'Earlier'},
+    th:{kicker:'littlehill · ทะเบียนสถานี',title:'ทะเบียนนักเดินทาง',lede:'นักเดินทางทุกคนที่ผ่าน littlehill พบครั้งแรกที่ไหน และตอนนี้เดินทางกับใคร',
+        seen:'พบครั้งแรก',with:'เดินทางกับ',open:'เปิดหน้า →',empty:'ยังไม่ขึ้นรถไฟ',
+        st:{preview:'กำลังจะมาถึง',open:'กำลังหาบ้าน',extended:'กำลังหาบ้าน',closed:'ปิดรับบิดแล้ว',sold:'ได้บ้านแล้ว'},
+        foot:'เจ้าของแสดงด้วยชื่อเล่นที่เขาเลือกเอง และเฉพาะเมื่อเขาขอให้แสดง · เจ้าของคนก่อนแสดงเป็น "เจ้าของก่อนหน้า" ถ้าไม่ได้ตกลงให้ใส่ชื่อ',prev:'เจ้าของก่อนหน้า',earlier:'ก่อนหน้านี้'}};
+  var REG=LH.inline('fb-reg')||{slots:12,travellers:[]};
+  var DATA={'001':LH.inline('fb-001')};
+  var $=function(id){return document.getElementById(id);};
+  function pad(n){n=String(n);while(n.length<3)n='0'+n;return n;}
+  function stageOf(t){var st=t.stage||'teaser',S=LH.state;
+    if(t.liveFromState&&S){var s=(S.traveller||{}).stage,a=(S.auction||{}).status;if(s)st=s;if(a==='sold')st='sold';}
+    return st;}
+  function firstSeen(d){var f=(d&&d.facts||[]).filter(function(x){return x&&x.k&&x.k.en==='First seen';})[0];return f?LH.loc(f.v):'';}
+  function card(t){
+    var L=TX[LH.lang],E=LH.esc,d=DATA[t.no]||{},st=stageOf(t),home=st==='sold';
+    var name=LH.loc(d.name)||('No.'+t.no),epi=LH.loc(d.epithet),seen=firstSeen(d);
+    var owner=home&&t.ownerOptIn===true&&t.owner?'<p class="with"><span class="k">'+L.with+'</span>'+E(t.owner)+'</p>':'';
+    var hist=(t.history||[]).length?'<p class="with"><span class="k">'+L.earlier+'</span>'+t.history.map(function(h){return h&&h.optIn===true&&h.owner?E(h.owner):L.prev;}).join(' · ')+'</p>':'';
+    return '<li><a class="card paper lift" href="../'+E(t.page)+'"><div class="pic"><img alt="" loading="lazy" decoding="async" data-src="../'+E(t.img)+'"><span>No.'+E(t.no)+'</span></div>'+
+      '<div class="body"><h2>'+E(name)+'</h2>'+(epi?'<p class="epi">'+E(epi)+'</p>':'')+
+      (seen?'<p class="seen"><span class="k">'+L.seen+'</span>'+E(seen)+'</p>':'')+
+      '<span class="status'+(home?' home':'')+'">'+E(L.st[st]||'')+'</span>'+owner+hist+'<span class="go">'+L.open+'</span></div></a></li>';}
+  function slot(no){return '<li><div class="ghost" aria-label="No.'+no+' · '+LH.esc(TX[LH.lang].empty)+'"><span class="mono">No.'+no+'</span><span class="hand">'+LH.esc(TX[LH.lang].empty)+'</span></div></li>';}
+  function render(){
+    var L=TX[LH.lang];
+    $('kicker').textContent=L.kicker;$('title').textContent=L.title;$('lede').textContent=L.lede;$('foot').textContent=L.foot;
+    var by={};(REG.travellers||[]).forEach(function(t){if(t&&t.no&&stageOf(t)!=='teaser')by[pad(t.no)]=t;});   /* teaser stage = still hidden in the fog */
+    var n=Math.max(+REG.slots||12,1),html=[];
+    Object.keys(by).forEach(function(k){if(+k>n)n=+k;});
+    for(var i=1;i<=n;i++){var no=pad(i);html.push(by[no]?card(by[no]):slot(no));}
+    $('grid').innerHTML=html.join('');
+    [].forEach.call($('grid').querySelectorAll('img[data-src]'),function(im){im.addEventListener('error',function(){im.remove();});im.src=im.getAttribute('data-src');});
+  }
+  LH.start({key:'travellers',root:'../',render:render}).then(function(show){
+    if(!show)return;
+    LH.get('travellers.json').then(function(j){REG=j;},function(){}).then(function(){
+      return Promise.all((REG.travellers||[]).map(function(t){if(!t||!t.data)return null;
+        return LH.get('../'+t.data).then(function(d){DATA[t.no]=d;},function(){});}));
+    }).then(function(){LH.redraw();});
+  });
+})();
+</script>
+<script src="../assets/nav.js" data-root="../" data-page="travellers" defer></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "_help": "ทะเบียนนักเดินทาง (หน้า travellers/ + กำแพงเจ้าของ owners/ อ่านไฟล์นี้ไฟล์เดียว) · slots = จำนวนช่องที่โชว์ (ช่องที่ยังไม่มีตัว = 'ยังไม่ขึ้นรถไฟ') · ชื่อ/ฉายา/พบครั้งแรก อ่านจาก data.json ของตัวนั้น · เพิ่มตัวใหม่ = สร้างโฟลเดอร์ traveller/NNN/ + data.json แล้วเพิ่ม 1 ก้อนในรายการ · owner = handle ที่เจ้าของเลือกเอง (ห้ามใส่ชื่อจริง/อีเมล/ประเทศ) และแสดงเฉพาะเมื่อ ownerOptIn = true · history = เจ้าของเก่า {\"owner\":\"handle\",\"optIn\":true} · วันที่ YYYY-MM-DD",
+  "slots": 12,
+  "travellers": [
+    {
+      "no": "001",
+      "page": "traveller/001/",
+      "data": "traveller/001/data.json",
+      "img": "traveller/001/img/hero.webp",
+      "stage": "preview",
+      "liveFromState": true,
+      "firstSeenEp": 4,
+      "owner": null,
+      "ownerOptIn": false,
+      "ownerSince": null,
+      "history": []
+    }
+  ]
+}
