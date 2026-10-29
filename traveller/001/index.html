@@ -958,7 +958,9 @@ document.addEventListener('dragstart',function(e){if(e.target&&e.target.tagName=
   for(var i=0;i<120;i++){x.fillStyle='rgba(236,231,220,'+(0.15+rnd()*0.5)+')';x.beginPath();x.arc(rnd()*c.width,rnd()*c.height*.55,rnd()*1+.2,0,7);x.fill()}}draw();(function(w){addEventListener('resize',function(){if(innerWidth!==w){w=innerWidth;draw()}})})(innerWidth)})();
 
 (function(){var seen={},d=$('#dock');function upd(){var hide=Object.keys(seen).some(function(k){return seen[k]});d.classList.toggle('on',!hide);document.documentElement.classList.toggle('dock-on',!hide&&!REG);d.setAttribute('aria-hidden',String(hide));if(hide&&d.contains(document.activeElement))document.activeElement.blur()}
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){seen[e.target.id]=e.isIntersecting});upd()});['acts','look','get','imgnote'].forEach(function(id){var e=document.getElementById(id);if(e)io.observe(e)})})();
+  /* r16 (Dell: the $45 tab came and went unevenly): it used to hide whenever any of 4 sections was on screen, so it blinked while reading · now one rule: it shows once the top buttons have scrolled away, and steps aside only while the "how to get her" section (the same button) is on screen */
+  var acts=document.getElementById('acts'),get=document.getElementById('get'),tk=0;function chk(){tk=0;var hide=true;if(acts){var ra=acts.getBoundingClientRect();hide=ra.bottom>40;}if(!hide&&get){var rg=get.getBoundingClientRect();if(rg.top<innerHeight*.85&&rg.bottom>innerHeight*.15)hide=true;}seen={x:hide};upd();}
+  addEventListener('scroll',function(){if(!tk)tk=requestAnimationFrame(chk);},{passive:true});addEventListener('resize',chk);chk();})();
 
 document.querySelectorAll('.langsw button').forEach(function(b){b.onclick=function(){LANG=b.dataset.lang;try{localStorage.setItem('lh-lang',LANG)}catch(e){}renderStatic()}});
 
@@ -1014,5 +1016,8 @@ fetch('data.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)th
 })();
 </script>
 <script src="../../assets/nav.js" data-root="../../" data-page="traveller" defer></script>
+<script>/* r15 (Dell: a light kept looping on an empty patch): the lantern glow + dust belong around her picture · no picture (not uploaded yet / failed) → no glow */
+(function(){var i=document.getElementById('heroimg'),st=document.getElementById('stage');if(!i||!st)return;function chk(){st.classList.toggle('noart',!(i.complete&&i.naturalWidth>0));}i.addEventListener('error',chk);i.addEventListener('load',chk);if(i.complete)chk();})();</script>
+<style>.noart .art .glow,.noart .art .motes,.noart .art .breath{display:none!important}</style>
 </body>
 </html>

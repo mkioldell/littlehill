@@ -202,7 +202,7 @@ html[lang="th"] .lbl.cur{font-size:1.05rem}
 </div>
 <script src="assets/live.js"></script>
 <script src="assets/edge.js"></script>
-<script>document.addEventListener('pointerdown',function(e){var a=e.target.closest&&e.target.closest('nav#menu a');if(a&&!a.classList.contains('lit'))a.classList.add('tap');},true);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('nav#menu a');if(a&&!a.classList.contains('lit')){a.classList.add('tap');document.documentElement.classList.add('leaving');}},true);addEventListener('pageshow',function(){document.documentElement.classList.remove('leaving');[].forEach.call(document.querySelectorAll('nav#menu a.tap'),function(a){a.classList.remove('tap');});});</script>
+<script>document.addEventListener('pointerdown',function(e){var a=e.target.closest&&e.target.closest('nav#menu a');if(a&&!a.classList.contains('lit'))a.classList.add('tap');},true);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('nav#menu a');if(a&&!a.classList.contains('lit')){a.classList.add('tap');}},true);addEventListener('pageshow',function(){document.documentElement.classList.remove('leaving');[].forEach.call(document.querySelectorAll('nav#menu a.tap'),function(a){a.classList.remove('tap');});});</script>
 <script>/* LAND · official channels under the caption (Linktree on the homepage) */lhEdge.sign("cap");(function(e){if(e)e.id="chan";})(document.querySelector(".lh-edge.sign"));</script>
 <script>
 (function(){

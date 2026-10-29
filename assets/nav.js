@@ -85,7 +85,7 @@
   var chkT=0;
   /* LAND · the rail answers the finger at once (lit dot) and the page dims while the next stop loads */
   document.addEventListener("pointerdown",function(e){var a=e.target.closest&&e.target.closest(".lh-nav.lh-rail a");if(a&&a.getAttribute("aria-current")!=="page")a.classList.add("lh-tap");},true);
-  document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest(".lh-nav.lh-rail a");if(!a||a.target==="_blank"||e.metaKey||e.ctrlKey||a.getAttribute("aria-current")==="page")return;a.classList.add("lh-tap");document.documentElement.classList.add("lh-leaving");},true);
+  document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest(".lh-nav.lh-rail a");if(!a||a.target==="_blank"||e.metaKey||e.ctrlKey||a.getAttribute("aria-current")==="page")return;a.classList.add("lh-tap"); /* r17: no class on <html> here — it restyled the whole page on the tap frame (nothing uses it since the night transition) */},true);
   addEventListener("pageshow",function(){document.documentElement.classList.remove("lh-leaving");[].forEach.call(document.querySelectorAll(".lh-tap"),function(a){a.classList.remove("lh-tap");});});
   /* LAND · platform edge (Dell 28 Oct): official channels as logos at the foot of every page · assets/edge.js */
   function edge(){function go(){lhEdge.foot();if(S)lhEdge.set(S);}

@@ -30,3 +30,8 @@ html body .lh-logo.lh-top,html body .lh-tr.lh-top{top:calc(16px + var(--barh,0px
 html body .lh-logo.lh-top{left:max(16px,env(safe-area-inset-left,0px))!important}
 html body .lh-tr.lh-top{right:max(16px,env(safe-area-inset-right,0px))!important}
 html body.locked .lh-top{visibility:hidden!important} /* delivery: the ceremony has its own sound + skip in these corners */
+/* r15 (Dell on the live site: the menu jumped): each page ships the old text menu and nav.js turns it into the icon rail a moment later · keep the old one invisible until then (shown anyway after 2 s if nav.js never runs) · the rail fades in */
+html body .lh-nav:not(.lh-rail){visibility:hidden;animation:lhnavshow 0s 2s forwards}
+@keyframes lhnavshow{to{visibility:visible}}
+html body .lh-nav.lh-rail{animation:lhrailin .25s ease-out}
+@keyframes lhrailin{from{opacity:0}}
