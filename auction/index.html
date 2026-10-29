@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
+<html lang="en" data-veil-wait>
+<head><script src="../assets/veil.js"></script><script src="../assets/sound.js"></script>
+<meta charset="utf-8"><meta name="color-scheme" content="dark"><style>html{background:#0b1028}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <title>Traveller No.001 Auction</title>
@@ -15,6 +15,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23141c30%27/%3E%3Crect x=%2712%27 y=%279%27 width=%278%27 height=%2713%27 rx=%272%27 fill=%27%23f2b45a%27/%3E%3Crect x=%2714%27 y=%276%27 width=%274%27 height=%273%27 fill=%27%23e8e4da%27/%3E%3Crect x=%2711%27 y=%2722%27 width=%2710%27 height=%272%27 fill=%27%23e8e4da%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400;600&family=Karla:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&family=Special+Elite&display=swap">
 <link rel="stylesheet" href="../assets/tokens.css">
 <style>
 /* layout: one night sky that fills the screen; the countdown, Delta's line and the bid sit on the fog; the registry card below. Single committed night look (the page is the hill at night), so no light theme. */
@@ -125,8 +126,78 @@ html[lang="th"] .delta,html[lang="th"] .card h2,html[lang="th"] .stamp{font-fami
 .demo button{font:inherit;font-size:.86rem;background:transparent;color:var(--ink);border:1px solid var(--rule);border-radius:999px;padding:5px 12px;cursor:pointer}
 .demo output{font-family:var(--f-mono);font-size:.86rem;color:var(--muted)}
 @media (max-width:520px){.card{grid-template-columns:72px 1fr}}
+
+/* ===== H3 thin layer (27 Oct): same family as the homepage · one cream ticket · bottom rail menu · the old sky kept ===== */
+:root{--f-hand:"Reenie Beanie","Caveat",cursive;--f-type:"Special Elite",var(--f-mono);--glow:#ffd38a}
+.wrap{padding-block:22px 120px;max-width:620px}
+.top{align-items:flex-start}
+.brandwrap{display:flex;flex-direction:column}
+html body a.brand{font:400 clamp(2.3rem,6vw,3rem)/1 var(--f-hand);letter-spacing:0}
+.brandcap{font:400 .56rem var(--f-type);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+html[lang="th"] .brandcap{font-family:"IBM Plex Sans Thai",var(--f-type);letter-spacing:.1em}
+.shift,.eyebrow{font-family:var(--f-type);font-weight:400}
+.hero{padding-top:3vh;gap:12px}
+.hero::after{display:none}
+.count{font-family:var(--f-type);font-weight:400;font-size:clamp(2.6rem,10vw,4.4rem)}
+.count.quiet{font:400 clamp(2.8rem,9vw,4.4rem)/1 var(--f-hand)}
+.lanterns{margin:8px 0 4px}
+.lan{position:relative;width:12px;height:16px;border-radius:3px;background:transparent;border:1.5px solid rgba(var(--lh-ink-rgb),.3)}
+.lan::before{content:"";position:absolute;left:50%;top:-6px;width:6px;height:4px;margin-left:-3px;border:1.2px solid rgba(var(--lh-ink-rgb),.4);border-bottom:0;border-radius:3px 3px 0 0}
+.lan.on{background:var(--glow);border-color:var(--glow);box-shadow:0 0 16px 5px var(--lantern-glow)}
+.delta{font:400 clamp(1.8rem,6.4vw,2.5rem)/1.05 var(--f-hand);color:#ffd9a0;margin-top:10px}
+.delta::before{content:"Delta, at the window";display:block;font:400 .5rem var(--f-type);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);opacity:1;margin-bottom:6px}
+html[lang="th"] .delta::before{content:"Delta · ริมหน้าต่าง";font-family:"IBM Plex Sans Thai",var(--f-type);letter-spacing:.08em}
+/* the ticket */
+html body .card.ticket{grid-template-columns:112px 1fr;gap:0;padding:0;border-radius:2px;margin-top:10px;box-shadow:0 22px 50px rgba(var(--lh-shadow-rgb),.55);
+ -webkit-mask:radial-gradient(circle at 112px 0,transparent 9px,#000 9.5px) top/100% 51% no-repeat,radial-gradient(circle at 112px 100%,transparent 9px,#000 9.5px) bottom/100% 51% no-repeat;
+ mask:radial-gradient(circle at 112px 0,transparent 9px,#000 9.5px) top/100% 51% no-repeat,radial-gradient(circle at 112px 100%,transparent 9px,#000 9.5px) bottom/100% 51% no-repeat}
+.stub{border-right:1.5px dashed rgba(42,38,32,.32);padding:16px 12px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.stub .portrait{width:100%}
+.admit{font:400 .55rem var(--f-type);letter-spacing:.2em;color:var(--lh-paper-muted-strong);writing-mode:vertical-rl;transform:rotate(180deg)}
+.tbody{position:relative;padding:16px 18px 14px;min-width:0}
+.card h2{font:400 2.1rem/1 var(--f-hand)}
+.card dt{font-family:var(--f-type);font-weight:400}
+.card dd .stamp{display:inline-block;font:400 .62rem var(--f-type);letter-spacing:.16em;text-transform:uppercase;border:1.5px solid currentColor;border-radius:3px;padding:3px 7px;transform:rotate(-4deg);margin-top:2px}
+html[lang="th"] .card dd .stamp{font:400 .8rem "Sriracha",cursive;letter-spacing:0}
+.tprice{border-top:1px solid rgba(42,38,32,.15);margin-top:12px;padding-top:12px}
+.ticket .bidrow{justify-content:space-between;margin:0}
+html body .ticket .bid{font:600 2rem/1 var(--f-body);color:var(--paper-ink)}
+html body .ticket .bid>span{font:400 .56rem var(--f-type);letter-spacing:.18em;color:var(--lh-paper-muted-strong);text-shadow:none;margin-bottom:4px}
+html body .ticket .thb{color:var(--lh-paper-muted-strong);text-shadow:none;font-weight:400}
+html body .ticket .note{color:#5d5444;text-align:left;font-size:.74rem;line-height:1.5;margin-top:10px}
+.ticket .lh-ctx{display:inline-block;margin-top:10px}
+html body .ticket .btn{padding:10px 15px;font-size:.84rem;line-height:1.2}
+@media (max-width:520px){html body .card.ticket{grid-template-columns:84px 1fr;
+ -webkit-mask:radial-gradient(circle at 84px 0,transparent 9px,#000 9.5px) top/100% 51% no-repeat,radial-gradient(circle at 84px 100%,transparent 9px,#000 9.5px) bottom/100% 51% no-repeat;
+ mask:radial-gradient(circle at 84px 0,transparent 9px,#000 9.5px) top/100% 51% no-repeat,radial-gradient(circle at 84px 100%,transparent 9px,#000 9.5px) bottom/100% 51% no-repeat}
+ .stub{padding:14px 9px}.tbody{padding:14px 14px 12px}.ticket .bidrow{gap:10px}}
+/* log + rules: a dark slip under the text so it reads on every sky (first light included) */
+.logbox,.rules{background:rgba(var(--lh-deep-rgb),.62);font-family:var(--f-body)}
+.log time{font-family:var(--f-type)}
+/* bottom rail menu (same as the homepage) · labels still come from nav.js */
+html body .top .lh-nav,html body .lh-nav{position:fixed;left:0;right:0;bottom:0;z-index:5;margin:0;height:calc(66px + env(safe-area-inset-bottom));display:flex;justify-content:center;align-items:flex-start;gap:clamp(14px,6vw,60px);padding:15px 0 0;background:linear-gradient(transparent,rgba(5,8,18,.85) 45%);flex-wrap:nowrap;border:0;width:auto}
+html body .lh-nav::before{content:"";position:absolute;left:50%;top:18.5px;width:min(84vw,560px);height:1.2px;transform:translateX(-50%);background:rgba(var(--lh-lantern-rgb),.45)}
+html body .lh-nav a{position:relative;display:flex;flex-direction:column;align-items:center;gap:9px;font:400 .62rem var(--f-type);letter-spacing:.16em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding:0 2px;border:0;background:none;white-space:nowrap}
+html body .lh-nav a::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ink)}
+html body .lh-nav a[aria-current="page"]{color:#ffd9a0}
+html body .lh-nav a[aria-current="page"]::before{background:var(--glow);box-shadow:0 0 0 4px rgba(245,154,62,.25),0 0 18px 6px rgba(245,154,62,.45)}
+html body .lh-nav a[hidden]{display:none}
+html[lang="th"] body .lh-nav a{font-family:"IBM Plex Sans Thai",var(--f-type);letter-spacing:.06em;font-size:.72rem}
 </style>
 <link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap">
+<style id="r7-auction">
+/* LAND r7 · auction before bidding: one headline (status + date) · lanterns only once bidding is open · Delta's line small and quiet (gold stays for one light) */
+html[data-q="soon"] #lanterns{display:none}
+.count .when{display:block;margin-top:10px;font:400 clamp(1.5rem,6.4vw,2.2rem)/1.1 "Special Elite","IBM Plex Mono",monospace;color:#ffe6bd;letter-spacing:.02em}
+html[lang="th"] .count .when{font-family:"Special Elite","IBM Plex Sans Thai",monospace;font-size:clamp(1.3rem,5.6vw,1.9rem)}
+.local a.how{color:var(--lh-lantern,#f2b45a);text-decoration:none;border-bottom:1px solid rgba(242,180,90,.45);white-space:nowrap}
+html body .delta{font:400 clamp(1.25rem,4.6vw,1.6rem)/1.15 "Reenie Beanie","Sriracha",cursive!important;color:#c9c2d6!important;margin-top:14px!important}
+html[lang="th"] body .delta{font:400 clamp(1rem,3.8vw,1.2rem)/1.3 "Sriracha",cursive!important}
+html[lang="th"] .count.quiet{font-size:clamp(1.9rem,7vw,2.6rem)!important}
+</style>
+<style id="ink-rule">.card h2{font:700 1.8rem/1 "Caveat","Sriracha",cursive!important}.count.quiet{font-family:"Caveat","Sriracha",cursive!important;font-weight:700!important}</style>
+<link rel="stylesheet" href="../assets/head.css">
 </head>
 <body>
 
@@ -136,12 +207,12 @@ html[lang="th"] .delta,html[lang="th"] .card h2,html[lang="th"] .stamp{font-fami
 <div class="fog" aria-hidden="true"></div><div class="fog b" aria-hidden="true"></div>
 
 <main class="wrap">
-  <div class="top">
-    <a class="brand" href="../">littlehill</a>
+  <div class="top lh-head">
+    <span class="brandwrap lh-logo"><a class="brand" href="../">littlehill</a><span class="brandcap" aria-hidden="true">Ticket office</span></span>
     <nav class="lh-nav" aria-label="littlehill"><a data-k="traveller" href="../traveller/001/">Traveller No.001</a><a data-k="auction" href="../auction/">Auction</a><a data-k="rules" href="../rules/">Boarding rules</a><a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a></nav>
     <span style="display:flex;gap:10px;align-items:center"><span class="shift" id="shift">dusk shift</span>
-    <span class="langsw" role="group" aria-label="Language"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="th" aria-pressed="false">ไทย</button></span></span>
-  </div>
+    <span class="lh-tr"><button type="button" class="lh-snd" aria-label="Sound" aria-pressed="false"></button><span class="langsw lh-lang" role="group" aria-label="Language"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="th" aria-pressed="false">ไทย</button></span></span></span>
+  </div><script>/* r12b: logo + buttons hang from the page corners (same spot as the home page, phone and desktop) */(function(){var b=document.body;[].forEach.call(document.querySelectorAll(".lh-head .lh-logo,.lh-head .lh-tr"),function(e){b.appendChild(e);e.classList.add("lh-top");});})();</script>
 
   <section class="hero">
     <span class="eyebrow" id="eyebrow"><span class="drift">Traveller</span> <span class="drift">No.001</span> <span class="drift">is</span> <span class="drift">looking</span> <span class="drift">for</span> <span class="drift">a</span> <span class="drift">home</span></span>
@@ -152,25 +223,27 @@ html[lang="th"] .delta,html[lang="th"] .card h2,html[lang="th"] .stamp{font-fami
     <ol class="lh-steps" id="steps" hidden><li class="done">Bidding closed</li><li class="now" aria-current="step">Waiting for the train home</li><li>Found a home</li></ol>
     <p class="lh-stepnote" id="stepnote" hidden>This page changes by itself when No.001 finds a home.</p>
     <div class="banner" id="banner" hidden></div>
-    <div class="bidrow">
-      <div class="bid"><span>current bid</span><b id="bid">$45</b></div>
-      <a class="btn" id="dalink" href="https://www.deviantart.com/mkioldell" target="_blank" rel="noopener">Bid on DeviantArt →</a>
-    </div>
-    <p class="note" id="note">Bids count on DeviantArt and the Facebook bid thread (Facebook bids are copied to DeviantArt). A bid in the last 15 minutes moves the close to 15 minutes after that bid.</p>
     <noscript><p class="nojs">The live countdown needs JavaScript. The closing time and every bid are always on the <a href="https://www.deviantart.com/mkioldell">DeviantArt post</a>.</p></noscript>
     <p class="sr" id="announce" aria-live="polite"></p>
   </section>
 
 
-  <article class="card" id="card" aria-label="Traveller registry card">
-    <div class="portrait">art of No.001 goes here</div>
-    <div>
+  <article class="card ticket" id="card" aria-label="Traveller registry card">
+    <div class="stub"><div class="portrait">art of No.001 goes here</div><span class="admit" aria-hidden="true">ADMIT ONE</span></div>
+    <div class="tbody">
       <h2 id="cname">Traveller No.001</h2>
       <dl>
         <dt id="l-seen">First seen</dt><dd id="c-seen">Stop 04 · The Living House</dd>
         <dt id="l-asks">Asks</dt><dd id="c-asks">"Is it night yet?"</dd>
         <dt id="l-status">Status</dt><dd><span class="stamp" id="stamp">Looking for a home</span></dd>
       </dl>
+      <div class="tprice">
+        <div class="bidrow">
+              <div class="bid"><span>current bid</span><b id="bid">$45</b></div>
+              <a class="btn" id="dalink" href="https://www.deviantart.com/mkioldell" target="_blank" rel="noopener">Bid on DeviantArt →</a>
+        </div>
+        <p class="note" id="note">Bids count on DeviantArt and the Facebook bid thread (Facebook bids are copied to DeviantArt). A bid in the last 15 minutes moves the close to 15 minutes after that bid.</p>
+      </div>
       <a class="lh-ctx" data-lh-ctx="meet" href="../traveller/001/">Meet No.001 →</a>
     </div>
   </article>
@@ -196,7 +269,7 @@ html[lang="th"] .delta,html[lang="th"] .card h2,html[lang="th"] .stamp{font-fami
   function markSeen(){try{localStorage.setItem(SEEN_KEY,"1");}catch(e){}}
   function forget(){try{localStorage.removeItem(SEEN_KEY);}catch(e){}}
   var lastAnn="";function announce(t){if(t===lastAnn)return;lastAnn=t;var a=document.getElementById("announce");if(a)a.textContent=t;}
-  function apply(j){if(window.lhLive&&lhLive.personalize)NO=lhLive.personalize(j);loaded=true;var src=j.auction||j;for(var k in src)STATE[k]=src[k];if(src.openedAt)openedAt=src.openedAt;lastLoadOk=true;render();}
+  var _pb=null,_ps=null;function apply(j){var _s=(j.auction||j);if(_pb!==null&&_s.currentBid!=null&&+_s.currentBid>+_pb&&window.lhSound)lhSound.play("bell");if(_ps&&_ps!=="closed"&&_s.status==="closed"&&window.lhSound)lhSound.play("closebell");if(_s.currentBid!=null)_pb=_s.currentBid;if(_s.status)_ps=_s.status;if(window.lhLive&&lhLive.personalize)NO=lhLive.personalize(j);loaded=true;var src=j.auction||j;for(var k in src)STATE[k]=src[k];if(src.openedAt)openedAt=src.openedAt;lastLoadOk=true;render();}
   function loadState(){
     if(DEMO)return;
     (window.lhLive?lhLive.get("../state.json?t="+Date.now()):fetch("../state.json?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}))
@@ -214,25 +287,26 @@ html[lang="th"] .delta,html[lang="th"] .card h2,html[lang="th"] .stamp{font-fami
       eyeOpen:"Traveller No.001 is looking for a home",eyeClosed:"Traveller No.001 · bidding closed",eyeSold:"Traveller No.001",
       bidBtn:"Bid on DeviantArt →",seeBtn:"See No.001 on DeviantArt →",cur:"current bid",fin:"final bid",
       note:"Bids count on DeviantArt and the Facebook bid thread (Facebook bids are copied to DeviantArt). A bid in the last 15 minutes moves the close to 15 minutes after that bid.",
-      look:"Looking for a home",home:"Found a home",waitCount:"the clock starts with the first bid",waitLocal:"Bidding is open. After the first bid it closes at <b>09:00 GMT+7</b> (Thai time), at least 48 hours later.",waitPhrase:"The lanterns are lit. Nobody has knocked yet.",soonCount:"bidding opens with Episode 4",soonLocal:"Bidding opens <b>{t}</b> · your time. It closes at 09:00 GMT+7 (Thai time), at least 48 hours after the first bid.",soonPhrase:"No train tonight. Plenty of time.",soonBtn:"Meet No.001 first →",logFirst:"First bid. The closing time is set.",with:" · travelling with ",seen:"First seen",asks:"Asks",status:"Status",
+      look:"Looking for a home",home:"Found a home",waitCount:"the clock starts with the first bid",waitLocal:"Bidding is open. Closes the first <b>9:00 am Thai time</b>{y} that’s 48+ hours after the first bid.",waitPhrase:"The lanterns are lit. Nobody has knocked yet.",soonCount:"Bidding opens",soonLocal:"with Episode 4 · your time · <a class=\"how\" href=\"../rules/#auction\">How bidding closes →</a>",soonPhrase:"No train tonight. Plenty of time.",soonBtn:"Meet No.001 first →",logFirst:"First bid. The closing time is set.",with:" · travelling with ",seen:"First seen",asks:"Asks",status:"Status",
       logOpen:"The auction opened. Starting bid $45.",logExt:"A late bid. The hill held its breath for 15 more minutes.",logSold:"Traveller No.001 found a home.",
       upd:"updated ",now:"just now",ago:" min ago",every:" · checks again every minute",everyLive:" · updates live",fail:"couldn't refresh just now · showing the last update · ",
       aSold:"Traveller No.001 found a home.",aClosed:"Bidding is closed.",aExt:"A late bid. 15 more minutes.",
       checkCount:"checking last-minute bids",checkLocal:"Closing time <b>{t}</b> · your time<br>Not final until the last bids are checked.",aCheck:"Checking last-minute bids. Not final yet.",
-      rules:'Starting bid $45 · tickets Traveller $45 / Trader $350 / Homeward $600 / Stage $1,200 · full rules &amp; ladder: <a href="../rules/" target="_blank" rel="noopener">Boarding rules</a> · payment within 48 h · if the winner doesn\'t pay, the next bid gets the offer.',thb:false,loc:undefined},
+      rules:'Starting bid $45 · tickets Traveller $45 / Trader $350 / Homeward $600 / Stage $1,200 · full rules &amp; ladder: <a href="../rules/" target="_blank" rel="noopener">Boarding rules</a> · payment within 48 h · if the winner doesn\'t pay, the next bid gets the offer.',thb:false,loc:"en-GB"},
     th:{shift:["กะหัวค่ำ","กะดึก","ตีสอง","ก่อนรุ่ง","ไฟดับ","แสงแรก"],
       phrase:["คืนนี้ไม่มีรถไฟ เวลายังเหลือเยอะ","โคมเริ่มตื่นแล้ว","ใครสักคนควรตัดสินใจได้แล้ว ไม่ใช่ฉัน","เรียกครั้งสุดท้าย หมอกกำลังฟังอยู่","ปิดแล้ว กำลังนับโคม","Traveller No.001 ได้บ้านแล้ว"],
       knock:"มีคนเคาะประตู อีกสิบห้านาที",steps:["ปิดบิด","รอรถไฟพากลับบ้าน","ได้บ้าน"],stepnote:"หน้านี้จะเปลี่ยนเองเมื่อ No.001 ได้บ้าน",found:"ได้บ้านแล้ว",closed:"ปิดแล้ว",closes:"ปิด",yourtime:"เวลาของคุณ",closedAt:"ปิดเมื่อ",
       eyeOpen:"Traveller No.001 กำลังหาบ้าน",eyeClosed:"Traveller No.001 · ปิดรับบิดแล้ว",eyeSold:"Traveller No.001",
       bidBtn:"ไปบิดที่ DeviantArt →",seeBtn:"ดู No.001 บน DeviantArt →",cur:"บิดปัจจุบัน",fin:"ราคาสุดท้าย",
       note:"บิดนับทั้งใน DeviantArt และเธรดบิดบน Facebook (บิดใน Facebook คัดลอกไปลง DeviantArt) · มีบิดใน 15 นาทีสุดท้าย เวลาปิดเลื่อนไปเป็น 15 นาทีหลังบิดนั้น",
-      look:"กำลังหาบ้าน",home:"ได้บ้านแล้ว",waitCount:"นาฬิกาเริ่มเมื่อมีบิดแรก",waitLocal:"เปิดรับบิดแล้ว · หลังบิดแรกจะปิดตอน <b>09:00 น. เวลาไทย</b> ที่ห่างจากบิดแรกอย่างน้อย 48 ชม.",waitPhrase:"โคมจุดแล้ว ยังไม่มีใครเคาะประตู",soonCount:"เปิดบิดพร้อมตอนที่ 4",soonLocal:"เปิดบิด <b>{t}</b> · เวลาของคุณ · ปิดตอน 09:00 น. เวลาไทย ที่ห่างจากบิดแรกอย่างน้อย 48 ชม.",soonPhrase:"คืนนี้ไม่มีรถไฟ เวลายังเหลือเยอะ",soonBtn:"รู้จัก No.001 ก่อน →",logFirst:"บิดแรกมาแล้ว ตั้งเวลาปิดแล้ว",with:" · เดินทางกับ ",seen:"พบครั้งแรก",asks:"ชอบถาม",status:"สถานะ",
+      look:"กำลังหาบ้าน",home:"ได้บ้านแล้ว",waitCount:"นาฬิกาเริ่มเมื่อมีบิดแรก",waitLocal:"เปิดรับบิดแล้ว · ปิด <b>09:00 น. เวลาไทย</b>{y} ของเช้าแรกที่ครบ 48 ชม. หลังบิดแรก",waitPhrase:"โคมจุดแล้ว ยังไม่มีใครเคาะประตู",soonCount:"เปิดบิด",soonLocal:"พร้อมตอนที่ 4 · เวลาของคุณ · <a class=\"how\" href=\"../rules/#auction\">ปิดบิดยังไง →</a>",soonPhrase:"คืนนี้ไม่มีรถไฟ เวลายังเหลือเยอะ",soonBtn:"รู้จัก No.001 ก่อน →",logFirst:"บิดแรกมาแล้ว ตั้งเวลาปิดแล้ว",with:" · เดินทางกับ ",seen:"พบครั้งแรก",asks:"ชอบถาม",status:"สถานะ",
       logOpen:"เปิดประมูลแล้ว บิดเริ่มต้น $45",logExt:"มีบิดนาทีท้าย เนินกลั้นหายใจอีก 15 นาที",logSold:"Traveller No.001 ได้บ้านแล้ว",
       upd:"อัปเดต ",now:"เมื่อสักครู่",ago:" นาทีที่แล้ว",every:" · เช็กใหม่ทุกนาที",everyLive:" · อัปเดตสด",fail:"โหลดใหม่ไม่ได้ตอนนี้ · แสดงข้อมูลล่าสุด · ",
       aSold:"Traveller No.001 ได้บ้านแล้ว",aClosed:"ปิดรับบิดแล้ว",aExt:"มีบิดนาทีท้าย เวลาปิดเลื่อนไปเป็น 15 นาทีหลังบิดนั้น",
       checkCount:"กำลังตรวจบิดนาทีสุดท้าย",checkLocal:"เวลาปิด <b>{t}</b> · เวลาของคุณ<br>ยังไม่ใช่ราคาสุดท้าย จนกว่าจะตรวจบิดนาทีท้ายเสร็จ",aCheck:"กำลังตรวจบิดนาทีสุดท้าย ยังไม่ใช่ราคาสุดท้าย",
       rules:'บิดเริ่ม $45 (฿1,530) · ตั๋ว Traveller $45 / Trader $350 / Homeward $600 / Stage $1,200 · กติกาเต็ม: <a href="../rules/#tickets-th" target="_blank" rel="noopener">Boarding rules</a> · จ่ายภายใน 48 ชม. · ถ้าผู้ชนะไม่จ่าย บิดถัดไปได้สิทธิ์ · ราคาจริงเป็น $ · จ่ายบาทใช้เรตตายตัว $1 = ฿34 ของรอบนี้',thb:true,loc:"th-TH"}};
-  var NO="001";function T(k){var v=TX[LANG][k];return typeof v==="string"&&NO!=="001"?v.split("No.001").join("No."+NO):v;}
+  var NO="001";function Y(){if(new Date().getTimezoneOffset()===-420)return "";var n=new Date(),d=new Date(Date.UTC(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate(),2,0)),t=d.toLocaleTimeString(LANG==="th"?"th-TH":[],{hour:"numeric",minute:"2-digit"}),prev=d.getDate()!==d.getUTCDate();return LANG==="th"?" (= "+t+(prev?" ของคืนก่อน":"")+" เวลาคุณ)":" ("+t.toLowerCase()+(prev?" the night before":"")+", your time)";}
+  function T(k){var v=TX[LANG][k];if(typeof v==="string"&&v.indexOf("{y}")>=0)v=v.replace("{y}",Y());return typeof v==="string"&&NO!=="001"?v.split("No.001").join("No."+NO):v;}
   /* sky colours come from assets/tokens.css (the literal is the fallback) */
   function tok(n,f){try{var v=getComputedStyle(document.documentElement).getPropertyValue(n).trim();return v||f;}catch(e){return f;}}
   var STAGES=[
@@ -271,8 +345,13 @@ html[lang="th"] .delta,html[lang="th"] .card h2,html[lang="th"] .stamp{font-fami
     var sn=soon(),st=STAGES[0];
     document.documentElement.setAttribute("data-sky","dusk");
     $("shift").textContent=T("shift")[0];setSky(st.sky);
-    $("count").textContent=sn?T("soonCount"):T("waitCount");$("count").style.fontSize="";$("count").classList.add("quiet");
-    $("local").innerHTML=sn?(STATE.opensAt?T("soonLocal").replace("{t}",fmtLocal(STATE.opensAt)):""):T("waitLocal");
+    document.documentElement.setAttribute("data-q",sn?"soon":"wait");
+    /* LAND r7 (Dell: one headline): "Bidding opens" + the date, big · the closing rule lives behind a link */
+    if(sn&&STATE.opensAt){var od=new Date(STATE.opensAt),wd="",hm="";try{wd=new Intl.DateTimeFormat(T("loc"),{weekday:"short",day:"numeric",month:"short"}).format(od);hm=new Intl.DateTimeFormat("en-GB",{hour:"2-digit",minute:"2-digit",hour12:false}).format(od);}catch(e){}
+      $("count").innerHTML=T("soonCount")+'<span class="when">'+wd+' · '+hm+'</span>';}
+    else $("count").textContent=sn?T("soonCount"):T("waitCount");
+    $("count").style.fontSize="";$("count").classList.add("quiet");
+    $("local").innerHTML=sn?(STATE.opensAt?T("soonLocal").replace("{t}",fmtLocal(STATE.opensAt)).replace("{y}",""):""):T("waitLocal");
     $("delta").textContent=sn?T("soonPhrase"):T("waitPhrase");
     $("banner").hidden=true;
     $("bid").innerHTML=STATE.currency+STATE.currentBid+(T("thb")?'<span class="thb">฿'+(STATE.currentBid*34).toLocaleString("th-TH")+'</span>':"");
@@ -294,7 +373,7 @@ html[lang="th"] .delta,html[lang="th"] .card h2,html[lang="th"] .stamp{font-fami
   var loaded=false;
   function steps(on){$("steps").hidden=!on;$("stepnote").hidden=!on;if(!on)return;var s=T("steps");
     [].forEach.call($("steps").children,function(li,i){li.textContent=s[i];});$("stepnote").textContent=T("stepnote");}
-  function render(){
+  function render(){if(loaded||DEMO)window.lhReady&&lhReady();document.documentElement.removeAttribute("data-q");
     if(!DEMO&&!loaded){$("count").textContent="…";$("local").textContent="";$("upd").textContent=lastLoadOk?"":T("fail");return;}
     if(soon()||waiting()){renderQuiet();return;}
     $("count").classList.remove("quiet");

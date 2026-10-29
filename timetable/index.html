@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en" data-veil-wait>
+<head><script src="../assets/veil.js"></script><script src="../assets/sound.js"></script>
+<meta charset="utf-8"><meta name="color-scheme" content="dark"><style>html{background:#0b1028}</style>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Timetable · littlehill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Reenie+Beanie&family=Special+Elite&family=Karla:wght@400;600&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+/* Timetable · "One night" (Dell 28 Oct: O + slim strip).
+   One season = one night on the hill (dusk → first light).
+   First screen tells three things: when the next train leaves · how far into the night we are · watch the newest stop.
+   Data: atlas/atlas.json (stops: outAt = UTC ISO · title null until it airs · url · optional img = episode frame · optional len "4:12")
+         + state.json / Firebase via live.js (auction line). Times always in the viewer's zone. No countdown, no fake dates. */
+:root{color-scheme:dark;--ink:#e8e4da;--muted:#b4bccb;--dim:#8e97ab;--lantern:#f2b45a;--paper:#ece6d6;--pink:#2a2620;--pmuted:#5d5545;--stamp:#8c2a33;--line:rgba(232,228,218,.12);
+ --hand:"Caveat","Sriracha",cursive;--pencil:"Reenie Beanie","Sriracha",cursive;--type:"Special Elite","IBM Plex Mono",monospace;--mono:"IBM Plex Mono",ui-monospace,monospace;--body:"Karla","IBM Plex Sans Thai",system-ui,sans-serif;--ease:cubic-bezier(.2,.7,.2,1)}
+html[lang="th"]{--hand:"Sriracha",cursive;--pencil:"Sriracha",cursive;--body:"IBM Plex Sans Thai","Karla",system-ui,sans-serif}
+html[lang="th"] .tt *{letter-spacing:0!important}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:#0d1230;color:var(--ink);font:16px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;transition:background-color 1s}
+html[data-phase="dawn"] body{background:#1a1838}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--lantern);outline-offset:3px;border-radius:4px}
+.tt{max-width:1120px;margin:0 auto;padding-bottom:20px}
+.tt-top{display:flex;justify-content:space-between;align-items:center;padding:18px 16px 0}
+.tt-brand{font:400 30px/1 "Reenie Beanie",cursive;color:var(--ink);text-decoration:none}
+.tt-lang{display:inline-flex;border:1px solid rgba(232,228,218,.25);border-radius:999px;padding:2px;background:rgba(18,26,46,.5)}
+.tt-lang button{border:0;background:none;color:var(--muted);font:500 .78rem var(--mono);padding:4px 10px;border-radius:999px;cursor:pointer}
+.tt-lang button[aria-pressed="true"]{background:var(--ink);color:#141a30}
+.tt-kick{margin:14px 16px 0;font:500 11px var(--mono);letter-spacing:.18em;color:var(--muted)}
+.tt h1{font:700 30px/1 var(--hand);margin:4px 16px 12px;color:var(--paper)}
+/* ① the next train — the one cream object */
+.tt-tk{position:relative;margin:0 16px;display:grid;grid-template-columns:1fr 74px;background:var(--paper);color:var(--pink);border-radius:10px;box-shadow:0 26px 40px -18px rgba(0,0,0,.85)}
+.tt-tk .m{padding:14px 16px 13px;min-width:0}
+.tt-tk .k{font:500 11px var(--mono);letter-spacing:.16em;color:var(--stamp)}
+.tt-flaps{display:flex;flex-wrap:wrap;gap:3px;margin:9px 0 7px}
+.tt-t{position:relative;display:inline-grid;place-items:center;width:27px;height:42px;border-radius:4px;background:linear-gradient(#2c3248 0 49%,#20253a 51%);font:400 27px/1 var(--type);color:#f6eedc;box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.tt-t.wd{width:auto;padding:0 7px;font:400 24px/1 "Sriracha",cursive}
+@media (min-width:900px){.tt-t{width:31px;height:46px;font-size:30px}}
+html[lang="th"] .tt-t{font-family:"Special Elite","Sriracha",monospace}
+.tt-t::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.7)}
+.tt-t.s{width:8px;background:none;box-shadow:none;color:var(--pink)}.tt-t.s::after{display:none}
+.tt-tk .w{font:400 15px/1.35 var(--type)}
+html[lang="th"] .tt-tk .w{font-family:var(--body)}
+.tt-tk .w b{font-weight:400;color:var(--stamp)}
+.tt-tk .stub{border-left:2px dashed rgba(42,38,32,.28);display:grid;place-items:center;text-align:center;font:500 10px var(--mono);letter-spacing:.12em;color:var(--pmuted)}
+.tt-tk .stub b{display:block;font:400 34px/1 var(--type);color:var(--stamp);letter-spacing:0}
+.tt-tk::before,.tt-tk::after{content:"";position:absolute;right:74px;width:16px;height:16px;border-radius:50%;background:#0d1230;transform:translateX(50%)}
+html[data-phase="dawn"] .tt-tk::before,html[data-phase="dawn"] .tt-tk::after{background:#1a1838}
+.tt-tk::before{top:-8px}.tt-tk::after{bottom:-8px}
+/* ② the night strip (small gimmick) */
+.tt-night{position:relative;height:58px;margin:14px 16px 0;border-radius:10px;overflow:hidden;background:var(--band)}
+.tt-night::after{content:"";position:absolute;left:0;right:0;bottom:21px;height:1px;background:rgba(232,228,218,.25)}
+.tt-night .fog{position:absolute;top:0;bottom:0;right:0;left:calc(100%*var(--fx)/16);background:linear-gradient(90deg,rgba(13,18,48,0),rgba(13,18,48,.5) 10%,rgba(13,18,48,.45) 75%,rgba(13,18,48,0))}
+.tt-night .nl{position:absolute;top:5px;font:400 15px var(--pencil);color:#d6d0e6}
+.tt-night .nl.l{left:10px}.tt-night .nl.r{right:10px;color:#f3e6d8}
+.tt-dot{position:absolute;bottom:18px;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#ece7dc;z-index:1}
+.tt-dot.f{background:#3a4166}
+.tt-lamp{position:absolute;bottom:13px;width:16px;height:16px;margin-left:-8px;border-radius:50%;z-index:2;background:radial-gradient(circle at 50% 55%,#fff3d8,#f8c873 55%,#c0782e);box-shadow:0 0 0 3px rgba(242,180,90,.22)}
+.tt-lamp::before{content:"";position:absolute;inset:-14px;border-radius:50%;background:radial-gradient(closest-side,rgba(242,180,90,.55),transparent);opacity:.8}
+@media (prefers-reduced-motion:no-preference){.tt-lamp::before{animation:ttglow 4.6s ease-in-out infinite}}
+@keyframes ttglow{0%,100%{opacity:.55;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
+.tt-now{position:absolute;bottom:31px;transform:translateX(-50%);font:500 9px var(--mono);letter-spacing:.14em;color:#ffd9a0;white-space:nowrap;z-index:2}
+.tt-now.edgeL{transform:none}.tt-now.edgeR{transform:translateX(-100%)}
+.tt-cap{display:flex;flex-wrap:wrap;row-gap:2px;justify-content:space-between;gap:10px;margin:8px 16px 0;font:500 11px var(--mono);letter-spacing:.06em;color:var(--muted)}
+.tt-cap b{color:var(--ink);font-weight:500}
+.tt-dl{margin:10px 16px 0;font:400 19px/1.15 var(--pencil);color:var(--muted)}
+html[lang="th"] .tt-dl{font-size:15px}
+/* ③ watch the newest stop + the rest */
+.tt h2{font:700 26px/1 var(--hand);color:var(--paper);margin:26px 16px 12px}
+.tt-big{margin:0 16px}
+.tt-win{display:block;text-decoration:none;color:inherit}
+.tt-win .fr{border-radius:32px 32px 10px 10px;padding:8px;background:#2e3456;box-shadow:0 0 0 2px #12162b,0 22px 36px -14px rgba(0,0,0,.85);transition:transform .2s var(--ease)}
+.tt-win:hover .fr{transform:translateY(-2px)}
+.tt-win .im{position:relative;aspect-ratio:16/9;border-radius:26px 26px 5px 5px;overflow:hidden;background:#1d2244 center/cover no-repeat}
+.tt-win .im::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.1),transparent 38%)}
+.tt-win .noimg{position:absolute;inset:0;display:grid;place-items:center;font:400 40px var(--type);color:rgba(232,228,218,.18)}
+.tt-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;background:rgba(11,16,40,.62);display:grid;place-items:center;color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+.tt-play svg{width:20px;height:20px;fill:#fff;margin-left:3px}
+.tt-new{position:absolute;left:14px;top:14px;font:500 10px var(--mono);letter-spacing:.14em;color:#1d1508;background:var(--lantern);border-radius:3px;padding:3px 7px}
+.tt-win .c{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:10px 4px 0}
+.tt-win .c b{font:700 24px/1.05 var(--hand);color:var(--paper);min-width:0}
+.tt-win .c small{font:500 11px var(--mono);letter-spacing:.08em;color:var(--muted);white-space:nowrap}
+.tt-list{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 16px}
+.tt-list .tt-win .fr{padding:5px;border-radius:18px 18px 7px 7px}
+.tt-list .tt-win .im{border-radius:14px 14px 3px 3px}
+.tt-list .tt-win .noimg{font-size:20px}
+.tt-list .tt-win .c{flex-direction:column;gap:0;padding:6px 2px 0}.tt-list .tt-win .c b{font-size:17px}.tt-list .tt-win .c small{font-size:9.5px}
+.tt-win.fog .fr{background:none;box-shadow:none;border:1.5px dashed rgba(232,228,218,.22)}
+.tt-win.fog .im{background:radial-gradient(60% 50% at 50% 55%,rgba(143,161,184,.2),transparent)}
+.tt-win.fog .c b{color:var(--dim)}
+.tt-empty{margin:0 16px;padding:22px 18px;border-radius:14px;border:1.5px dashed rgba(232,228,218,.22);text-align:center}
+.tt-empty b{display:block;font:700 26px/1.1 var(--hand);color:var(--paper)}
+.tt-empty span{font-size:14px;color:var(--muted)}
+/* ④ small print rows */
+.tt-rows{margin:30px 16px 0}
+.tt-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--line);font-size:14px;color:var(--muted);text-decoration:none}
+.tt-row:last-child{border-bottom:1px solid var(--line)}
+.tt-row b{color:var(--ink);font-weight:600}
+.tt-row .go{font:500 11px var(--mono);letter-spacing:.1em;color:var(--lantern);white-space:nowrap}
+.tt-row.hot b{color:#ffd9a0}.tt-row.hot .go{color:#1d1508;background:var(--lantern);padding:6px 12px;border-radius:999px}
+.tt-row .go.dim{color:var(--dim)}
+/* preview-only demo chips (never on the real site) */
+.tt-demo{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 16px 0;font:500 10px var(--mono);color:var(--lantern)}
+.tt-demo button{font:inherit;color:var(--ink);background:rgba(0,0,0,.25);border:1px solid rgba(242,180,90,.4);border-radius:999px;padding:3px 9px;cursor:pointer}
+.tt-demo button[aria-pressed="true"]{background:var(--lantern);color:#1a1408}
+@media (min-width:900px){
+ .tt-top{padding:22px 40px 0}.tt-kick,.tt h1{margin-left:40px}
+ .tt-g1{display:grid;grid-template-columns:420px 1fr;gap:40px;align-items:center;margin:0 40px}
+ .tt-g1 .tt-tk{margin:0}.tt-g1 .tt-dl{margin:0;font-size:26px}
+ .tt-night{height:70px;margin:22px 40px 0}.tt-cap{margin:10px 40px 0}
+ .tt-g2{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;margin:0 40px}
+ .tt-g2 h2{margin-left:0}.tt-g2 .tt-big,.tt-g2 .tt-list,.tt-g2 .tt-empty{margin:0}
+ .tt-list{grid-template-columns:1fr 1fr}
+ .tt-rows{margin:34px 40px 0}.tt-demo{margin-left:40px}
+ .tt-dl.m{display:none}
+}
+@media (max-width:899px){.tt-g1 .tt-dl{display:none}}
+@media (max-width:420px){.tt-t{width:25px;height:40px;font-size:25px}.tt-t.wd{font-size:21px}.tt-kick{display:none}.tt h1{margin-top:14px}}
+.tt-big .tt-play~.noimg,.tt-big .noimg{display:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<style>/* r10b (Dell: empty cream box showed first): the page body waits for the data, then rises */
+/* r10c (Dell: two beats — empty page with only the footer icons, then everything): the whole page appears in one beat */
+html:not(.tt-ready) body>*:not(.lh-nav):not(script){opacity:0}html.tt-ready body>*{transition:opacity .4s ease}</style>
+<link rel="stylesheet" href="../assets/head.css">
+</head>
+<body>
+<main class="tt" id="tt">
+ <div class="tt-top lh-head"><a class="tt-brand lh-logo" href="../?in=1">littlehill</a><span class="lh-tr"><button type="button" class="lh-snd" aria-label="Sound" aria-pressed="false"></button><span class="tt-lang lh-lang" role="group" aria-label="Language"><button data-l="en">EN</button><button data-l="th">ไทย</button></span></span></div><script>/* r12b: logo + buttons hang from the page corners (same spot as the home page, phone and desktop) */(function(){var b=document.body;[].forEach.call(document.querySelectorAll(".lh-head .lh-logo,.lh-head .lh-tr"),function(e){b.appendChild(e);e.classList.add("lh-top");});})();</script>
+ <div id="demo"></div>
+ <div class="tt-kick" id="kick">THE NIGHT LINE · SEASON ONE</div>
+ <h1 id="h1">Timetable</h1>
+ <div class="tt-g1">
+  <section class="tt-tk" id="tk" aria-live="polite"><div class="m"><div class="k" id="tkK"></div><div class="tt-flaps" id="fl" aria-hidden="true"></div><div class="w" id="tkW"></div><span class="sr" id="tkSR" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"></span></div><div class="stub" id="stub"></div></section>
+  <p class="tt-dl" id="dlD"></p>
+ </div>
+ <div class="tt-night" id="night" aria-hidden="true"><div class="fog"></div><span class="nl l" id="nl1"></span><span class="nl r" id="nl2"></span><div id="pts"></div></div>
+ <div class="tt-cap"><span><b id="c1"></b></span><span id="c2"></span></div>
+ <div class="tt-g2"><div id="col1"></div><div id="col2"></div></div>
+ <div class="tt-rows" id="rows"></div>
+ <footer></footer>
+</main>
+<nav class="lh-nav" aria-label="littlehill"><a data-k="traveller" href="../traveller/001/">Travellers</a><a data-k="auction" href="../auction/">Auction</a><a data-k="rules" href="../rules/">Rules</a><a data-k="timetable" href="../timetable/">Timetable</a></nav>
+<script src="../assets/live.js"></script>
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion: reduce)').matches,LANG='en',ATLAS=null,STATE=null,NOW=Date.now(),demo=null;
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}}
+var $=function(i){return document.getElementById(i);};
+var W={en:{kick:'THE NIGHT LINE · SEASON ONE',h1:'Timetable',next:'NEXT TRAIN · ADMIT ONE',arrived:'THE TRAIN HAS ARRIVED',dawn:'DAWN',over:'Season one is over. Season two: <b>soon</b>',soonK:'NEXT TRAIN',soonT:'Date coming soon',stop:'STOP',your:'your time',
+  dl:'The train comes when it comes. Mostly on time. —D.',dlEnd:'That was the whole night. Thank you for riding. —D.',dusk:'dusk',light:'first light',one:'One season is one night.',passed:'{n} OF 16 STOPS PASSED',all:'ALL 16 STOPS PASSED',
+  tNext:'NEXT',tTonight:'TONIGHT',tArr:'ARRIVED',watch:'Watch the newest stop',newT:'NEW · STOP ',stops:'Stops tonight',every:'Every stop',none:'Nothing has left yet',first:'The first train leaves {d}',firstS:'Episode 1 · {t} your time · on YouTube',firstNo:'The first date is posted here first.',
+  aucSoon:'<b>Auction · No.{no}</b> opens {d}',aucOpen:'<b>Bidding is open · No.{no}</b> until {d}',aucCheck:'<b>No.{no}</b> · checking last-minute bids',aucClosed:'<b>No.{no}</b> · bidding closed',aucSold:'<b>No.{no}</b> found a home.',see:'SEE →',bid:'BID →',
+  mapRow:"<b>After stop 16</b> the whole night gets its own page.",later:'LATER',wrapRow:'<b>Season one</b> · the whole night, in one page.',open:'OPEN →',s2:'<b>Season two</b> · the line keeps going.',soon:'SOON',untitled:'Stop {n}',fogT:'· · ·',tonight:'tonight',tomorrow:'tomorrow'},
+ th:{kick:'รถไฟสายกลางคืน · ซีซันหนึ่ง',h1:'ตารางเดินรถ',next:'ขบวนถัดไป',arrived:'รถไฟถึงปลายทางแล้ว',dawn:'DAWN',over:'ซีซันหนึ่งจบแล้ว · ซีซันสอง: <b>เร็ว ๆ นี้</b>',soonK:'ขบวนถัดไป',soonT:'ประกาศวันเร็ว ๆ นี้',stop:'สถานี',your:'เวลาของคุณ',
+  dl:'รถไฟมาเมื่อมันมา ส่วนใหญ่ก็ตรงเวลา —D.',dlEnd:'นั่นคือทั้งคืนแล้ว ขอบคุณที่นั่งมาด้วยกัน —D.',dusk:'หัวค่ำ',light:'แสงแรก',one:'หนึ่งซีซัน คือหนึ่งคืน',passed:'ผ่านแล้ว {n} จาก 16 สถานี',all:'ผ่านครบ 16 สถานี',
+  tNext:'ถัดไป',tTonight:'คืนนี้',tArr:'ถึงแล้ว',watch:'ดูตอนล่าสุด',newT:'ใหม่ · สถานี ',stops:'สถานีคืนนี้',every:'ทุกสถานี',none:'ยังไม่มีขบวนออก',first:'ขบวนแรกออก {d}',firstS:'ตอนที่ 1 · {t} เวลาของคุณ · บน YouTube',firstNo:'วันแรกจะประกาศที่นี่ก่อน',
+  aucSoon:'<b>ประมูล · No.{no}</b> เปิด {d}',aucOpen:'<b>เปิดบิดอยู่ · No.{no}</b> ถึง {d}',aucCheck:'<b>No.{no}</b> · กำลังตรวจบิดนาทีสุดท้าย',aucClosed:'<b>No.{no}</b> · ปิดรับบิดแล้ว',aucSold:'<b>No.{no}</b> ได้บ้านแล้ว',see:'ดู →',bid:'ไปบิด →',
+  mapRow:'<b>หลังสถานี 16</b> ทั้งคืนจะมีหน้าของตัวเอง',later:'ทีหลัง',wrapRow:'<b>ซีซันหนึ่ง</b> · ทั้งคืนในหน้าเดียว',open:'เปิด →',s2:'<b>ซีซันสอง</b> · เส้นทางยังไปต่อ',soon:'เร็ว ๆ นี้',untitled:'สถานี {n}',fogT:'· · ·',tonight:'คืนนี้',tomorrow:'พรุ่งนี้'}};
+function T(k,o){var s=(W[LANG]&&W[LANG][k]!=null)?W[LANG][k]:W.en[k];for(var p in o)s=s.split('{'+p+'}').join(o[p]);return s;}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+var loc=function(){return LANG==='th'?'th-TH':'en-GB';};
+function dayShort(d){try{var s=new Intl.DateTimeFormat(loc(),{weekday:'short'}).format(d);return LANG==='th'?s:s.toUpperCase().slice(0,3);}catch(e){return '';}}
+function hm(d){try{return new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false}).format(d);}catch(e){return '';}}
+function dShort(d){try{return new Intl.DateTimeFormat(loc(),{day:'numeric',month:'short'}).format(d);}catch(e){return '';}}
+function dLong(d){try{return new Intl.DateTimeFormat(loc(),{weekday:'short',day:'numeric',month:'short',hour:'numeric',minute:'2-digit'}).format(d);}catch(e){return d.toUTCString();}}
+function relDay(d){var a=new Date(NOW),b=new Date(d);a.setHours(0,0,0,0);b.setHours(0,0,0,0);var n=Math.round((b-a)/864e5);
+  if(n===0)return T('tonight');if(n===1)return T('tomorrow');try{return new Intl.RelativeTimeFormat(LANG==='th'?'th':'en',{numeric:'auto'}).format(n,'day');}catch(e){return '';}}
+function sameDay(d){var a=new Date(NOW),b=new Date(d);return a.toDateString()===b.toDateString();}
+function aired(s){return s.outAt&&new Date(s.outAt).getTime()<=NOW;}
+function nn(i){return String(i).padStart(2,'0');}
+var BANDS=['linear-gradient(90deg,#6a4a7a 0%,#3a3068 20%,#141c48 55%,#121a40 85%,#2a2c52 100%)','linear-gradient(90deg,#5b3f6e 0%,#2b2a5e 18%,#121a44 50%,#18234e 80%,#5a5878 96%,#8d7f8a 100%)',
+ 'linear-gradient(90deg,#4a3a6a 0%,#22285a 15%,#121a44 45%,#1c2852 75%,#6a6080 94%,#a08a8a 100%)','linear-gradient(90deg,#3a3a6a 0%,#3a3e70 30%,#4a4a7a 55%,#8a7086 80%,#d8a888 100%)','linear-gradient(90deg,#3a3a6a 0%,#2a3a6a 30%,#5a5a82 60%,#b08a86 85%,#e8b890 100%)'];
+var PLAY='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>';
+/* split-flap: tiles settle once into the real value */
+function flaps(el,str,day){var ch=str.split('');el.innerHTML=(day?'<i class="tt-t wd">'+esc(day)+'</i><i class="tt-t s"></i>':'')+ch.map(function(c){return c===' '?'<i class="tt-t s"></i>':c===':'?'<i class="tt-t s">:</i>':'<i class="tt-t">'+esc(c)+'</i>';}).join('');
+  if(RM||flaps.done===str)return;flaps.done=str;var tiles=[].slice.call(el.querySelectorAll('.tt-t:not(.s):not(.wd)')),POOL='ABCDEFGHJKLMNOPRSTUVWXYZ0123456789',k=0;
+  var iv=setInterval(function(){k++;tiles.forEach(function(t,i){var target=ch.filter(function(c){return c!==' '&&c!==':';})[i];if(k>4+i*1.4){t.textContent=target;}else t.textContent=/[0-9]/.test(target)?String(Math.floor(Math.random()*10)):POOL[Math.floor(Math.random()*24)];});
+    if(k>6+tiles.length*1.4){clearInterval(iv);tiles.forEach(function(t,i){t.textContent=ch.filter(function(c){return c!==' '&&c!==':';})[i];});}},55);}
+function win(s,big,isNew){var p=aired(s),tag=p&&s.url?'a':'div',img=p&&s.img?' style="background-image:url(\''+esc(s.img)+'\')"':'';
+  var title=p?(s.title?(s.title[LANG]||s.title.en):T('untitled',{n:nn(s.ep)})):T('fogT');
+  var meta=p?(big?(s.outAt?dShort(new Date(s.outAt)).toUpperCase():'')+(s.len?' · '+esc(s.len):''):nn(s.ep)):nn(s.ep)+(s.outAt?' · '+dShort(new Date(s.outAt)).toUpperCase():'');
+  return '<'+tag+' class="tt-win'+(p?'':' fog')+'"'+(tag==='a'?' href="'+esc(s.url)+'" target="_blank" rel="noopener"':'')+'><div class="fr"><div class="im"'+img+'>'+(p&&!s.img?'<span class="noimg">'+nn(s.ep)+'</span>':'')+
+   (isNew?'<span class="tt-new">'+T('newT')+nn(s.ep)+'</span>':'')+(big&&p&&s.url?'<span class="tt-play">'+PLAY+'</span>':'')+'</div></div><div class="c"><b>'+esc(title)+'</b><small>'+meta+'</small></div></'+tag+'>';}
+function render(){if(ATLAS){window.lhReady&&lhReady();document.documentElement.classList.add("tt-ready");} /* r12c: the first render runs before the data — it used to unveil the empty ticket */if(ATLAS&&!window._ttFl){window._ttFl=1;setTimeout(function(){window.lhSound&&lhSound.play("flap",{n:10});},250);}
+  document.documentElement.lang=LANG;document.title=T('h1')+' · littlehill';
+  [].forEach.call(document.querySelectorAll('.tt-lang button'),function(b){b.setAttribute('aria-pressed',b.dataset.l===LANG?'true':'false');});
+  $('kick').textContent=T('kick');$('h1').textContent=T('h1');
+  if(!ATLAS)return;var S=ATLAS.stops||[],passed=S.filter(aired).length,nxt=null;
+  for(var i=0;i<S.length;i++){if(!aired(S[i])){nxt=S[i];break;}}
+  var end=passed>=16,phase=end?4:Math.min(3,Math.floor(passed/4)),A=(STATE&&STATE.auction)||{};
+  document.documentElement.dataset.phase=end?'dawn':'night';
+  /* ① ticket */
+  if(end){$('tkK').textContent=T('arrived');flaps($('fl'),T('dawn'));$('tkW').innerHTML=T('over');$('stub').innerHTML='<span>'+T('stop')+'<b>16</b></span>';}
+  else if(nxt&&nxt.outAt){var d=new Date(nxt.outAt);$('tkK').textContent=T('next');if(LANG==='th')flaps($('fl'),hm(d),['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'][d.getDay()]);else flaps($('fl'),dayShort(d)+' '+hm(d));
+    $('tkW').innerHTML=esc(dShort(d))+' · '+T('your')+' · <b>'+esc(relDay(d))+'</b>';$('stub').innerHTML='<span>'+T('stop')+'<b>'+nn(nxt.ep)+'</b></span>';
+    $('tkSR').textContent=T('next')+': '+dLong(d);}
+  else{$('tkK').textContent=T('soonK');$('fl').innerHTML='';flaps.done=null;$('tkW').innerHTML=T('soonT');$('stub').innerHTML=nxt?'<span>'+T('stop')+'<b>'+nn(nxt.ep)+'</b></span>':'';}
+  var dl=end?T('dlEnd'):T('dl');$('dlD').textContent=dl;
+  /* ② strip */
+  var n=$('night');n.style.setProperty('--band',BANDS[phase]);var lampAt=end?16:(nxt?nxt.ep:16);n.style.setProperty('--fx',end?16:lampAt);
+  $('nl1').textContent=T('dusk');$('nl2').textContent=T('light');
+  var h='';for(var k=1;k<=16;k++){var x='calc(100% * '+((k-.5)/16).toFixed(4)+')';
+    if(k===lampAt){h+='<i class="tt-lamp" style="left:'+x+'"></i><span class="tt-now'+(k===1?' edgeL':k===16?' edgeR':'')+'" style="left:'+(k===1?'6px':k===16?'calc(100% - 6px)':x)+'">'+(end?T('tArr'):nxt&&nxt.outAt&&sameDay(nxt.outAt)?T('tTonight'):T('tNext'))+'</span>';continue;}
+    h+='<i class="tt-dot'+(k>passed?' f':'')+'" style="left:'+x+'"></i>';}
+  $('pts').innerHTML=h;$('nl1').style.visibility=lampAt<=3?'hidden':'';$('nl2').style.visibility=lampAt>=14?'hidden':'';$('c1').textContent=T('one');$('c2').textContent=end?T('all'):T('passed',{n:passed});
+  /* ③ */
+  var c1='',c2='';
+  if(passed===0){var f=S[0]&&S[0].outAt?new Date(S[0].outAt):null;c1='<h2>'+T('none')+'</h2><div class="tt-empty"><b>'+(f?T('first',{d:esc(dayShort(f)+' '+dShort(f))}):T('soonT'))+'</b><span>'+(f?T('firstS',{t:hm(f)}):T('firstNo'))+'</span></div>';}
+  else{var newest=S.filter(aired).slice(-1)[0];c1='<h2>'+T('watch')+'</h2><div class="tt-big">'+win(newest,true,!end)+'</div>';}
+  c1+='<p class="tt-dl m">'+esc(dl)+'</p>';
+  var list=[];if(end){list=S.slice(0,15).reverse();}else{S.forEach(function(s){if(aired(s)&&s!==S.filter(aired).slice(-1)[0])list.unshift(s);});var ahead=S.filter(function(s){return !aired(s);}).slice(0,passed===0?3:2);list=list.slice(0,passed===0?0:4).concat(ahead);}
+  if(list.length)c2='<h2>'+(end?T('every'):T('stops'))+'</h2><div class="tt-list">'+list.map(function(s){return win(s,false,false);}).join('')+'</div>';
+  $('col1').innerHTML=c1;$('col2').innerHTML=c2;
+  /* ④ rows */
+  var r='',no=esc(A.no||'001'),st=A.status||'';
+  if(st==='open'||st==='extended'){var ca=A.closeAt?new Date(A.closeAt):null,past=ca&&ca.getTime()<=NOW;r+='<a class="tt-row hot" href="../auction/"><span>'+(past?T('aucCheck',{no:no}):T('aucOpen',{no:no,d:ca?esc(dLong(ca)):''}))+'</span><span class="go">'+T('bid')+'</span></a>';}
+  else if(st==='closed'||st==='waiting')r+='<a class="tt-row" href="../auction/"><span>'+T('aucClosed',{no:no})+'</span><span class="go">'+T('see')+'</span></a>';
+  else if(st==='sold')r+='<a class="tt-row" href="../traveller/'+no+'/"><span>'+T('aucSold',{no:no})+'</span><span class="go">'+T('see')+'</span></a>';
+  else if(A.opensAt)r+='<a class="tt-row" href="../auction/"><span>'+T('aucSoon',{no:no,d:esc(dLong(new Date(A.opensAt)))})+'</span><span class="go">'+T('see')+'</span></a>';
+  var wrapOn=STATE&&STATE.pages&&STATE.pages.season1===true;
+  if(end&&wrapOn)r+='<a class="tt-row" href="../season/1/"><span>'+T('wrapRow')+'</span><span class="go">'+T('open')+'</span></a>';
+  else if(!end)r+='<div class="tt-row"><span>'+T('mapRow')+'</span><span class="go dim">'+T('later')+'</span></div>';
+  if(end)r+='<div class="tt-row"><span>'+T('s2')+'</span><span class="go dim">'+T('soon')+'</span></div>';
+  $('rows').innerHTML=r;
+}
+/* preview-only: sample nights to try every state (window.LH_PREVIEW is set only by the private preview) */
+function sample(mode){var base=Date.UTC(2026,10,30,13),S=[],aired={pre:0,mid:2,auc:4,end:16}[mode],off={pre:-3,mid:2,auc:4,end:20}[mode];
+  for(var i=1;i<=16;i++){var out=i<=6||mode==='end'?new Date(base+(i-1)*864e5).toISOString():null;S.push({ep:i,stop:'Stop '+nn(i),outAt:out,title:i<=aired?{en:'[sample title '+i+']',th:'[ชื่อตอนตัวอย่าง '+i+']'}:null,url:i<=aired?'https://www.youtube.com/':null,len:i<=aired?'4:1'+(i%10):null});}
+  NOW=base+(off-.5)*864e5+(mode==='auc'?14*36e5:0);
+  var A={pre:{status:'soon',no:'001',opensAt:new Date(base+3*864e5).toISOString()},mid:{status:'soon',no:'001',opensAt:new Date(base+3*864e5).toISOString()},auc:{status:'open',no:'001',closeAt:new Date(base+6*864e5-11*36e5).toISOString()},end:{status:'sold',no:'001'}}[mode];
+  return {atlas:{stops:S},state:{auction:A,pages:{season1:mode==='end'}}};}
+function demoBar(){if(!window.LH_PREVIEW)return;var d=$('demo');d.className='tt-demo';d.innerHTML='PREVIEW · sample states → '+['pre','mid','auc','end'].map(function(m){return '<button data-m="'+m+'">'+{pre:'before ep1',mid:'ep2 aired',auc:'auction open',end:'season over'}[m]+'</button>';}).join('')+'<button data-m="real">real data</button>';
+  [].forEach.call(d.querySelectorAll('button'),function(b){b.onclick=function(){demo=b.dataset.m;[].forEach.call(d.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+    if(demo==='real'){NOW=Date.now();ATLAS=REAL.atlas;STATE=REAL.state;}else{var s=sample(demo);ATLAS=s.atlas;STATE=s.state;}flaps.done=null;render();};});}
+var REAL={atlas:null,state:null};
+[].forEach.call(document.querySelectorAll('.tt-lang button'),function(b){b.onclick=function(){LANG=b.dataset.l;store('lh-lang',LANG);flaps.done=null;render();};});
+LANG=store('lh-lang')==='th'?'th':'en';render();demoBar();
+function getJ(u){return fetch(u,{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();});}
+var getState=function(){return window.lhLive?lhLive.get('../state.json?t='+Date.now()):getJ('../state.json?t='+Date.now());};
+Promise.all([getJ('../atlas/atlas.json?t='+Date.now()).catch(function(){return {stops:[]};}),getState().catch(function(){return null;})]).then(function(r){REAL.atlas=r[0];REAL.state=r[1];
+  if(window.LH_PREVIEW&&!r[0].stops.some(function(s){return s.outAt;})){var b=document.querySelector('#demo button[data-m="mid"]');if(b){b.click();return;}}
+  ATLAS=r[0];STATE=r[1];render();});
+setInterval(function(){if(demo&&demo!=='real')return;NOW=Date.now();getState().then(function(s){STATE=s;REAL.state=s;render();},function(){});},60000);
+})();
+</script>
+<script src="../assets/nav.js" data-root="../" data-page="timetable" defer></script>
+</body>
+</html>

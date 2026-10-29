@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
+<head><script src="../assets/veil.js"></script><script src="../assets/sound.js"></script>
+<meta charset="utf-8"><meta name="color-scheme" content="dark"><style>html{background:#0b1028}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <title>Boarding Rules</title>
@@ -15,6 +15,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23141c30%27/%3E%3Crect x=%2712%27 y=%279%27 width=%278%27 height=%2713%27 rx=%272%27 fill=%27%23f2b45a%27/%3E%3Crect x=%2714%27 y=%276%27 width=%274%27 height=%273%27 fill=%27%23e8e4da%27/%3E%3Crect x=%2711%27 y=%2722%27 width=%2710%27 height=%272%27 fill=%27%23e8e4da%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400;600&family=Karla:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&family=Special+Elite&display=swap">
 <link rel="stylesheet" href="../assets/tokens.css">
 <style>
 /* littlehill · Boarding rules (prototype 21 Oct 2026)
@@ -139,14 +140,332 @@ header .lamp{right:auto;left:min(55%,520px)}
 .thnote{font-size:13px;color:var(--night-muted);margin:14px 0 0;max-width:40em}
 </style>
 <link rel="stylesheet" href="../assets/site.css">
+<style>
+/* ===== H3 thin layer: the rules are one notice pinned up at the station · same sky + rail menu as the homepage ===== */
+:root{--font-hand:"Reenie Beanie","Caveat",cursive;--font-type:"Special Elite","IBM Plex Mono",monospace;--glow:#ffd38a;--pin:#8c2a33}
+[data-lang="th"]{--font-hand:"Sriracha","Caveat",cursive}
+html{background:#0b1028}
+body{background:linear-gradient(180deg,#4a3468 0,#2a2a5a 220px,#141a3e 520px,#0b1028 900px) #0b1028 no-repeat;padding-bottom:96px}
+body::before{background:#0b1028}
+/* top: brand only (menu moves to the bottom rail) */
+html body .lh-bar{background:transparent;padding-top:16px}
+html body .lh-bar .lh-home{font:400 clamp(2.2rem,5vw,2.8rem)/1 "Reenie Beanie",cursive;color:#ece7dc}
+header{background:transparent;padding:6px 0 30px;overflow:visible;position:relative;z-index:3}
+html body .lh-bar{position:relative;z-index:1}
+.kicker,.t-class,h2 .no,.pass,.mk.pass{font-family:var(--font-type);font-weight:400}
+h1{font:400 clamp(3.2rem,11vw,4.6rem)/.95 var(--font-hand);margin:12px 0 10px}
+[data-lang="th"] h1{font-size:clamp(2.2rem,8vw,3.2rem)}
+.delta{font:400 clamp(1.7rem,6vw,2.1rem)/1.1 var(--font-hand);color:#ffd9a0}
+.delta small{font-family:var(--font-type)}
+.lede{color:rgba(236,231,220,.86)}
+.lang{top:-50px;z-index:4}
+header .lamp{background:var(--glow)}
+@media (max-width:520px){header .lamp{left:auto;right:96px;top:-34px}}
+/* chips: typewriter labels on the night, above the notice */
+nav.toc{background:rgba(11,16,40,.86);border-bottom:0;backdrop-filter:blur(6px)}
+nav.toc a{font:400 12px var(--font-type);letter-spacing:.06em;color:#ece7dc;background:transparent;border-color:rgba(236,231,220,.28)}
+nav.toc a:hover,nav.toc a:focus-visible{border-color:var(--glow);color:#ffd9a0}
+[data-lang="th"] nav.toc a{font-family:"IBM Plex Sans Thai",var(--font-type);letter-spacing:0}
+/* the notice: one cream sheet, pinned */
+main.wrap{position:relative;max-width:800px;background:var(--ground);border-radius:3px;box-shadow:0 30px 70px rgba(0,0,0,.55);margin:18px auto 0;padding:10px clamp(16px,4vw,40px) 4px}
+main.wrap::before{content:"";position:absolute;left:50%;top:-9px;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#c4505b,var(--pin) 60%,#5e1a22);box-shadow:0 4px 8px rgba(0,0,0,.45)}
+@media (max-width:840px){main.wrap{margin-left:10px;margin-right:10px}}
+h2{font:400 clamp(2.2rem,7vw,2.6rem)/1 var(--font-hand)}
+.t-title{font:400 2.2rem/1 var(--font-hand)}
+.t-price{font-family:var(--font-type);font-weight:400}
+.fact b{font-family:var(--font-type);font-weight:400}
+.stamp{font-family:var(--font-type);font-weight:400;border-color:var(--pin);color:var(--pin)}
+footer .hand{font:400 1.8rem var(--font-hand)}
+[data-lang="th"] h2,[data-lang="th"] .t-title{font-size:1.9rem}
+/* ticket notches match the auction ticket (paper colour of the notice) */
+.ticket::before,.ticket::after{background:var(--ground)}
+/* bottom rail menu (same as homepage) · hides while you read down, comes back when you scroll up */
+html body .lh-bar .lh-nav{position:fixed;left:0;right:0;bottom:0;z-index:20;margin:0;height:calc(66px + env(safe-area-inset-bottom));display:flex;justify-content:center;align-items:flex-start;gap:clamp(14px,6vw,60px);padding:15px 0 0;background:linear-gradient(transparent,rgba(5,8,18,.88) 40%);flex-wrap:nowrap;color:#ece7dc;transition:transform .35s ease}
+html body .lh-bar .lh-nav.away{transform:translateY(100%)}
+html body .lh-nav::before{content:"";position:absolute;left:50%;top:18.5px;width:min(84vw,560px);height:1.2px;transform:translateX(-50%);background:rgba(242,180,90,.45)}
+html body .lh-nav a{position:relative;display:flex;flex-direction:column;align-items:center;gap:9px;font:400 .62rem var(--font-type);letter-spacing:.16em;text-transform:uppercase;color:#ece7dc;opacity:1;text-decoration:none;padding:0 2px;border:0;white-space:nowrap}
+html body .lh-nav a::before{content:"";width:7px;height:7px;border-radius:50%;background:#ece7dc}
+html body .lh-nav a[aria-current="page"]{color:#ffd9a0}
+html body .lh-nav a[aria-current="page"]::before{background:var(--glow);box-shadow:0 0 0 4px rgba(245,154,62,.25),0 0 18px 6px rgba(245,154,62,.45)}
+html body .lh-nav a[hidden]{display:none}
+html[lang="th"] body .lh-nav a{font-family:"IBM Plex Sans Thai",var(--font-type);letter-spacing:.06em;font-size:.72rem}
+@media (prefers-reduced-motion:reduce){html body .lh-bar .lh-nav{transition:none}}
+</style>
+<style>
+/* ===== notice board ===== */
+:root{--paper2:#f4efe2;--pi:#2a2620;--pm:#6a604f;--green:#2f6b4a}
+header{text-align:center;padding-bottom:0}
+header .lede{margin:0 auto;max-width:36em;font-size:15px}
+header .delta,header .lamp{display:none}
+header .kicker{display:none}
+h1{margin-top:0}
+.lhb-lamp{display:flex;justify-content:center;height:64px;margin-top:-210px;margin-bottom:146px;pointer-events:none}
+.lhb-lamp svg{width:44px;height:64px;overflow:visible}
+.lhb-sub{text-align:center;margin:26px 0 0;font:400 .52rem "Special Elite",monospace;letter-spacing:.24em;color:rgba(236,231,220,.45)}
+[data-lang="th"] .lhb-sub{font-family:"IBM Plex Sans Thai",sans-serif;font-size:.72rem;letter-spacing:.06em}
+.lhb{position:relative;margin:14px 10px 0;border-radius:6px;padding:30px 16px 32px;
+ background:radial-gradient(70% 55% at 50% 0,rgba(255,211,138,.20),transparent 70%),linear-gradient(180deg,#1d2448,#151b38);
+ box-shadow:inset 0 0 0 5px #2a2238,inset 0 0 0 7px rgba(255,211,138,.08),inset 0 0 60px rgba(0,0,0,.55),0 24px 60px rgba(0,0,0,.5)}
+.lhb:before{content:"";position:absolute;inset:0;border-radius:6px;opacity:.35;mix-blend-mode:overlay;pointer-events:none;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.02 .6' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.lhb-grid{position:relative;display:flex;flex-direction:column;gap:26px}
+.lhb-col{display:contents}
+.a-tk{order:1}.a-au{order:2}.a-en{order:3}.a-rt{order:4}.a-pol{order:5;width:64%;align-self:center}.a-sp{order:6}.a-dn{order:7;align-self:center;width:84%}
+@media (min-width:900px){.lhb{max-width:1120px;margin:16px auto 0;width:calc(100% - 120px);padding:40px 40px 46px}
+ .lhb-grid{display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:start;gap:30px}
+ .lhb-col{display:flex;flex-direction:column;gap:30px}.a-pol{width:60%}.a-sp{margin-top:6px}}
+.lhb-open{cursor:pointer;outline:none}
+.lhb-open:focus-visible{outline:2px solid #ffd38a;outline-offset:6px}
+.lhb .p{position:relative;background:var(--card);color:var(--pi);box-shadow:0 14px 28px rgba(0,0,0,.55);transform:rotate(var(--r,0deg));transition:transform .25s}
+.lhb .lhb-open:hover,.lhb .lhb-open:focus-visible{transform:rotate(0) translateY(-3px)}
+@media (prefers-reduced-motion:reduce){.lhb .p,.lhb .tk{transition:none}}
+.lhb .pin{position:absolute;left:50%;top:-7px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#c4505b,#8c2a33 60%,#5e1a22);box-shadow:0 3px 6px rgba(0,0,0,.5);z-index:2}
+.lhb .tape{position:absolute;left:50%;top:-9px;width:60px;height:17px;margin-left:-30px;background:rgba(236,220,170,.62);transform:rotate(-3deg);z-index:2}
+.lhb .no{font:400 .5rem "Special Elite",monospace;letter-spacing:.22em;color:var(--pm)}
+.lhb .no.lt{color:rgba(236,231,220,.7);margin-bottom:8px}
+.lhb .h{font:400 1.95rem/1 var(--font-hand);margin-top:2px}
+.lhb .t{font:400 .7rem/1.45 "Special Elite",monospace}
+.lhb .b{font:500 .8rem/1.45 var(--font-body);margin-top:10px}
+.lhb .big{font:400 1.3rem/1 "Special Elite",monospace}
+.lhb .more{font:400 .55rem "Special Elite",monospace;letter-spacing:.16em;color:#8c2a33;margin-top:10px}
+[data-lang="th"] .lhb .no,[data-lang="th"] .lhb .more,[data-lang="th"] .lhb .t{font-family:"IBM Plex Sans Thai",sans-serif;letter-spacing:.04em}
+[data-lang="th"] .lhb .no{font-size:.66rem}[data-lang="th"] .lhb .more{font-size:.7rem}[data-lang="th"] .lhb .t{font-size:.78rem}
+[data-lang="th"] .lhb .h{font-size:1.6rem;line-height:1.2}
+.lhb .tk{color:var(--pi);display:grid;grid-template-columns:1fr 92px;margin-top:-6px;background:var(--card);box-shadow:0 8px 16px rgba(0,0,0,.45);transform:rotate(var(--r));transition:transform .25s}
+.lhb .tk:first-of-type,.lhb .no+.tk{margin-top:0}
+.lhb .a-tk:hover .tk,.lhb .a-tk:focus-visible .tk{transform:rotate(0)}
+.lhb .tk>div:first-child{padding:8px 12px}
+.lhb .tk .k{font:400 .5rem "Special Elite",monospace;letter-spacing:.16em;color:var(--pm)}
+[data-lang="th"] .lhb .tk .k{font-family:"IBM Plex Sans Thai",sans-serif;font-size:.66rem;letter-spacing:.02em}
+.lhb .tk .n{font:400 1.55rem/1 "Reenie Beanie","Caveat",cursive}
+.lhb .tk .pr{border-left:1.5px dashed rgba(42,38,32,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;font:400 1rem "Special Elite",monospace;line-height:1.1}
+.lhb .tk .pr small{font-size:.48rem;letter-spacing:.14em;color:var(--pm);text-transform:uppercase}
+.lhb .tk .pr i{font-style:normal;font-size:.6rem;color:var(--pm)}
+.lhb-note{font:400 .68rem "Special Elite",monospace;color:rgba(236,231,220,.7);margin-top:10px}
+[data-lang="th"] .lhb-note{font-family:"IBM Plex Sans Thai",sans-serif;font-size:.8rem}
+.lhb .a-au{padding:22px 20px 16px}
+.lhb .facts{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin-top:10px}
+.lhb .facts div{border-top:1px solid rgba(42,38,32,.2);padding-top:6px}
+.lhb .facts span{display:block;font:400 .62rem/1.35 "Special Elite",monospace;color:var(--pm);margin-top:3px}
+[data-lang="th"] .lhb .facts span{font-family:"IBM Plex Sans Thai",sans-serif;font-size:.74rem}
+.lhb .env{background:#e3dac6;padding:16px 16px 14px;overflow:hidden}
+.lhb .env:before{content:"";position:absolute;left:0;right:0;top:0;height:46%;background:linear-gradient(to bottom right,transparent 49.5%,rgba(42,38,32,.16) 50%,transparent 51%) left/50% 100% no-repeat,linear-gradient(to bottom left,transparent 49.5%,rgba(42,38,32,.16) 50%,transparent 51%) right/50% 100% no-repeat}
+.lhb .env>*{position:relative}
+.lhb .env .stampbox{position:absolute;right:12px;top:12px;width:34px;height:40px;border:1.5px dashed #8c2a33;display:grid;place-items:center;font:400 .5rem "Special Elite",monospace;color:#8c2a33;transform:rotate(5deg);text-align:center;line-height:1.2}
+.lhb .env ul{list-style:none;margin:8px 0 0;padding:0}
+.lhb .env li{display:grid;grid-template-columns:70px 1fr;gap:8px;font:500 .78rem/1.35 var(--font-body);padding:3px 0}
+.lhb .env li b{font:400 .95rem "Special Elite",monospace}
+.lhb .card{background:var(--paper2);background-image:repeating-linear-gradient(180deg,transparent 0 23px,rgba(70,90,140,.16) 23px 24px);padding:18px 16px 14px}
+.lhb .card:before{content:"";position:absolute;left:0;right:0;top:40px;height:1px;background:rgba(140,42,51,.35)}
+.lhb .card .l{font:400 1.25rem/1.15 "Reenie Beanie",cursive;margin-top:6px}
+[data-lang="th"] .lhb .card .l{font:400 .95rem/1.55 "Sriracha",cursive}
+.lhb .ok{color:var(--green)}.lhb .pm{color:var(--pm)}
+.lhb .pol{background:#f6f2e8;padding:9px 9px 48px}
+.lhb .pol .ph{aspect-ratio:1.1;background:radial-gradient(circle at 70% 30%,#3a4580,#1d2448);display:grid;place-items:center}
+.lhb .pol .cap{position:absolute;left:12px;right:10px;bottom:9px;font:400 1.15rem/1 "Reenie Beanie",cursive}
+[data-lang="th"] .lhb .pol .cap{font:400 .9rem/1.2 "Sriracha",cursive}
+.lhb .slip{background:#e9e1cf;padding:10px 14px}
+.lhb .dn{font:400 1.35rem/1.05 "Reenie Beanie",cursive;color:#2a2620;background:#ffe9a8;padding:12px 14px 10px;box-shadow:0 10px 20px rgba(0,0,0,.45);transform:rotate(-3deg)}
+.lhb .dn small{font-size:1rem}
+[data-lang="th"] .lhb .dn{font:400 1.05rem/1.35 "Sriracha",cursive}
+.lhb-all{text-align:center;margin:24px 0 8px}
+.lhb-all a{font:400 .6rem "Special Elite",monospace;letter-spacing:.2em;color:rgba(236,231,220,.72);text-decoration:none;border-bottom:1px solid rgba(236,231,220,.3);padding-bottom:3px}
+[data-lang="th"] .lhb-all a{font-family:"IBM Plex Sans Thai",sans-serif;letter-spacing:.04em;font-size:.8rem}
+/* opened paper */
+.lhb-ov{position:fixed;inset:0;z-index:60;background:rgba(5,8,16,.72);display:flex;align-items:center;justify-content:center;padding:54px 14px 20px;opacity:0;transition:opacity .25s}
+.lhb-ov.on{opacity:1}
+.lhb-ov[hidden]{display:none}
+.lhb-ov .lhb-sheet{position:relative;width:min(680px,100%);max-height:calc(100vh - 80px);overflow:auto;background:var(--ground);color:var(--ink);box-shadow:0 30px 70px rgba(0,0,0,.65);padding:24px clamp(16px,4vw,32px) 18px;transform:translateY(22px);transition:transform .35s cubic-bezier(.3,1.3,.5,1)}
+.lhb-ov.on .lhb-sheet{transform:none}
+.lhb-ov .lhb-sheet section{padding-top:4px;scroll-margin:0}
+.lhb-ov .x{position:absolute;top:14px;left:0;right:0;margin:0 auto;width:max-content;font:400 .62rem "Special Elite",monospace;letter-spacing:.2em;color:#ece7dc;background:none;border:0;padding:8px 12px;cursor:pointer}
+.lhb-ov .pn{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--hair);margin-top:18px;padding-top:12px}
+.lhb-ov .pn button{font:400 1.25rem "Reenie Beanie","Sriracha",cursive;color:#8c2a33;background:none;border:0;cursor:pointer;padding:4px}
+[data-lang="th"] .lhb-ov .pn button,html[lang="th"] .lhb-ov .pn button{font:400 .95rem "Sriracha",cursive}
+.lhb-ov .pn button:disabled{opacity:.25;cursor:default}
+@media (prefers-reduced-motion:reduce){.lhb-ov,.lhb-ov .lhb-sheet{transition:none}}
+/* LAND r6 (Dell: hard to close on a phone): the paper rises from the bottom · a big Close sits under the thumb · the phone's Back closes it · pull the paper down to close */
+@media (max-width:700px){
+ .lhb-ov{align-items:flex-end;padding:44px 0 0}
+ .lhb-ov .lhb-sheet{width:100%;max-height:calc(100dvh - 44px);border-radius:16px 16px 0 0;padding-bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateY(40px)}
+ .lhb-ov .lhb-sheet::before{content:"";position:sticky;top:-24px;display:block;width:44px;height:5px;margin:-14px auto 12px;border-radius:3px;background:rgba(60,50,40,.28)}
+ .lhb-ov .x{position:fixed;top:auto;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;right:auto;transform:translateX(-50%);z-index:3;min-width:150px;height:52px;padding:0 22px;border-radius:999px;background:#151a2e;color:#ece7dc;font-size:.78rem;box-shadow:0 10px 26px rgba(0,0,0,.45),0 0 0 1px rgba(236,231,220,.18)}
+}
+body.lhb-lock{overflow:hidden}
+/* ===== inside the opened paper ===== */
+.lhb-sheet{font-size:15.5px;line-height:1.6;color:#2a2620;padding-top:30px!important}
+.lhb-sheet .lhb-k{display:flex;justify-content:space-between;font:400 .56rem "Special Elite",monospace;letter-spacing:.22em;color:#6a604f;margin-bottom:6px}
+.lhb-sheet .lhb-pin{position:absolute;left:50%;top:9px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#c4505b,#8c2a33 60%,#5e1a22);box-shadow:0 3px 6px rgba(0,0,0,.4)}
+.lhb-sheet h2{font:400 2.7rem/1 var(--font-hand);margin:0 0 6px}
+html[lang="th"] .lhb-sheet h2{font-size:2rem;line-height:1.25}
+.lhb-sheet .sub{color:#4f4739;font-size:15px;margin-bottom:18px}
+.lhb-sheet .box{background:none;border:0;border-top:1.5px solid rgba(42,38,32,.22);border-radius:0;padding:14px 0 6px}
+.lhb-sheet .box+.box{margin-top:6px}
+.lhb-sheet .box h3{font:400 .62rem "Special Elite",monospace;letter-spacing:.22em;text-transform:uppercase;color:#8c2a33;margin:0 0 8px}
+html[lang="th"] .lhb-sheet .box h3{font:600 .82rem "IBM Plex Sans Thai",sans-serif;letter-spacing:.02em;text-transform:none}
+.lhb-sheet .box p,.lhb-sheet li{font-size:15px}
+.lhb-sheet ol{list-style:none;counter-reset:n;padding-left:0;margin:0}
+.lhb-sheet ol>li{counter-increment:n;position:relative;padding-left:34px;margin:8px 0}
+.lhb-sheet ol>li::before{content:counter(n);position:absolute;left:0;top:1px;width:22px;height:22px;border:1.5px solid #2a2620;border-radius:50%;display:grid;place-items:center;font:400 .7rem "Special Elite",monospace}
+.lhb-sheet ul:not(.pay){list-style:none;padding-left:0;margin:0}
+.lhb-sheet ul:not(.pay)>li{position:relative;padding-left:20px;margin:6px 0}
+.lhb-sheet ul:not(.pay)>li::before{content:"–";position:absolute;left:2px;color:#8c2a33}
+.lhb-sheet .pay li{background:transparent;border:1.5px solid rgba(42,38,32,.35);font:400 .72rem "Special Elite",monospace;color:#2a2620}
+/* the key numbers: typed, ruled, no grey cards */
+.lhb-sheet .facts{grid-template-columns:repeat(2,1fr);gap:16px 22px;margin:4px 0 20px}
+@media (min-width:640px){.lhb-sheet .facts{grid-template-columns:repeat(4,1fr)}}
+.lhb-sheet .fact{background:none;border:0;border-top:2px solid #2a2620;border-radius:0;padding:8px 0 0}
+.lhb-sheet .fact b{font:400 1.55rem/1.1 "Special Elite",monospace;color:#2a2620}
+.lhb-sheet .fact span{display:block;font-size:13px;line-height:1.45;color:#4f4739;margin-top:4px}
+/* 01 tickets */
+.lhb-sheet[data-sec="tickets"] .ticket{box-shadow:0 2px 0 rgba(42,38,32,.12),0 10px 22px -12px rgba(42,38,32,.5)}
+/* 03 delivery: an envelope, the three dates on a little rail */
+.lhb-sheet[data-sec="delivery"]{background:#e6ddc9}
+.lhb-sheet[data-sec="delivery"] .facts{grid-template-columns:repeat(3,1fr)!important;position:relative;padding-top:4px}
+.lhb-sheet[data-sec="delivery"] .facts::before{content:"";position:absolute;left:6px;right:6px;top:11px;height:1.5px;background:rgba(242,140,40,.6)}
+.lhb-sheet[data-sec="delivery"] .fact{border-top:0;position:relative;padding-top:24px}
+.lhb-sheet[data-sec="delivery"] .fact::before{content:"";position:absolute;left:0;top:5px;width:12px;height:12px;border-radius:50%;background:#2a2620;box-shadow:0 0 0 3px #e6ddc9}
+.lhb-sheet[data-sec="delivery"] .fact:first-child::before{background:#f2b45a;box-shadow:0 0 0 3px #e6ddc9,0 0 12px 3px rgba(245,154,62,.5)}
+/* 04 rights: a lined index card with a red margin */
+.lhb-sheet[data-sec="rights"]{background:#f4efe2 repeating-linear-gradient(180deg,transparent 0 31px,rgba(70,90,140,.13) 31px 32px);padding-left:clamp(40px,7vw,58px)!important}
+.lhb-sheet[data-sec="rights"]::before{content:"";position:absolute;left:clamp(26px,5vw,40px);top:0;bottom:0;width:1.5px;background:rgba(140,42,51,.35)}
+.lhb-sheet[data-sec="rights"] .two{gap:0 26px}
+.lhb-sheet[data-sec="rights"] .two .box:first-child li::before{content:"✓";color:#2f6b4a;font-weight:700}
+/* 05 fan works: a polaroid-white card */
+.lhb-sheet[data-sec="fanworks"]{background:#f7f3ea}
+.lhb-sheet[data-sec="fanworks"] .two .box:first-child h3{color:#2f6b4a}
+/* 06 small print: a slip, label on the left */
+.lhb-sheet[data-sec="small-print"]{background:#ebe3d1}
+@media (min-width:640px){.lhb-sheet[data-sec="small-print"] .box{display:grid;grid-template-columns:150px 1fr;gap:14px}.lhb-sheet[data-sec="small-print"] .box h3{margin-top:4px}}
+.lhb-sheet .pn{border-top:1.5px dashed rgba(42,38,32,.3)}
+
+</style>
+<style>
+/* ===== tickets v2 (both on the board's opened paper and in the full terms) ===== */
+.ticket{grid-template-columns:96px 1fr!important;border-radius:2px!important;background:#f4efe2!important;box-shadow:0 1px 0 rgba(42,38,32,.15),0 12px 24px -14px rgba(42,38,32,.6)!important}
+.t-stub{order:-1;width:96px!important;border-left:0!important;border-right:1.5px dashed rgba(42,38,32,.35);gap:2px;align-content:center}
+.ticket::before,.ticket::after{right:auto!important;left:96px!important;transform:translateX(-50%)!important}
+.t-stub .t-class{font:400 .5rem "Special Elite",monospace;letter-spacing:.18em}
+.t-price{font:400 1.35rem/1.1 "Special Elite",monospace!important}
+.tier{display:flex;gap:3px;justify-content:center;margin-top:6px}.tier i{width:7px;height:7px;border-radius:50%;border:1.2px solid #2a2620}.tier i.on{background:#2a2620}
+.t-main .t-class{color:#8c2a33}
+.t-title .plus{display:inline-block;font:400 .5rem "Special Elite",monospace;letter-spacing:.14em;border:1px solid rgba(42,38,32,.35);border-radius:999px;padding:2px 7px;margin-left:8px;vertical-align:5px;color:#6a604f;text-transform:uppercase}
+[data-lang="th"] .t-title .plus{font-size:.6rem;letter-spacing:.04em}
+.t-open{font:400 .56rem "Special Elite",monospace!important;letter-spacing:.16em!important;color:#8c2a33!important;text-transform:uppercase}
+@media (max-width:420px){.ticket{grid-template-columns:84px 1fr!important}.t-stub{width:84px!important}.ticket::before,.ticket::after{left:84px!important}.t-price{font-size:1.15rem!important}}
+/* what's in the box = a navy tray with the real things */
+.inside{background:#2a2f52!important;color:#ece7dc;border:0!important;border-radius:0 0 6px 6px!important;margin:-8px 0 0!important;padding:22px 16px 14px!important;box-shadow:inset 0 10px 18px -10px rgba(0,0,0,.6)}
+.inside h4{font:400 .58rem "Special Elite",monospace!important;letter-spacing:.2em;text-transform:uppercase;color:rgba(236,231,220,.62)!important}
+[data-lang="th"] .inside h4{font:600 .78rem "IBM Plex Sans Thai",sans-serif!important;letter-spacing:.02em}
+.inside .ex{color:rgba(236,231,220,.45)!important}
+.inside p{color:rgba(236,231,220,.86)}
+.items{grid-template-columns:repeat(3,1fr)!important;gap:14px 12px!important}
+.items .it{font:400 .62rem/1.35 "Special Elite",monospace;color:rgba(236,231,220,.8)}
+[data-lang="th"] .items .it{font:400 .76rem/1.4 "IBM Plex Sans Thai",sans-serif}
+.items .it:first-child{grid-column:span 2;grid-row:span 2}
+.mk{aspect-ratio:1!important;border:0!important;box-shadow:0 8px 16px rgba(0,0,0,.45);border-radius:3px!important;background:#ece6d6!important}
+.mk.img{padding:0!important;overflow:hidden}
+.mk.img img{width:100%;height:100%;object-fit:cover;display:block}
+.mk.img.hero{aspect-ratio:1!important}
+.mk.img img.contain{object-fit:contain;background:#ece6d6}
+.mk.chk{background:repeating-conic-gradient(#d9d2c2 0 25%,#f2eee4 0 50%) 0 0/14px 14px!important}
+.mk.chk img.cut{object-fit:contain;mix-blend-mode:multiply;opacity:.9}
+.mk.wide{aspect-ratio:1!important;background:#1d2240!important}
+.phones b{background:url(../traveller/001/img/g1-front.webp) center/cover!important;box-shadow:0 0 0 2px #0f1430}
+.mk.wide.name{background:#ece6d6!important;font:400 2rem "Reenie Beanie",cursive!important;color:#2a2620!important}
+.mk.psd{aspect-ratio:1;max-width:260px}
+.hw{margin:0;max-width:420px}.hw .mk{aspect-ratio:1.25}.hw figcaption{font:400 .62rem "Special Elite",monospace;color:rgba(236,231,220,.7);margin-top:6px}
+.mk.sht{aspect-ratio:1}
+.faces i{background:url(../traveller/001/img/g2-face.webp) center 30%/180% no-repeat #ece6d6!important;box-shadow:0 4px 8px rgba(0,0,0,.4)}
+.faces i:nth-child(2){background-position:40% 30%!important}.faces i:nth-child(3){background-position:60% 30%!important;filter:saturate(.7)}.faces i:nth-child(4){background-position:50% 20%!important;filter:brightness(1.08)}
+.inside .stamp{background:#ece6d6;border-color:#8c2a33!important;color:#8c2a33!important}
+@media (max-width:520px){.items{grid-template-columns:repeat(2,1fr)!important}}
+/* the Pass */
+.lhpass{display:block;width:min(360px,100%);aspect-ratio:1.6;margin:18px auto 4px;padding:0;border:0;background:none;cursor:pointer;perspective:900px}
+.lhpass .in{position:relative;display:block;width:100%;height:100%;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,1.2,.5,1);transform:rotate(-2deg)}
+.lhpass.flip .in{transform:rotate(1deg) rotateY(180deg)}
+.lhpass .pf,.lhpass .pb{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:9px;overflow:hidden;box-shadow:0 14px 26px rgba(0,0,0,.35)}
+.lhpass .pb{transform:rotateY(180deg)}
+.lhpass img{width:100%;height:100%;object-fit:cover;display:block}
+.lhpass:focus-visible{outline:2px solid #8c2a33;outline-offset:6px;border-radius:10px}
+.lhpass-hint{display:block;text-align:center;font:400 .52rem "Special Elite",monospace;letter-spacing:.2em;color:#8c2a33;margin-bottom:10px}
+[data-lang="th"] .lhpass-hint{font-family:"IBM Plex Sans Thai",sans-serif;font-size:.7rem;letter-spacing:.04em}
+.pass.passtxt{background:none!important;box-shadow:none!important;border-top:1px solid rgba(42,38,32,.2);border-radius:0!important;padding:10px 0 0!important;font-size:12.5px!important}
+@media (prefers-reduced-motion:reduce){.lhpass .in{transition:none}}
+/* the full terms, folded */
+.lhb-fold{position:relative;margin:6px auto 18px;width:min(460px,100%);background:#e9e1cf;color:#2a2620;padding:22px 22px 18px;box-shadow:0 16px 30px rgba(0,0,0,.35);transform:rotate(-.6deg)}
+.lhb-fold::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 32%,rgba(0,0,0,.06) 33%,transparent 34.5%,transparent 66%,rgba(0,0,0,.06) 67%,transparent 68.5%)}
+.lhb-fold .k{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:400 .54rem "Special Elite",monospace;letter-spacing:.2em;color:#6a604f}
+.lhb-fold .fh{font:400 2rem/1 var(--font-hand)!important;margin:6px 0 4px!important}
+[data-lang="th"] .lhb-fold .fh{font-size:1.6rem!important;line-height:1.3!important}
+.lhb-fold p{font-size:14px;color:#4f4739;margin:0}
+.ftoc{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;margin-top:10px}
+.ftoc a{display:flex;gap:6px;font:400 .66rem/2 "Special Elite",monospace;color:#2a2620;text-decoration:none;border-bottom:1px dotted rgba(42,38,32,.35)}
+[data-lang="th"] .ftoc a{font-family:"IBM Plex Sans Thai",sans-serif;font-size:.8rem}
+.ftoc a:hover span{color:#8c2a33}
+.lhb-fold .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.lhb-fold .btns button{font:600 .76rem Karla,"IBM Plex Sans Thai",sans-serif;border-radius:999px;padding:9px 13px;border:1.5px solid #2a2620;background:none;color:#2a2620;cursor:pointer}
+.lhb-fold .btns .b1{background:#f2b45a;border-color:#f2b45a;color:#241a0d}
+html.lhb-js main.wrap:not(.unfolded){background:none!important;box-shadow:none!important;padding-top:6px}
+html.lhb-js main.wrap:not(.unfolded)::before{display:none}
+html.lhb-js main.wrap:not(.unfolded)>section{display:none}
+html.lhb-js [data-lang] > nav.toc{display:none}
+html.lhb-js main.wrap.unfolded .lhb-fold{margin-top:24px}
+html.lhb-js main.wrap:not(.unfolded) footer{color:rgba(236,231,220,.62);border-top-color:rgba(236,231,220,.15)}
+html.lhb-js main.wrap:not(.unfolded) footer .hand{color:#ece7dc}
+html.lhb-js main.wrap:not(.unfolded) footer a{color:#ffd9a0}
+@media print{.lhb-wrap,.lhb-fold,.lh-bar,.lang,nav.toc{display:none!important}main.wrap>section{display:block!important}main.wrap{box-shadow:none!important}}
+</style>
+<style>
+/* ===== readability pass ===== */
+/* typewriter (Special Elite) only where it's big: numbers, prices, big labels. Small text = IBM Plex Mono (clear at small sizes) */
+:root{--read-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace}
+.lhb .no,.lhb .more,.lhb .t,.lhb .facts span,.lhb .tk .k,.lhb .tk .pr small,.lhb-note,.lhb-sub,.lhb-all a,
+.lhb-sheet .lhb-k,.lhb-sheet .box h3,.lhb-sheet .pay li,.lhb-sheet ol>li::before,
+.lhb-fold .k,.ftoc a,.lhpass-hint,.t-stub .t-class,.t-main .t-class,.t-title .plus,.t-open,.inside h4,.items .it,.hw figcaption,.inside .ex,
+nav.toc a,.kicker,html body .lh-nav a{font-family:var(--read-mono)!important;font-weight:500!important}
+/* sizes: nothing small below ~12px, a little less letter-spacing */
+.lhb .no,.lhb .more,.lhb-sheet .lhb-k,.lhb-fold .k,.lhpass-hint,.inside .ex{font-size:.74rem!important;letter-spacing:.14em!important}
+.lhb .t{font-size:.8rem!important;letter-spacing:0!important;line-height:1.5!important}
+.lhb .facts span{font-size:.74rem!important;line-height:1.4!important}
+.lhb .tk .k{font-size:.72rem!important;letter-spacing:.08em!important}
+.lhb .tk .pr small{font-size:.66rem!important;letter-spacing:.1em!important}
+.lhb .tk .pr i{font-size:.74rem!important}
+.lhb .tk .pr{font-size:1.1rem!important}
+.lhb-note{font-size:.78rem!important}
+.lhb-sheet .box h3{font-size:.74rem!important;letter-spacing:.14em!important}
+.lhb-sheet .pay li{font-size:.8rem!important;padding:4px 11px!important;color:#2a2620!important;border-color:rgba(42,38,32,.4)!important}
+.lhb-sheet ol>li::before{font-size:.72rem!important}
+.ftoc a{font-size:.78rem!important}
+.t-stub .t-class,.t-main .t-class{font-size:.66rem!important;letter-spacing:.12em!important}
+.t-title .plus{font-size:.6rem!important;letter-spacing:.08em!important}
+.t-open{font-size:.68rem!important;letter-spacing:.08em!important}
+.inside h4{font-size:.72rem!important;letter-spacing:.12em!important}
+.items .it,.hw figcaption{font-size:.74rem!important;line-height:1.4!important}
+nav.toc a{font-size:12.5px!important;letter-spacing:.02em!important}
+.lhb .facts span,.lhb .t,.lhb-sheet .fact span,.lhb-sheet .sub,.lhb-sheet li,.lhb-sheet .box p{color:#3b352b!important}
+/* the handwriting font stays for titles and names only, a bit bigger so it reads */
+.lhb .h{font-size:2.15rem!important}
+.lhb .card .l{font-size:1.4rem!important;line-height:1.2!important}
+.lhb .pol .cap{font-size:1.3rem!important}
+/* tickets: back to the original paper colour */
+.ticket{background:var(--card)!important;box-shadow:var(--shadow)!important}
+.lhb .tk{background:var(--card)}
+/* Thai stays in the Thai fonts */
+[data-lang="th"] .lhb .no,[data-lang="th"] .lhb .more,[data-lang="th"] .lhb .t,[data-lang="th"] .lhb .facts span,[data-lang="th"] .lhb .tk .k,[data-lang="th"] .lhb-note,[data-lang="th"] .lhb-sub,[data-lang="th"] .lhb-all a,
+[data-lang="th"] .lhb-sheet .box h3,[data-lang="th"] .ftoc a,[data-lang="th"] .lhpass-hint,[data-lang="th"] .t-title .plus,[data-lang="th"] .inside h4,[data-lang="th"] .items .it,[data-lang="th"] nav.toc a,
+html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mono",sans-serif!important;letter-spacing:.02em!important}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap">
+<style id="ink-rule">[data-lang="en"] h1{font:700 clamp(2.6rem,9vw,3.8rem)/1 "Caveat","Sriracha",cursive!important}.lhb .h{font:700 1.75rem/1.05 "Caveat","Sriracha",cursive!important}.lhb .tk .n,.t-title{font-family:"Caveat","Sriracha",cursive!important;font-weight:700!important}.lhb .tk .n{font-size:1.35rem!important}.lhb .card .l{font:700 1.12rem/1.3 "Caveat","Sriracha",cursive!important}.lhb .pol .cap{font:700 1.05rem/1.1 "Caveat","Sriracha",cursive!important}.lhb-fold .fh,.lhb-sheet h2{font-family:"Caveat","Sriracha",cursive!important;font-weight:700!important}[data-lang="th"] .lhb .h,[data-lang="th"] .lhb-sheet h2{font-family:"Sriracha",cursive!important;font-weight:400!important}</style>
+<link rel="stylesheet" href="../assets/head.css">
 </head>
 <body>
-<div class="lh-bar"><a class="lh-home" href="../">littlehill</a><nav class="lh-nav" aria-label="littlehill"><a data-k="traveller" href="../traveller/001/">Traveller No.001</a><a data-k="auction" href="../auction/">Auction</a><a data-k="rules" href="../rules/">Boarding rules</a><a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a></nav></div>
+<div class="lh-bar lh-head"><a class="lh-home lh-logo" href="../">littlehill</a><nav class="lh-nav" aria-label="littlehill"><a data-k="traveller" href="../traveller/001/">Traveller No.001</a><a data-k="auction" href="../auction/">Auction</a><a data-k="rules" href="../rules/">Boarding rules</a><a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a></nav></div>
 
 <div data-lang="en" lang="en">
 
 <header>
-  <div class="lang" role="group" aria-label="Language"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="th" aria-pressed="false">ไทย</button></div>
+  <span class="lh-tr"><button type="button" class="lh-snd" aria-label="Sound" aria-pressed="false"></button><div class="lang lh-lang" role="group" aria-label="Language"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="th" aria-pressed="false">ไทย</button></div></span>
   <svg class="stars" aria-hidden="true" viewBox="0 0 760 220" preserveAspectRatio="xMidYMid slice">
     <g fill="#e8e4da">
       <circle cx="40" cy="30" r="1.2" opacity=".6"/><circle cx="120" cy="80" r=".9" opacity=".4"/><circle cx="210" cy="24" r="1.1" opacity=".5"/>
@@ -163,6 +482,23 @@ header .lamp{right:auto;left:min(55%,520px)}
     <p class="delta">“Read before you board. I'll wait.”<small>— Delta</small></p>
   </div>
 </header>
+<div class="lhb-wrap">
+<div class="lhb-lamp" aria-hidden="true"><svg viewBox="0 0 44 64"><defs><radialGradient id="lg"><stop offset="0" stop-color="#ffd38a" stop-opacity=".55"/><stop offset="1" stop-color="#f59a3e" stop-opacity="0"/></radialGradient></defs><circle cx="22" cy="34" r="40" fill="url(#lg)"/><path d="M22 0 V18" stroke="rgba(236,231,220,.4)"/><path d="M14 18 h16 l-3 6 h-10z" fill="#3a3550"/><rect x="15" y="24" width="14" height="20" rx="3" fill="#ffd38a"/><path d="M13 44 h18" stroke="#3a3550" stroke-width="3"/></svg></div>
+<p class="lhb-sub">THE NOTICE BOARD · TAP A PAPER TO READ IT</p>
+<section class="lhb" aria-label="THE NOTICE BOARD · TAP A PAPER TO READ IT"><div class="lhb-grid"><div class="lhb-col c1">
+ <div class="a-tk lhb-open" role="button" tabindex="0" data-open="tickets"><div class="no lt">01 · TICKETS</div><div class="tk" style="--r:-2deg"><div><div class="k">PERSONAL USE</div><div class="n">Traveller</div></div><div class="pr"><small>from</small>$45</div></div><div class="tk" style="--r:1.2deg"><div><div class="k">COMMERCIAL USE</div><div class="n">Trader</div></div><div class="pr"><small>from</small>$350</div></div><div class="tk" style="--r:-0.8deg"><div><div class="k">+ HOMEWARD ILLUSTRATION</div><div class="n">Homeward</div></div><div class="pr"><small>from</small>$600</div></div><div class="tk" style="--r:2deg"><div><div class="k">VTUBER &amp; GAME USE</div><div class="n">Stage</div></div><div class="pr"><small>from</small>$1,200</div></div><div class="lhb-note">Each ticket includes everything above it.</div></div>
+ <div class="p slip a-sp lhb-open" style="--r:-1deg" role="button" tabindex="0" data-open="small-print"><span class="pin" style="left:16px"></span><div class="no">06 · SMALL PRINT</div><div class="t">No AI training or NFTs · refunds · payment disputes · under 18? ask a parent first</div></div>
+</div><div class="lhb-col c2">
+ <div class="p a-au lhb-open" style="--r:1deg" role="button" tabindex="0" data-open="auction"><span class="pin"></span><div class="no">02 · AUCTION &amp; PAYMENT</div><div class="h">How bidding works</div><div class="facts"><div><div class="big">$45</div><span>starting bid · no auto-buy</span></div><div><div class="big">+$5</div><span>each new bid, at least</span></div><div><div class="big">15 min</div><span>a late bid moves the close</span></div><div><div class="big">48 h</div><span>to pay after the auction ends</span></div></div><div class="b">Bids count on DeviantArt and the Facebook bid thread.</div><div class="more">READ ALL OF IT →</div></div>
+ <div class="p env a-en lhb-open" style="--r:-1deg" role="button" tabindex="0" data-open="delivery"><span class="tape"></span><span class="stampbox">STN<br>04</span><div class="no">03 · DELIVERY</div><div class="h">What arrives, when</div><ul><li><b>48 h</b><span>character files, after full payment</span></li><li><b>14 days</b><span>Homeward illustration</span></li><li><b>21 days</b><span>character + expression sheet</span></li></ul><div class="more">READ ALL OF IT →</div></div>
+</div><div class="lhb-col c3">
+ <div class="p card a-rt lhb-open" style="--r:-1.5deg" role="button" tabindex="0" data-open="rights"><span class="pin"></span><div class="no">04 · YOUR RIGHTS</div><div class="h">They’re yours</div><div class="l"><span class="ok">✓</span> rename them, write their story<br><span class="ok">✓</span> draw them, commission others<br><span class="ok">✓</span> edit, trade or gift them<br><span class="pm">•</span> please credit littlehill</div><div class="more">READ ALL OF IT →</div></div>
+ <div class="p pol a-pol lhb-open" style="--r:4deg" role="button" tabindex="0" data-open="fanworks"><span class="tape"></span><div class="ph"><svg viewBox="0 0 60 60" width="56%" aria-hidden="true"><path d="M30 10 l5 12 12 1 -9 8 3 12 -11 -7 -11 7 3 -12 -9 -8 12 -1z" fill="none" stroke="#ffd38a" stroke-width="1.6"/></svg></div><div class="cap">05 · fan works welcome</div></div>
+ <div class="a-dn"><div class="dn">Read before you board.<br>I’ll wait. <small>— Delta</small></div></div>
+</div></div></section>
+<p class="lhb-all"><a href="#lhb-full">OR READ EVERYTHING ON ONE PAGE ↓</a></p>
+</div>
+
 
 <nav class="toc" aria-label="On this page">
   <ul>
@@ -176,6 +512,8 @@ header .lamp{right:auto;left:min(55%,520px)}
 </nav>
 
 <main class="wrap">
+<div class="lhb-fold" id="lhb-full"><h2 class="fh">The full terms, folded</h2><p>Same words as the papers on the board, in one place to search, copy or print.</p><nav class="ftoc"><a href="#tickets" data-toc="tickets"><b>01</b> <span></span></a><a href="#auction" data-toc="auction"><b>02</b> <span></span></a><a href="#delivery" data-toc="delivery"><b>03</b> <span></span></a><a href="#rights" data-toc="rights"><b>04</b> <span></span></a><a href="#fanworks" data-toc="fanworks"><b>05</b> <span></span></a><a href="#small-print" data-toc="small-print"><b>06</b> <span></span></a></nav><div class="btns"><button type="button" class="b1" data-unfold data-a="Unfold &amp; read all ↓" data-b="Fold it back ↑">Unfold &amp; read all ↓</button><button type="button" data-copy data-a="Copy as text" data-b="Copied ✓">Copy as text</button><button type="button" data-print>Print</button></div></div>
+
 
   <section id="tickets" aria-labelledby="h-tickets">
     <h2 id="h-tickets">Tickets</h2>
@@ -185,52 +523,53 @@ header .lamp{right:auto;left:min(55%,520px)}
         <summary class="ticket">
           <div class="t-main"><span class="t-class">ticket · personal use</span><h3 class="t-title">Traveller</h3>
             <p>Full-size PNG/JPEG (front view + colour palette; a small back view when the design has important back details), transparent PNG, a Traveller's Pass on your blanket pattern (the back is an Inspiration card), wallpapers and a hand-lettered name.</p><div class="t-open"><span class="o">What's inside ↓</span><span class="c">Close ↑</span></div></div>
-          <div class="t-stub"><span class="t-class">from</span><span class="t-price">$45</span></div>
+          <div class="t-stub"><span class="t-class">from</span><span class="t-price">$45</span><span class="tier" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span></div>
         </summary>
         <div class="inside"><h4>What's in the box</h4><div class="items">
-<div class="it"><div class="mk" aria-hidden="true">front view<br>full size</div>Full-size PNG / JPEG</div>
+<div class="it"><div class="mk img hero" aria-hidden="true"><img src="../traveller/001/img/b-fullsize-sample.webp" alt="" decoding="async"></div>Full-size PNG / JPEG</div>
 <div class="it"><div class="mk" aria-hidden="true"><div class="sw"><i style="background:#2a2620"></i><i style="background:#8fa1b8"></i><i style="background:#ece6d6"></i><i style="background:#9a5a0c"></i><i style="background:#b33b4a"></i></div></div>Colour palette</div>
-<div class="it"><div class="mk chk" aria-hidden="true">transparent</div>Transparent PNG</div>
-<div class="it"><div class="mk pass" aria-hidden="true">TRAVELLER'S PASS<br>Name: ……<br>First seen: Stop 04<br>With: you<br>No. 001</div>Traveller's Pass on your blanket pattern</div>
+<div class="it"><div class="mk chk img" aria-hidden="true"><img src="../traveller/001/img/g1-front.webp" alt="" decoding="async" class="cut"></div>Transparent PNG</div>
+<div class="it"><div class="mk img" aria-hidden="true"><img src="../traveller/001/img/pass-front.webp" alt="" decoding="async" class="contain"></div>Traveller's Pass on your blanket pattern</div>
 <div class="it"><div class="mk wide" aria-hidden="true"><div class="phones"><b style="width:22px;height:40px"></b><b style="width:64px;height:40px"></b></div></div>Wallpapers (phone + desktop)</div>
 <div class="it"><div class="mk wide name" aria-hidden="true">Name</div>Hand-lettered name</div>
-<div class="it"><div class="mk" aria-hidden="true">INSPIRATION<br>3 things<br>behind the design</div>Inspiration card (back of the Pass)</div>
+<div class="it"><div class="mk img" aria-hidden="true"><img src="../traveller/001/img/pass-back.webp" alt="" decoding="async" class="contain"></div>Inspiration card (back of the Pass)</div>
 </div><p class="ex">example layout · sample art comes with No.001</p></div>
       </details>
       <details class="tk">
         <summary class="ticket">
-          <div class="t-main"><span class="t-class">ticket · commercial use</span><h3 class="t-title">Trader</h3>
+          <div class="t-main"><span class="t-class">ticket · commercial use</span><h3 class="t-title">Trader<span class="plus" aria-hidden="true">+ Traveller</span></h3>
             <p>Commercial use, plus the layered PSD.</p><div class="t-open"><span class="o">What's inside ↓</span><span class="c">Close ↑</span></div></div>
-          <div class="t-stub"><span class="t-class">from</span><span class="t-price">$350</span></div>
+          <div class="t-stub"><span class="t-class">from</span><span class="t-price">$350</span><span class="tier" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
         </summary>
         <div class="inside"><h4>Everything in Traveller, plus</h4><div class="two" style="align-items:start">
-<div class="layers" aria-label="Layered PSD (example)"><span>layer</span><span>layer</span><span>layer</span><span>layer</span></div>
+<div class="mk img psd" role="img" aria-label="Layered PSD (example)"><img src="../traveller/001/img/b-psd-sample.webp" alt="" decoding="async"></div>
 <div><span class="stamp">commercial use</span><p style="margin:10px 0 0;font-size:14px">Use your traveller on things you sell. Pay in two parts if you like (three parts from $1,200): 50% within 48 hours, the rest within 30 days.</p></div>
 </div><p class="ex">example layout · sample art comes with No.001</p></div>
       </details>
       <details class="tk">
         <summary class="ticket">
-          <div class="t-main"><span class="t-class">ticket · homeward</span><h3 class="t-title">Homeward</h3>
+          <div class="t-main"><span class="t-class">ticket · homeward</span><h3 class="t-title">Homeward<span class="plus" aria-hidden="true">+ Trader</span></h3>
             <p>A "Homeward" illustration: your traveller waking up under their own blanket.</p><div class="t-open"><span class="o">What's inside ↓</span><span class="c">Close ↑</span></div></div>
-          <div class="t-stub"><span class="t-class">from</span><span class="t-price">$600</span></div>
+          <div class="t-stub"><span class="t-class">from</span><span class="t-price">$600</span><span class="tier" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
         </summary>
-        <div class="inside"><h4>Everything in Trader, plus</h4><div class="blanket">illustration · your traveller under their own blanket</div>
+        <div class="inside"><h4>Everything in Trader, plus</h4><figure class="hw"><div class="mk img"><img src="../traveller/001/img/b-homeward-crop.webp" alt="" decoding="async"></div><figcaption>illustration · your traveller under their own blanket</figcaption></figure>
 <p style="margin:10px 0 0;font-size:14px">Delivered within 14 days of full payment. If anything delays it, I'll message you before the deadline.</p><p class="ex">example layout · sample art comes with No.001</p></div>
       </details>
       <details class="tk">
         <summary class="ticket">
-          <div class="t-main"><span class="t-class">ticket · vtuber &amp; game use</span><h3 class="t-title">Stage</h3>
+          <div class="t-main"><span class="t-class">ticket · vtuber &amp; game use</span><h3 class="t-title">Stage<span class="plus" aria-hidden="true">+ Homeward</span></h3>
             <p>VTuber and game use (please tell me before you use it), a full front/back character sheet and an expression sheet with 3–4 faces.</p><div class="t-open"><span class="o">What's inside ↓</span><span class="c">Close ↑</span></div></div>
-          <div class="t-stub"><span class="t-class">from</span><span class="t-price">$1,200</span></div>
+          <div class="t-stub"><span class="t-class">from</span><span class="t-price">$1,200</span><span class="tier" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
         </summary>
         <div class="inside"><h4>Everything in Homeward, plus</h4><div class="two" style="align-items:start">
-<div><div class="sheet"><div class="sil" aria-hidden="true"></div><div class="sil" aria-hidden="true"></div></div><p style="margin:6px 0 0;font-size:13px">Front / back character sheet</p></div>
-<div><div class="faces" aria-hidden="true"><i>·‿·</i><i>·o·</i><i>-_-</i><i>^‿^</i></div><p style="margin:6px 0 0;font-size:13px">Expression sheet, 3–4 faces</p><p style="margin:10px 0 0"><span class="stamp">vtuber · game use</span></p></div>
+<div><div class="mk img sht" aria-hidden="true"><img src="../traveller/001/img/b-sheet-crop.webp" alt="" decoding="async"></div><p style="margin:6px 0 0;font-size:13px">Front / back character sheet</p></div>
+<div><div class="faces" aria-hidden="true"><i></i><i></i><i></i><i></i></div><p style="margin:6px 0 0;font-size:13px">Expression sheet, 3–4 faces</p><p style="margin:10px 0 0"><span class="stamp">vtuber · game use</span></p></div>
 </div><p style="margin:10px 0 0;font-size:14px">Sheets arrive within 21 days of full payment. Please tell me before you use them in a stream or game.</p><p class="ex">example layout · sample art comes with No.001</p></div>
       </details>
     </div>
     <p class="note">The Homeward illustration comes with the $600 ticket. If your bid ends lower, you can upgrade later by paying the difference.<br>Every ticket includes the Inspiration card. No hidden bonuses: everything you get is listed on these tickets.<br>What you see is what you get: design changes after purchase aren't included. Extra poses or outfits are not included.</p>
-    <div class="pass" aria-label="Example Traveller's Pass">
+    <button class="lhpass" type="button" aria-label="Turn the Pass over"><span class="in"><span class="pf"><img src="../traveller/001/img/pass-front.webp" alt="" decoding="async"></span><span class="pb"><img src="../traveller/001/img/pass-back.webp" alt="" decoding="async"></span></span></button><span class="lhpass-hint" aria-hidden="true">TAP TO TURN IT OVER</span>
+    <div class="pass passtxt" aria-label="Example Traveller's Pass">
       <div class="h">TRAVELLER'S PASS</div>
       Name: (your traveller's name) · First seen: Stop 04, Episode 4<br>
       Travelling with: (you) · Issued: (date) · No. 001
@@ -269,7 +608,7 @@ header .lamp{right:auto;left:min(55%,520px)}
         <li>Cards, Apple Pay and Google Pay go through a Stripe payment link I send you. Thai buyers can pay by bank transfer (a PromptPay QR I send only to the winner). Prefer PayPal? Tell me, and I'll send a PayPal invoice instead.</li>
         <li>If you don't pay within 48 hours, the next highest bidder gets 48 hours to buy at their own highest bid. I offer it to the third bidder at most. You may not be able to join my future auctions.</li>
         <li>Paying in Thai baht? This auction uses a fixed rate of $1 = ฿34. It's set before bidding opens and doesn't change during the auction.</li>
-        <li><b>Watch for fakes:</b> I only contact winners from @little_hill01 (X), mkioldell (DeviantArt) and the littlehill Facebook page, and payment links and bank details only come from me. If someone else messages you, it isn't me.</li>
+        <li><b>Watch for fakes:</b> I only contact winners from @little_hill01 (X), mkioldell (DeviantArt), the littlehill Facebook page and home@littlehill.page, and payment links and bank details only come from me. If someone else messages you, it isn't me.</li>
         <li><b>Payment plan</b> for winning bids of $350 or more: 50% within 48 hours, the rest within 30 days. From $1,200 you can also pay in three parts: 50% within 48 hours, 25% within 30 days, 25% within 60 days. Files are sent once payment is complete. I'll remind you before each due date. If a part isn't paid by its date, what you've paid isn't refunded and the character returns to littlehill.</li>
       </ul>
     </div>
@@ -329,7 +668,7 @@ header .lamp{right:auto;left:min(55%,520px)}
     <p class="sub">These apply to every character in littlehill, and every Traveller.</p>
     <div class="two">
       <div class="box"><h3>Welcome</h3><p style="margin:0">Fan art, memes, parody, fan fiction and cosplay. Non-commercial, please.</p></div>
-      <div class="box"><h3>NSFW</h3><p style="margin:0">Not prohibited, but it isn't official. Please don't use official littlehill tags or the logo on it.</p></div>
+      <div class="box"><h3>NSFW</h3><p style="margin:0">Not prohibited, but it isn't official.<br>Please don't use official littlehill tags or the logo on it.</p></div>
     </div>
   </section>
 
@@ -374,9 +713,9 @@ header .lamp{right:auto;left:min(55%,520px)}
    Paying in Thai baht: a fixed rate of $1 = 34 baht for this auction,
    set before bidding opens and unchanged during the auction.
    I only contact winners from @little_hill01 (X), mkioldell
-   (DeviantArt) and the littlehill Facebook page, and payment links
-   and bank details only come from me. If someone else
-   messages you, it isn't me.
+   (DeviantArt), the littlehill Facebook page and
+   home@littlehill.page, and payment links and bank details only
+   come from me. If someone else messages you, it isn't me.
    Payment plan for winning bids of $350 or more: 50% within 48 hours,
    the rest within 30 days. From $1,200 you can also pay in three
    parts: 50% within 48 hours, 25% within 30 days, 25% within 60 days.
@@ -468,14 +807,14 @@ header .lamp{right:auto;left:min(55%,520px)}
   <p class="lh-backrow"><a class="lh-back" data-lh-ctx="back" href="../traveller/001/">← Traveller No.001</a></p>
   <footer>
     <p class="hand">Questions before you board?</p>
-    <p>Message <b>@little_hill01</b> on X, send a note to <b>mkioldell</b> on DeviantArt, or message the <b>littlehill</b> Facebook page.<br>
-    Terms v3 · last updated 26 Oct 2026 · bidding means you agree to these rules.</p>
+    <p>Message <b>@little_hill01</b> on X, send a note to <b>mkioldell</b> on DeviantArt, message the <b>littlehill</b> Facebook page, or email <b><a href="mailto:home@littlehill.page">home@littlehill.page</a></b>.<br>
+    Terms v3 · last updated 28 Oct 2026 · bidding means you agree to these rules.</p>
   </footer>
 </main>
 </div>
 <div data-lang="th" lang="th" hidden>
 <header>
-  <div class="lang" role="group" aria-label="Language"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="th" aria-pressed="false">ไทย</button></div>
+  <span class="lh-tr"><button type="button" class="lh-snd" aria-label="Sound" aria-pressed="false"></button><div class="lang lh-lang" role="group" aria-label="Language"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="th" aria-pressed="false">ไทย</button></div></span>
   <svg class="stars" aria-hidden="true" viewBox="0 0 760 220" preserveAspectRatio="xMidYMid slice">
     <g fill="#e8e4da">
       <circle cx="40" cy="30" r="1.2" opacity=".6"/><circle cx="120" cy="80" r=".9" opacity=".4"/><circle cx="210" cy="24" r="1.1" opacity=".5"/>
@@ -492,6 +831,23 @@ header .lamp{right:auto;left:min(55%,520px)}
     <p class="thnote">ราคาจริงเป็นดอลลาร์สหรัฐ ($) · จ่ายเป็นบาทใช้ $1 = ฿34 (เรตของรอบนี้) · ถ้าภาษาไทยกับภาษาอังกฤษไม่ตรงกัน ให้ยึดภาษาอังกฤษ</p>
   </div>
 </header>
+<div class="lhb-wrap">
+<div class="lhb-lamp" aria-hidden="true"><svg viewBox="0 0 44 64"><defs><radialGradient id="lg-th"><stop offset="0" stop-color="#ffd38a" stop-opacity=".55"/><stop offset="1" stop-color="#f59a3e" stop-opacity="0"/></radialGradient></defs><circle cx="22" cy="34" r="40" fill="url(#lg-th)"/><path d="M22 0 V18" stroke="rgba(236,231,220,.4)"/><path d="M14 18 h16 l-3 6 h-10z" fill="#3a3550"/><rect x="15" y="24" width="14" height="20" rx="3" fill="#ffd38a"/><path d="M13 44 h18" stroke="#3a3550" stroke-width="3"/></svg></div>
+<p class="lhb-sub">กระดานประกาศ · แตะกระดาษเพื่ออ่าน</p>
+<section class="lhb" aria-label="กระดานประกาศ · แตะกระดาษเพื่ออ่าน"><div class="lhb-grid"><div class="lhb-col c1">
+ <div class="a-tk lhb-open" role="button" tabindex="0" data-open="tickets-th"><div class="no lt">01 · ตั๋ว</div><div class="tk" style="--r:-2deg"><div><div class="k">ใช้ส่วนตัว</div><div class="n">Traveller</div></div><div class="pr"><small>เริ่ม</small>$45<i>฿1,530</i></div></div><div class="tk" style="--r:1.2deg"><div><div class="k">ใช้เชิงพาณิชย์</div><div class="n">Trader</div></div><div class="pr"><small>เริ่ม</small>$350<i>฿11,900</i></div></div><div class="tk" style="--r:-0.8deg"><div><div class="k">+ ภาพ HOMEWARD</div><div class="n">Homeward</div></div><div class="pr"><small>เริ่ม</small>$600<i>฿20,400</i></div></div><div class="tk" style="--r:2deg"><div><div class="k">VTUBER &amp; เกม</div><div class="n">Stage</div></div><div class="pr"><small>เริ่ม</small>$1,200<i>฿40,800</i></div></div><div class="lhb-note">ตั๋วแต่ละชั้นได้ของชั้นที่อยู่ข้างบนทั้งหมดด้วย</div></div>
+ <div class="p slip a-sp lhb-open" style="--r:-1deg" role="button" tabindex="0" data-open="small-print-th"><span class="pin" style="left:16px"></span><div class="no">06 · ข้อปลีกย่อย</div><div class="t">ห้ามเทรน AI / NFT · การคืนเงิน · ข้อโต้แย้งการจ่ายเงิน · อายุต่ำกว่า 18 ขออนุญาตผู้ปกครอง</div></div>
+</div><div class="lhb-col c2">
+ <div class="p a-au lhb-open" style="--r:1deg" role="button" tabindex="0" data-open="auction-th"><span class="pin"></span><div class="no">02 · ประมูล &amp; จ่ายเงิน</div><div class="h">บิดยังไง</div><div class="facts"><div><div class="big">$45</div><span>บิดเริ่มต้น (฿1,530) · ไม่มีปิดราคาทันที</span></div><div><div class="big">+$5</div><span>บิดใหม่สูงกว่าบิดล่าสุดอย่างน้อย</span></div><div><div class="big">15 นาที</div><span>มีบิดช่วงท้าย เวลาปิดเลื่อน</span></div><div><div class="big">48 ชม.</div><span>ให้จ่ายเงินหลังประมูลจบ</span></div></div><div class="b">บิดนับในโพสต์ DeviantArt และเธรดบิดบน Facebook</div><div class="more">อ่านทั้งหมด →</div></div>
+ <div class="p env a-en lhb-open" style="--r:-1deg" role="button" tabindex="0" data-open="delivery-th"><span class="tape"></span><span class="stampbox">STN<br>04</span><div class="no">03 · ส่งงาน</div><div class="h">ได้อะไร เมื่อไร</div><ul><li><b>48 ชม.</b><span>ไฟล์ตัวละคร หลังจ่ายครบ</span></li><li><b>14 วัน</b><span>ภาพ Homeward</span></li><li><b>21 วัน</b><span>ชีตตัวละคร + ชีตสีหน้า</span></li></ul><div class="more">อ่านทั้งหมด →</div></div>
+</div><div class="lhb-col c3">
+ <div class="p card a-rt lhb-open" style="--r:-1.5deg" role="button" tabindex="0" data-open="rights-th"><span class="pin"></span><div class="no">04 · สิทธิ์ของคุณ</div><div class="h">เป็นของคุณ</div><div class="l"><span class="ok">✓</span> ตั้งชื่อใหม่ เขียนเรื่องของเขา<br><span class="ok">✓</span> วาดเอง จ้างศิลปินคนอื่นวาด<br><span class="ok">✓</span> แก้ แลก หรือให้เป็นของขวัญ<br><span class="pm">•</span> ให้เครดิต littlehill</div><div class="more">อ่านทั้งหมด →</div></div>
+ <div class="p pol a-pol lhb-open" style="--r:4deg" role="button" tabindex="0" data-open="fanworks-th"><span class="tape"></span><div class="ph"><svg viewBox="0 0 60 60" width="56%" aria-hidden="true"><path d="M30 10 l5 12 12 1 -9 8 3 12 -11 -7 -11 7 3 -12 -9 -8 12 -1z" fill="none" stroke="#ffd38a" stroke-width="1.6"/></svg></div><div class="cap">05 · แฟนอาร์ต ยินดีเสมอ</div></div>
+ <div class="a-dn"><div class="dn">อ่านก่อนขึ้นนะ<br>ฉันรอได้ <small>— Delta</small></div></div>
+</div></div></section>
+<p class="lhb-all"><a href="#lhb-full-th">หรืออ่านทั้งหมดในหน้าเดียว ↓</a></p>
+</div>
+
 
 <nav class="toc" aria-label="ในหน้านี้">
   <ul>
@@ -505,6 +861,8 @@ header .lamp{right:auto;left:min(55%,520px)}
 </nav>
 
 <main class="wrap">
+<div class="lhb-fold" id="lhb-full-th"><h2 class="fh">กติกาฉบับเต็ม พับไว้</h2><p>ข้อความเดียวกับกระดาษบนกระดาน รวมไว้ที่เดียว ค้นหา คัดลอก หรือพิมพ์ได้</p><nav class="ftoc"><a href="#tickets-th" data-toc="tickets-th"><b>01</b> <span></span></a><a href="#auction-th" data-toc="auction-th"><b>02</b> <span></span></a><a href="#delivery-th" data-toc="delivery-th"><b>03</b> <span></span></a><a href="#rights-th" data-toc="rights-th"><b>04</b> <span></span></a><a href="#fanworks-th" data-toc="fanworks-th"><b>05</b> <span></span></a><a href="#small-print-th" data-toc="small-print-th"><b>06</b> <span></span></a></nav><div class="btns"><button type="button" class="b1" data-unfold data-a="กางอ่านทั้งหมด ↓" data-b="พับเก็บ ↑">กางอ่านทั้งหมด ↓</button><button type="button" data-copy data-a="คัดลอกเป็นข้อความ" data-b="คัดลอกแล้ว ✓">คัดลอกเป็นข้อความ</button><button type="button" data-print>พิมพ์</button></div></div>
+
 
   <section id="tickets-th" aria-labelledby="h-tickets-th">
     <h2 id="h-tickets-th">ตั๋ว</h2>
@@ -514,52 +872,53 @@ header .lamp{right:auto;left:min(55%,520px)}
         <summary class="ticket">
           <div class="t-main"><span class="t-class">ตั๋ว · ใช้ส่วนตัว</span><h3 class="t-title">Traveller</h3>
             <p>ไฟล์ PNG/JPEG เต็มขนาด (ด้านหน้า + จานสี · มีภาพด้านหลังเล็ก ๆ เมื่อดีไซน์มีจุดสำคัญด้านหลัง) · PNG พื้นใส · การ์ด Traveller's Pass บนลายผ้าห่มของตัวคุณ (ด้านหลังเป็น Inspiration card) · วอลเปเปอร์ · ชื่อเขียนมือ</p><div class="t-open"><span class="o">ดูของข้างใน ↓</span><span class="c">ปิด ↑</span></div></div>
-          <div class="t-stub"><span class="t-class">เริ่ม</span><span class="t-price">$45</span><span class="t-thb">฿1,530</span></div>
+          <div class="t-stub"><span class="t-class">เริ่ม</span><span class="t-price">$45</span><span class="tier" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span><span class="t-thb">฿1,530</span></div>
         </summary>
         <div class="inside"><h4>ในกล่องมี</h4><div class="items">
-<div class="it"><div class="mk" aria-hidden="true">ด้านหน้า<br>เต็มขนาด</div>PNG / JPEG เต็มขนาด</div>
+<div class="it"><div class="mk img hero" aria-hidden="true"><img src="../traveller/001/img/b-fullsize-sample.webp" alt="" decoding="async"></div>PNG / JPEG เต็มขนาด</div>
 <div class="it"><div class="mk" aria-hidden="true"><div class="sw"><i style="background:#2a2620"></i><i style="background:#8fa1b8"></i><i style="background:#ece6d6"></i><i style="background:#9a5a0c"></i><i style="background:#b33b4a"></i></div></div>จานสี</div>
-<div class="it"><div class="mk chk" aria-hidden="true">พื้นใส</div>PNG พื้นใส</div>
-<div class="it"><div class="mk pass" aria-hidden="true">TRAVELLER'S PASS<br>Name: ……<br>First seen: Stop 04<br>With: you<br>No. 001</div>Traveller's Pass บนลายผ้าห่มของตัวคุณ</div>
+<div class="it"><div class="mk chk img" aria-hidden="true"><img src="../traveller/001/img/g1-front.webp" alt="" decoding="async" class="cut"></div>PNG พื้นใส</div>
+<div class="it"><div class="mk img" aria-hidden="true"><img src="../traveller/001/img/pass-front.webp" alt="" decoding="async" class="contain"></div>Traveller's Pass บนลายผ้าห่มของตัวคุณ</div>
 <div class="it"><div class="mk wide" aria-hidden="true"><div class="phones"><b style="width:22px;height:40px"></b><b style="width:64px;height:40px"></b></div></div>วอลเปเปอร์ (มือถือ + คอม)</div>
 <div class="it"><div class="mk wide name" aria-hidden="true">Name</div>ชื่อเขียนมือ</div>
-<div class="it"><div class="mk" aria-hidden="true">INSPIRATION<br>3 สิ่ง<br>ที่มาของดีไซน์</div>Inspiration card (ด้านหลัง Pass)</div>
+<div class="it"><div class="mk img" aria-hidden="true"><img src="../traveller/001/img/pass-back.webp" alt="" decoding="async" class="contain"></div>Inspiration card (ด้านหลัง Pass)</div>
 </div><p class="ex">ตัวอย่างเลย์เอาต์ · ภาพจริงมาพร้อม No.001</p></div>
       </details>
       <details class="tk">
         <summary class="ticket">
-          <div class="t-main"><span class="t-class">ตั๋ว · ใช้เชิงพาณิชย์</span><h3 class="t-title">Trader</h3>
+          <div class="t-main"><span class="t-class">ตั๋ว · ใช้เชิงพาณิชย์</span><h3 class="t-title">Trader<span class="plus" aria-hidden="true">+ Traveller</span></h3>
             <p>ใช้เชิงพาณิชย์ได้ + ไฟล์ PSD แยกเลเยอร์</p><div class="t-open"><span class="o">ดูของข้างใน ↓</span><span class="c">ปิด ↑</span></div></div>
-          <div class="t-stub"><span class="t-class">เริ่ม</span><span class="t-price">$350</span><span class="t-thb">฿11,900</span></div>
+          <div class="t-stub"><span class="t-class">เริ่ม</span><span class="t-price">$350</span><span class="tier" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="t-thb">฿11,900</span></div>
         </summary>
         <div class="inside"><h4>ได้ทุกอย่างของ Traveller และ</h4><div class="two" style="align-items:start">
-<div class="layers" aria-label="PSD แยกเลเยอร์ (ตัวอย่าง)"><span>layer</span><span>layer</span><span>layer</span><span>layer</span></div>
+<div class="mk img psd" role="img" aria-label="PSD แยกเลเยอร์ (ตัวอย่าง)"><img src="../traveller/001/img/b-psd-sample.webp" alt="" decoding="async"></div>
 <div><span class="stamp">commercial use</span><p style="margin:10px 0 0;font-size:14px">เอาตัวละครไปใช้กับของที่ขายได้ · แบ่งจ่ายได้ (ตั้งแต่ $1,200 แบ่ง 3 งวดได้): 50% ภายใน 48 ชม. ที่เหลือภายใน 30 วัน</p></div>
 </div><p class="ex">ตัวอย่างเลย์เอาต์ · ภาพจริงมาพร้อม No.001</p></div>
       </details>
       <details class="tk">
         <summary class="ticket">
-          <div class="t-main"><span class="t-class">ตั๋ว · homeward</span><h3 class="t-title">Homeward</h3>
+          <div class="t-main"><span class="t-class">ตั๋ว · homeward</span><h3 class="t-title">Homeward<span class="plus" aria-hidden="true">+ Trader</span></h3>
             <p>ภาพ "Homeward": ตัวละครของคุณตื่นนอนใต้ผ้าห่มของตัวเอง</p><div class="t-open"><span class="o">ดูของข้างใน ↓</span><span class="c">ปิด ↑</span></div></div>
-          <div class="t-stub"><span class="t-class">เริ่ม</span><span class="t-price">$600</span><span class="t-thb">฿20,400</span></div>
+          <div class="t-stub"><span class="t-class">เริ่ม</span><span class="t-price">$600</span><span class="tier" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="t-thb">฿20,400</span></div>
         </summary>
-        <div class="inside"><h4>ได้ทุกอย่างของ Trader และ</h4><div class="blanket">ภาพ · ตัวละครของคุณใต้ผ้าห่มของตัวเอง</div>
+        <div class="inside"><h4>ได้ทุกอย่างของ Trader และ</h4><figure class="hw"><div class="mk img"><img src="../traveller/001/img/b-homeward-crop.webp" alt="" decoding="async"></div><figcaption>ภาพ · ตัวละครของคุณใต้ผ้าห่มของตัวเอง</figcaption></figure>
 <p style="margin:10px 0 0;font-size:14px">ส่งภายใน 14 วันหลังจ่ายครบ ถ้ามีเหตุให้ช้า จะแจ้งก่อนครบกำหนด</p><p class="ex">ตัวอย่างเลย์เอาต์ · ภาพจริงมาพร้อม No.001</p></div>
       </details>
       <details class="tk">
         <summary class="ticket">
-          <div class="t-main"><span class="t-class">ตั๋ว · vtuber &amp; เกม</span><h3 class="t-title">Stage</h3>
+          <div class="t-main"><span class="t-class">ตั๋ว · vtuber &amp; เกม</span><h3 class="t-title">Stage<span class="plus" aria-hidden="true">+ Homeward</span></h3>
             <p>ใช้เป็น VTuber และในเกมได้ (บอกผมก่อนใช้) + ชีตตัวละครหน้า-หลังเต็มตัว + ชีตสีหน้า 3–4 แบบ</p><div class="t-open"><span class="o">ดูของข้างใน ↓</span><span class="c">ปิด ↑</span></div></div>
-          <div class="t-stub"><span class="t-class">เริ่ม</span><span class="t-price">$1,200</span><span class="t-thb">฿40,800</span></div>
+          <div class="t-stub"><span class="t-class">เริ่ม</span><span class="t-price">$1,200</span><span class="tier" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="t-thb">฿40,800</span></div>
         </summary>
         <div class="inside"><h4>ได้ทุกอย่างของ Homeward และ</h4><div class="two" style="align-items:start">
-<div><div class="sheet"><div class="sil" aria-hidden="true"></div><div class="sil" aria-hidden="true"></div></div><p style="margin:6px 0 0;font-size:13px">ชีตหน้า / หลัง</p></div>
-<div><div class="faces" aria-hidden="true"><i>·‿·</i><i>·o·</i><i>-_-</i><i>^‿^</i></div><p style="margin:6px 0 0;font-size:13px">ชีตสีหน้า 3–4 แบบ</p><p style="margin:10px 0 0"><span class="stamp">vtuber · game use</span></p></div>
+<div><div class="mk img sht" aria-hidden="true"><img src="../traveller/001/img/b-sheet-crop.webp" alt="" decoding="async"></div><p style="margin:6px 0 0;font-size:13px">ชีตหน้า / หลัง</p></div>
+<div><div class="faces" aria-hidden="true"><i></i><i></i><i></i><i></i></div><p style="margin:6px 0 0;font-size:13px">ชีตสีหน้า 3–4 แบบ</p><p style="margin:10px 0 0"><span class="stamp">vtuber · game use</span></p></div>
 </div><p style="margin:10px 0 0;font-size:14px">ชีตส่งภายใน 21 วันหลังจ่ายครบ · บอกผมก่อนเอาไปใช้ในสตรีมหรือเกม</p><p class="ex">ตัวอย่างเลย์เอาต์ · ภาพจริงมาพร้อม No.001</p></div>
       </details>
     </div>
     <p class="note">ภาพ Homeward มากับตั๋ว $600 · ถ้าบิดจบต่ำกว่านั้น อัปเกรดทีหลังได้ด้วยการจ่ายส่วนต่าง<br>ทุกตั๋วได้ Inspiration card · ไม่มีของแถมซ่อน: ของที่ได้ทั้งหมดเขียนไว้ในตั๋วแล้ว<br>ได้ตามที่เห็น: ไม่รวมการแก้ดีไซน์หลังซื้อ · ท่าหรือชุดเพิ่มไม่รวมในตั๋ว</p>
-    <div class="pass" aria-label="ตัวอย่าง Traveller's Pass">
+    <button class="lhpass" type="button" aria-label="พลิกบัตร"><span class="in"><span class="pf"><img src="../traveller/001/img/pass-front.webp" alt="" decoding="async"></span><span class="pb"><img src="../traveller/001/img/pass-back.webp" alt="" decoding="async"></span></span></button><span class="lhpass-hint" aria-hidden="true">แตะเพื่อพลิกบัตร</span>
+    <div class="pass passtxt" aria-label="ตัวอย่าง Traveller's Pass">
       <div class="h">TRAVELLER'S PASS</div>
       Name: (ชื่อตัวละครของคุณ) · First seen: Stop 04, Episode 4<br>
       Travelling with: (คุณ) · Issued: (วันที่) · No. 001
@@ -598,7 +957,7 @@ header .lamp{right:auto;left:min(55%,520px)}
         <li>บัตร Apple Pay และ Google Pay จ่ายผ่านลิงก์ Stripe ที่ผมส่งให้ · คนไทยโอนผ่านแอปธนาคารได้ (QR พร้อมเพย์ ผมส่งให้ผู้ชนะทางแชตเท่านั้น) · อยากจ่ายผ่าน PayPal บอกได้ ผมจะส่งใบแจ้งหนี้ PayPal ให้แทน</li>
         <li>ถ้าไม่จ่ายภายใน 48 ชม. ผู้บิดสูงสุดถัดไปจะได้สิทธิ์ซื้อในราคาบิดสูงสุดของเขาเอง ภายใน 48 ชม. (เสนอได้ถึงคนที่ 3) และคุณอาจเข้าร่วมประมูลครั้งหน้าไม่ได้</li>
         <li>จ่ายเป็นบาท: รอบนี้ใช้เรตตายตัว $1 = ฿34 ประกาศก่อนเปิดบิด และไม่เปลี่ยนระหว่างประมูล</li>
-        <li><b>ระวังบัญชีปลอม:</b> ผมติดต่อผู้ชนะจาก @little_hill01 (X) · mkioldell (DeviantArt) และเพจ Facebook littlehill เท่านั้น ลิงก์จ่ายเงินและเลขบัญชีมาจากผมคนเดียว ถ้ามีคนอื่นทักมา ไม่ใช่ผมนะ</li>
+        <li><b>ระวังบัญชีปลอม:</b> ผมติดต่อผู้ชนะจาก @little_hill01 (X) · mkioldell (DeviantArt) · เพจ Facebook littlehill และอีเมล home@littlehill.page เท่านั้น ลิงก์จ่ายเงินและเลขบัญชีมาจากผมคนเดียว ถ้ามีคนอื่นทักมา ไม่ใช่ผมนะ</li>
         <li><b>แบ่งจ่าย</b> สำหรับบิดปิดตั้งแต่ $350: 50% ภายใน 48 ชม. ที่เหลือภายใน 30 วัน · ปิดตั้งแต่ $1,200 เลือกแบ่ง 3 งวดได้: 50% ภายใน 48 ชม. · 25% ภายใน 30 วัน · 25% ภายใน 60 วัน · ส่งไฟล์เมื่อจ่ายครบ · ผมจะเตือนก่อนครบทุกงวด · ถ้างวดไหนไม่จ่ายภายในกำหนด ที่จ่ายแล้วไม่คืน และตัวละครกลับมาที่ littlehill</li>
       </ul>
     </div>
@@ -658,7 +1017,7 @@ header .lamp{right:auto;left:min(55%,520px)}
     <p class="sub">ใช้กับทุกตัวละครใน littlehill และ Traveller ทุกตัว</p>
     <div class="two">
       <div class="box"><h3>ยินดีเสมอ</h3><p style="margin:0">แฟนอาร์ต มีม ล้อเลียน แฟนฟิค และคอสเพลย์ · ไม่ใช่เชิงพาณิชย์นะ</p></div>
-      <div class="box"><h3>NSFW</h3><p style="margin:0">ไม่ห้าม แต่ไม่ใช่ของทางการ · กรุณาอย่าใช้แท็กหรือโลโก้ทางการของ littlehill</p></div>
+      <div class="box"><h3>NSFW</h3><p style="margin:0">ไม่ห้าม แต่ไม่ใช่ของทางการ<br>กรุณาอย่าใช้แท็กหรือโลโก้ทางการของ littlehill</p></div>
     </div>
   </section>
 
@@ -674,8 +1033,8 @@ header .lamp{right:auto;left:min(55%,520px)}
   <p class="lh-backrow"><a class="lh-back" data-lh-ctx="back" href="../traveller/001/">← Traveller No.001</a></p>
   <footer>
     <p class="hand">มีคำถามก่อนขึ้นรถไฟ?</p>
-    <p>ทักมาที่ <b>@little_hill01</b> บน X · ส่ง note ถึง <b>mkioldell</b> บน DeviantArt หรือทักเพจ Facebook <b>littlehill</b><br>
-    กติกา v3 · อัปเดต 26 ต.ค. 2569 · การบิดถือว่ายอมรับกติกานี้</p>
+    <p>ทักมาที่ <b>@little_hill01</b> บน X · ส่ง note ถึง <b>mkioldell</b> บน DeviantArt ทักเพจ Facebook <b>littlehill</b> หรืออีเมล <b><a href="mailto:home@littlehill.page">home@littlehill.page</a></b><br>
+    กติกา v3 · อัปเดต 28 ต.ค. 2569 · การบิดถือว่ายอมรับกติกานี้</p>
   </footer>
 </main>
 
@@ -695,6 +1054,72 @@ header .lamp{right:auto;left:min(55%,520px)}
 })();
 </script>
 
+<script>
+/* rail menu: out of the way while reading down, back on any scroll up or at the very bottom */
+(function(){var y0=scrollY,nav=null;addEventListener("scroll",function(){nav=nav||document.querySelector(".lh-bar .lh-nav");if(!nav)return;var y=scrollY,end=innerHeight+y>=document.documentElement.scrollHeight-40;
+ nav.classList.toggle("away",y>y0+4&&y>240&&!end);if(y<y0-4||end)nav.classList.remove("away");y0=y;},{passive:true});
+ addEventListener("focusin",function(e){if(e.target.closest&&e.target.closest(".lh-nav"))e.target.closest(".lh-nav").classList.remove("away")});})();
+</script>
 <script src="../assets/nav.js" data-root="../" data-page="rules" defer></script>
+<div class="lhb-ov" id="lhbOv" hidden role="dialog" aria-modal="true" aria-label="Rules"><button class="x" id="lhbX" type="button"></button><div class="lhb-sheet" id="lhbSheet" tabindex="-1"></div></div>
+<script>
+/* notice board: open a paper = show that section of the full rules (a copy, same words) */
+(function(){
+ var pushed=false,ORDER=["tickets","auction","delivery","rights","fanworks","small-print"],ov=document.getElementById("lhbOv"),sh=document.getElementById("lhbSheet"),x=document.getElementById("lhbX"),last=null,cur=null;
+ var TX={en:{close:"CLOSE ✕"},th:{close:"ปิด ✕"}};
+ function lang(){return document.documentElement.lang==="th"?"th":"en"}
+ function title(id){var h=document.querySelector("#"+id+" h2");return h?h.textContent:""}
+ function open(key){window.lhSound&&lhSound.play("paper");var th=/-th$/.test(key),base=key.replace(/-th$/,""),id=base+(th?"-th":""),src=document.getElementById(id);if(!src)return;
+  cur=base;var c=src.cloneNode(true);c.removeAttribute("id");c.removeAttribute("aria-labelledby");c.querySelectorAll("[id]").forEach(function(e){e.removeAttribute("id")});
+  c.querySelectorAll("details.full").forEach(function(e){e.remove()});
+  var i=ORDER.indexOf(base),sfx=th?"-th":"",p=ORDER[i-1],n=ORDER[i+1];
+  sh.innerHTML='<span class="lhb-pin" aria-hidden="true"></span><div class="lhb-k" aria-hidden="true"><span>'+(th?"กติกาก่อนขึ้นรถไฟ":"BOARDING RULES")+'</span><span>'+("0"+(i+1))+" / 06</span></div>";sh.setAttribute("data-sec",base);sh.appendChild(c);
+  sh.insertAdjacentHTML("beforeend",'<div class="pn"><button type="button" data-go="'+(p?p+sfx:"")+'"'+(p?"":" disabled")+'>← '+(p?title(p+sfx):"")+'</button><button type="button" data-go="'+(n?n+sfx:"")+'"'+(n?"":" disabled")+'>'+(n?title(n+sfx):"")+' →</button></div>');
+  x.textContent=TX[lang()].close;ov.setAttribute("aria-label",title(id));
+  if(ov.hidden){last=document.activeElement;ov.hidden=false;document.body.classList.add("lhb-lock");void ov.offsetWidth;ov.classList.add("on");
+   try{if(!(history.state&&history.state.lhb)){history.pushState({lhb:1},"");pushed=true;}}catch(_){}}
+  sh.scrollTop=0;sh.focus();}
+ function close(fromPop){if(ov.hidden)return;if(!fromPop&&pushed){pushed=false;try{history.back();return;}catch(_){}}pushed=false;ov.classList.remove("on");document.body.classList.remove("lhb-lock");setTimeout(function(){ov.hidden=true;sh.innerHTML=""},250);if(last)last.focus()}
+ document.addEventListener("click",function(e){var o=e.target.closest&&e.target.closest("[data-open]");if(o){e.preventDefault();open(o.getAttribute("data-open"));return}
+  var g=e.target.closest&&e.target.closest("[data-go]");if(g&&g.getAttribute("data-go")){open(g.getAttribute("data-go"));return}
+  if(e.target===ov)close();});
+ document.addEventListener("keydown",function(e){var o=e.target.closest&&e.target.closest("[data-open]");if(o&&(e.key==="Enter"||e.key===" ")){e.preventDefault();open(o.getAttribute("data-open"))}
+  if(e.key==="Escape"&&!ov.hidden)close();});
+ x.onclick=function(){close();};window.lhbOpen=open;
+ addEventListener("popstate",function(){if(!ov.hidden)close(true);});
+ /* link straight to one paper: rules/#auction opens that paper */
+ var hk=location.hash.slice(1);if(ORDER.indexOf(hk)>=0)setTimeout(function(){open(hk+(lang()==="th"?"-th":""));},350);
+ /* pull the paper down (from its top) to close */
+ var y0=null;sh.addEventListener("touchstart",function(e){y0=sh.scrollTop<=0?e.touches[0].clientY:null;},{passive:true});
+ sh.addEventListener("touchmove",function(e){if(y0===null)return;var dy=e.touches[0].clientY-y0;if(dy>0&&sh.scrollTop<=0)sh.style.transform="translateY("+Math.min(dy,200)+"px)";},{passive:true});
+ sh.addEventListener("touchend",function(e){if(y0===null)return;var dy=(e.changedTouches[0].clientY-y0);y0=null;sh.style.transform="";if(dy>110&&sh.scrollTop<=0)close();});
+})();
+</script>
+<script>
+/* fold / unfold the full terms · copy · print · links to a section open that paper on the board · the Pass turns over */
+(function(){
+ document.documentElement.classList.add("lhb-js");
+ document.querySelectorAll(".ftoc a").forEach(function(a){var h=document.querySelector("#"+a.getAttribute("data-toc")+" h2");a.querySelector("span").textContent=h?h.textContent:""});
+ function main(el){return el.closest("main.wrap")}
+ function setFold(m,open){m.classList.toggle("unfolded",open);var b=m.querySelector("[data-unfold]");b.textContent=b.getAttribute(open?"data-b":"data-a")}
+ document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest("[data-unfold],[data-copy],[data-print],.lhpass");if(!t)return;
+  if(t.hasAttribute("data-unfold")){var m=main(t);setFold(m,!m.classList.contains("unfolded"))}
+  else if(t.hasAttribute("data-copy")){var pre=main(t).querySelector("details.full pre");if(pre&&navigator.clipboard)navigator.clipboard.writeText(pre.textContent).then(function(){t.textContent=t.getAttribute("data-b");setTimeout(function(){t.textContent=t.getAttribute("data-a")},1800)})}
+  else if(t.hasAttribute("data-print")){document.querySelectorAll("main.wrap").forEach(function(m){m.classList.add("unfolded")});window.print()}
+  else if(t.classList.contains("lhpass"))t.classList.toggle("flip")});
+ /* a link to a section (#auction, #tickets-th from the auction page …) opens that paper */
+ var KEYS=["tickets","auction","delivery","rights","fanworks","small-print"];
+ function hash(){var h=decodeURIComponent(location.hash.slice(1));if(KEYS.indexOf(h.replace(/-th$/,""))>=0&&window.lhbOpen){setTimeout(function(){window.lhbOpen(h)},60)}}
+ addEventListener("hashchange",hash);if(document.readyState==="complete")hash();else addEventListener("load",hash);
+ document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest(".ftoc a");if(!a)return;var id=a.getAttribute("data-toc");if(window.lhbOpen){e.preventDefault();window.lhbOpen(id)}});
+})();
+</script>
+<script>/* r10b (Dell: the lamp sat on the title): hang the lamp in the flow, right above each title, so it can never overlap */
+(function(){[].forEach.call(document.querySelectorAll('.lhb-lamp'),function(l){var w=l.closest('.lhb-wrap'),hd=w&&w.previousElementSibling;var h1=hd&&hd.querySelector('h1');if(h1){h1.parentNode.insertBefore(l,h1);l.classList.add('inflow');}});})();</script>
+<style>.lhb-lamp.inflow{margin:4px 0 -6px!important;height:58px;justify-content:center}.lhb-lamp.inflow svg{height:58px}</style>
+<script>/* r10b (Dell: opening a ticket should bring its picture into view; it also jumped on first open) */
+(function(){[].forEach.call(document.querySelectorAll('details.tk'),function(d){d.addEventListener('toggle',function(){if(!d.open)return;window.lhSound&&lhSound.play('punch');var sc=d.closest('.lhb-sheet,.sheet,[data-sheet]')||null;setTimeout(function(){var sm=d.querySelector('summary')||d;sm.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});},60);});});
+ [].forEach.call(document.querySelectorAll('details.tk img'),function(i){i.loading='eager';});})();</script>
+<style>details.tk[open] .inside{animation:lhopen .3s ease-out!important}@keyframes lhopen{from{opacity:0}}details.tk>summary{scroll-margin-top:72px}</style>
 </body>
 </html>

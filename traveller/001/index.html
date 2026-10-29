@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
+<head><script src="../../assets/veil.js"></script><script src="../../assets/sound.js"></script>
+<meta charset="utf-8"><meta name="color-scheme" content="dark"><style>html{background:#0b1028}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- LAND (H3 · 28 Oct 2026): No.001 v4.10 on real data -->
 <meta name="robots" content="noindex,nofollow">
 <title>Traveller No.001</title>
 <meta name="description" content="Traveller No.001 from littlehill: viewing days, tickets and the Traveller's Pass.">
@@ -13,299 +14,584 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@little_hill01">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23141c30%27/%3E%3Crect x=%2712%27 y=%279%27 width=%278%27 height=%2713%27 rx=%272%27 fill=%27%23f2b45a%27/%3E%3Crect x=%2714%27 y=%276%27 width=%274%27 height=%273%27 fill=%27%23e8e4da%27/%3E%3Crect x=%2711%27 y=%2722%27 width=%2710%27 height=%272%27 fill=%27%23e8e4da%27/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400;600&family=Karla:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../../assets/tokens.css">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&family=Special+Elite&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400;600&family=Karla:wght@400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap">
 <style>
-/* Traveller page = an auction lot page with the hill's night around it.
-   Order: picture → name/No. → quick facts → gallery → look closer → story → tickets → Pass → rules → image note.
-   Every image is a SLOT: if the file is missing, a dashed placeholder shows its name and size, so Dell can drop real files in later. */
+/* Traveller No.001 · prototype v4 · "A home for No.001"
+   Her own idea: the tickets are the windows of a house; the bid lights them from the front door up.
+   Her own question: "Is it night yet?" is answered by the viewer's clock (day window / star window, Stop 04).
+   Her own colour: amber (her eye, her lit windows). Lantern gold stays for actions only.
+   Two hands: official facts in typewriter, her name and lines in handwriting (placeholder until Dell's lettering).
+   Catalogue rhythm: full-bleed crop → small object in wide space → pair → full-bleed band. Real-looking paper. */
 :root{
   color-scheme:dark;
-  --sky-top:var(--lh-night); --sky-low:var(--lh-night-low); --horizon:var(--lh-sky-dusk-hz);
-  --ink:var(--lh-ink); --muted:var(--lh-cream-fog); --fog:var(--lh-fog); --lantern:var(--lh-lantern); --lantern-glow:rgba(var(--lh-lantern-rgb),.35);
-  --paper:var(--lh-paper); --paper-ink:var(--lh-paper-ink); --paper-muted:var(--lh-paper-muted-strong); --rule:rgba(var(--lh-ink-rgb),.16); --alert:var(--lh-lantern-soft);
-  --f-hand:"Caveat","Comic Sans MS",cursive;
-  --f-body:"Karla","IBM Plex Sans Thai",system-ui,sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --night:#111829; --night-2:#0d1322; --ink:#ece7dc; --muted:#b9b7b3; --dim:#8e96a8;
+  --gold:#f2b45a; --gold-rgb:242,180,90; --on-gold:#241a0d; --rule:rgba(236,231,220,.12);
+  --amber:#f59a3e; --amber-rgb:245,154,62;
+  --paper:#ece6d6; --paper-2:#f4efe3; --paper-ink:#2a2620; --paper-label:#665c4b; --stamp:#8c2a33; --home:#2f6b4a;
+  --f-hand:"Reenie Beanie","Sriracha",cursive; --f-type:"Special Elite","IBM Plex Mono","IBM Plex Sans Thai",ui-monospace,monospace;
+  --f-body:"Karla","IBM Plex Sans Thai",system-ui,sans-serif; --f-mono:"IBM Plex Mono","IBM Plex Sans Thai",ui-monospace,monospace;
+  --slow:cubic-bezier(.22,.61,.24,1);
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .3  0 0 0 0 .22  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 *{box-sizing:border-box}
-html,body{min-height:100%}
-body{margin:0;background:var(--sky-top);color:var(--ink);font:16px/1.6 var(--f-body)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+#get,#look{scroll-margin-top:12px}
+html{background:var(--night)}
+body{margin:0;background:var(--night);color:var(--ink);font:16px/1.6 var(--f-body);overflow-x:hidden}
 html[lang="th"] body{font-family:"IBM Plex Sans Thai","Karla",system-ui,sans-serif}
-.sky{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,var(--sky-top) 0%,var(--sky-low) 70%,var(--lh-sky-trav-floor) 100%)}
-.fog{position:fixed;left:-20%;right:-20%;height:34vh;bottom:-6vh;z-index:0;pointer-events:none;
-  background:radial-gradient(60% 70% at 30% 70%,rgba(var(--lh-fog-rgb),.28),transparent 70%),radial-gradient(50% 60% at 75% 80%,rgba(var(--lh-fog-rgb),.22),transparent 70%)}
-@media (prefers-reduced-motion:no-preference){.fog{animation:drift 80s linear infinite alternate}}
-@keyframes drift{from{transform:translateX(-4%)}to{transform:translateX(4%)}}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--night)}
 a{color:var(--paper)}
-.wrap{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:20px max(16px,env(safe-area-inset-left,0px)) 64px max(16px,env(safe-area-inset-right,0px))}
-.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between}
-.brand{font:700 1.5rem/1 var(--f-hand);text-decoration:none;color:var(--ink)}
-.pill{font:500 .72rem var(--f-mono);letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--rule);border-radius:999px;padding:4px 10px;color:var(--muted)}
-.pill.on{color:var(--lh-on-lantern);background:var(--lantern);border-color:var(--lantern)}
-.langsw{display:flex;gap:4px}
-.langsw button{font:500 .75rem var(--f-mono);background:none;border:1px solid var(--rule);color:var(--muted);border-radius:6px;padding:3px 8px;cursor:pointer}
-.langsw button[aria-pressed="true"]{color:var(--ink);border-color:var(--ink)}
-section{margin-top:44px}
-h2{font:500 .8rem var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;display:flex;align-items:center;gap:10px}
-h2::after{content:"";flex:1;height:1px;background:var(--rule)}
-.muted{color:var(--muted)}
-.small{font-size:.86rem}
+:focus-visible{outline:2px solid var(--paper);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.kick{font:400 .7rem/1.4 var(--f-type);letter-spacing:.26em;text-transform:uppercase;color:var(--dim)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--gold);color:var(--on-gold);font:600 .98rem/1 var(--f-body);text-decoration:none;border:0;border-radius:999px;padding:16px 26px;min-height:52px;cursor:pointer}
+.btn.quiet{background:none;color:var(--ink);padding:16px 6px;border-radius:0;border-bottom:1px solid rgba(236,231,220,.35)}
+@media (prefers-reduced-motion:no-preference){.btn{transition:box-shadow .3s}.btn:not(.quiet):hover{box-shadow:0 10px 30px rgba(var(--gold-rgb),.25)}}
+.fade{opacity:1}
+@media (prefers-reduced-motion:no-preference){.fade.pre{opacity:0;transform:translateY(18px)}.fade{transition:opacity 1.2s var(--slow),transform 1.2s var(--slow)}}
+/* paper: real grain + soft photographed shadow */
+.paper{position:relative;background:var(--paper);color:var(--paper-ink);box-shadow:0 1px 1px rgba(0,0,0,.25),0 18px 40px -8px rgba(0,0,0,.55),0 40px 80px -30px rgba(0,0,0,.5)}
+.paper::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.55;mix-blend-mode:multiply;pointer-events:none;border-radius:inherit}
+.press{text-shadow:0 1px 0 rgba(255,255,255,.55),0 -.5px 0 rgba(0,0,0,.18)}
+/* handwriting placeholder: marked so nobody mistakes it for Dell's hand */
+.hand{font-family:var(--f-hand);font-weight:400}
+html.showph .ph{position:relative;outline:1px dashed rgba(var(--amber-rgb),.55);outline-offset:6px}
 
-/* image slot */
-.slot{position:relative;display:block;width:100%;background:rgba(var(--lh-ink-rgb),.04);border-radius:8px;overflow:hidden}
-.slot img{display:block;width:100%;height:100%;object-fit:contain}
-.slot.empty{border:1.5px dashed rgba(var(--lh-ink-rgb),.28)}
-.slot.empty img{position:absolute;inset:0;opacity:0} /* H3: not display:none — a lazy image that is not rendered never loads */
-.slot .ph{display:none;position:absolute;inset:0;place-content:center;text-align:center;padding:12px;gap:4px;color:var(--muted);font:500 .74rem var(--f-mono);letter-spacing:.04em}
-.slot.empty .ph{display:grid}
-.slot .ph b{color:var(--ink);font-weight:500}
-.slot .ph i{font-style:normal}
+html[lang="th"] :is(.kick,.rhead .where,.obj span,.cap,.chip b,.tag .lbl,.sig small,.dnote small,.facts dt,.rstat,.ans,.lampline,.after,.honest,.edition){letter-spacing:0}
+/* the night behind everything (very faint · drawn once) */
+canvas.sky{position:fixed;inset:0;width:100%;height:100%;z-index:-2;pointer-events:none}
+.lowfog{position:fixed;inset:auto 0 0;height:34vh;z-index:-1;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(140,155,185,.06) 60%,rgba(140,155,185,.10))}
+body{background:transparent}html{background:linear-gradient(180deg,#121a2c 0,#101727 50%,#0e1424 100%) fixed,#111829}
+main{position:relative}
+/* top */
+.top{position:absolute;inset:0 0 auto;z-index:20;padding-top:max(14px,env(safe-area-inset-top,0px))}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font:400 1.9rem/1 var(--f-hand);color:var(--ink);text-decoration:none}
+.navx{display:flex;gap:22px;font:400 .68rem var(--f-type);letter-spacing:.2em;text-transform:uppercase}
+.navx a{color:var(--muted);text-decoration:none}
+.langsw{display:flex;gap:2px}
+.langsw button{font:400 .72rem var(--f-mono);background:none;border:0;color:var(--dim);padding:6px;cursor:pointer}
+.langsw button[aria-pressed="true"]{color:var(--ink);text-decoration:underline;text-underline-offset:5px}
+@media (max-width:700px){.navx{display:none}}
 
-/* hero */
-.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:22px;align-items:center;margin-top:22px}
-.window{border-radius:22px 22px 10px 10px;padding:10px;background:linear-gradient(var(--lh-window-top),var(--lh-window-low));box-shadow:inset 0 0 0 2px rgba(var(--lh-ink-rgb),.12),0 18px 40px rgba(var(--lh-shadow-rgb),.4)}
-.window .slot{aspect-ratio:4/5;border-radius:14px 14px 6px 6px}
-.no{font:500 .8rem var(--f-mono);letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
-.name{font:700 clamp(2.2rem,7vw,3.2rem)/1 var(--f-hand);margin:6px 0 4px}
-html[lang="th"] .name,html[lang="th"] .hand{font-family:"Sriracha","Caveat",cursive;font-weight:400}
-.epithet{color:var(--muted);margin:0}
-.quote{font:500 1.7rem/1.2 var(--f-hand);color:var(--paper);margin:14px 0 0}
-.when{margin:16px 0 0;font-size:.95rem}
-.when b{font-family:var(--f-mono);font-weight:500}
-.cta{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.btn{display:inline-flex;align-items:center;gap:8px;background:var(--lantern);color:var(--lh-on-lantern);font-weight:600;text-decoration:none;border-radius:999px;padding:11px 20px;border:0;cursor:pointer;font-family:inherit;font-size:1rem}
-.btn.ghost{background:none;color:var(--ink);border:1px solid var(--rule)}
-.btn[hidden]{display:none}
-:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
-
-/* facts */
-.facts{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:0}
-.facts dt{font:500 .72rem var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:4px}
-.facts dd{margin:0}
-.swatch{display:inline-block;width:46px;height:30px;vertical-align:middle;margin-right:8px}
-.swatch .slot{height:30px;border-radius:4px}
-.swatch .slot .ph{font-size:0}
-
-/* gallery */
-.strip{display:grid;grid-auto-flow:column;grid-auto-columns:min(72%,300px);gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;overscroll-behavior-x:contain}
-.strip figure{margin:0;scroll-snap-align:start}
-.strip .slot{aspect-ratio:4/5;cursor:zoom-in}
-.strip figcaption{font-size:.85rem;color:var(--muted);margin-top:6px}
-.stripnav{display:flex;gap:8px;justify-content:flex-end;margin-top:6px}
-.stripnav button{background:none;border:1px solid var(--rule);color:var(--ink);border-radius:999px;width:36px;height:36px;cursor:pointer;font-size:1rem}
-
-/* look closer */
-.closer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
-.spotbox{position:relative}
-.spotbox .slot{aspect-ratio:3/4}
-.spot{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;border:2px solid var(--lantern);background:rgba(var(--lh-night-rgb),.55);color:var(--lantern);font:600 .8rem var(--f-mono);cursor:pointer;display:grid;place-items:center}
-.spot[aria-pressed="true"]{background:var(--lantern);color:var(--lh-on-lantern)}
-@media (prefers-reduced-motion:no-preference){.spot{transition:transform .15s}.spot:hover{transform:translate(-50%,-50%) scale(1.08)}}
-.spotlist{margin:0;padding:0;list-style:none;display:grid;gap:10px}
-.spotlist li{border-left:2px solid var(--rule);padding:2px 0 2px 12px}
-.spotlist li.on{border-color:var(--lantern)}
-.spotlist b{font-family:var(--f-mono);font-weight:500;color:var(--lantern);margin-right:6px}
-
-/* story */
-.story p{max-width:62ch}
-.note{background:var(--paper);color:var(--paper-ink);border-radius:4px;padding:14px 18px;max-width:440px;transform:rotate(-1deg);box-shadow:0 8px 22px rgba(var(--lh-shadow-rgb),.3)}
-.note .hand{font:500 1.45rem/1.25 var(--f-hand);margin:0}
-.note small{font:500 .7rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--paper-muted)}
-.placeholder-text{border:1.5px dashed rgba(var(--lh-ink-rgb),.28);border-radius:8px;padding:12px 14px;color:var(--muted);font-size:.9rem}
-
-/* tickets */
-.ladder{display:flex;gap:8px;align-items:center;margin:0 0 14px;flex-wrap:wrap}
-.lamp{display:flex;align-items:center;gap:6px;font:500 .78rem var(--f-mono);color:var(--muted)}
-.lamp i{width:12px;height:15px;border-radius:50% 50% 45% 45%;background:var(--lh-unlit);display:inline-block}
-.lamp.on{color:var(--ink)}
-.lamp.on i{background:var(--lantern);box-shadow:0 0 12px 4px var(--lantern-glow)}
-.lampline{font-size:.9rem;color:var(--muted);margin:0 0 16px}
-.tickets{display:grid;gap:14px}
-.ticket{background:var(--paper);color:var(--paper-ink);border-radius:8px;display:grid;grid-template-columns:110px 1fr;overflow:hidden;box-shadow:0 8px 22px rgba(var(--lh-shadow-rgb),.28)}
-.ticket .stub{border-right:2px dashed rgba(var(--lh-paper-ink-rgb),.25);padding:14px 10px;display:grid;align-content:start;gap:4px;text-align:center;background:rgba(var(--lh-paper-ink-rgb),.04)}
-.ticket .stub .tn{font:700 1.35rem/1 var(--f-hand)}
-.ticket .stub .tp{font:500 1.05rem var(--f-mono)}
-.ticket .stub .tl{font:500 .66rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--paper-muted)}
-.ticket.lit .stub{background:rgba(var(--lh-lantern-rgb),.22)}
-.ticket .body{padding:14px 16px}
-.ticket .body p{margin:0 0 8px}
-.items{margin:0;padding:0;list-style:none;display:grid;gap:8px}
-.item{display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:start}
-.item .slot{aspect-ratio:1/1;background:rgba(var(--lh-paper-ink-rgb),.06)}
-.item .slot.empty{border-color:rgba(var(--lh-paper-ink-rgb),.25)}
-.item .slot .ph{color:var(--paper-muted);font-size:.56rem}
-.item .slot .ph b,.item .slot .ph i{display:none}
-.item .slot .ph{color:var(--paper-muted)} /* P10: placeholder name on the small paper slots */
-.item .slot .ph{font-size:.6rem;word-break:break-all}
-.item .noimg{width:72px;height:72px;border-radius:8px;display:grid;place-items:center;background:rgba(var(--lh-paper-ink-rgb),.06);font-size:1.4rem}
-.item h4{margin:0;font-size:.95rem}
-.item .meta{font:500 .72rem var(--f-mono);color:var(--paper-muted);letter-spacing:.02em}
-.redact{display:inline-block;background:var(--lh-paper-ink);color:transparent;border-radius:2px;user-select:none;line-height:1.1;margin-top:2px;font-size:.8rem}
-.ticket .after{font-size:.82rem;color:var(--paper-muted);margin-top:8px}
-.honest{margin-top:14px;font-size:.92rem}
-
-/* pass */
-.passwrap{perspective:1400px;max-width:620px}
-.pass{position:relative;aspect-ratio:2400/1500;transform-style:preserve-3d}
-@media (prefers-reduced-motion:no-preference){.pass{transition:transform .7s cubic-bezier(.2,.7,.2,1)}}
-.pass.back{transform:rotateY(180deg)}
-.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:10px;overflow:hidden;box-shadow:0 14px 34px rgba(var(--lh-shadow-rgb),.4)}
-.face .slot{height:100%;border-radius:10px}
-.face.b{transform:rotateY(180deg)}
-@media (prefers-reduced-motion:reduce){.pass.back{transform:none}.pass.back .face.f{visibility:hidden}.pass.back .face.b{transform:none}}
-
-/* rules */
-.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-.rule{border:1px solid var(--rule);border-radius:8px;padding:10px 12px}
-.rule b{display:block;font:500 1.3rem var(--f-mono)}
-.rule span{font-size:.86rem;color:var(--muted)}
-footer{margin-top:48px;font-size:.84rem;color:var(--muted);border-top:1px solid var(--rule);padding-top:14px;display:grid;gap:6px}
-
-/* viewer */
-dialog.viewer{border:0;padding:0;background:rgba(var(--lh-abyss-rgb),.96);color:var(--ink);width:100vw;height:100dvh;max-width:none;max-height:none}
-dialog.viewer::backdrop{background:rgba(var(--lh-abyss-rgb),.9)}
-.vtop{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;gap:10px}
-.vimg{height:calc(100dvh - 110px);display:grid;place-items:center;overflow:auto;touch-action:pinch-zoom}
-.vimg img{max-width:100%;max-height:100%;object-fit:contain}
-.vcap{text-align:center;font-size:.88rem;color:var(--muted);padding:6px 16px}
-
-/* demo panel (only with ?demo=1) */
-.demo{position:fixed;right:10px;bottom:10px;z-index:9;background:var(--lh-viewer-btn);border:1px solid var(--alert);border-radius:10px;padding:10px;font:500 .75rem var(--f-mono);display:grid;gap:6px;max-width:260px}
-.demo b{color:var(--alert)}
-.demo button{font:inherit;background:none;color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:3px 6px;cursor:pointer}
-
-@media (max-width:640px){
-  .hero,.closer{grid-template-columns:1fr}
-  .ticket{grid-template-columns:1fr}
-  .ticket .stub{grid-auto-flow:column;justify-content:start;align-items:baseline;gap:10px;border-right:0;border-bottom:2px dashed rgba(var(--lh-paper-ink-rgb),.25);padding:10px 14px;text-align:left}
-  .item{grid-template-columns:60px 1fr}
-  .item .noimg{width:60px;height:60px}
+/* ===== 1 · stage ===== */
+.stage{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(90% 60% at 50% 30%,#22305a 0%,#16203a 45%,var(--night) 80%)}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.art{position:relative;height:min(58svh,128vw);max-height:900px}
+.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 38%;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 10%,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 10%,#000 70%,transparent 100%)}
+@media (prefers-reduced-motion:no-preference){.art img{transition:opacity 2.4s var(--slow),transform 3.2s var(--slow)}.stage.pre .art img{opacity:0;transform:scale(1.04)}}
+.heroinfo{position:relative;margin-top:-84px;padding-bottom:48px;display:grid;gap:12px;justify-items:start}
+.idline{display:grid;gap:2px}
+.name{font:400 clamp(3.7rem,17vw,6rem)/.78 var(--f-hand);margin:4px 0 0;letter-spacing:.01em;color:#e6e0d4}
+.epi{font:400 .7rem/1.35 var(--f-type);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:2px 0 0}
+html[lang="th"] .epi{letter-spacing:0;font-size:.86rem}
+.quote{font:400 1.75rem/1 var(--f-hand);color:var(--paper);margin:0}
+html[lang="th"] .quote{font-family:"Sriracha",cursive;font-size:1.25rem;line-height:1.3}
+/* the answer: two little windows, Stop 04 (star window = screen left, day window = screen right) */
+.answer{display:flex;align-items:center;gap:10px;margin:0}
+.qrow{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;margin-top:6px}
+.qrow .quote{margin:0}
+.eyes{display:flex;gap:6px}
+.ew{position:relative;width:18px;height:24px;border-radius:13px 13px 3px 3px;background:#1a2036;box-shadow:inset 0 0 0 2px #3a2c2a;overflow:hidden}
+.ew i{position:absolute;inset:3px;border-radius:10px 10px 1px 1px;opacity:0}
+.ew.star i{background:radial-gradient(circle at 50% 40%,#fff6e0 0 2px,transparent 3px),radial-gradient(circle at 30% 70%,#e8e4da 0 1px,transparent 2px),#26305a}
+.ew.day i{background:radial-gradient(circle at 50% 45%,#fff3cf 0 5px,#ffd98e 6px,#f3c27a 100%)}
+.ew.on i{opacity:.85}
+.ew.on{box-shadow:inset 0 0 0 2px #3a2c2a}
+.ew b{position:absolute;inset:0 0 auto;height:0;background:#3a2c2a}
+@media (prefers-reduced-motion:no-preference){.ew i{transition:opacity 1.6s var(--slow)}.eyes.blink .ew b{animation:lid .34s ease-in-out}}
+@keyframes lid{0%,100%{height:0}50%{height:100%}}
+.ans{font:400 .82rem/1.5 var(--f-type);color:#5b5244}
+.ans b{color:var(--stamp);font-weight:400}
+.edition{font:400 .7rem var(--f-type);letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+.edition b{color:var(--amber);font-weight:400}
+.heroinfo .edition,.heroinfo .name,.heroinfo .quote{text-shadow:0 1px 12px rgba(8,12,24,.9),0 0 3px rgba(8,12,24,.8)}
+/* the art is the way in: tap it to look closer · she breathes, the lantern flickers, dust drifts in its light */
+button.art{display:block;width:100%;border:0;padding:0;margin:0;background:none;color:inherit;font:inherit;cursor:zoom-in;-webkit-tap-highlight-color:transparent}
+.breath{position:absolute;inset:0;display:block;transform-origin:50% 92%}
+@media (prefers-reduced-motion:no-preference){.breath{animation:breath 7s ease-in-out infinite}}
+@keyframes breath{0%,100%{transform:none}50%{transform:translateY(-.35%) scale(1.012)}}
+.glow{position:absolute;left:var(--lx,80%);top:var(--ly,68%);width:42%;aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(255,206,130,.32),rgba(242,180,90,.10) 55%,transparent);pointer-events:none}
+@media (prefers-reduced-motion:no-preference){.glow{animation:flick 6s steps(1,end) infinite}}
+@keyframes flick{0%{opacity:.9}12%{opacity:1}19%{opacity:.82}23%{opacity:.97}48%{opacity:.88}61%{opacity:1}74%{opacity:.85}88%{opacity:.95}}
+canvas.motes{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.zoomhint{position:absolute;left:max(20px,env(safe-area-inset-left,0px));bottom:84px;font:400 .66rem var(--f-type);letter-spacing:.18em;text-transform:uppercase;color:rgba(236,231,220,.75);border:1px solid rgba(236,231,220,.25);border-radius:999px;padding:6px 12px;background:rgba(10,14,26,.62)}
+html[lang="th"] .zoomhint{letter-spacing:0;font-size:.78rem}
+@media (min-width:900px){.zoomhint{bottom:40px;left:40px}}
+/* the opening: darkness → the lantern finds her → name is written → the tag is hung (once per visit · any tap skips) */
+.curtain{position:absolute;left:var(--lx2,70%);top:var(--ly2,60%);width:256px;height:256px;margin:-128px 0 0 -128px;z-index:6;pointer-events:none;opacity:0;visibility:hidden;background:radial-gradient(circle closest-side,transparent 0,transparent 2%,rgba(8,11,21,.98) 6%);transform-origin:50% 50%;transform:scale(14)}
+.stage.pre .curtain{opacity:1;visibility:visible}.stage.pre .wrap{visibility:hidden}.stage.play .curtain{visibility:visible;will-change:transform}
+.stage.play .curtain{opacity:1}
+@keyframes write{from{clip-path:inset(-20% 100% -20% 0)}to{clip-path:inset(-20% 0 -20% 0)}}
+@keyframes type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes hang{0%{opacity:0;transform:translateY(-26px) rotate(-10deg)}40%{opacity:1;transform:rotate(3deg)}68%{transform:rotate(-1.2deg)}86%{transform:rotate(.4deg)}100%{transform:none}}
+.stage.play .edition{animation:up .8s var(--slow) .55s both}
+.stage.play .name{animation:write 1.1s cubic-bezier(.5,.1,.3,1) .8s both}
+.stage.play .epi{animation:type 1s steps(30,end) 1.55s both}
+.stage.play .qrow{animation:up .9s var(--slow) 1.9s both}
+.stage.play .tag{transform-origin:16px 50%;animation:hang 1.8s var(--slow) 1.35s both}
+.stage.play .acts{animation:up .9s var(--slow) 2.1s both}
+.stage.play .zoomhint{animation:up .9s var(--slow) 2.8s both}
+.stage.play .breath{animation:none}
+/* the short opening for reloads: light comes up fast, everything settles in under a second */
+.stage.play.short .edition,.stage.play.short .name,.stage.play.short .epi,.stage.play.short .qrow,.stage.play.short .tag,.stage.play.short .acts{animation:up .6s var(--slow) .3s both}
+/* viewer: the main art, full screen, tap to zoom, ← → for the other views; closing returns you where you were */
+.viewer{border:0;padding:0;background:none;color:var(--ink);max-width:none;max-height:none;width:100%;height:100%;margin:0;inset:0}
+.viewer::backdrop{background:rgba(6,9,18,.96)}
+.vin{position:relative;height:100%;display:grid;grid-template-rows:minmax(0,1fr) auto;padding:56px 0 18px}
+.vstage{position:relative;overflow:hidden;display:grid;place-items:center;cursor:zoom-in;touch-action:pan-y}
+.vstage img{max-width:100%;max-height:100%;object-fit:contain;transition:transform .6s var(--slow);user-select:none}
+.vstage.z{cursor:zoom-out;touch-action:none}.vstage.z img{transform:scale(2.4)}
+.vbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px max(20px,env(safe-area-inset-left,0px)) 0;font:400 .72rem var(--f-type);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.vbar b{color:var(--ink);font-weight:400;margin-right:10px}
+html[lang="th"] .vbar{letter-spacing:0}
+/* where the auction is: four small windows, the current one lit (replaces the night-answer row in the hero) */
+.srail{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;list-style:none;margin:2px 0 0;padding:0;font:400 .64rem/1 var(--f-type);letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+html[lang="th"] .srail{letter-spacing:0;font-size:.74rem}
+.srail li{display:flex;align-items:center;gap:6px}
+.srail li+li::before{content:"";width:14px;height:1px;background:rgba(236,231,220,.22);margin-right:2px}
+.srail i{width:8px;height:11px;border-radius:4px 4px 1px 1px;background:#2b3146;box-shadow:inset 0 0 0 1px #3a2c2a}
+.srail li.done{color:var(--muted)}.srail li.done i{background:#6d6478}
+.srail li.cur{color:var(--ink)}.srail li.cur i{background:linear-gradient(#ffd58e,var(--amber));box-shadow:0 0 10px rgba(var(--amber-rgb),.7)}
+/* claim tag (cream, typewritten) */
+.tag{padding:13px 18px 13px 34px;min-width:min(100%,340px);clip-path:polygon(16px 0,100% 0,100% 100%,16px 100%,0 calc(100% - 16px),0 16px)}
+.tag::before{content:"";position:absolute;left:12px;top:50%;width:9px;height:9px;margin-top:-4.5px;border-radius:50%;background:var(--night);box-shadow:inset 0 0 0 1.5px #b9ab8e;z-index:1}
+.tag .lbl{font:400 .66rem var(--f-type);letter-spacing:.2em;text-transform:uppercase;color:var(--paper-label)}
+.tag .val{font:400 2.7rem/1 var(--f-type);letter-spacing:-.02em;margin-top:4px}
+@media (min-width:900px){.tag .val{font-size:3.1rem}}
+.tag .when{font:400 .76rem/1.35 var(--f-type);color:#4f483c;margin-top:6px}
+.tag .seal{position:absolute;right:14px;top:14px;z-index:2;font:400 1.35rem/1 var(--f-hand);color:var(--stamp);border:1.5px solid var(--stamp);border-radius:4px;padding:3px 8px;transform:rotate(-7deg);opacity:.9;mix-blend-mode:multiply}
+html[lang="th"] .tag .seal{font:400 .85rem/1.2 "Sriracha",cursive}
+.tag .seal.home{color:var(--home);border-color:var(--home)}
+.tag .live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);margin-right:6px;vertical-align:1px}
+@media (prefers-reduced-motion:no-preference){.tag .live{animation:breathe 2.6s ease-in-out infinite}}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.35}}
+.acts{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+@media (min-width:900px){
+  .stage{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:center;min-height:min(92svh,860px)}
+  .art{grid-column:1;grid-row:1;height:min(96svh,900px);max-height:none}
+  .art img{object-fit:contain;object-position:50% 60%;-webkit-mask-image:radial-gradient(closest-side,#000 52%,transparent 100%);mask-image:radial-gradient(closest-side,#000 52%,transparent 100%)}
+  .stage .wrap{grid-column:2;grid-row:1;margin:0;padding-left:0}
+  .heroinfo{margin-top:0;padding-block:90px;max-width:460px;gap:26px}
+  .name{font-size:clamp(5.6rem,7vw,7.6rem)}
 }
-/* P10: lantern link keeps its colour; a soft dark halo lets it read where the fog band brightens the bottom of the screen */
-.hero .lh-ctx{text-shadow:var(--lh-halo-strong)}
+
+/* dock */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:0 max(12px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));pointer-events:none;transform:translateY(130%)}
+.dock.on{transform:none}
+@media (prefers-reduced-motion:no-preference){.dock{transition:transform .6s var(--slow)}}
+.dock .in{pointer-events:auto;max-width:640px;margin:0 auto;display:flex;align-items:center;gap:14px;background:rgba(10,14,26,.97);border:1px solid var(--rule);border-radius:999px;padding:6px 6px 6px 18px}
+.dock .dt{flex:1;min-width:0;display:flex;align-items:center;gap:10px}
+.dock .mini{display:flex;gap:3px}
+.dock .mini i{width:7px;height:9px;border-radius:4px 4px 1px 1px;background:#2b3146}
+.dock .mini i.on{background:var(--amber);box-shadow:0 0 6px rgba(var(--amber-rgb),.7)}
+.dock b{font:400 1.25rem/1 var(--f-type);white-space:nowrap}
+.dock .btn{min-height:46px;padding:12px 18px;font-size:.9rem}
+
+/* desktop: drag rows with the mouse; images never start a browser drag */
+img{-webkit-user-drag:none;user-select:none}
+.reel,.strip{cursor:grab}.reel.dragging,.strip.dragging{cursor:grabbing;scroll-snap-type:none}
+.reel.dragging *{pointer-events:none}
+/* ===== 4 · look closer = a guided tour of the details (v1's lights, now a camera that travels) ===== */
+.look{padding-top:clamp(80px,12vw,130px)}
+.look .sechead{margin-bottom:18px}
+.tour{display:grid;gap:16px;align-items:start}
+@media (min-width:900px){.tour{grid-template-columns:auto minmax(0,1fr);gap:48px;align-items:center}.tplate{height:min(76svh,760px);max-height:none;width:auto}}
+.tplate{position:relative;overflow:hidden;aspect-ratio:4/5;max-height:80svh;background:var(--night-2);border-radius:4px}
+.tplate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:0 0;will-change:transform}
+@media (prefers-reduced-motion:no-preference){.tplate img{transition:transform 1.5s cubic-bezier(.45,.05,.2,1)}}
+.tplate .spot{position:absolute;width:48px;height:48px;margin:-24px 0 0 -24px;border:0;background:none;cursor:pointer;display:grid;place-items:center;transition:opacity .6s}
+.tplate .spot::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 6px rgba(var(--gold-rgb),.18),0 0 18px 6px rgba(var(--gold-rgb),.35)}
+.tplate .spot b{position:absolute;left:34px;top:50%;transform:translateY(-50%);font:400 .7rem var(--f-type);color:var(--ink);text-shadow:0 1px 6px rgba(0,0,0,.8)}
+@media (prefers-reduced-motion:no-preference){.tplate .spot::before{animation:breathe 3.6s ease-in-out infinite}}
+.tplate.zoom .spot{opacity:0;pointer-events:none}
+.tnote{position:absolute;left:14px;right:14px;bottom:14px;max-width:420px;padding:12px 16px 14px;opacity:0;transform:translateY(14px) rotate(-1deg);pointer-events:none}
+.tnote.on{opacity:1;transform:rotate(-1deg)}
+@media (prefers-reduced-motion:no-preference){.tnote{transition:opacity .7s var(--slow) .8s,transform .7s var(--slow) .8s}.tnote.on{transition-delay:1s}}
+.tnote small{position:relative;z-index:1;font:400 .62rem var(--f-type);letter-spacing:.2em;text-transform:uppercase;color:var(--paper-label)}
+.tnote p{position:relative;z-index:1;margin:2px 0 0;font:400 1.7rem/1.05 var(--f-hand)}
+html[lang="th"] .tnote p{font:400 1.02rem/1.45 "Sriracha",cursive}
+.tside{display:grid;gap:18px;align-content:start}
+.tlist{list-style:none;margin:0;padding:0;display:none;border-top:1px solid var(--rule)}
+@media (min-width:900px){.tlist{display:block}}
+.tlist button{display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:8px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--rule);padding:14px 0;color:var(--muted);font:400 .9rem/1.45 var(--f-type);cursor:pointer}
+.tlist button b{font-weight:400;color:var(--dim)}
+.tlist button[aria-current="true"]{color:var(--ink)}.tlist button[aria-current="true"] b{color:var(--gold)}
+.tctl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tctl .btn{padding:14px 20px;min-height:48px}
+.tctl #tAll{margin-left:auto;padding:12px 2px;min-height:44px}
+.lbnav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--rule);background:none;color:var(--ink);font:400 1rem var(--f-type);cursor:pointer}
+.lbnav button:hover,.tctl .rb:hover{border-color:rgba(236,231,220,.5)}
+.tctl .rb{width:44px;height:44px;border-radius:50%;border:1px solid var(--rule);background:none;color:var(--ink);font:400 1rem var(--f-type);cursor:pointer}
+.tctl .tn{font:400 .74rem var(--f-type);color:var(--dim);min-width:3.4em;text-align:center}
+.tother{display:none}
+.tour.other .tlist,.tour.other .tctl{display:none!important}
+.tour.other .tother{display:grid;gap:6px;justify-items:start}
+.tother p{margin:0;font:400 .9rem/1.5 var(--f-type);color:var(--muted)}
+.tother p b{font-weight:400;color:var(--ink);margin-right:8px}
+.tviews{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.tviews button{flex:0 0 auto;display:grid;gap:5px;justify-items:center;background:none;border:0;padding:0;color:var(--dim);font:400 .62rem var(--f-type);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+html[lang="th"] .tviews button{letter-spacing:0}
+.tviews img{width:64px;height:80px;object-fit:cover;border-radius:4px;opacity:.6;box-shadow:inset 0 0 0 1px var(--rule)}
+.tviews button[aria-pressed="true"]{color:var(--ink)}.tviews button[aria-pressed="true"] img{opacity:1;outline:1px solid rgba(236,231,220,.6);outline-offset:2px}
+
+/* ===== 3 · the house ===== */
+.sec{padding-top:clamp(90px,13vw,150px)}
+#get{padding-top:clamp(8px,2vw,24px)}
+.bridge{position:relative;height:clamp(120px,16vw,210px);margin-top:-30px;pointer-events:none}
+.bridge svg{position:absolute;inset:0;width:100%;height:100%}
+.pdots circle{opacity:.14;transition:opacity .9s var(--slow)}
+.pdots circle.g{opacity:0}
+.bridge.on .pdots circle{opacity:1;transition-delay:calc(var(--i) * 90ms)}
+.bridge.on .pdots circle.g{opacity:.7}
+.bdoorglow{opacity:.35;transition:opacity 1.4s var(--slow) 1.3s}.bridge.on .bdoorglow{opacity:1}
+@media (prefers-reduced-motion:reduce){.pdots circle{opacity:1!important;transition:none}.pdots circle.g{opacity:.7!important}}
+.sechead{display:grid;gap:10px;margin-bottom:clamp(26px,5vw,44px)}
+.sechead h2{margin:0;font:400 clamp(3rem,12vw,4.6rem)/.9 var(--f-hand)}
+html[lang="th"] .sechead h2{font-family:"Sriracha",cursive;font-size:clamp(1.8rem,6.5vw,2.6rem);line-height:1.2}
+.sechead p{margin:0;color:var(--muted);font:400 .86rem/1.5 var(--f-type);max-width:46ch}
+.gethead{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:12px 20px}
+.gethead .sechead{margin-bottom:0}
+.housebox{width:clamp(108px,30vw,210px)}
+.house{display:block;width:100%;margin:0 auto;height:auto;overflow:visible}
+.house .win{cursor:pointer}
+.house .glass{fill:#161c30}
+.house .lit{fill:url(#amberGlass);opacity:0}
+.house .halo{fill:url(#halo);opacity:0}
+.house .inner{opacity:.0}
+.house .win.on .lit{opacity:1}.house .win.on .halo{opacity:.85}.house .win.on .inner{opacity:.9}
+.house .win.sel .wf{stroke:var(--paper);stroke-width:3}
+@media (prefers-reduced-motion:no-preference){.house .lit,.house .halo,.house .inner{transition:opacity 1.8s var(--slow)}.house .win.ignite .halo{animation:ign 2.2s var(--slow)}
+  .house.homed.iv .smoke path,.iv .house.homed .smoke path{animation:smoke 9s linear infinite}.house .smoke path:nth-child(2){animation-delay:-3s}.house .smoke path:nth-child(3){animation-delay:-6s}}
+@keyframes ign{0%{opacity:0;transform:scale(.5)}35%{opacity:1;transform:scale(1.6)}100%{opacity:.85;transform:none}}
+@keyframes smoke{0%{transform:translate(0,0);opacity:0}15%{opacity:.5}100%{transform:translate(18px,-70px);opacity:0}}
+.house .halo{transform-box:fill-box;transform-origin:50% 50%}
+.house .smoke{opacity:0}.house.homed .smoke{opacity:1}
+.hometag{opacity:0;transform:translateY(-6px) rotate(-8deg);transform-box:fill-box;transform-origin:50% 0}
+.house.homed .hometag{opacity:1;transform:rotate(-8deg)}
+@media (prefers-reduced-motion:no-preference){.hometag{transition:opacity 1s var(--slow) 1.6s,transform 1.2s var(--slow) 1.6s}}
+.lampline{font:400 .8rem/1.5 var(--f-type);color:var(--muted);margin:18px 0 6px}
+/* tickets: one compact row each, real objects in a strip · tap an object to see it big */
+.tiers{display:grid;gap:12px}
+/* each ticket is a room: lit = warm light falls from its window (top-left); dark = cool and dim */
+.tier{position:relative;isolation:isolate;overflow:hidden;border-radius:8px;display:grid;gap:14px;padding:18px 16px 20px;scroll-margin-top:70px;background:linear-gradient(180deg,#151b2f,#11172a);box-shadow:inset 0 0 0 1px rgba(236,231,220,.06)}
+.tier::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;background:radial-gradient(70% 90% at 6% -6%,rgba(255,196,120,.34),rgba(var(--amber-rgb),.12) 45%,transparent 75%),linear-gradient(115deg,rgba(255,210,150,.10) 0 28%,transparent 46%)}
+.tier::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(40,60,110,.18),transparent 60%);opacity:1}
+.tier.on::before{opacity:1}.tier.on::after{opacity:0}
+.tier.on{box-shadow:inset 0 0 0 1px rgba(var(--amber-rgb),.22)}
+@media (prefers-reduced-motion:no-preference){.tier::before,.tier::after{transition:opacity 2.2s var(--slow)}.tier.flash::before{animation:roomOn 2.6s var(--slow)}}
+@keyframes roomOn{0%{opacity:0}30%{opacity:1;filter:brightness(1.6)}100%{opacity:1;filter:none}}
+.thead{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:4px 12px}
+.wi{width:16px;height:21px;border-radius:8px 8px 2px 2px;background:#262c40;box-shadow:inset 0 0 0 2px #3a2c2a}
+.tier.on .wi{background:linear-gradient(#ffd58e,var(--amber));box-shadow:inset 0 0 0 2px #3a2c2a,0 0 14px rgba(var(--amber-rgb),.8)}
+.thead h3{margin:0;font:400 2.3rem/.9 var(--f-hand)}
+.thead .tl{grid-column:2;font:400 .72rem/1.3 var(--f-type);color:var(--dim)}
+.thead .tl em{font-style:normal;color:var(--muted)}
+.tier.on .thead .tl em{color:var(--amber)}
+.thead .tp{grid-row:1/3;grid-column:3;text-align:right;font:400 1.7rem/1 var(--f-type)}
+.thead .tp small{display:block;font:400 .58rem var(--f-type);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:3px}
+/* one signature object, large · the rest small beside it */
+.tbody{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:12px;align-items:start}
+.tbody.solo{grid-template-columns:minmax(0,1fr)}
+.thumb{display:grid;gap:6px;justify-items:center;align-content:start;background:none;border:0;padding:0;color:inherit;font:inherit;cursor:zoom-in;text-align:center;min-width:0}
+.thumb .o{position:relative;width:100%;aspect-ratio:1;display:grid;place-items:center}
+.sg .o{filter:drop-shadow(0 18px 24px rgba(0,0,0,.45))}
+.tbody.solo .sg{width:min(100%,260px);justify-self:center}
+.rest{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 8px;align-content:start}
+.rest .o{border-radius:6px;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.05),transparent 70%)}
+@media (prefers-reduced-motion:no-preference){.thumb .o{transition:transform .5s var(--slow)}.thumb:hover .o{transform:translateY(-3px)}}
+.tier:not(.on) .thumb .o>*{filter:saturate(.5) brightness(.72)}
+.thumb span{font:400 .6rem/1.3 var(--f-type);color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sg>span:last-child{font-size:.68rem;color:var(--ink)}
+@media (min-width:700px){.tbody{grid-template-columns:260px minmax(0,1fr);gap:24px}.rest{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:14px 12px}.tbody.solo{grid-template-columns:260px minmax(0,1fr)}.tbody.solo .sg{justify-self:start}}
+/* everything from the tickets below comes along */
+.incl{display:flex;align-items:center;gap:12px;font:400 .72rem/1.4 var(--f-type);color:var(--muted)}
+.incl b{font-weight:400;color:var(--ink)}
+.stack{display:flex;padding-left:8px}
+.stack i{width:30px;height:30px;margin-left:-8px;border-radius:5px;background-size:cover;background-position:50% 30%;box-shadow:0 0 0 2px #141a2c,0 4px 8px rgba(0,0,0,.4)}
+.tbody .incl{grid-column:1/-1}
+@media (min-width:700px){.tbody.solo .incl{grid-column:2;align-self:center}}
+/* wide screens: the four rooms as a 2×2 house plan, so nothing floats in empty space */
+@media (min-width:1000px){.tiers{grid-template-columns:1fr 1fr;gap:16px}.tbody,.tbody.solo{grid-template-columns:210px minmax(0,1fr);gap:20px}.rest{grid-template-columns:repeat(2,minmax(0,1fr))}.tbody.solo .incl{grid-column:2}}
+.after{font:400 .72rem/1.5 var(--f-type);color:var(--dim);margin:0}
+/* objects (drawn in CSS around sample art) */
+.shadow{box-shadow:0 1px 1px rgba(0,0,0,.3),0 14px 26px -4px rgba(0,0,0,.55)}
+.print{width:78%;aspect-ratio:4/5;background:#fff;padding:6%;transform:rotate(-2deg)}
+.print img,.sheet img,.frame img,.phone img,.passobj img{width:100%;height:100%;object-fit:cover;display:block}
+.png{width:78%;aspect-ratio:4/5;background:repeating-conic-gradient(#d9d4c8 0 25%,#f4f1ea 0 50%) 50%/16px 16px;transform:rotate(2deg);display:grid;place-items:end center;overflow:hidden}
+.png img{width:120%;max-width:none;-webkit-mask-image:radial-gradient(closest-side,#000 70%,transparent);mask-image:radial-gradient(closest-side,#000 70%,transparent);transform:translateY(12%)}
+.passobj{width:94%;aspect-ratio:1200/750;border-radius:6px;overflow:hidden;transform:rotate(-4deg)}
+.phone{width:46%;aspect-ratio:9/19;border-radius:12px;background:#0b0d14;padding:4%;box-shadow:0 14px 26px rgba(0,0,0,.5),inset 0 0 0 1.5px #2b3040}
+.phone img{border-radius:8px}
+.slip{width:84%;padding:12% 8%;font:400 clamp(1.5rem,6vw,2.4rem)/1 var(--f-hand);white-space:nowrap;transform:rotate(-3deg);text-align:center}
+.layers{width:66%;aspect-ratio:4/5;position:relative}
+.layers i{position:absolute;inset:0;border-radius:3px;box-shadow:0 10px 20px rgba(0,0,0,.35);background-size:cover;background-position:50% 30%}
+.layers i:nth-child(1){transform:translate(-14%,10%) rotate(-6deg);background-color:#f4f1ea;filter:grayscale(1) contrast(3) brightness(1.4);opacity:.9}
+.layers i:nth-child(2){transform:translate(-5%,4%) rotate(-2deg);filter:saturate(.3) brightness(1.2);opacity:.9}
+.layers i:nth-child(3){transform:translate(4%,-2%) rotate(2deg);filter:brightness(.7)}
+.layers i:nth-child(4){transform:translate(12%,-8%) rotate(6deg)}
+.doc{width:70%;aspect-ratio:3/4;transform:rotate(3deg);padding:12% 10%;display:grid;align-content:start;gap:7%}
+.doc i{display:block;height:5%;min-height:3px;background:rgba(42,38,32,.2);border-radius:2px;position:relative;z-index:1}
+.doc i:nth-child(1){width:60%;background:rgba(42,38,32,.45)}.doc i:nth-child(3){width:85%}.doc i:nth-child(5){width:70%}
+.doc b{position:absolute;right:10%;bottom:9%;width:30%;aspect-ratio:1;border:1.5px solid var(--stamp);border-radius:50%;color:var(--stamp);display:grid;place-items:center;font:400 .95rem var(--f-type);transform:rotate(-12deg);z-index:1}
+.frame{width:86%;aspect-ratio:4/5;background:linear-gradient(135deg,#3a2a1c,#21170f);padding:7%;transform:rotate(-1deg)}
+.frame div{width:100%;height:100%;background:#efe9db;padding:7%}
+.sheet{width:92%;aspect-ratio:4/3;background:#fff;padding:4%;transform:rotate(2deg)}
+.faces{width:84%;aspect-ratio:4/3;transform:rotate(-2deg);display:grid;grid-template-columns:1fr 1fr;gap:8%;padding:9%}
+.faces i{background:var(--paper-ink);border-radius:3px;position:relative;z-index:1}
+/* lightbox */
+.lb{border:0;padding:0;background:none;color:var(--ink);max-width:none;max-height:none;width:100%;height:100%;margin:0;inset:0}
+.lb::backdrop{background:rgba(6,9,18,.88);backdrop-filter:blur(6px)}
+.lbin{position:relative;height:100%;display:grid;place-items:center;align-content:center;gap:22px;padding:60px 20px 30px}
+.lbo{width:min(80vw,58svh,520px);aspect-ratio:1;display:grid;place-items:center}
+.lbt{display:grid;gap:4px;justify-items:center;text-align:center;max-width:36ch}
+.lbt small{font:400 .66rem var(--f-type);letter-spacing:.22em;text-transform:uppercase;color:var(--amber)}
+.lbt b{font:400 1.05rem/1.4 var(--f-type)}
+.lbt span{font:400 .76rem var(--f-type);color:var(--dim)}
+.lbx{position:absolute;right:max(12px,env(safe-area-inset-right,0px));top:max(12px,env(safe-area-inset-top,0px));width:44px;height:44px;border:0;background:none;color:var(--ink);font-size:1.1rem;cursor:pointer}
+.lbnav{display:flex;align-items:center;gap:16px;font:400 .72rem var(--f-type);color:var(--dim)}
+@media (prefers-reduced-motion:no-preference){.lb[open] .lbo{animation:lbin .7s var(--slow)}}
+@keyframes lbin{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.honest{margin-top:26px;color:var(--muted);font:400 .8rem/1.5 var(--f-type);text-align:center}
+
+/* ===== 4 · story: Delta's notebook page ===== */
+.story{display:grid;gap:clamp(40px,7vw,70px);align-items:center}
+@media (min-width:900px){.story{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}}
+.note{padding:34px 26px 40px 46px;transform:rotate(-.6deg);background-image:repeating-linear-gradient(180deg,transparent 0 31px,rgba(70,90,140,.16) 31px 32px);background-color:var(--paper);background-position:0 18px}
+.note::before{content:"";position:absolute;left:28px;top:0;bottom:0;width:1px;background:rgba(140,42,51,.35);z-index:1}
+.note>*{position:relative;z-index:1}
+.note .kick{color:var(--paper-label)}
+.note h2{margin:6px 0 18px;font:400 clamp(2.6rem,10vw,3.6rem)/.95 var(--f-hand);color:var(--paper-ink)}
+html[lang="th"] .note h2{font:400 1.8rem/1.3 "Sriracha",cursive}
+.facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 16px;margin:0 0 20px;font:400 .86rem/1.9 var(--f-type)}
+.facts dt{color:var(--paper-label);letter-spacing:.08em}
+.facts dd{margin:0}
+.log{font:400 .95rem/2 var(--f-type);max-width:42ch}
+.log p{margin:0 0 0}
+.log .phx{color:#7a7060}
+.sig{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-top:18px}
+.sig .s{font:400 2rem/1 var(--f-hand)}
+.sig small{display:block;font:400 .6rem var(--f-type);letter-spacing:.2em;text-transform:uppercase;color:var(--paper-label);margin-bottom:2px}
+.wax{flex:none;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#b23a45,#7a1f29 68%,#5e1520);box-shadow:0 6px 14px rgba(0,0,0,.35),inset 0 0 0 6px rgba(0,0,0,.12),inset 0 2px 3px rgba(255,255,255,.18);display:grid;place-items:center;color:#5e1520;font:700 1.9rem/1 Georgia,serif;text-shadow:0 1px 0 rgba(255,190,190,.35),0 -1px 0 rgba(0,0,0,.4);transform:rotate(8deg);position:relative;z-index:1}
+.passzone{perspective:1300px;display:grid;place-items:center;touch-action:pan-y}
+.pass{position:relative;width:100%;max-width:520px;aspect-ratio:1200/750;transform-style:preserve-3d;cursor:grab}
+@media (prefers-reduced-motion:no-preference){.pass.ease{transition:transform 1s var(--slow)}}
+.pass .face{position:absolute;inset:0;border-radius:10px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 30px 60px rgba(0,0,0,.55)}
+.pass .face img{width:100%;height:100%;object-fit:cover;display:block}
+.pass .face.b{transform:rotateY(180deg)}
+.pass .sheen{position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.26) 46%,rgba(var(--gold-rgb),.14) 52%,transparent 66%);background-size:260% 260%;background-position:var(--sx,50%) var(--sy,50%);mix-blend-mode:screen;pointer-events:none}
+.flip{display:block;margin:22px auto 0}
+
+/* ===== 5 · rules as ticket stubs ===== */
+/* how it goes: one line from bid to the last delivery */
+.how{list-style:none;margin:0;padding:0;display:grid;gap:0;position:relative}
+.how li{position:relative;display:grid;grid-template-columns:28px minmax(0,1fr);gap:0 14px;padding:0 0 22px;align-content:start;align-items:start}
+.how li::before{content:"";position:absolute;left:13px;top:18px;bottom:-2px;width:1px;background:repeating-linear-gradient(180deg,rgba(236,231,220,.3) 0 4px,transparent 4px 8px)}
+.how li:last-child::before{display:none}
+.how .dot{width:12px;height:16px;margin:3px 0 0 8px;border-radius:6px 6px 2px 2px;background:#2b3146;box-shadow:inset 0 0 0 1.5px #3a2c2a}
+.how li.lit .dot{background:linear-gradient(#ffd58e,var(--amber));box-shadow:0 0 10px rgba(var(--amber-rgb),.6)}
+.how li.gold .dot{background:var(--gold);border-radius:50%;width:12px;height:12px;margin-top:5px}
+.how b{display:block;font:400 1.5rem/1.1 var(--f-type)}
+.how .w{font:400 .7rem var(--f-type);letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:2px}
+html[lang="th"] .how .w{letter-spacing:0}
+.how span{font:400 .8rem/1.5 var(--f-type);color:var(--muted)}
+@media (min-width:900px){.how{grid-template-columns:repeat(6,minmax(0,1fr));gap:0 18px}.how li{grid-template-columns:1fr;padding:0}.how li::before{left:22px;right:-18px;top:9px;bottom:auto;width:auto;height:1px;background:repeating-linear-gradient(90deg,rgba(236,231,220,.3) 0 4px,transparent 4px 8px)}.how .dot{margin:2px 0 14px 0}.how li.gold .dot{margin:4px 0 16px}}
+.stub{padding:16px 0 18px;border-top:1px dashed rgba(236,231,220,.22)}
+.stub b{display:block;font:400 1.7rem/1.1 var(--f-type);position:relative;z-index:1}
+.stub span{font:400 .8rem/1.5 var(--f-type);color:var(--muted)}
+.small{font-size:.86rem;color:var(--muted)}
+/* goodnight: the story ends where it started, a light left on */
+.gn{position:relative;margin-top:clamp(90px,13vw,150px);padding:20px 0 10px;display:grid;justify-items:center;text-align:center;gap:10px}
+.gn::before{content:"";position:absolute;left:50%;top:40px;width:min(90vw,700px);height:260px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(var(--amber-rgb),.10),transparent);pointer-events:none}
+.gnhouse{width:clamp(120px,22vw,170px)}
+.gnhouse svg{width:100%;height:auto;display:block}
+.gnline{margin:8px 0 0;font:400 clamp(2rem,7vw,2.8rem)/1 var(--f-hand);color:var(--ink);max-width:22ch;text-wrap:balance}
+html[lang="th"] .gnline{font:400 1.3rem/1.4 "Sriracha",cursive}
+.gnstat{margin:0;font:400 .78rem var(--f-type);color:var(--muted)}
+.gnact{margin-top:8px}
+footer{margin-top:56px;padding-block:22px 110px;border-top:1px solid var(--rule);font-size:.8rem;color:var(--dim)}
+
+/* prototype-only */
+.proto{position:fixed;right:max(10px,env(safe-area-inset-right,0px));top:calc(54px + env(safe-area-inset-top,0px));z-index:70;font:500 .72rem "IBM Plex Sans Thai",var(--f-mono);text-align:right}
+.proto>button{background:#0b0f1c;color:#f0c27a;border:1px solid #f0c27a;border-radius:999px;padding:5px 10px;cursor:pointer;font:inherit}
+.proto .pp{margin-top:6px;background:#0b0f1c;border:1px solid #f0c27a;border-radius:10px;padding:10px;display:grid;gap:7px;max-width:310px;text-align:left}
+.proto .pp[hidden]{display:none}
+.proto .pp div{display:flex;flex-wrap:wrap;gap:4px}
+.proto .pp button{background:none;color:var(--ink);border:1px solid var(--rule);border-radius:999px;padding:4px 9px;cursor:pointer;font:inherit}
+.proto .pp button[aria-pressed="true"]{background:#f0c27a;color:#241a0d}
+.proto .pp small{color:#a3acbd}
 </style>
-<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap">
+<style>
+/* LAND: status chip on the ticket · after-home (registry) mode = the same page, condensed (Dell 27 Oct) */
+.tag .pill.dup{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);margin:0}
+.tag .pill{display:block;margin-top:8px!important;padding-top:7px;border-top:1px dashed rgba(42,38,32,.25);font:500 .62rem var(--f-mono,"IBM Plex Mono",monospace);letter-spacing:.14em;text-transform:uppercase;color:var(--paper-label,#6a604f)}
+.tag .pill.on{color:#8c2a33}
+html[lang="th"] .tag .pill{font-family:"IBM Plex Sans Thai",monospace;letter-spacing:.02em;text-transform:none;font-size:.72rem}
+.stepnote{margin:10px 0 0;font:500 .74rem var(--f-mono,"IBM Plex Mono",monospace);letter-spacing:.04em;color:rgba(236,231,220,.72)}
+html[lang="th"] .stepnote{font-family:"IBM Plex Sans Thai",sans-serif}
+.ctxrow{margin:10px 0 0}.ctxrow .lh-ctx{font-size:.9rem}
+.upd{margin:4px 0 0;font:500 .7rem var(--f-mono,"IBM Plex Mono",monospace);color:rgba(236,231,220,.55)}
+.upd:empty{display:none}
+html.reg .srail,html.reg #tag,html.reg #bridge,html.reg #get .tp,html.reg #lampline,html.reg #updated,html.reg #honest,html.reg #get .after,html.reg .dock,html.reg #sec-rules,html.reg .ctxrow,html.reg #stepnote{display:none!important}
+.regline{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:14px 0 4px}
+.regline[hidden]{display:none}
+.regline .st{display:inline-block;font:500 .7rem "IBM Plex Mono",monospace;letter-spacing:.12em;color:#ffd38a;border:1.5px solid #ffd38a;border-radius:3px;padding:5px 9px;transform:rotate(-3deg)}
+.regline .with{font:400 1.7rem/1 "Reenie Beanie","Caveat",cursive;color:#ece7dc}
+.regline .with small{font:500 .6rem "IBM Plex Mono",monospace;letter-spacing:.14em;color:rgba(236,231,220,.55);margin-right:8px}
+html[lang="th"] .regline .st,html[lang="th"] .regline .with small{font-family:"IBM Plex Sans Thai",monospace;letter-spacing:.02em}
+.regline .seen{font:500 .7rem "IBM Plex Mono",monospace;letter-spacing:.08em;color:#ece7dc;border:1px solid rgba(236,231,220,.3);border-radius:999px;padding:6px 11px;text-decoration:none}
+.regback{position:absolute;left:18px;top:64px;z-index:6;font:500 .66rem "IBM Plex Mono",monospace;letter-spacing:.14em;color:rgba(236,231,220,.75);text-decoration:none}
+.regback[hidden]{display:none}
+.lh-nav.lh-rail{z-index:45}
+.acts [hidden],.ctxrow [hidden]{display:none!important}
+/* LAND r6 (Dell: menu vanished on arrival): the dock sits ABOVE the rail · both stay · when the rail tucks away while reading, the dock drops to the edge */
+.dock{bottom:calc(64px + env(safe-area-inset-bottom,0px));padding-bottom:8px}
+/* r10 (Dell: menu still overlapped): the hidden dock used to slide only 130% of its own height, so with bottom:64px it still peeked out under the rail · now it fades + slides off fully and never sits behind the rail */
+.dock{transform:translateY(24px);opacity:0;visibility:hidden;transition:transform .45s var(--slow),opacity .35s,visibility 0s .45s}
+.dock.on{transform:none;opacity:1;visibility:visible;transition:transform .45s var(--slow),opacity .35s,visibility 0s}
+main{padding-bottom:150px}
+html body .lh-nav.lh-rail{transform:none!important}
+</style>
+<style id="ink-rule">.sechead h2{font-family:"Caveat","Sriracha",cursive!important;font-weight:700!important;font-size:clamp(2.4rem,9vw,3.6rem)!important}.tier h3{font-family:"Caveat","Sriracha",cursive!important;font-weight:700!important}html[lang="th"] .sechead h2,html[lang="th"] .tier h3{font-family:"Sriracha",cursive!important;font-weight:400!important}</style>
+<link rel="stylesheet" href="../../assets/head.css">
 </head>
 <body>
-<div class="sky" aria-hidden="true"></div>
-<div class="fog" aria-hidden="true"></div>
+<a class="regback" id="regback" href="../../travellers/" hidden>← TRAVELLER REGISTRY</a>
+<header class="top"><div class="wrap lh-head">
+  <a class="brand ph lh-logo" href="../../">littlehill</a>
+  <nav class="lh-nav" aria-label="littlehill"><a data-k="traveller" href="../../traveller/001/">Travellers</a><a data-k="auction" href="../../auction/">Auction</a><a data-k="rules" href="../../rules/">Boarding rules</a><a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a></nav>
+  <span class="lh-tr"><button type="button" class="lh-snd" aria-label="Sound" aria-pressed="false"></button><div class="langsw lh-lang" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="th" aria-pressed="false">ไทย</button></div></span>
+</div></header><script>/* r12b: logo + buttons hang from the page corners (same spot as the home page, phone and desktop) */(function(){var b=document.body;[].forEach.call(document.querySelectorAll(".lh-head .lh-logo,.lh-head .lh-tr"),function(e){b.appendChild(e);e.classList.add("lh-top");});})();</script>
 
-<div class="wrap">
-  <header class="top">
-    <a class="brand" href="../../">littlehill</a>
-    <nav class="lh-nav" aria-label="littlehill"><a data-k="traveller" href="../../traveller/001/">Traveller No.001</a><a data-k="auction" href="../../auction/">Auction</a><a data-k="rules" href="../../rules/">Boarding rules</a><a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a></nav>
-    <span class="pill" id="pill">Viewing days</span>
-    <div class="langsw" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">EN</button>
-      <button type="button" data-lang="th" aria-pressed="false">ไทย</button>
-    </div>
-  </header>
-
-  <!-- 1 · HERO -->
-  <div class="hero">
-    <div class="window"><span class="slot" data-slot="hero"></span></div>
-    <div>
-      <div class="no" id="no">Traveller No.001</div>
-      <h1 class="name" id="name">No.001</h1>
-      <p class="epithet" id="epithet">—</p>
-      <p class="quote hand" id="quote">“Is it night yet?”</p>
-      <p class="when" id="when">Viewing days. Bidding opens <b id="opens">soon</b>.</p>
-      <ol class="lh-steps start" id="steps" hidden><li class="done">Bidding closed</li><li class="now" aria-current="step">Waiting for the train home</li><li>Found a home</li></ol>
-    <p class="lh-stepnote" id="stepnote" hidden>This page changes by itself when No.001 finds a home.</p>
-      <a class="lh-ctx" data-lh-ctx="auction" href="../../auction/" hidden>Bidding is open · see the auction →</a>
-      <div class="cta">
-        <a class="btn" id="bidbtn" href="https://www.deviantart.com/" target="_blank" rel="noopener" hidden>Bid on DeviantArt →</a>
-        <a class="btn ghost" href="#tickets" id="seetix">See the tickets ↓</a>
+<canvas class="sky" id="sky" aria-hidden="true"></canvas><div class="lowfog" aria-hidden="true"></div>
+<main>
+  <section class="stage pre" id="stage" aria-labelledby="nm">
+    <canvas id="stars" aria-hidden="true"></canvas>
+    <div class="art" id="artbtn" aria-hidden="true"><span class="breath"><img id="heroimg" src="img/hero.webp" alt=""></span><span class="glow"></span><canvas class="motes" id="motes"></canvas></div>
+    <div class="curtain" id="curtain" aria-hidden="true"></div>
+    <div class="wrap"><div class="heroinfo">
+      <div class="idline">
+        <span class="edition" id="edition"></span>
+        <h1 class="name ph" id="nm">No.001</h1>
+        <p class="epi" id="epi"></p>
+        <div class="qrow"><p class="quote ph" id="quote">“Is it night yet?”</p>
+</div>
       </div>
-    </div>
+      <ol class="srail" id="srail" aria-label="Auction stage"></ol>
+      <div class="tag paper" id="tag"><span class="seal" id="seal"></span><div class="lbl press" id="tLbl"></div><div class="val press" id="tVal"></div><div class="when" id="when"></div><span class="pill" id="pill"></span></div>
+      <p class="stepnote" id="stepnote" hidden></p>
+      <div class="regline" id="regline" hidden></div><div class="acts" id="acts"><a class="btn" id="bidbtn" href="https://www.deviantart.com/mkioldell" target="_blank" rel="noopener" hidden></a><a class="btn" id="cta" href="#get"></a><a class="btn quiet" id="cta2" href="#look"></a></div>
+      <p class="ctxrow"><a class="lh-ctx" data-lh-ctx="auction" href="../../auction/" hidden></a></p>
+    </div></div>
+  </section>
+  <div class="bridge" id="bridge" aria-hidden="true">
+    <svg viewBox="0 0 1200 240" preserveAspectRatio="xMaxYMax slice">
+      <defs><radialGradient id="pdg"><stop offset="0" stop-color="#ffd58e"/><stop offset=".45" stop-color="#f2b45a" stop-opacity=".55"/><stop offset="1" stop-color="#f2b45a" stop-opacity="0"/></radialGradient>
+        <linearGradient id="hillg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#18203a"/><stop offset="1" stop-color="#111829" stop-opacity="0"/></linearGradient></defs>
+      <path d="M0 30 C260 70 520 110 760 130 C900 142 1040 140 1200 132 L1200 240 L0 240Z" fill="url(#hillg)"/>
+      <path d="M0 30 C260 70 520 110 760 130 C900 142 1040 140 1200 132" fill="none" stroke="rgba(236,231,220,.08)" stroke-width="1.5"/>
+      <g class="pdots"></g>
+    </svg>
   </div>
 
-  <!-- 2 · QUICK FACTS -->
-  <section aria-labelledby="h-facts">
-    <h2 id="h-facts" data-t="facts">Quick facts</h2>
-    <dl class="facts" id="facts"></dl>
-  </section>
+  <div class="wrap">
+    <section class="sec" id="get" aria-labelledby="h-get">
+      <div class="gethead fade pre">
+        <div class="sechead"><span class="kick" id="getKick"></span><h2 id="h-get" class="ph"></h2><p id="getSub"></p></div>
+        <div class="housebox"><svg class="house" id="house" viewBox="0 0 400 520" aria-hidden="true">
+            <defs>
+              <linearGradient id="amberGlass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd58e"/><stop offset=".6" stop-color="#f59a3e"/><stop offset="1" stop-color="#c8682a"/></linearGradient>
+              <radialGradient id="halo"><stop offset="0" stop-color="#f59a3e" stop-opacity=".55"/><stop offset="1" stop-color="#f59a3e" stop-opacity="0"/></radialGradient>
+              <linearGradient id="wall" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3350"/><stop offset="1" stop-color="#241f36"/></linearGradient>
+              <linearGradient id="roof" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a2f38"/><stop offset="1" stop-color="#2e1d26"/></linearGradient>
+            </defs>
+            <radialGradient id="hill" cx=".5" cy="0" r=".6"><stop offset="0" stop-color="#1e2742"/><stop offset=".7" stop-color="#1a2238" stop-opacity=".6"/><stop offset="1" stop-color="#1a2238" stop-opacity="0"/></radialGradient><ellipse cx="200" cy="500" rx="260" ry="46" fill="url(#hill)"/>
+            <g class="smoke" fill="none" stroke="#c9c3d6" stroke-width="7" stroke-linecap="round" opacity=".0"><path d="M276 82 q-8 -10 0 -20 q8 -10 0 -20" opacity=".5"/><path d="M276 82 q-8 -10 0 -20 q8 -10 0 -20" opacity=".4"/><path d="M276 82 q-8 -10 0 -20 q8 -10 0 -20" opacity=".3"/></g>
+            <rect x="262" y="78" width="28" height="70" fill="#2e1d26"/><rect x="258" y="72" width="36" height="10" fill="#4a2f38"/>
+            <path d="M84 214 L318 204 L322 466 L82 470Z" fill="url(#wall)"/>
+            <path d="M84 214 L318 204 L322 466 L82 470Z" fill="none" stroke="#14111e" stroke-width="2"/>
+            <path d="M56 222 L198 64 L346 210 L330 216 L198 86 L72 228Z" fill="url(#roof)"/><path d="M72 228 L198 86 L330 216Z" fill="#2a2036" opacity=".55"/>
+            <!-- windows · data-i = ticket index (0 Traveller door · 1 Trader workroom · 2 Homeward bedroom · 3 Stage big window) -->
+            <g class="win" data-i="3"><circle class="halo" cx="200" cy="168" r="84"/><circle class="glass" cx="200" cy="168" r="36"/><circle class="lit" cx="200" cy="168" r="36"/>
+              <g class="inner"><circle cx="200" cy="176" r="14" fill="#7a3e1e" opacity=".55"/><path d="M178 204 h44" stroke="#7a3e1e" stroke-width="4" opacity=".5"/><path d="M200 132 L186 176 M200 132 L214 176" stroke="#fff3cf" stroke-width="2" opacity=".5"/></g>
+              <path d="M164 168 H236 M200 132 V204" stroke="#3a2c2a" stroke-width="4"/><circle class="wf" cx="200" cy="168" r="36" fill="none" stroke="#3a2c2a" stroke-width="6"/></g>
+            <g class="win" data-i="2"><circle class="halo" cx="262" cy="292" r="80"/><path class="glass" d="M228 330 V282 a34 34 0 0 1 68 0 V330Z"/><path class="lit" d="M228 330 V282 a34 34 0 0 1 68 0 V330Z"/>
+              <g class="inner"><path d="M234 330 C240 306 284 306 290 330Z" fill="#6b4b8a" opacity=".7"/><path d="M252 312 l4 -10 l4 8 l4 -8 l4 10" fill="#3a2f4a" opacity=".8"/></g>
+              <path d="M262 250 V330 M228 296 H296" stroke="#3a2c2a" stroke-width="4"/><path class="wf" d="M228 330 V282 a34 34 0 0 1 68 0 V330Z" fill="none" stroke="#3a2c2a" stroke-width="6"/><rect x="222" y="330" width="80" height="8" fill="#3a2c2a"/></g>
+            <g class="win" data-i="1"><circle class="halo" cx="138" cy="396" r="80"/><rect class="glass" x="104" y="364" width="70" height="62" rx="4"/><rect class="lit" x="104" y="364" width="70" height="62" rx="4"/>
+              <g class="inner"><path d="M112 426 V410 h40 v16" fill="none" stroke="#7a3e1e" stroke-width="4" opacity=".6"/><path d="M156 392 l10 -12 l4 4 M162 384 v26" stroke="#7a3e1e" stroke-width="3" fill="none" opacity=".7"/><circle cx="164" cy="378" r="6" fill="#fff3cf" opacity=".8"/></g>
+              <path d="M139 364 V426 M104 395 H174" stroke="#3a2c2a" stroke-width="4"/><rect class="wf" x="104" y="364" width="70" height="62" rx="4" fill="none" stroke="#3a2c2a" stroke-width="6"/><rect x="98" y="426" width="82" height="8" fill="#3a2c2a"/></g>
+            <g class="win" data-i="0"><circle class="halo" cx="256" cy="420" r="70"/><path class="glass" d="M228 466 V398 a28 28 0 0 1 56 0 V466Z"/><path class="lit" d="M228 466 V398 a28 28 0 0 1 56 0 V466Z" style="opacity:0"/>
+              <path d="M234 466 V400 a22 22 0 0 1 44 0 V466" fill="#4a2f28"/><path d="M234 466 V400 a22 22 0 0 1 44 0 V466" fill="url(#amberGlass)" class="inner"/>
+              <circle cx="268" cy="434" r="3.5" fill="#d9a85e"/><path class="wf" d="M228 466 V398 a28 28 0 0 1 56 0 V466Z" fill="none" stroke="#3a2c2a" stroke-width="6"/>
+              <g class="hometag"><path d="M246 404 L246 416" stroke="#c9b48a" stroke-width="1.5"/><rect x="232" y="416" width="34" height="22" rx="2" fill="#ece6d6"/><rect x="236" y="420" width="26" height="14" rx="2" fill="none" stroke="#2f6b4a" stroke-width="1.5"/><path d="M243 428 l4 -4 l4 4 v4 h-8z" fill="#2f6b4a"/></g></g>
+            <path d="M196 466 h96 v6 h-96z" fill="#3a2c2a"/>
+          </svg></div>
+      </div>
+      <p class="lampline" id="lampline" aria-live="polite"></p><p class="upd" id="updated"></p>
+      <div class="tiers" id="tiers"></div>
+      <p class="honest" id="honest"></p>
+    </section>
 
-  <!-- 3 · GALLERY -->
-  <section aria-labelledby="h-gal">
-    <h2 id="h-gal" data-t="gallery">Gallery</h2>
-    <div class="strip" id="strip" tabindex="0" aria-label="Gallery, scroll sideways"></div>
-    <div class="stripnav"><button type="button" id="prev" aria-label="Previous">‹</button><button type="button" id="next" aria-label="Next">›</button></div>
-  </section>
-
-  <!-- 4 · LOOK CLOSER -->
-  <section aria-labelledby="h-closer">
-    <h2 id="h-closer" data-t="closer">Look closer</h2>
-    <div class="closer">
-      <div class="spotbox" id="spotbox"><span class="slot" data-slot="closer"></span></div>
-      <div>
-        <ol class="spotlist" id="spotlist"></ol>
-        <p style="margin-top:12px"><button type="button" class="btn ghost" id="tour" data-t="tour">Walk me through</button></p>
+    <section class="sec" aria-labelledby="h-story">
+      <div class="story">
+        <div class="note paper fade pre">
+          <span class="kick" id="storyKick"></span>
+          <h2 id="h-story" class="ph"></h2>
+          <dl class="facts" id="facts"></dl>
+          <div class="log" id="log"></div>
+          <div class="sig"><div><small id="deltaK"></small><span class="s ph" id="deltaS"></span></div><span class="wax" aria-hidden="true">Δ</span></div>
+        </div>
+        <div class="fade pre">
+          <div class="passzone" id="pzone"><div class="pass ease" id="pass"><div class="face f"><img src="img/pass-front.webp" alt="Traveller's Pass, front"><span class="sheen"></span></div><div class="face b"><img src="img/pass-back.webp" alt="Traveller's Pass, back"><span class="sheen"></span></div></div></div>
+          <button type="button" class="btn quiet flip" id="flip"></button>
+        </div>
+      </div>
+    </section>
+  </div>
+  <section class="look" id="look" aria-labelledby="lookKick">
+    <div class="wrap">
+      <div class="sechead"><span class="kick" id="lookKick"></span></div>
+      <div class="tour" id="tour">
+        <div class="tplate" id="tplate"><img id="timg" src="img/closer.webp" alt=""><div class="tnote paper" id="tnote" aria-live="polite"><small id="tnum"></small><p id="ttext"></p></div></div>
+        <div class="tside">
+          <ol class="tlist" id="tlist"></ol>
+          <div class="tctl"><button type="button" class="btn" id="tPlay"></button><button type="button" class="rb" id="tPrev" aria-label="Previous">←</button><span class="tn" id="tN"></span><button type="button" class="rb" id="tNext" aria-label="Next">→</button><button type="button" class="btn quiet" id="tAll"></button></div>
+          <div class="tother" id="tother"><p id="tvcap"></p><button type="button" class="btn quiet" id="tBack"></button></div>
+          <div class="tviews" id="tviews" role="group"></div>
+        </div>
       </div>
     </div>
   </section>
+  <div class="wrap">
+    <section class="sec" id="sec-rules" aria-labelledby="h-how">
+      <div class="sechead"><span class="kick" id="rulesKick"></span><h2 id="h-how" class="ph"></h2></div>
+      <ol class="how" id="rules"></ol>
+      <p class="small" style="margin-top:16px"><span id="onlyda"></span> <a href="#" id="rulelink"></a></p>
+    </section>
+    <section class="gn" id="gn" aria-labelledby="gnLine">
+      <div class="gnhouse" id="gnhouse" aria-hidden="true"></div>
+      <p class="gnline ph" id="gnLine"></p>
+      <p class="gnstat" id="gnStat"></p>
+      <div class="gnact"><a class="btn" id="gnBtn" href="#get"></a></div>
+    </section>
+    <footer id="imgnote"></footer>
+  </div>
+</main>
 
-  <!-- 5 · STORY -->
-  <section class="story" aria-labelledby="h-story">
-    <h2 id="h-story" data-t="story">The story of No.001</h2>
-    <div id="storytext"></div>
-    <div class="note" id="deltanote" style="margin-top:18px">
-      <small data-t="deltasays">A note from Delta</small>
-      <p class="hand" id="delta">—</p>
-    </div>
-  </section>
+<dialog class="lb" id="lb" aria-labelledby="lbName"><div class="lbin"><button type="button" class="lbx" id="lbX" aria-label="Close">✕</button>
+  <div class="lbo" id="lbo" aria-hidden="true"></div>
+  <div class="lbt"><small id="lbTier"></small><b id="lbName"></b><span id="lbMeta"></span></div>
+  <div class="lbnav"><button type="button" id="lbP" aria-label="Previous">←</button><span id="lbN"></span><button type="button" id="lbNx" aria-label="Next">→</button></div>
+</div></dialog>
+<div class="dock" id="dock" aria-hidden="true"><div class="in"><div class="dt"><span class="mini" id="dMini"><i></i><i></i><i></i><i></i></span><b id="dV"></b></div><a class="btn" id="dBtn" href="#get"></a></div></div>
 
-  <!-- 6 · TICKETS -->
-  <section id="tickets" aria-labelledby="h-tix">
-    <h2 id="h-tix" data-t="tickets">What comes with each ticket</h2>
-    <div class="ladder" id="ladder" aria-hidden="true"></div>
-    <p class="lampline" id="lampline" aria-live="polite"></p>
-    <div class="tickets" id="tix"></div>
-    <p class="honest" id="honest">Everything you can get is on this page. No hidden bonuses, no random extras.</p>
-  </section>
 
-  <!-- 7 · PASS -->
-  <section aria-labelledby="h-pass">
-    <h2 id="h-pass" data-t="pass">The Traveller's Pass</h2>
-    <p class="muted small" id="passnote">Every ticket includes a Pass with your traveller's name. The back is an inspiration card. Stamps are added only when the traveller is seen in an episode.</p>
-    <div class="passwrap">
-      <div class="pass" id="pass">
-        <div class="face f"><span class="slot" data-slot="passFront"></span></div>
-        <div class="face b"><span class="slot" data-slot="passBack"></span></div>
-      </div>
-    </div>
-    <p style="margin-top:12px"><button type="button" class="btn ghost" id="flip" aria-pressed="false" data-t="flip">Turn the Pass over</button></p>
-  </section>
-
-  <!-- 8 · RULES -->
-  <section aria-labelledby="h-rules" id="sec-rules">
-    <h2 id="h-rules" data-t="rules">Auction in short</h2>
-    <div class="rules" id="rules">
-      <div class="rule"><b>$45</b><span>starting bid · no auto-buy</span></div>
-      <div class="rule"><b>09:00</b><span>Thai time (GMT+7): the auction ends at the first 09:00 that is at least 48 hours after the first bid</span></div>
-      <div class="rule"><b>+15 min</b><span>a bid in the last 15 minutes moves the end to 15 minutes after that bid</span></div>
-      <div class="rule"><b>48 h</b><span>to pay after the auction ends</span></div>
-    </div>
-    <p class="small" style="margin-top:12px"><span id="onlyda">Bids count on DeviantArt and the Facebook bid thread.</span> <a href="../../rules/" id="rulelink">Read the Boarding rules →</a></p>
-  </section>
-
-  <footer>
-    <span id="imgnote">© Dell / littlehill. Preview images carry a watermark; the winner gets clean full-size files. Please don't use these images for AI training or NFTs.</span>
-    <span id="updated" class="muted"></span>
-  </footer>
-</div>
-
-<dialog class="viewer" id="viewer" aria-label="Image viewer">
-  <div class="vtop"><span id="vtitle"></span><button type="button" class="btn ghost" id="vclose">Close ✕</button></div>
-  <div class="vimg"><img id="vimg" alt=""></div>
-  <div class="vcap" id="vcap"></div>
-</dialog>
-
-<!-- DEFAULT DATA (used when data.json is missing, e.g. in a preview).
-     Real edits go in data.json next to this file. Text fields are {en, th}. Images live in ./img/ -->
-<!-- DEFAULT STATE (used only when ../../state.json can't be loaded, e.g. in a preview) -->
 <script type="application/json" id="defstate">
 {"teaser":{"mode":"teaser","opensAt":null},
  "traveller":{"stage":"preview","reveal":true},
@@ -383,216 +669,348 @@ dialog.viewer::backdrop{background:rgba(var(--lh-abyss-rgb),.9)}
   "daUrl": "https://www.deviantart.com/mkioldell"
 }
 </script>
-
 <script src="../../assets/live.js"></script>
 <script>
 (function(){
 'use strict';
-const $=s=>document.querySelector(s);
-const params=new URLSearchParams(location.search);
-const DEMO=params.has('demo');
-let LANG='en';
-try{LANG=localStorage.getItem('lh-lang')||'en'}catch(e){}
-let D=JSON.parse(document.getElementById('defaults').textContent);
-let S=JSON.parse(document.getElementById('defstate').textContent);          // state.json (defaults until loaded)
-let demoState=null;  // demo override
-
-const TX={
-  en:{facts:'Quick facts',gallery:'Gallery',closer:'Look closer',tour:'Walk me through',tourNext:'Next detail',story:'The story of No.001',deltasays:'A note from Delta',tickets:'What comes with each ticket',pass:"The Traveller's Pass",flip:'Turn the Pass over',flipBack:'Turn it back',rules:'Auction in short',
-      pill:{teaser:'Coming soon',preview:'Viewing days',open:'Bidding open',extended:'Bidding open · extended',closed:'Closed',sold:'Found a home'},whenWait:'Bidding open. The clock starts with the first bid, then it ends at the first 09:00 GMT+7 at least 48 hours later.',soon:'soon',
-      whenTeaser:'A traveller is coming. Traveller No.001 arrives <b>{t}</b>.',whenPreview:'Viewing days. Bidding opens <b>{t}</b> with Episode 4.',whenOpen:'Bidding open. Ends <b>{t}</b> (later if someone bids in the last 15 minutes).',whenClosed:'Bidding closed. Counting the lanterns.',whenSold:'No.001 found a home on <b>{t}</b>.',
-      bid:'Bid on DeviantArt →',see:'See No.001 on DeviantArt →',seetix:'See the tickets ↓',
-      lampNone:'No bids yet. The first lantern lights at the starting bid.',lampLit:'Current bid {b} · lanterns lit up to {n}. Next: {next} at {p}.',lampAll:'Current bid {b} · all four lanterns are lit.',lampUpd:'updated {t}',
-      honest:'Everything you can get is on this page. No hidden bonuses, no random extras.',addon:'If your bid ends below $600, you can upgrade later by paying the difference.',
-      locked:'details for the winner',from:'from',slot:'IMAGE SLOT',
-      onlyda:'Bids count on DeviantArt and the Facebook bid thread.',rulelink:'Read the Boarding rules →',
-      rulesTx:['starting bid · no auto-buy','Thai time (GMT+7): the auction ends at the first 09:00 that is at least 48 hours after the first bid','a bid in the last 15 minutes moves the end to 15 minutes after that bid','to pay after the auction ends'],
-      imgnote:"© Dell / littlehill. Preview images carry a watermark; the winner gets clean full-size files. Please don't use these images for AI training or NFTs.",
-      passnote:"Every ticket includes a Pass with your traveller's name. The back is an inspiration card. Stamps are added only when the traveller is seen in an episode.",
-      updated:'Status updated {t}.',withOwner:' · travelling with {o}',steps:['Bidding closed','Waiting for the train home','Found a home'],stepnote:'This page changes by itself when No.{no} finds a home.',stale:"Couldn't load the latest status; showing the last known one.",close:'Close ✕'},
-  th:{facts:'ข้อมูลสั้น',gallery:'แกลเลอรี',closer:'มองใกล้ ๆ',tour:'พาดูทีละจุด',tourNext:'จุดถัดไป',story:'เรื่องของ No.001',deltasays:'โน้ตจาก Delta',tickets:'ตั๋วแต่ละใบได้อะไร',pass:"Traveller's Pass",flip:'พลิกด้านหลัง',flipBack:'พลิกกลับ',rules:'กติกาย่อ',
-      pill:{teaser:'เร็ว ๆ นี้',preview:'ช่วงชมตัวละคร',open:'เปิดบิดแล้ว',extended:'เปิดบิด · เลื่อนเวลาปิด',closed:'ปิดแล้ว',sold:'ได้บ้านแล้ว'},whenWait:'เปิดบิดแล้ว · นาฬิกาเริ่มเมื่อมีบิดแรก แล้วจบตอน 09:00 น. เวลาไทย ที่ห่างจากบิดแรกอย่างน้อย 48 ชม.',soon:'เร็ว ๆ นี้',
-      whenTeaser:'มีนักเดินทางกำลังมา · Traveller No.001 มาถึง <b>{t}</b>',whenPreview:'ช่วงชมตัวละคร · เปิดบิด <b>{t}</b> พร้อมตอนที่ 4',whenOpen:'เปิดบิดแล้ว · ปิด <b>{t}</b> (เลื่อนออกไปถ้ามีบิดใน 15 นาทีสุดท้าย)',whenClosed:'ปิดบิดแล้ว · กำลังนับโคม',whenSold:'No.001 ได้บ้านแล้ว <b>{t}</b>',
-      bid:'บิดที่ DeviantArt →',see:'ดู No.001 บน DeviantArt →',seetix:'ดูตั๋ว ↓',
-      lampNone:'ยังไม่มีบิด · โคมดวงแรกติดที่ราคาเริ่ม',lampLit:'บิดล่าสุด {b} · โคมติดถึง {n} · ถัดไป: {next} ที่ {p}',lampAll:'บิดล่าสุด {b} · โคมติดครบ 4 ดวง',lampUpd:'อัปเดต {t}',
-      honest:'ของที่ได้ทั้งหมดอยู่ในหน้านี้ ไม่มีโบนัสลับ ไม่มีของสุ่ม',addon:'ถ้าบิดจบต่ำกว่า $600 อัปเกรดทีหลังได้ด้วยการจ่ายส่วนต่าง',
-      locked:'รายละเอียดสำหรับผู้ชนะ',from:'เริ่ม',slot:'ช่องภาพ',
-      onlyda:'บิดได้ทั้งใน DeviantArt และเธรดบิดบน Facebook',rulelink:'อ่าน Boarding rules →',
-      rulesTx:['ราคาเริ่ม · ไม่มีราคาซื้อทันที','เวลาไทย: ประมูลจบตอน 09:00 ครั้งแรกที่ห่างจากบิดแรกอย่างน้อย 48 ชม.','มีบิดใน 15 นาทีสุดท้าย เวลาปิดเลื่อนไปเป็น 15 นาทีหลังบิดนั้น','ให้จ่ายเงินหลังประมูลจบ'],
-      imgnote:'© Dell / littlehill · ภาพตัวอย่างมีลายน้ำ ผู้ชนะได้ไฟล์เต็มที่สะอาด · ห้ามนำไปเทรน AI หรือทำ NFT',
-      passnote:'ทุกตั๋วได้ Pass พร้อมชื่อนักเดินทางของคุณ ด้านหลังเป็น Inspiration card · ตราประทับเพิ่มเฉพาะเมื่อนักเดินทางปรากฏในตอนจริง',
-      updated:'อัปเดตสถานะ {t}',withOwner:' · เดินทางกับ {o}',steps:['ปิดบิด','รอรถไฟพากลับบ้าน','ได้บ้าน'],stepnote:'หน้านี้จะเปลี่ยนเองเมื่อ No.{no} ได้บ้าน',stale:'โหลดสถานะล่าสุดไม่ได้ · แสดงค่าล่าสุดที่มี',close:'ปิด ✕'}
+var reduce=false;try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
+var $=function(s){return document.querySelector(s)};
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var LANG='en';try{LANG=localStorage.getItem('lh-lang')||'en'}catch(e){}
+var D=null;try{D=JSON.parse(document.getElementById('defaults').textContent)}catch(e){}
+var params=new URLSearchParams(location.search);
+var TX={
+ en:{start:'starting bid',cur:'current bid',fin:'final bid',look:'Looking for a home',home:'Found a home',
+  whenPreview:'Bidding opens {t}',whenOpen:'Ends {t}',whenClosed:'Bidding closed',whenSold:'Found a home · {t}',whenTeaser:'Coming soon',
+  bid:'Bid on DeviantArt →',see:'See No.001 on DeviantArt →',seeGet:'See her house',closer:'Look closer',
+  edition:'Traveller · <b>1 of 1</b> · Stop 04',
+  answers:{night:'<b>Yes.</b> Her window is lit.',dusk:'<b>Nearly.</b> The stars are coming out.',day:'<b>Not yet.</b> She’ll wait up.',dawn:'<b>Almost over.</b> She’s yawning.'},
+  epi:'The owl who waits up for night',tour:'Show me the details',tourStop:'Pause',tourAll:'See her whole',tourBack:'← Back to the details',tourDraft:['The lantern. She won’t let anyone else carry it.','One eye open. The other one is still asleep.','The ear tufts twitch whenever someone says “night”.'],
+  lookKick:'Look closer',caps:[['I','Whole'],['II','Face'],['III','Three-quarter'],['IV','Back'],['V','Blanket']],litDoorS:'always open',incl:'+ everything in {n}',litNowS:'lit',unlitS:'lights at {p}',
+  getKick:'What comes with it',getH:'A home for No.001',getSub:'Each ticket is a window. It lights up when the bid reaches it. Tap anything to see it close.',
+  rooms:['The front door','The workroom','Her bedroom','The big window'],
+  from:'from',litNow:'Lit · the bid has reached this ticket',litDoor:'Always open · this is the starting ticket',unlit:'Lights up at {p}',
+  lampPre:'Starting bid $45 · only the door is lit for now',lampLit:'Current bid {b} · {n} of 4 windows lit · next at {p}',lampAll:'Current bid {b} · every window is lit',lampFin:'Final bid {b} · {n} of 4 windows lit',
+  honest:'Everything you can get is in this house. No hidden bonuses, no random extras.',
+  storyKick:'Delta’s notebook',storyH:'Found on the night line',deltasays:'Delta',
+  flip:'Turn the Pass over',flipBack:'Turn it back',rulesKick:'Before you bid',
+  onlyda:'Bids count on DeviantArt and the Facebook bid thread.',rulelink:'Read the Boarding rules →',
+  rail:['Preview','Bidding','Closed','Home'],howH:'How it goes',
+  how:[['$45','starting bid · no auto-buy · bids count on DeviantArt and the Facebook bid thread','Bid'],['09:00','Thai time (GMT+7): the auction ends at the first 09:00 that is at least 48 hours after the first bid · a bid in the last 15 minutes moves the end to 15 minutes after that bid','Close'],['48 h','to pay after the auction ends','Pay'],['48 h','files: full size, transparent PNG, the Pass, wallpapers, your name','Traveller',0],['14 days','the Homeward illustration, if the bid reached Homeward','Homeward',2],['21 days','character sheets, if the bid reached Stage','Stage',3]],
+  gnLine:'Goodnight. Leave a light on for her.',gnHome:'Goodnight. Someone left a light on for her.',gnStat:'{n} of 4 windows lit',
+  rulesTx:[['$45','starting bid · no auto-buy'],['09:00','Thai time (GMT+7): the auction ends at the first 09:00 that is at least 48 hours after the first bid'],['+15 min','a bid in the last 15 minutes moves the end to 15 minutes after that bid'],['48 h','to pay after the auction ends']],
+  imgnote:"© Dell / littlehill. Preview images carry a watermark; the winner gets clean full-size files. Please don't use these images for AI training or NFTs."},
+ th:{start:'ราคาเริ่ม',cur:'บิดล่าสุด',fin:'ราคาสุดท้าย',look:'กำลังหาบ้าน',home:'ได้บ้านแล้ว',
+  whenPreview:'เปิดบิด {t}',whenOpen:'ปิด {t}',whenClosed:'ปิดบิดแล้ว',whenSold:'ได้บ้านแล้ว · {t}',whenTeaser:'เร็ว ๆ นี้',
+  bid:'บิดที่ DeviantArt →',see:'ดู No.001 บน DeviantArt →',seeGet:'ดูบ้านของเธอ',closer:'มองใกล้ ๆ',
+  edition:'Traveller · <b>1 of 1</b> · Stop 04',
+  answers:{night:'<b>มืดแล้ว</b> · หน้าต่างเธอติดไฟแล้ว',dusk:'<b>ใกล้แล้ว</b> · ดาวเริ่มขึ้น',day:'<b>ยังเลย</b> · เธอจะรอ',dawn:'<b>ใกล้สว่างแล้ว</b> · เธอเริ่มหาว'},
+  epi:'นกฮูกที่เฝ้ารอให้ฟ้ามืด',tour:'พาดูจุดเด่น',tourStop:'หยุด',tourAll:'ดูทั้งตัว',tourBack:'← กลับไปดูจุดเด่น',tourDraft:['โคมดวงนี้ เธอไม่ยอมให้ใครถือแทน','ลืมตาข้างเดียว อีกข้างยังหลับอยู่','ขนหูจะกระดิกทุกครั้งที่มีคนพูดคำว่า “กลางคืน”'],
+  lookKick:'มองใกล้ ๆ',caps:[['I','ทั้งตัว'],['II','ใบหน้า'],['III','มุม 3/4'],['IV','ด้านหลัง'],['V','ผ้าห่ม']],litDoorS:'เปิดเสมอ',incl:'+ ทุกอย่างใน {n}',litNowS:'ติดไฟแล้ว',unlitS:'ไฟติดที่ {p}',
+  getKick:'ของที่จะได้',getH:'บ้านของ No.001',getSub:'ตั๋วแต่ละใบคือหน้าต่างหนึ่งบาน บิดถึงเมื่อไร ไฟบานนั้นก็ติด · แตะของเพื่อดูใกล้ ๆ',
+  rooms:['ประตูหน้า','ห้องทำงาน','ห้องนอนของเธอ','หน้าต่างบานใหญ่'],
+  from:'เริ่ม',litNow:'ติดไฟแล้ว · บิดถึงตั๋วนี้แล้ว',litDoor:'เปิดเสมอ · ตั๋วเริ่มต้น',unlit:'ไฟติดที่ {p}',
+  lampPre:'ราคาเริ่ม $45 · ตอนนี้ติดไฟแค่ประตู',lampLit:'บิดล่าสุด {b} · ติดไฟ {n} จาก 4 บาน · บานถัดไปที่ {p}',lampAll:'บิดล่าสุด {b} · ไฟติดครบทุกบาน',lampFin:'ราคาสุดท้าย {b} · ติดไฟ {n} จาก 4 บาน',
+  honest:'ของที่ได้ทั้งหมดอยู่ในบ้านหลังนี้ ไม่มีโบนัสลับ ไม่มีของสุ่ม',
+  storyKick:'สมุดของ Delta',storyH:'พบบนรถไฟสายกลางคืน',deltasays:'Delta',
+  flip:'พลิกด้านหลัง',flipBack:'พลิกกลับ',rulesKick:'ก่อนบิด',
+  onlyda:'บิดได้ทั้งใน DeviantArt และเธรดบิดบน Facebook',rulelink:'อ่าน Boarding rules →',
+  rail:['ชมตัว','เปิดบิด','ปิดบิด','ได้บ้าน'],howH:'ขั้นตอนทั้งหมด',
+  how:[['$45','ราคาเริ่ม · ไม่มีราคาซื้อทันที · บิดได้ทั้งใน DeviantArt และเธรดบิดบน Facebook','บิด'],['09:00','เวลาไทย: ประมูลจบตอน 09:00 ครั้งแรกที่ห่างจากบิดแรกอย่างน้อย 48 ชม. · มีบิดใน 15 นาทีสุดท้าย เวลาปิดเลื่อนไปเป็น 15 นาทีหลังบิดนั้น','ปิด'],['48 ชม.','ให้จ่ายเงินหลังประมูลจบ','จ่าย'],['48 ชม.','ไฟล์: ภาพเต็ม · PNG พื้นใส · Pass · วอลเปเปอร์ · ชื่อเขียนมือ','Traveller',0],['14 วัน','ภาพ Homeward ถ้าบิดถึง Homeward','Homeward',2],['21 วัน','character sheet ถ้าบิดถึง Stage','Stage',3]],
+  gnLine:'ราตรีสวัสดิ์ · เปิดไฟรอเธอไว้ด้วยนะ',gnHome:'ราตรีสวัสดิ์ · มีคนเปิดไฟรอเธอแล้ว',gnStat:'ติดไฟ {n} จาก 4 บาน',
+  rulesTx:[['$45','ราคาเริ่ม · ไม่มีราคาซื้อทันที'],['09:00','เวลาไทย: ประมูลจบตอน 09:00 ครั้งแรกที่ห่างจากบิดแรกอย่างน้อย 48 ชม.'],['+15 นาที','มีบิดใน 15 นาทีสุดท้าย เวลาปิดเลื่อนไปเป็น 15 นาทีหลังบิดนั้น'],['48 ชม.','ให้จ่ายเงินหลังประมูลจบ']],
+  imgnote:'© Dell / littlehill · ภาพตัวอย่างมีลายน้ำ ผู้ชนะได้ไฟล์เต็มที่สะอาด · ห้ามนำไปเทรน AI หรือทำ NFT'}
 };
-/* P10 · W1/W2 (P18): past closeAt while status is still open/extended = "checking last-minute bids" (same as the auction page) · closed/sold = "final bid" */
-Object.assign(TX.en,{pillCheck:'Checking last-minute bids',whenCheck:'Checking last-minute bids · closing time <b>{t}</b>. Not final until the last bids are checked.',lampChk:'Current bid {b} · lanterns lit up to {n}.',lampFin:'Final bid {b} · lanterns lit up to {n}.',lampAllFin:'Final bid {b} · all four lanterns are lit.'});
-Object.assign(TX.th,{pillCheck:'กำลังตรวจบิดนาทีสุดท้าย',whenCheck:'กำลังตรวจบิดนาทีสุดท้าย · เวลาปิด <b>{t}</b> · ยังไม่ใช่ราคาสุดท้าย จนกว่าจะตรวจบิดนาทีท้ายเสร็จ',lampChk:'บิดล่าสุด {b} · โคมติดถึง {n}',lampFin:'ราคาสุดท้าย {b} · โคมติดถึง {n}',lampAllFin:'ราคาสุดท้าย {b} · โคมติดครบ 4 ดวง'});
-const t=k=>TX[LANG][k]??TX.en[k];
-const L=o=>o==null?'':(typeof o==='string'?o:(o[LANG]??o.en??''));
-const esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
-const fmt=iso=>{if(!iso)return '—';const d=new Date(iso);for(const loc of [LANG==='th'?'th-TH':undefined,undefined]){try{return new Intl.DateTimeFormat(loc,{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',timeZoneName:'short'}).format(d)}catch(e){}}return d.toUTCString()};
-const money=n=>'$'+Number(n).toLocaleString('en-US');
+Object.assign(TX.en,{pill:{teaser:'Coming soon',preview:'Viewing days',open:'Bidding open',extended:'Bidding open · extended',closed:'Closed',sold:'Found a home'},pillCheck:'Checking last-minute bids',
+  whenArr:'Arrives {t}',whenSoon:'Bidding opens soon',whenWait:'Bidding open · the clock starts with the first bid',whenCheck:'Checking last-minute bids · closing time {t} · not final yet',withOwner:' · travelling with {o}',
+  lampNone:'No bids yet · the first window lights at the starting bid',lampChk:'Current bid {b} · {n} of 4 windows lit',updated:'updated {t}',stale:'Couldn’t load the latest status; showing the last known one.',
+  stepnote:'This page changes by itself when No.{no} finds a home.',regFound:'FOUND A HOME',regWith:'TRAVELS WITH',regWatch:'Watch Stop {s}',regBack:'← TRAVELLER REGISTRY',
+  regKick:'SHE WENT HOME WITH',regH:'The house she came with',regSub:'Every lit window is something that went home with her. Tap anything to see it close.',regLit:'lit · went home with her',regLit2:'went home with her',regDark:'stayed dark'});
+Object.assign(TX.th,{pill:{teaser:'เร็ว ๆ นี้',preview:'ช่วงชมตัวละคร',open:'เปิดบิดแล้ว',extended:'เปิดบิด · เลื่อนเวลาปิด',closed:'ปิดแล้ว',sold:'ได้บ้านแล้ว'},pillCheck:'กำลังตรวจบิดนาทีสุดท้าย',
+  whenArr:'มาถึง {t}',whenSoon:'เปิดบิดเร็ว ๆ นี้',whenWait:'เปิดบิดแล้ว · นาฬิกาเริ่มเดินเมื่อมีบิดแรก',whenCheck:'กำลังตรวจบิดนาทีสุดท้าย · เวลาปิด {t} · ยังไม่ใช่ราคาสุดท้าย',withOwner:' · เดินทางกับ {o}',
+  lampNone:'ยังไม่มีบิด · หน้าต่างบานแรกติดที่ราคาเริ่ม',lampChk:'บิดล่าสุด {b} · ติดไฟ {n} จาก 4 บาน',updated:'อัปเดต {t}',stale:'โหลดสถานะล่าสุดไม่ได้ · แสดงค่าล่าสุดที่มี',
+  stepnote:'หน้านี้จะเปลี่ยนเองเมื่อ No.{no} ได้บ้าน',regFound:'ได้บ้านแล้ว',regWith:'เดินทางกับ',regWatch:'ดู Stop {s}',regBack:'← ทะเบียนนักเดินทาง',
+  regKick:'ของที่ไปบ้านกับเธอ',regH:'บ้านที่เธอพามาด้วย',regSub:'หน้าต่างที่ติดไฟคือของที่ไปบ้านกับเธอ · แตะของเพื่อดูใกล้ ๆ',regLit:'ติดไฟ · ไปบ้านกับเธอ',regLit2:'ไปบ้านกับเธอ',regDark:'ไม่ได้ติดไฟ'});
+function t0(k){return TX[LANG][k]!==undefined?TX[LANG][k]:TX.en[k]}
+function sub(v){if(typeof v!=='string')return Array.isArray(v)?v.map(sub):v;if(!D)return v;var st=stopNo();
+  v=v.split('No.001').join('No.'+D.no).split('$45').join(money(D.tiers&&D.tiers[0]?D.tiers[0].price:45));if(st)v=v.split('Stop 04').join('Stop '+st);return v}
+function t(k){return sub(t0(k))}
+function L(o){return o==null?'':typeof o==='string'?o:(o[LANG]||o.en||'')}
+function money(n){return '$'+Number(n).toLocaleString('en-US')}
+function fmt(iso){if(!iso)return '—';try{return new Intl.DateTimeFormat(LANG==='th'?'th-TH':undefined,{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZoneName:'short'}).format(new Date(iso))}catch(e){return iso}}
+var H=3600e3,DA='https://www.deviantart.com/mkioldell';
+/* ===== LAND: real state (same rules as the old page) ===== */
+var SS=null;try{SS=JSON.parse(document.getElementById('defstate').textContent)}catch(e){}
+var S={stage:'preview',bid:null},SEL=0,TOD='auto',REG=null,OWNER=null,stateFailed=false,chkTimer=0,ATL=null;
+function stageNow(){if(REG)return 'sold';var tr=SS&&SS.traveller||{},a=SS&&SS.auction||{};if(a.status==='sold')return 'sold';if(tr.stage)return tr.stage;return 'preview'}
+function checking(){var st=stageNow(),a=SS&&SS.auction||{};return !REG&&(st==='open'||st==='extended')&&(a.status==='open'||a.status==='extended')&&!!a.closeAt&&Date.now()>=new Date(a.closeAt).getTime()}
+function hasBid(){var a=SS&&SS.auction||{};return !REG&&(a.bidCount>0||!!a.firstBidAt)}
+function toS(){var a=SS&&SS.auction||{},st=stageNow();DA=a.daUrl||(D&&D.daUrl)||DA;
+  var b=null;if(REG){var k=REG.tier,ix=-1;(D.tiers||[]).forEach(function(tr,i){if(k&&(tr.key===k||tr.name===k))ix=i});b=ix>=0?D.tiers[ix].price:null}
+  else if(hasBid()&&st!=='teaser'&&st!=='preview')b=a.currentBid;
+  S={stage:st,bid:b,opensAt:a.opensAt||a.openedAt,closeAt:a.closeAt,soldAt:REG?REG.soldAt:a.soldAt,updatedAt:a.updatedAt,reveal:!!(SS&&SS.traveller&&SS.traveller.reveal===true)}}
+function mine(j){/* the auction belongs to the traveller named in auction.no (or traveller.no) · another No. → this page ignores it */
+  if(!j)return j;var a=j.auction||{},no=String(a.no||(j.traveller&&j.traveller.no)||'001');
+  document.documentElement.toggleAttribute('data-lh-noctx',no!==String(D.no));if(window.LH_NAV_RENDER)LH_NAV_RENDER();
+  if(no!==String(D.no)){j=Object.assign({},j,{auction:{},traveller:Object.assign({},j.traveller||{},{stage:'preview'})})}
+  return j}
+function loadState(){var p=window.lhLive?lhLive.get('../../state.json?t='+Date.now()):fetch('../../state.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()});
+  return p.then(function(j){SS=mine(j);stateFailed=false},function(){stateFailed=true}).then(function(){var was=S.bid;toS();renderState(was!==S.bid)})}
+function loadOwner(){return fetch('../../travellers/travellers.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){
+  var e=j&&(j.travellers||[]).filter(function(x){return String(x.no)===String(D.no)})[0];if(e&&e.ownerOptIn===true&&e.owner)OWNER=String(e.owner)},function(){})}
+function loadAtlas(){return fetch('../../atlas/atlas.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){ATL=j},function(){})}
+function stopNo(){var f=(D.facts||[]).filter(function(x){return x&&x.k&&x.k.en==='First seen'})[0],m=f&&/Stop\s*(\d+)/.exec(f.v&&f.v.en||'');return m?(+m[1]<10?'0':'')+(+m[1]):''}
+var SPOTS0=[{x:81.5,y:70.5,z:2.6},{x:61,y:46,z:3},{x:30,y:21,z:2.6}],SPOTS=SPOTS0;/* positions in the sample closer image · real art sets these in data.json hotspots */
 
-// ---------- image slot ----------
-function fillSlot(el,spec,file){
-  const f=file||spec?.file; if(!f){el.classList.add('empty');return}
-  el.innerHTML=`<img alt="${esc(L(spec?.alt))}" loading="lazy" decoding="async"><span class="ph"><b>${t('slot')}</b><span>img/${esc(f)}</span><i>${esc(spec?.size||'')}${spec?.max?' · ≤ '+esc(spec.max):''}</i></span>`;
-  const img=el.querySelector('img');
-  img.onerror=()=>el.classList.add('empty');
-  img.onload=()=>el.classList.remove('empty');
-  el.classList.add('empty'); img.src='img/'+f;
-}
+/* "Is it night yet?" — answered by the viewer's own clock */
+function partOfDay(){if(TOD!=='auto')return TOD;var h=new Date().getHours();return h>=19||h<5?'night':h<8?'dawn':h<17?'day':'dusk'}
+function renderAnswer(){var a=$('#ans');if(a)a.innerHTML=t('answers')[partOfDay()]}
 
-// ---------- state ----------
-function stage(){
-  if(demoState?.stage)return demoState.stage;
-  const tr=S?.traveller||{}, a=S?.auction||{};
-  if(a.status==='sold')return 'sold';
-  if(tr.stage)return tr.stage;
-  return 'preview';
-}
-function bid(){return demoState?.bid??S?.auction?.currentBid??null}
-let REG=null,OWNER=null;   /* H3 · registry mode: the page keeps 'found a home' by itself, no live auction */
-function regState(){return {traveller:{stage:'sold'},auction:{status:'sold',soldAt:REG.soldAt||null,daUrl:D.daUrl}}}
-function checking(st){const a=S?.auction||{};return !demoState&&(st==='open'||st==='extended')&&(a.status==='open'||a.status==='extended')&&!!a.closeAt&&Date.now()>=new Date(a.closeAt).getTime()}
-let chkTimer=0;
+function obj(kind){var im=function(s){return '<img src="img/'+s+'" alt="" loading="lazy">'};switch(kind){
+  case 'print':return '<div class="print shadow">'+im('g1-front.webp')+'</div>';
+  case 'png':return '<div class="png shadow">'+im('hero.webp')+'</div>';
+  case 'pass':return '<div class="passobj shadow">'+im('pass-front.webp')+'</div>';
+  case 'phone':return '<div class="phone">'+im('g2-face.webp')+'</div>';
+  case 'slip':return '<div class="slip paper">No.001</div>';
+  case 'licence':return '<div class="doc paper"><i></i><i></i><i></i><i></i><i></i><b>§</b></div>';
+  case 'psd':return '<div class="layers"><i style="background-image:url(img/hero.webp)"></i><i style="background-image:url(img/hero.webp)"></i><i style="background-image:url(img/hero.webp)"></i><i style="background-image:url(img/hero.webp)"></i></div>';
+  case 'homeward':return '<div class="frame shadow"><div>'+im('b-homeward-crop.webp')+'</div></div>';
+  case 'sheet':return '<div class="sheet shadow">'+im('b-sheet-crop.webp')+'</div>';
+  case 'faces':return '<div class="faces paper"><i></i><i></i><i></i><i></i></div>';
+  case 'vt':return '<div class="doc paper"><i></i><i></i><i></i><i></i><i></i><b>▶</b></div>';
+ }return ''}
+var KINDS=[['print','png','pass','phone','slip'],['licence','psd'],['homeward'],['sheet','faces','vt']];
+function shortName(it){var s=L(it.t);return s.replace(/\s*\(.*?\)\s*/g,' ').replace(/\s+—.*$/,'').trim()}
 
+var lv=0,live=false;
+function level(b){var n=0;D.tiers.forEach(function(tr,i){if(b!=null&&b>=tr.price)n=i});return n}
+function isLit(i){return i===0||(live&&i<=lv)}
+
+var SIG=[0,1,0,0],STACK=['g1-front.webp','hero.webp','b-homeward-crop.webp'];
+function thumb(i,j,cls){var it=D.tiers[i].items[j],ks=KINDS[i]||[];return '<button type="button" class="thumb'+(cls?' '+cls:'')+'" data-i="'+i+'" data-j="'+j+'"><span class="o" aria-hidden="true">'+obj(ks[j])+'</span><span>'+esc(shortName(it))+'</span></button>'}
+function tierHTML(i){var tr=D.tiers[i],sg=SIG[i]||0,rest=[];tr.items.forEach(function(it,j){if(j!==sg)rest.push(thumb(i,j))});
+  var incl=i>0?'<div class="incl"><span class="stack" aria-hidden="true">'+STACK.slice(0,i).map(function(f){return '<i style="background-image:url(img/'+f+')"></i>'}).join('')+'</span><span>'+t('incl').replace('{n}','<b>'+esc(D.tiers[i-1].name)+'</b>')+'</span></div>':'';
+  return '<article class="tier fade pre" id="tier'+i+'" data-i="'+i+'" aria-labelledby="th'+i+'"><div class="thead"><span class="wi" aria-hidden="true"></span><h3 id="th'+i+'">'+esc(tr.name)+'</h3><div class="tp"><small>'+esc(t('from'))+'</small>'+money(tr.price)+'</div><div class="tl">'+esc(L(tr.label))+' · <em></em></div></div>'+
+   '<div class="tbody'+(rest.length?'':' solo')+'">'+thumb(i,sg,'sg')+(rest.length?'<div class="rest">'+rest.join('')+'</div>':'')+incl+'</div>'+
+   (tr.after?'<p class="after">'+esc(L(tr.after))+'</p>':'')+'</article>'}
+function renderTiers(){[].forEach.call(document.querySelectorAll('.tier'),function(r){var i=+r.dataset.i,on=isLit(i),tr=D.tiers[i];r.classList.toggle('on',on);
+  r.querySelector('.tl em').textContent=REG?(on?t('regLit'):t('regDark')):i===0?t('litDoorS'):on?t('litNowS'):t('unlitS').replace('{p}',money(tr.price))})}
+/* a window → that ticket's row (normal scroll, no hijack) */
+function pick(i){var r=$('#tier'+i);if(r)r.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'})}
+/* lightbox: one object, big, with its real file details */
+var LB={i:0,j:0};
+function lbShow(){var tr=D.tiers[LB.i],it=tr.items[LB.j],ks=KINDS[LB.i]||[];$('#lbo').innerHTML=obj(ks[LB.j]).replace(/ loading="lazy"/g,'');
+  $('#lbTier').textContent=tr.name+' · '+(REG?(isLit(LB.i)?t('regLit2'):t('regDark')):t('from')+' '+money(tr.price));$('#lbName').textContent=L(it.t);$('#lbMeta').textContent=it.meta||'';
+  $('#lbN').textContent=(LB.j+1)+' / '+tr.items.length;var one=tr.items.length<2;$('#lbP').hidden=one;$('#lbNx').hidden=one;
+  var o=$('#lbo');o.style.animation='none';void o.offsetWidth;o.style.animation=''}
+function lbOpen(i,j){LB={i:i,j:j};lbShow();var d=$('#lb');if(d.showModal&&!d.open)d.showModal()}
+function lbStep(k){var n=D.tiers[LB.i].items.length;LB.j=(LB.j+k+n)%n;lbShow()}
+$('#lbX').onclick=function(){$('#lb').close()};$('#lbP').onclick=function(){lbStep(-1)};$('#lbNx').onclick=function(){lbStep(1)};
+$('#lb').addEventListener('click',function(e){if(e.target===this||e.target.classList.contains('lbin'))this.close()});
+$('#lb').addEventListener('keydown',function(e){if(e.key==='ArrowRight')lbStep(1);if(e.key==='ArrowLeft')lbStep(-1)});
+/* reel arrows (mouse users) */
 function renderStatic(){
   document.documentElement.lang=LANG;
-  document.querySelectorAll('.langsw button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===LANG)));
-  document.querySelectorAll('[data-t]').forEach(e=>{e.textContent=t(e.dataset.t)});
-  $('#no').textContent='Traveller No.'+D.no;
-  $('#name').textContent=L(D.name);
-  $('#epithet').textContent=L(D.epithet);
-  $('#quote').textContent=L(D.quote);
-  $('#facts').innerHTML=D.facts.map(f=>`<dt>${esc(L(f.k))}</dt><dd>${f.swatch?'<span class="swatch"><span class="slot" data-slot="'+esc(f.swatch)+'"></span></span>':''}${esc(L(f.v))}</dd>`).join('');
-  document.querySelectorAll('[data-slot]').forEach(el=>{const k=el.dataset.slot;if(k==='hero')return;fillSlot(el,D.images[k])});
-  // gallery
-  $('#strip').innerHTML=D.gallery.map((g,i)=>`<figure><span class="slot" data-g="${i}" role="button" tabindex="0" aria-label="${esc(L(g.cap))}"></span><figcaption>${esc(L(g.cap))}</figcaption></figure>`).join('');
-  $('#strip').querySelectorAll('[data-g]').forEach(el=>{const g=D.gallery[+el.dataset.g];fillSlot(el,{file:g.file,size:D.gallerySpec.size,max:D.gallerySpec.max,alt:g.cap});
-    const open=()=>openViewer(g);el.addEventListener('click',open);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}})});
-  // hotspots
-  const box=$('#spotbox');box.querySelectorAll('.spot').forEach(s=>s.remove());
-  $('#spotlist').innerHTML=D.hotspots.map((h,i)=>`<li data-i="${i}"><b>${i+1}</b>${esc(L(h.t))}</li>`).join('');
-  D.hotspots.forEach((h,i)=>{const b=document.createElement('button');b.type='button';b.className='spot';b.style.left=h.x+'%';b.style.top=h.y+'%';b.textContent=i+1;b.setAttribute('aria-pressed','false');b.setAttribute('aria-label',(i+1)+': '+L(h.t));b.onclick=()=>selectSpot(i);box.appendChild(b)});
-  // story
-  $('#storytext').innerHTML=(D.story[LANG]||D.story.en).map(p=>`<p${/^\[/.test(p)?' class="placeholder-text"':''}>${esc(p)}</p>`).join('');
-  $('#delta').textContent=L(D.delta);
-  // tickets
-  renderTickets();
-  // rules + footer
-  $('#rules').querySelectorAll('.rule span').forEach((s,i)=>{s.textContent=t('rulesTx')[i]});
-  $('#onlyda').textContent=t('onlyda');$('#rulelink').textContent=t('rulelink');
-  $('#imgnote').textContent=t('imgnote');$('#passnote').textContent=t('passnote');
-  $('#honest').textContent=t('honest');$('#seetix').textContent=t('seetix');$('#vclose').textContent=t('close');
+  document.querySelectorAll('.langsw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===LANG))});
+  $('#edition').innerHTML=stopNo()?t('edition'):t('edition').replace(/ · Stop \d+/,'');$('#quote').textContent=L(D.quote);renderAnswer();
+  /* epithet: data.json has none yet → show the draft (marked as handwriting-placeholder style in the panel notes) */
+  $('#epi').textContent=(D.epithet&&!/^\[/.test(L(D.epithet)))?L(D.epithet):'';
+  $('#timg').alt='No.'+D.no;$('#lookKick').textContent=t('lookKick');
+  $('#getKick').textContent=t('getKick');$('#h-get').textContent=t('getH');$('#getSub').textContent=t('getSub');$('#honest').textContent=t('honest');
+  $('#tiers').innerHTML=D.tiers.map(function(tr,i){return tierHTML(i)}).join('');
+  [].forEach.call(document.querySelectorAll('.thumb'),function(b){b.onclick=function(){lbOpen(+b.dataset.i,+b.dataset.j)}});
+  $('#storyKick').textContent=t('storyKick');$('#h-story').textContent=t('storyH');$('#rulesKick').textContent=t('rulesKick');
+  $('#facts').innerHTML=D.facts.map(function(f){var ask=/asks/i.test(L(f.k))||/ชอบถาม/.test(L(f.k));return '<dt>'+esc(L(f.k))+'</dt><dd>'+esc(L(f.v))+(ask?'<br><span class="ans" id="ans"></span>':'')+'</dd>'}).join('');renderAnswer();
+  $('#log').innerHTML=(D.story[LANG]||D.story.en).map(function(p){return '<p'+(/^\[/.test(p)?' class="phx"':'')+'>'+esc(p)+'</p>'}).join('');
+  $('#deltaK').textContent=t('deltasays');$('#deltaS').textContent=L(D.delta);
+  $('#h-how').textContent=t('howH');
+  $('#rules').innerHTML=t('how').map(function(r,i){return '<li data-tier="'+(r[3]==null?'':r[3])+'" class="'+(r[3]==null?'gold':'')+'"><span class="dot" aria-hidden="true"></span><div>'+(r[2]?'<div class="w">'+esc(r[2])+'</div>':'')+'<b>'+esc(r[0])+'</b><span>'+esc(r[1])+'</span></div></li>'}).join('');
+  $('#onlyda').textContent=t('onlyda');$('#rulelink').textContent=t('rulelink');$('#imgnote').textContent=t('imgnote');
   $('#flip').textContent=$('#pass').classList.contains('back')?t('flipBack'):t('flip');
-  renderState();
+  buildTour();observeFades();renderState(false);
 }
 
-function renderTickets(){
-  $('#tix').innerHTML=D.tiers.map(tr=>`
-    <article class="ticket" data-k="${tr.key}">
-      <div class="stub"><span class="tl">${esc(L(tr.label))}</span><span class="tn">${esc(tr.name)}</span><span class="tl">${t('from')}</span><span class="tp">${money(tr.price)}</span></div>
-      <div class="body"><p>${esc(L(tr.lead))}</p>
-        <ul class="items">${tr.items.map(it=>`
-          <li class="item">${it.img?`<span class="slot" data-item="${esc(it.img)}"></span>`:`<span class="noimg" aria-hidden="true">${esc(it.icon||'·')}</span>`}
-            <div><h4>${esc(L(it.t))}</h4><div class="meta">${esc(it.meta||'')}</div>${it.redact?`<span class="redact" aria-hidden="true">■■■■ ■■■ ■■■■■■</span> <span class="meta">${t('locked')}</span>`:''}</div></li>`).join('')}</ul>
-        ${tr.after?`<p class="after">${esc(L(tr.after))}</p>`:''}
-        ${tr.key==='homeward'?`<p class="after">${t('addon')}</p>`:''}
-      </div></article>`).join('');
-  $('#tix').querySelectorAll('[data-item]').forEach(el=>fillSlot(el,{file:el.dataset.item,size:D.itemImgSpec}));
-  $('#ladder').innerHTML=D.tiers.map(tr=>`<span class="lamp" data-k="${tr.key}"><i></i>${esc(tr.name)} ${money(tr.price)}</span>`).join('');
+function renderState(flare){
+  var st=S.stage,b=S.bid,open=st==='open'||st==='extended',done=st==='closed'||st==='sold';
+  live=(open||done)&&b!=null;var was=[0,1,2,3].map(isLit);lv=live?level(b):0;
+  var lbl,val,when;
+  if(st==='teaser'){lbl='';val='';when=t('whenTeaser')}
+  else if(st==='preview'){lbl=t('start');val=money(D.tiers[0].price);when=t('whenPreview').replace('{t}',fmt(S.opensAt))}
+  else if(open){lbl=t('cur');val=money(b);when=t('whenOpen').replace('{t}',fmt(S.closeAt))}
+  else {lbl=t('fin');val=money(b);when=st==='closed'?t('whenClosed'):t('whenSold').replace('{t}',fmt(S.soldAt))}
+  $('#tLbl').innerHTML=(open?'<span class="live" aria-hidden="true"></span>':'')+esc(lbl);
+  if(REG){lbl='';val=''}
+  var v=$('#tVal');if(flare&&!reduce&&v.textContent!==val&&v.animate){v.textContent=val;v.animate([{opacity:0,transform:'translateY(-30%)'},{opacity:1,transform:'none'}],{duration:900,easing:'cubic-bezier(.22,.61,.24,1)'})}else v.textContent=val;
+  var chk=checking(),a=SS&&SS.auction||{},tz=SS&&SS.teaser||{};
+  if(st==='teaser')when=tz.opensAt?t('whenArr').replace('{t}',fmt(tz.opensAt)):t('whenTeaser');
+  else if(st==='preview')when=S.opensAt?t('whenPreview').replace('{t}',fmt(S.opensAt)):t('whenSoon');
+  else if(open&&!a.closeAt)when=t('whenWait');
+  else if(chk)when=t('whenCheck').replace('{t}',fmt(a.closeAt));
+  else if(st==='sold')when=t('whenSold').replace('{t}',fmt(S.soldAt))+(REG&&OWNER?t('withOwner').replace('{o}',OWNER):'');
+  if(chk)$('#tLbl').innerHTML=esc(t('cur'));
+  $('#when').textContent=when;$('#tag').hidden=st==='teaser';
+  var pill=$('#pill');pill.textContent=chk?t('pillCheck'):(t('pill')[st]||'');pill.classList.toggle('on',open&&!chk);pill.classList.toggle('dup',st==='sold');
+  $('#stepnote').hidden=!(st==='closed'&&!chk);$('#stepnote').textContent=t('stepnote').replace('{no}',D.no);
+  clearTimeout(chkTimer);if(!chk&&open&&a.closeAt){var ms=new Date(a.closeAt).getTime()-Date.now();if(ms>0&&ms<864e5)chkTimer=setTimeout(function(){renderState(false)},ms+500)}
+  var seal=$('#seal');seal.textContent=st==='sold'?t('home'):t('look');seal.classList.toggle('home',st==='sold');
+  var cta=$('#cta'),c2=$('#cta2'),bb=$('#bidbtn');bb.href=DA;
+  if(open&&!chk){bb.hidden=false;bb.textContent=t('bid');cta.hidden=false;cta.className='btn quiet';cta.textContent=t('seeGet');cta.href='#get';c2.hidden=true}
+  else if(done||chk){bb.hidden=!!REG;bb.textContent=t('see');cta.hidden=!REG;cta.className='btn';cta.textContent=t('seeGet');cta.href='#get';c2.hidden=false;c2.textContent=t('closer');c2.href='#look'}
+  else {bb.hidden=true;cta.hidden=false;cta.className='btn';cta.textContent=t('seeGet');cta.href='#get';c2.hidden=false;c2.textContent=t('closer');c2.href='#look'}
+  $('#heroimg').src=st==='teaser'&&!S.reveal?'img/silhouette.webp':'img/hero.webp';
+  // house windows: door always lit; others only by the real bid. Sold = someone's home (smoke + green tag on the door)
+  [].forEach.call(document.querySelectorAll('.house .win'),function(w){var i=+w.dataset.i,on=isLit(i);w.classList.toggle('on',on);
+    if(flare&&on&&!was[i]){w.classList.remove('ignite');void w.getBoundingClientRect();w.classList.add('ignite')}});
+  $('#house').classList.toggle('homed',st==='sold');
+  var cur={preview:0,open:1,extended:1,closed:2,sold:3}[st];if(cur==null)cur=-1;
+  $('#srail').hidden=st==='teaser';$('#srail').innerHTML=t('rail').map(function(l,i){var c=i<cur?'done':i===cur?'cur':'';if(i===1&&st==='extended')l+=' +15';return '<li class="'+c+'"'+(i===cur?' aria-current="step"':'')+'><i aria-hidden="true"></i>'+esc(l)+'</li>'}).join('');
+  [].forEach.call(document.querySelectorAll('#rules li[data-tier]'),function(li){var k=li.dataset.tier;if(k!=='')li.classList.toggle('lit',isLit(+k))});
+  renderGoodnight(st,open,done);
+  [].forEach.call(document.querySelectorAll('.chip'),function(c){c.classList.toggle('on',isLit(+c.dataset.i))});
+  [].forEach.call(document.querySelectorAll('#dMini i'),function(m,i){m.classList.toggle('on',isLit(i))});
+  var n=live?lv+1:1,ll=$('#lampline');
+  if(REG)ll.textContent='';
+  else if(!live)ll.textContent=open?t('lampNone'):t('lampPre');
+  else if(done)ll.textContent=t('lampFin').replace('{b}',money(b)).replace('{n}',n);
+  else if(chk)ll.textContent=t('lampChk').replace('{b}',money(b)).replace('{n}',n);
+  else ll.textContent=(n>=D.tiers.length?t('lampAll'):t('lampLit').replace('{n}',n).replace('{p}',money(D.tiers[n].price))).replace('{b}',money(b));
+  $('#updated').textContent=REG?'':(S.updatedAt?t('updated').replace('{t}',fmt(S.updatedAt)):(stateFailed?t('stale'):''));
+  renderReg();
+  $('#dV').textContent=val||t('whenTeaser');var db=$('#dBtn');db.textContent=open?t('bid'):done?t('see'):t('seeGet');db.href=(open||done)?DA:'#get';if(open||done)db.target='_blank';else db.removeAttribute('target');
+  // a new window just lit: show that room
+  var newly=-1;[0,1,2,3].forEach(function(i){if(isLit(i)&&!was[i])newly=i});
+  renderTiers();
+  if(flare&&newly>0){var rr=$('#tier'+newly);rr.classList.remove('flash');void rr.offsetWidth;rr.classList.add('flash');setTimeout(function(){rr.classList.remove('flash')},2400)}
 }
 
-let lastLampN=-1;
-function renderState(){
-  const st=stage(), chk=checking(st);
-  const pill=$('#pill');pill.textContent=t('pill')[st]||st;pill.classList.toggle('on',st==='open'||st==='extended');
-  if(chk){pill.textContent=t('pillCheck');pill.classList.remove('on')}
-  const a=S?.auction||{}, tz=S?.teaser||{};
-  const W={teaser:t('whenTeaser').replace('{t}',tz.opensAt?esc(fmt(tz.opensAt)):t('soon')),preview:t('whenPreview').replace('{t}',(a.opensAt||a.openedAt)?esc(fmt(a.opensAt||a.openedAt)):t('soon')),open:a.closeAt?t('whenOpen').replace('{t}',esc(fmt(a.closeAt))):t('whenWait'),extended:t('whenOpen').replace('{t}',esc(fmt(a.closeAt))),closed:t('whenClosed'),sold:t('whenSold').replace('{t}',esc(fmt(a.soldAt)))};
-  $('#when').innerHTML=W[st]||W.preview;
-  if(REG&&OWNER)$('#when').innerHTML=$('#when').innerHTML.replace(/\.\s*$/,'')+esc(t('withOwner').replace('{o}',OWNER))+(LANG==='en'?'.':'');
-  $('#sec-rules').hidden=!!REG;
-  if(chk)$('#when').innerHTML=t('whenCheck').replace('{t}',esc(fmt(a.closeAt)));
-  {const on=st==='closed'&&!chk;$('#steps').hidden=!on;$('#stepnote').hidden=!on;
-   if(on){t('steps').forEach((x,i)=>{$('#steps').children[i].textContent=x});$('#stepnote').textContent=t('stepnote').replace('{no}',D.no)}}
-  clearTimeout(chkTimer);if(!chk&&!demoState&&(st==='open'||st==='extended')&&a.closeAt){const ms=new Date(a.closeAt).getTime()-Date.now();if(ms>0&&ms<864e5)chkTimer=setTimeout(renderState,ms+500)}
-  // hero: silhouette during teaser unless reveal
-  const reveal=st!=='teaser'||S?.traveller?.reveal===true;
-  fillSlot(document.querySelector('[data-slot="hero"]'),reveal?D.images.hero:D.images.silhouette);
-  // button
-  const btn=$('#bidbtn');const url=a.daUrl||D.daUrl;btn.href=url;
-  if(st==='open'||st==='extended'){btn.hidden=false;btn.textContent=t('bid')}
-  else if(st==='closed'||st==='sold'){btn.hidden=false;btn.textContent=t('see')}
-  else btn.hidden=true;
-  if(chk){btn.hidden=false;btn.textContent=t('see')}
-  // lanterns: only real bids, only once bidding opened
-  const hasBid=REG?false:demoState?demoState.bid!=null:(a.bidCount>0||!!a.firstBidAt);
-  const b=(hasBid&&(st==='open'||st==='extended'||st==='closed'||st==='sold'))?bid():null;
-  let n=0;D.tiers.forEach((tr,i)=>{if(b!=null&&b>=tr.price)n=i+1});
-  document.querySelectorAll('.lamp').forEach((el,i)=>el.classList.toggle('on',i<n));
-  document.querySelectorAll('.ticket').forEach((el,i)=>el.classList.toggle('lit',i<n));
-  let line='';
-  if(b==null||n===0) line=(st==='open'||st==='extended')?t('lampNone'):'';
-  else if(n>=D.tiers.length) line=t((st==='closed'||st==='sold')?'lampAllFin':'lampAll').replace('{b}',money(b));
-  else if(st==='closed'||st==='sold') line=t('lampFin').replace('{b}',money(b)).replace('{n}',D.tiers[n-1].name);
-  else if(chk) line=t('lampChk').replace('{b}',money(b)).replace('{n}',D.tiers[n-1].name);
-  else line=t('lampLit').replace('{b}',money(b)).replace('{n}',D.tiers[n-1].name).replace('{next}',D.tiers[n].name).replace('{p}',money(D.tiers[n].price));
-  if(line&&a.updatedAt&&!demoState) line+=' · '+t('lampUpd').replace('{t}',fmt(a.updatedAt));
-  const ll=$('#lampline');
-  if(n!==lastLampN||ll.textContent!==line){ll.textContent=line;lastLampN=n}
-  $('#updated').textContent=S?.auction?.updatedAt?t('updated').replace('{t}',fmt(S.auction.updatedAt)):(stateFailed?t('stale'):'');
-}
+/* ---- the detail tour: the camera travels to each detail, Delta's note follows · autoplay stops at any touch ---- */
+var TV=0,TS=-1,tAuto=0;
+var VIEWS=['closer.webp','g2-face.webp','g3-34.webp','g5-back-crop.webp','wide-blanket.webp'];
+function noteText(j){var h=D.hotspots[j],s=h?L(h.t):'';return /^\[/.test(s)?t('tourDraft')[j]:s}
+function buildTour(){SPOTS=(D.hotspots||[]).length&&D.hotspots.every(function(h){return h&&h.x!=null&&h.y!=null})?D.hotspots.map(function(h){return {x:+h.x,y:+h.y,z:+h.z||2.6}}):SPOTS0;var pl=$('#tplate');[].forEach.call(pl.querySelectorAll('.spot'),function(n){n.remove()});
+  SPOTS.forEach(function(sp,j){var b=document.createElement('button');b.type='button';b.className='spot';b.style.left=sp.x+'%';b.style.top=sp.y+'%';b.innerHTML='<b>'+'I II III IV V'.split(' ')[j]+'</b>';b.setAttribute('aria-label',noteText(j));b.onclick=function(){stopAuto();go(j)};pl.appendChild(b)});
+  $('#tlist').innerHTML=SPOTS.map(function(sp,j){return '<li><button type="button" data-j="'+j+'"><b>'+'I II III IV V'.split(' ')[j]+'</b><span>'+esc(noteText(j))+'</span></button></li>'}).join('');
+  [].forEach.call(document.querySelectorAll('#tlist button'),function(b){b.onclick=function(){stopAuto();go(+b.dataset.j)}});
+  $('#tviews').innerHTML=VIEWS.map(function(v,i){return '<button type="button" data-v="'+i+'" aria-pressed="'+(i===TV)+'"><img src="img/'+v+'" alt="" loading="lazy">'+esc(t('caps')[i][1])+'</button>'}).join('');
+  $('#tviews').setAttribute('aria-label',t('lookKick'));
+  [].forEach.call(document.querySelectorAll('#tviews button'),function(b){b.onclick=function(){stopAuto();view(+b.dataset.v)}});
+  $('#tPlay').textContent=t('tour');$('#tAll').textContent=t('tourAll');$('#tBack').textContent=t('tourBack');paintTour()}
+$('#tBack').onclick=function(){view(0)};
+function cam(px,py,z){var pl=$('#tplate'),W=pl.clientWidth,H=pl.clientHeight,img=$('#timg');if(!z||z<=1){img.style.transform='';return}
+  var tx=W/2-px*W*z,ty=H/2-py*H*z;tx=Math.min(0,Math.max(W-W*z,tx));ty=Math.min(0,Math.max(H-H*z,ty));img.style.transform='translate('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px) scale('+z+')'}
+function go(j){if(TV!==0)view(0,true);TS=j;var sp=SPOTS[j];cam(sp.x/100,sp.y/100,sp.z);$('#tplate').classList.add('zoom');
+  $('#tnum').textContent='Delta · '+'I II III IV V'.split(' ')[j]+' / '+SPOTS.length;$('#ttext').textContent=noteText(j);var n=$('#tnote');n.classList.remove('on');void n.offsetWidth;n.classList.add('on');paintTour()}
+function whole(){TS=-1;cam(0,0,1);$('#tplate').classList.remove('zoom');$('#tnote').classList.remove('on');paintTour()}
+function view(i,keep){TV=i;$('#timg').src='img/'+VIEWS[i];$('#tour').classList.toggle('other',i!==0);var c=t('caps')[i];$('#tvcap').innerHTML='<b>'+c[0]+'</b>'+esc(c[1]);$('#tBack').textContent=t('tourBack');if(!keep){whole()}[].forEach.call(document.querySelectorAll('#tviews button'),function(b){b.setAttribute('aria-pressed',String(+b.dataset.v===i))});
+  [].forEach.call(document.querySelectorAll('#tplate .spot'),function(b){b.style.display=i!==0?'none':''});paintTour()}
+function paintTour(){$('#tN').textContent=TS<0?'— / '+SPOTS.length:(TS+1)+' / '+SPOTS.length;
+  [].forEach.call(document.querySelectorAll('#tlist button'),function(b){b.setAttribute('aria-current',String(+b.dataset.j===TS))});$('#tAll').style.display=TS<0?'none':'';
+  $('#tPlay').textContent=tAuto?t('tourStop'):t('tour')}
+function stopAuto(){if(tAuto){clearTimeout(tAuto);tAuto=0;paintTour()}}
+function play(){stopAuto();var j=0;(function step(){if(j>=SPOTS.length){tAuto=0;whole();return}go(j++);tAuto=setTimeout(step,reduce?6000:5200);paintTour()})()}
+$('#tPlay').onclick=function(){if(tAuto){stopAuto();return}play()};
+$('#tNext').onclick=function(){stopAuto();go(TS<0?0:(TS+1)%SPOTS.length)};$('#tPrev').onclick=function(){stopAuto();go(TS<=0?SPOTS.length-1:TS-1)};$('#tAll').onclick=function(){stopAuto();whole()};
+$('#tplate').addEventListener('click',function(e){if(e.target.closest('.spot'))return;stopAuto();if(TS>=0)whole()});
+addEventListener('resize',function(){if(TS>=0){var sp=SPOTS[TS];cam(sp.x/100,sp.y/100,sp.z)}});
+/* "Look closer" anywhere on the page → go to the tour and start it */
+document.addEventListener('click',function(e){var a=e.target.closest('a[href="#look"]');if(!a)return;e.preventDefault();$('#look').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});setTimeout(play,reduce?50:850)});
 
-// ---------- hotspots ----------
-let cur=-1;
-function selectSpot(i){cur=i;
-  document.querySelectorAll('.spot').forEach((s,j)=>s.setAttribute('aria-pressed',String(j===i)));
-  document.querySelectorAll('#spotlist li').forEach((li,j)=>li.classList.toggle('on',j===i));}
-$('#tour').addEventListener('click',()=>{selectSpot((cur+1)%D.hotspots.length);$('#tour').textContent=t('tourNext')});
+function observeFades(){if(reduce||!('IntersectionObserver' in window)){[].forEach.call(document.querySelectorAll('.fade.pre'),function(e){e.classList.remove('pre')});return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.remove('pre');io.unobserve(en.target)}})},{rootMargin:'0px 0px -8% 0px'});
+  [].forEach.call(document.querySelectorAll('.fade.pre'),function(e){io.observe(e)})}
 
-// ---------- gallery nav + viewer ----------
-const strip=$('#strip');
-$('#prev').onclick=()=>strip.scrollBy({left:-strip.clientWidth*.8,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
-$('#next').onclick=()=>strip.scrollBy({left:strip.clientWidth*.8,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
-const viewer=$('#viewer');
-function openViewer(g){const im=$('#vimg');im.alt=L(g.cap);$('#vtitle').textContent='No.'+D.no+' · '+L(g.cap);$('#vcap').textContent=L(g.cap);
-  im.onerror=()=>{if(im.dataset.f!==g.file){im.dataset.f=g.file;im.src='img/'+g.file}};
-  im.dataset.f=g.large||g.file;im.src='img/'+(g.large||g.file);   // large file loads only on tap
-  if(viewer.showModal)viewer.showModal();else viewer.setAttribute('open','')}
-$('#vclose').onclick=()=>viewer.close();
-viewer.addEventListener('click',e=>{if(e.target===viewer)viewer.close()});
+/* the path of light: dots along a curve from her (top-left) to the house door */
+(function(){var g=document.querySelector('.pdots'),N=18,o='';
+  function pt(t){/* cubic bezier from (300,10) to (1090,250·.6) */var p0=[300,6],p1=[560,150],p2=[900,40],p3=[1090,236],u=1-t;return[u*u*u*p0[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t*t*t*p3[0],u*u*u*p0[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t*t*t*p3[1]]}
+  for(var i=0;i<N;i++){var q=pt(i/(N-1));o+='<circle class="g" cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="14" fill="url(#pdg)" style="--i:'+i+'"/><circle cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="2.6" fill="#ffd58e" style="--i:'+i+'"/>'}
+  g.innerHTML=o;
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){if(es[0].isIntersecting)$('#bridge').classList.add('on')},{threshold:.4}).observe($('#bridge'));else $('#bridge').classList.add('on')})();
+(function(){var c=$('#sky'),x=c.getContext('2d');function draw(){c.width=innerWidth;c.height=innerHeight;var s=29;function r(){s=(s*16807)%2147483647;return s/2147483647}
+  for(var i=0;i<110;i++){x.fillStyle='rgba(236,231,220,'+(0.06+r()*0.22).toFixed(3)+')';x.beginPath();x.arc(r()*c.width,r()*c.height,r()*0.9+.2,0,7);x.fill()}}draw();(function(w){addEventListener('resize',function(){if(innerWidth!==w){w=innerWidth;draw()}})})(innerWidth)})();
 
-// ---------- pass flip ----------
-$('#flip').addEventListener('click',()=>{const p=$('#pass');const back=!p.classList.contains('back');p.classList.toggle('back',back);$('#flip').setAttribute('aria-pressed',String(back));$('#flip').textContent=back?t('flipBack'):t('flip')});
+/* goodnight scene: a copy of the house, lit exactly like the real one */
+function renderReg(){var on=!!REG;document.documentElement.classList.toggle('reg',on);$('#regline').hidden=!on;$('#regback').hidden=!on;
+  if(!on)return;var d=REG.soldAt?new Date(REG.soldAt):null,ds=d&&!isNaN(d)?d.toLocaleDateString(LANG==='th'?'th-TH':'en-GB',{day:'numeric',month:'short',year:'numeric'}).toUpperCase():'';
+  var st=stopNo(),a=ATL&&(ATL.stops||[])[+st-1],yt=a&&a.url;
+  $('#regline').innerHTML='<span class="st">'+esc(t('regFound'))+(ds?' · '+esc(ds):'')+'</span>'+(OWNER?'<span class="with"><small>'+esc(t('regWith'))+'</small>'+esc(OWNER)+'</span>':'')+(yt?'<a class="seen" href="'+esc(yt)+'" target="_blank" rel="noopener">▶ '+esc(t('regWatch').replace('{s}',st))+'</a>':'');
+  $('#regback').textContent=t('regBack');$('#getKick').textContent=t('regKick');$('#h-get').textContent=t('regH');$('#getSub').textContent=t('regSub')}
+function renderGoodnight(st,open,done){var h=$('#house'),g=$('#gnhouse');if(!h||!g)return;var c=h.cloneNode(true);c.removeAttribute('id');c.classList.remove('homed');if(st==='sold')c.classList.add('homed');
+  [].forEach.call(c.querySelectorAll('.win'),function(w){w.classList.remove('sel','ignite')});g.innerHTML='';g.appendChild(c);
+  $('#gnLine').textContent=st==='sold'?t('gnHome'):t('gnLine');
+  var n=live?lv+1:1;$('#gnStat').textContent=st==='teaser'?'':(st==='sold'?t('home'):t('gnStat').replace('{n}',n));
+  var b=$('#gnBtn');b.textContent=open?t('bid'):done?t('see'):t('seeGet');b.href=(open||done)?DA:'#get';if(open||done)b.target='_blank';else b.removeAttribute('target')}
 
-// ---------- language ----------
-document.querySelectorAll('.langsw button').forEach(b=>b.addEventListener('click',()=>{LANG=b.dataset.lang;try{localStorage.setItem('lh-lang',LANG)}catch(e){}renderStatic()}));
+/* house windows are also clickable (chips are the accessible list) */
+[].forEach.call(document.querySelectorAll('.house .win'),function(w){w.addEventListener('click',function(){pick(+w.dataset.i)})});
 
-// ---------- data + state loading ----------
-let stateFailed=false;
-async function loadData(){try{const r=await fetch('data.json?t='+Date.now(),{cache:'no-store'});if(r.ok){D=Object.assign(D,await r.json())}}catch(e){} }
-function mine(j){/* H3: auction data belongs to the traveller named in auction.no (or traveller.no) · another No. → this page ignores it */
-  if(!j)return j;const a=j.auction||{},no=String(a.no||(j.traveller&&j.traveller.no)||'001');
-  document.documentElement.toggleAttribute('data-lh-noctx',no!==String(D.no));if(window.LH_NAV_RENDER)LH_NAV_RENDER();
-  if(no!==String(D.no)){j=Object.assign({},j,{auction:{},traveller:Object.assign({},j.traveller||{},{stage:'preview'})});}
-  return j}
-async function loadState(){try{S=mine(await (window.lhLive?lhLive.get('../../state.json?t='+Date.now()):fetch('../../state.json?t='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw 0;return r.json()})));stateFailed=false}catch(e){stateFailed=true}renderState()}
+/* the two little windows blink now and then, like Stop 04's house */
 
-// ---------- demo panel (?demo=1 only · not part of the real page) ----------
-function demoPanel(){
-  const p=document.createElement('div');p.className='demo';
-  p.innerHTML='<b>DEMO · test controls (real page has none)</b><div>stage: '+['teaser','preview','open','extended','closed','sold'].map(s=>`<button data-s="${s}">${s}</button>`).join(' ')+'</div><div>bid: '+[null,45,120,350,480,600,950,1250].map(v=>`<button data-b="${v}">${v??'none'}</button>`).join(' ')+'</div>';
-  document.body.appendChild(p);demoState={stage:'preview',bid:null};
-  p.addEventListener('click',e=>{const s=e.target.dataset.s,b=e.target.dataset.b;if(s)demoState.stage=s;if(b!==undefined)demoState.bid=b==='null'?null:+b;renderState()});
-}
+/* only animate what is on screen */
+(function(){if(!('IntersectionObserver' in window))return;var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('iv',e.isIntersecting)})});['house','gnhouse'].forEach(function(id){var e=document.getElementById(id);if(e)io.observe(e)})})();
+document.addEventListener('dragstart',function(e){if(e.target&&e.target.tagName==='IMG')e.preventDefault()});
+(function(){var z=$('#pzone'),p=$('#pass'),back=false;
+  function set(x,y){p.style.transform='rotateY('+((back?180:0)+x*14).toFixed(1)+'deg) rotateX('+(-y*10).toFixed(1)+'deg)';[].forEach.call(p.querySelectorAll('.sheen'),function(s){s.style.setProperty('--sx',(50+x*50)+'%');s.style.setProperty('--sy',(50+y*50)+'%')})}
+  z.addEventListener('pointermove',function(e){if(reduce)return;var r=p.getBoundingClientRect();p.classList.remove('ease');set(Math.max(-1,Math.min(1,((e.clientX-r.left)/r.width-.5)*2)),Math.max(-1,Math.min(1,((e.clientY-r.top)/r.height-.5)*2)))});
+  z.addEventListener('pointerleave',function(){p.classList.add('ease');set(0,0)});
+  $('#flip').onclick=function(){back=!back;p.classList.toggle('back',back);p.classList.add('ease');set(0,0);this.textContent=back?t('flipBack'):t('flip')};})();
 
-async function loadOwner(){try{const r=await fetch('../../travellers/travellers.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)return;const j=await r.json();
-  const e=(j.travellers||[]).find(x=>String(x.no)===String(D.no));if(e&&e.ownerOptIn===true&&e.owner)OWNER=String(e.owner)}catch(e){}}
-(async()=>{await loadData();
+(function(){var c=$('#stars'),x=c.getContext('2d');function draw(){var r=c.getBoundingClientRect();c.width=r.width;c.height=r.height;var s=11;function rnd(){s=(s*16807)%2147483647;return s/2147483647}
+  for(var i=0;i<120;i++){x.fillStyle='rgba(236,231,220,'+(0.15+rnd()*0.5)+')';x.beginPath();x.arc(rnd()*c.width,rnd()*c.height*.55,rnd()*1+.2,0,7);x.fill()}}draw();(function(w){addEventListener('resize',function(){if(innerWidth!==w){w=innerWidth;draw()}})})(innerWidth)})();
+
+(function(){var seen={},d=$('#dock');function upd(){var hide=Object.keys(seen).some(function(k){return seen[k]});d.classList.toggle('on',!hide);document.documentElement.classList.toggle('dock-on',!hide&&!REG);d.setAttribute('aria-hidden',String(hide));if(hide&&d.contains(document.activeElement))document.activeElement.blur()}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){seen[e.target.id]=e.isIntersecting});upd()});['acts','look','get','imgnote'].forEach(function(id){var e=document.getElementById(id);if(e)io.observe(e)})})();
+
+document.querySelectorAll('.langsw button').forEach(function(b){b.onclick=function(){LANG=b.dataset.lang;try{localStorage.setItem('lh-lang',LANG)}catch(e){}renderStatic()}});
+
+
+
+/* ---- where the lantern is in the art (image fraction · sample art; set from the real art later) → glow, motes, the opening light ---- */
+var LAMP={x:.815,y:.679};
+function lampXY(){var img=$('#heroimg'),box=$('#artbtn').getBoundingClientRect(),st=$('#stage').getBoundingClientRect();if(!img.naturalWidth||!box.width)return null;
+  var cs=getComputedStyle(img),fit=cs.objectFit,iw=img.naturalWidth,ih=img.naturalHeight,s=fit==='contain'?Math.min(box.width/iw,box.height/ih):Math.max(box.width/iw,box.height/ih);
+  var op=cs.objectPosition.split(' ').map(function(v){return parseFloat(v)/100}),dw=iw*s,dh=ih*s,ox=(box.width-dw)*op[0],oy=(box.height-dh)*op[1];
+  var x=ox+LAMP.x*dw,y=oy+LAMP.y*dh;return{x:x,y:y,w:box.width,h:box.height,sx:x+box.left-st.left,sy:y+box.top-st.top,sw:st.width,sh:st.height}}
+function placeLamp(){var p=lampXY();if(!p)return;var a=$('#artbtn');a.style.setProperty('--lx',(p.x/p.w*100)+'%');a.style.setProperty('--ly',(p.y/p.h*100)+'%');
+  var c=$('#curtain');c.style.setProperty('--lx2',(p.sx/p.sw*100)+'%');c.style.setProperty('--ly2',(p.sy/p.sh*100)+'%')}
+(function(w){addEventListener('resize',function(){if(innerWidth!==w){w=innerWidth;placeLamp()}})})(innerWidth);
+
+/* dust in the lantern light: a few motes drift up and fade · paused off-screen · none with reduced motion */
+(function(){if(reduce)return;var c=$('#motes'),x=c.getContext('2d'),P=[],on=true,raf=0,W=0,H=0,dpr=1,lastT=0,scrolling=0;addEventListener('scroll',function(){clearTimeout(scrolling);scrolling=setTimeout(function(){scrolling=0},180)},{passive:true});
+  function rs(){var r=c.getBoundingClientRect();W=c.width=r.width*dpr;H=c.height=r.height*dpr}
+  function spawn(){var p=lampXY();var lx=p?p.x*dpr:W*.8,ly=p?p.y*dpr:H*.68;return{x:lx+(Math.random()-.5)*W*.22,y:ly+(Math.random()-.3)*H*.16,vx:(Math.random()-.5)*.12*dpr,vy:-(.08+Math.random()*.22)*dpr,r:(.6+Math.random()*1.5)*dpr,a:0,life:0,max:260+Math.random()*320}}
+  function tick(t){if(scrolling||t-lastT<32){raf=on?requestAnimationFrame(tick):0;return}lastT=t;x.clearRect(0,0,W,H);while(P.length<22)P.push(spawn());
+    P.forEach(function(p,i){p.life++;p.x+=p.vx+Math.sin(p.life/40)*.08*dpr;p.y+=p.vy;var k=p.life/p.max;p.a=k<.2?k/.2:k>.7?(1-k)/.3:1;
+      x.fillStyle='rgba(255,214,150,'+(p.a*.55).toFixed(3)+')';x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill();if(p.life>=p.max)P[i]=spawn()});
+    raf=on?requestAnimationFrame(tick):0}
+  rs();(function(w){addEventListener('resize',function(){if(innerWidth!==w){w=innerWidth;rs()}})})(innerWidth);new IntersectionObserver(function(es){on=es[0].isIntersecting;if(on&&!raf)raf=requestAnimationFrame(tick)}).observe($('#stage'))})();
+
+/* the opening (once per visit · any tap/scroll/key skips · reduced motion = none) */
+var playing=false;
+function intro(force){var st=$('#stage'),day=new Date().toDateString(),full=true;
+  try{full=localStorage.getItem('lh-001-intro-day')!==day;localStorage.setItem('lh-001-intro-day',day)}catch(e){}
+  if(force==='full')full=true;if(force==='short')full=false;
+  if(reduce){st.classList.remove('pre');return}
+  placeLamp();playing=true;st.classList.remove('play','short');void st.offsetWidth;st.classList.add('play');if(!full)st.classList.add('short');st.classList.remove('pre');
+  var c=$('#curtain'),dur=full?2600:900,sr=st.getBoundingClientRect(),cl=c.getBoundingClientRect(),lx=cl.left+cl.width/2-sr.left,ly=cl.top+cl.height/2-sr.top;
+  /* the hole grows from the lantern: one GPU transform instead of a full-screen repaint each frame */
+  var G=Math.max(Math.hypot(lx,ly),Math.hypot(sr.width-lx,ly),Math.hypot(lx,sr.height-ly),Math.hypot(sr.width-lx,sr.height-ly)),Dm=Math.ceil(G*2.2);
+  var B=256,s0=Math.max(1,Dm/B),end=1.5*G/(0.02*B/2);if(c.getAnimations)c.getAnimations().forEach(function(a){a.cancel()});
+  if(c.animate){var an=c.animate([{transform:'scale('+s0.toFixed(2)+')'},{transform:'scale('+end.toFixed(1)+')'}],{duration:dur,easing:'cubic-bezier(.45,0,.55,1)',fill:'forwards'});an.onfinish=function(){if(playing)c.style.opacity='0'}}else c.style.opacity='0';
+  c.style.opacity='';setTimeout(endIntro,full?3700:1500)}
+function endIntro(){if(!playing)return;playing=false;var st=$('#stage');st.classList.remove('play');var c=$('#curtain');if(c.getAnimations)c.getAnimations().forEach(function(a){a.cancel()})}
+['pointerdown','keydown','wheel','touchmove'].forEach(function(ev){addEventListener(ev,function(){if(playing)endIntro()},{passive:true})});
+
+
+
+setTimeout(function(){var st=$('#stage');if(st&&st.classList.contains('pre')&&!playing)st.classList.remove('pre')},6000);/* never stay dark if data.json fails */
+fetch('data.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){D=Object.assign(D||{},j)},function(){}).then(function(){
   if(params.has('registry'))D.registry=D.registry||{soldAt:new Date(Date.now()-864e5).toISOString()};   /* preview only: ?registry=1 */
-  if(D.registry&&typeof D.registry==='object'){REG=D.registry;S=regState();document.documentElement.setAttribute('data-lh-noctx','');if(window.LH_NAV_RENDER)LH_NAV_RENDER();await loadOwner();if(params.get('owner')==='demo')OWNER='@sample-owner';renderStatic();return}
-  renderStatic();if(DEMO)demoPanel();await loadState();setInterval(loadState,window.lhLive&&lhLive.on?20000:60000)})();
+  var first=Promise.resolve();
+  if(D.registry&&typeof D.registry==='object'){REG=D.registry;document.documentElement.setAttribute('data-lh-noctx','');if(window.LH_NAV_RENDER)LH_NAV_RENDER();
+    first=Promise.all([loadOwner(),loadAtlas()]).then(function(){if(params.get('owner')==='demo')OWNER='@sample-owner'})}
+  return first}).then(function(){toS();renderStatic();
+  var img=$('#heroimg'),go=function(){requestAnimationFrame(function(){intro(false)})};if(img.complete)go();else{img.onload=go;img.onerror=go;setTimeout(go,1200)}
+  if(!REG){loadState();setInterval(loadState,window.lhLive&&lhLive.on?20000:60000)}});
 })();
 </script>
 <script src="../../assets/nav.js" data-root="../../" data-page="traveller" defer></script>

@@ -28,10 +28,7 @@ html[lang="th"] .lh-bar .lh-home{font-family:"Caveat",cursive}
 
 /* P10 · page-to-page transition: CSS only, same-site links · the hand-lettered name stays put while the page cross-fades.
    Browsers without support simply change page as before. Reduced motion = no transition. */
-@view-transition{navigation:auto}
 a.brand,a.lh-home{view-transition-name:lh-brand}
-::view-transition-old(root),::view-transition-new(root){animation-duration:.45s}
-@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
 /* H3 · closed → next steps (rail with three lanterns · the current one breathes slowly · reduced motion = still) */
 .lh-steps{list-style:none;margin:14px auto 2px;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;max-width:480px;position:relative;font:500 .74rem/1.4 var(--f-mono);letter-spacing:.04em;color:var(--lh-cream-2)}
 .lh-steps[hidden],.lh-stepnote[hidden]{display:none}
@@ -48,3 +45,19 @@ a.brand,a.lh-home{view-transition-name:lh-brand}
 /* the strip pushes the rule line lower into the brighter fog on the closed sky */
 html[data-sky="closed"] .note{color:var(--lh-cream-3)}
 html[data-sky="closed"] .thb{color:var(--lh-cream-2)}
+
+/* LAND · rail menu (Dell 27 Oct) · the same short golden rail on every page · nav.js adds .lh-rail */
+html.lh-has-rail body{padding-bottom:calc(78px + env(safe-area-inset-bottom,0px))}
+.lh-nav.lh-rail{position:fixed;left:0;right:0;bottom:0;z-index:40;margin:0;height:calc(66px + env(safe-area-inset-bottom,0px));display:flex;flex-wrap:nowrap;justify-content:center;align-items:flex-start;gap:clamp(18px,7vw,64px);padding:15px 8px 0;background:linear-gradient(transparent,rgba(5,8,18,.9) 40%);color:#ece7dc;transition:transform .45s cubic-bezier(.3,.7,.2,1)}
+.lh-nav.lh-rail.away{transform:translateY(100%)}
+.lh-nav.lh-rail::before{content:"";position:absolute;left:50%;top:18.5px;width:min(84vw,560px);height:1.2px;transform:translateX(-50%);background:rgba(var(--lh-lantern-rgb),.45)}
+.lh-nav.lh-rail a{position:relative;display:flex;flex-direction:column;align-items:center;gap:9px;font:400 .62rem "Special Elite","IBM Plex Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:#ece7dc;opacity:1;text-decoration:none;padding:0 2px;border:0;background:none;white-space:nowrap}
+.lh-nav.lh-rail a::before{content:"";width:7px;height:7px;border-radius:50%;background:#ece7dc}
+.lh-nav.lh-rail a[aria-current="page"]{color:#ffd9a0}
+.lh-nav.lh-rail a[aria-current="page"]::before{background:#f59a3e;box-shadow:0 0 0 4px rgba(245,154,62,.25),0 0 18px 6px rgba(245,154,62,.45)}
+.lh-nav.lh-rail a[hidden],.lh-nav.lh-rail .lh-x{display:none}
+html[lang="th"] .lh-nav.lh-rail a{font-family:"IBM Plex Sans Thai","IBM Plex Mono",monospace;letter-spacing:.06em;font-size:.72rem}
+.top .lh-nav.lh-rail{order:0;flex-basis:auto;margin:0}
+.lh-footx{text-align:center;margin:18px 0 6px;font:500 .74rem "IBM Plex Mono",monospace;letter-spacing:.06em}
+.lh-footx a{color:inherit;opacity:.75}
+@media (prefers-reduced-motion:reduce){.lh-nav.lh-rail{transition:none}}

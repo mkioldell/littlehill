@@ -1,0 +1,32 @@
+/* littlehill · one top bar for every page (r12 · Dell: logo, sound and language sat at different heights/sizes on each page, and moved after load)
+   logo top-left · sound + language top-right · same size and the same line everywhere · all in the HTML from the start, nothing is moved by script */
+html body .lh-head{position:relative!important;min-height:70px!important;padding-top:0!important}
+html body .lh-logo{position:absolute!important;top:16px!important;left:max(16px,env(safe-area-inset-left,0px))!important;margin:0!important;transform:none!important;
+  font:400 40px/38px "Reenie Beanie",cursive!important;letter-spacing:0!important;color:#ece7dc!important;text-decoration:none!important;z-index:60}
+html body .lh-logo a,html body .lh-logo .brand{font:inherit!important;color:inherit!important;text-decoration:none!important}
+html body .lh-logo small,html body .lh-logo .brandcap{display:block;margin-top:2px;font:500 10px/1.2 "IBM Plex Mono",monospace!important;letter-spacing:.14em;text-transform:uppercase;color:rgba(236,231,220,.55)!important}
+html body .lh-tr{position:absolute!important;top:16px!important;right:max(16px,env(safe-area-inset-right,0px))!important;left:auto!important;bottom:auto!important;margin:0!important;transform:none!important;
+  display:flex!important;align-items:center;gap:8px;height:38px;z-index:61}
+html body .lh-tr>button:not(.lh-x){box-sizing:border-box;width:38px!important;height:38px!important;min-width:0!important;padding:0!important;margin:0!important;border-radius:50%!important;
+  border:1px solid rgba(236,231,220,.28)!important;background:rgba(11,16,40,.38)!important;color:#ece7dc!important;display:grid!important;place-items:center;cursor:pointer;font-size:0!important}
+html body .lh-tr>button:not(.lh-x)>span{display:none!important}
+html body .lh-tr>button:not(.lh-x) svg{width:18px;height:18px}
+html body .lh-tr .lh-lang{order:9;position:static!important;display:flex!important;align-items:center;gap:0;height:38px;box-sizing:border-box;padding:3px!important;margin:0!important;transform:none!important;
+  border:1px solid rgba(236,231,220,.28)!important;border-radius:999px!important;background:rgba(11,16,40,.38)!important}
+html body .lh-tr .lh-lang button{box-sizing:border-box;height:30px;min-width:42px;padding:0 11px!important;margin:0!important;border:0!important;border-radius:999px!important;background:none!important;
+  font:600 13px/1 "IBM Plex Sans","IBM Plex Sans Thai",sans-serif!important;letter-spacing:.02em!important;text-transform:none!important;color:rgba(236,231,220,.78)!important;text-decoration:none!important;cursor:pointer}
+html body .lh-tr .lh-lang button[aria-pressed=true]{background:#ece7dc!important;color:#141a30!important}
+html body .lh-tr #xl{display:none!important}
+/* per page: each container sits at a different spot, so the bar is pinned to the same screen line */
+html body header.top .lh-head>.lh-logo,html body header.top .lh-head>.lh-tr{top:2px!important}
+html body .top.lh-head .brandwrap.lh-logo{left:0!important;top:-6px!important}
+html body .top.lh-head>span>.lh-tr{right:0!important;top:-6px!important}
+html body .topbar.lh-head .lh-logo{left:0!important;top:0!important}
+html body .topbar.lh-head .lh-tr{right:0!important;top:0!important}
+html body [data-lang] header>.lh-tr{top:-54px!important}
+html body #shift{display:none!important} /* auction: the "dusk shift" tag had no room in the shared bar */
+/* r12b: moved to the page corners (body), so containers' centring on desktop no longer shifts them */
+html body .lh-logo.lh-top,html body .lh-tr.lh-top{top:calc(16px + var(--barh,0px))!important}
+html body .lh-logo.lh-top{left:max(16px,env(safe-area-inset-left,0px))!important}
+html body .lh-tr.lh-top{right:max(16px,env(safe-area-inset-right,0px))!important}
+html body.locked .lh-top{visibility:hidden!important} /* delivery: the ceremony has its own sound + skip in these corners */

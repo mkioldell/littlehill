@@ -1,123 +1,244 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
+<html lang="en" data-veil-wait>
+<head><script src="../assets/veil.js"></script><script src="../assets/sound.js"></script>
+<meta charset="utf-8"><meta name="color-scheme" content="dark"><style>html{background:#0b1028}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<!-- prototype page (24 Oct 2026) · keep noindex until Dell switches it on AND links it -->
+<!-- LAND (H3 · 28 Oct 2026): the registry as a night-sky gallery · keep noindex until Dell switches it on AND links it -->
 <meta name="robots" content="noindex,nofollow">
 <title>Traveller Registry · littlehill</title>
-<meta name="description" content="Every littlehill traveller, where they were first seen, and who they travel with now.">
+<meta name="description" content="Every littlehill traveller, hung on the night sky in the order they boarded. A warm light means they found a home.">
 <meta property="og:site_name" content="littlehill">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Traveller registry · littlehill">
-<meta property="og:description" content="Every littlehill traveller, where they were first seen, and who they travel with now.">
+<meta property="og:description" content="Every littlehill traveller, hung on the night sky in the order they boarded.">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@little_hill01">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23141c30%27/%3E%3Crect x=%2712%27 y=%279%27 width=%278%27 height=%2713%27 rx=%272%27 fill=%27%23f2b45a%27/%3E%3Crect x=%2714%27 y=%276%27 width=%274%27 height=%273%27 fill=%27%23e8e4da%27/%3E%3Crect x=%2711%27 y=%2722%27 width=%2710%27 height=%272%27 fill=%27%23e8e4da%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400;600&family=Karla:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Reenie+Beanie&family=Special+Elite&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400;600&family=Karla:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="../assets/tokens.css">
 <link rel="stylesheet" href="../assets/future.css">
-<style>
-/* registry: one card per No. · real travellers read their own traveller/NNN/data.json · empty No. = "not yet boarded" */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:14px;list-style:none;margin:0;padding:0}
-.grid>li{display:grid}
-.card{display:grid;grid-template-rows:auto 1fr;overflow:hidden;text-decoration:none;color:var(--paper-ink)}
-.pic{aspect-ratio:4/5;background:repeating-linear-gradient(135deg,var(--lh-paper-hatch-a) 0 6px,var(--lh-paper-hatch-b) 6px 12px);display:grid;place-items:center;position:relative;font:500 .72rem var(--f-mono);color:var(--lh-paper-muted-strong)}
-.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.body{padding:12px 14px 14px;display:grid;gap:4px;align-content:start}
-.body h2{margin:0;font:700 1.55rem/1.05 var(--f-hand)}
-html[lang="th"] .body h2,html[lang="th"] .status{font-family:"Sriracha","Caveat",cursive;font-weight:400}
-.epi{font-size:.88rem;color:var(--label);margin:0}
-.seen{font-size:.84rem;margin:2px 0 0;color:var(--paper-ink)}
-.k{display:block;font:500 .64rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--label)}
-.status{font:700 1.08rem var(--f-hand);color:var(--lh-stamp-stop);margin-top:2px}
-.status.home{color:var(--lh-stamp-home)}
-.with{font-size:.84rem;margin:0}
-.go{font:500 .7rem var(--f-mono);letter-spacing:.08em;color:var(--lh-stamp-wait);margin-top:4px}
-/* empty No. */
-.ghost{border:1.5px dashed rgba(var(--lh-ink-rgb),.26);border-radius:8px;min-height:100%;display:grid;align-content:end;gap:2px;padding:14px;background:radial-gradient(80% 60% at 50% 35%,var(--fog),transparent 70%);color:var(--muted)}
-.ghost .mono{font-size:.74rem;letter-spacing:.14em}
-.ghost .hand{font-size:1.3rem;color:var(--muted)}
-.ghost::before{content:"";display:block;aspect-ratio:4/5;margin:-4px -4px 8px}
-/* P10: the 'not yet boarded' words sit on a little fog; soft halo keeps them readable */
-.ghost .mono,.ghost .hand{text-shadow:var(--lh-halo-strong)}
-@media (max-width:400px){.body{padding:10px 11px 12px}.body h2{font-size:1.35rem}.ghost::before{aspect-ratio:4/4}}
-</style>
 <link rel="stylesheet" href="../assets/site.css">
+<style>
+/* registry = a salon hang of framed travellers on the night sky above the hill (Dell 27 Oct · mixed B+E+F+G+I+J)
+   frames: round (face) · oval (three-quarter) · a few square (full) · tonight's traveller big with a flag
+   ink rule (28 Oct): office words = Caveat · Delta = pencil (Reenie Beanie) · the page title stays pencil (Dell) */
+:root{--ink:#ece7dc;--ink2:rgba(236,231,220,.74);--ink3:rgba(236,231,220,.48);--paper:#ece6d6;--pi:#2a2620;--pm:#5d5444;--red:#8c2a33;--green:#2f6b4a;--glow:#ffd38a;--mono:"IBM Plex Mono",monospace;--ink-hand:"Caveat","Sriracha",cursive}
+html,body{overflow-x:hidden}
+body{margin:0;color:var(--ink);font-family:Karla,"IBM Plex Sans Thai",sans-serif;background:linear-gradient(180deg,#4a3468 0,#2a2a5a 300px,#141a3e 700px,#0b1028 1100px) #0b1028 no-repeat;min-height:100vh}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:60;background-image:var(--grain,none);background-size:160px 160px}
+main.wrap{max-width:none;padding:0}
+.top{position:relative;z-index:6;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:12px max(18px,env(safe-area-inset-right,0px)) 0 max(18px,env(safe-area-inset-left,0px));background:none;color:var(--ink)}
+.top .brand{font:400 2.4rem/1 "Reenie Beanie",cursive;color:var(--ink);text-decoration:none}
+.langsw{display:flex;border:1px solid rgba(236,231,220,.25);border-radius:999px;padding:3px;margin-top:6px}
+.langsw button{font:600 .7rem Karla,"IBM Plex Sans Thai",sans-serif;color:var(--ink);background:none;border:0;border-radius:999px;padding:5px 9px;cursor:pointer}
+.langsw button[aria-pressed="true"]{background:var(--ink);color:#141a30}
+.preview-bar{position:relative;z-index:6;margin:10px 16px 0}
+.closed{position:relative;z-index:6}
+.mono{font:500 .62rem var(--mono);letter-spacing:.14em}
+.ttl{position:relative;z-index:3;text-align:center;margin-top:-6px;padding:0 16px}
+.ttl h1{margin:0;font:400 clamp(3rem,8vw,4.2rem)/1 "Reenie Beanie",cursive}
+html[lang="th"] .ttl h1{font:400 clamp(2.2rem,7vw,3rem)/1.2 "Sriracha",cursive}
+.ttl p{margin:6px auto 0;max-width:36em;color:var(--ink2);font-size:14px}
+.sum{display:flex;gap:8px 20px;justify-content:center;margin-top:10px;color:var(--ink2);flex-wrap:wrap}
+.sum b{font:400 1.25rem "Special Elite",monospace;color:#ffd9a0;margin-right:5px;letter-spacing:0}
+html[lang="th"] .sum span{font-family:"IBM Plex Sans Thai",var(--mono);letter-spacing:.02em;font-size:.74rem}
+/* the gallery */
+.gal{position:relative;margin:24px auto 0;width:min(1180px,100%);height:var(--gh,760px);overflow-x:clip}
+.gal svg.line{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.hill{position:absolute;left:0;right:0;bottom:-60px;height:180px;background:#0a0d22;border-radius:50% 50% 0 0/100% 100% 0 0;z-index:0}
+.fr{position:absolute;z-index:2;display:block;color:inherit;text-decoration:none;transform:rotate(var(--r));transition:transform .3s}
+a.fr:hover,a.fr:focus-visible{transform:rotate(0) translateY(-4px) scale(1.02)}
+a.fr:focus-visible{outline:2px solid var(--glow);outline-offset:6px}
+.fr .box{position:relative;padding:7px;background:#2a2340;box-shadow:0 22px 34px rgba(0,0,0,.6),inset 0 0 0 2px #3d3360}
+.fr .mat{padding:8px;background:#2f2850 var(--mat,none) center/90px}
+.fr .pic{position:relative;aspect-ratio:var(--ar);overflow:hidden;background:#151a38}
+.fr .pic img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.fr .lt{position:absolute;left:50%;top:-12px;width:46%;height:7px;margin-left:-23%;background:#3d3360;border-radius:3px;z-index:3}
+.fr.home .lt:after{content:"";position:absolute;left:-40%;right:-40%;top:5px;height:180px;background:radial-gradient(50% 55% at 50% 0,var(--ccg),transparent 72%);pointer-events:none}
+.fr.home .box{box-shadow:0 22px 34px rgba(0,0,0,.6),inset 0 0 0 2px #3d3360,0 0 40px 4px rgba(245,154,62,.18)}
+.fr .tag{position:absolute;left:10%;bottom:-30px;background:var(--paper);color:var(--pi);padding:4px 9px 5px;border-left:4px solid var(--cc);transform:rotate(calc(var(--r)*-2));box-shadow:0 4px 8px rgba(0,0,0,.4);white-space:nowrap;z-index:4}
+.fr .tag b{font:700 1.05rem/1 var(--ink-hand);margin-right:6px}
+.fr .tag span{font:500 .58rem var(--mono);letter-spacing:.08em;color:var(--pm)}
+html[lang="th"] .fr .tag span{font-family:"IBM Plex Sans Thai",var(--mono);letter-spacing:0;font-size:.66rem}
+.fr.home .tag span{color:var(--green)}.fr.look .tag span{color:var(--red)}
+.fr.big .tag b{font-size:1.4rem}
+.fr.big .box{box-shadow:0 26px 40px rgba(0,0,0,.6),inset 0 0 0 2px #5a4a86,0 0 0 4px rgba(255,211,138,.35),0 0 60px 10px rgba(245,154,62,.25)}
+.flag{position:absolute;right:-10px;top:-14px;z-index:5;background:var(--glow);color:#241a0d;font:500 .6rem var(--mono);letter-spacing:.12em;padding:4px 8px;border-radius:2px;transform:rotate(6deg);box-shadow:0 4px 10px rgba(0,0,0,.4)}
+html[lang="th"] .flag{font-family:"IBM Plex Sans Thai",var(--mono);letter-spacing:.02em;font-size:.68rem}
+.fr.round .box,.fr.round .mat,.fr.round .pic{border-radius:50%}
+.fr.round .box{padding:6px}.fr.round .mat{padding:9px}
+.fr.round .tag{left:50%;transform:translateX(-50%) rotate(-2deg)}
+.fr.round .lt{top:-16px}
+.fr.round.empty .pic{background:radial-gradient(circle at 40% 35%,#262a52,#151933 70%)}
+.fr.empty .mat{background:#1a1d3a}
+.fr.empty .pic{background:repeating-linear-gradient(90deg,#262a52 0 7px,#1f2347 7px 14px)}
+.fr.empty .tag{background:transparent;box-shadow:none;border-left:0;color:var(--ink3)}.fr.empty .tag span{color:var(--ink3)}
+.fr.soon .pic:after{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 70%,rgba(143,161,184,.35),transparent)}
+.fr .pic.noimg{background:radial-gradient(60% 50% at 50% 70%,rgba(143,161,184,.3),#151a38)}
+.early .fr.empty{opacity:.55}.early .fr.empty .box{background:transparent;box-shadow:none;border:1.5px dashed rgba(236,231,220,.22)}.early .fr.empty .mat,.early .fr.empty .pic{background:transparent}.early .fr.empty .lt{display:none}
+.early .fog{position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(30% 35% at 15% 45%,rgba(143,161,184,.18),transparent 70%),radial-gradient(30% 35% at 85% 45%,rgba(143,161,184,.18),transparent 70%)}
+.dn{position:absolute;z-index:4;width:200px;background:#ffe9a8;color:#2a2620;padding:12px 14px 10px;font:400 1.3rem/1.05 "Reenie Beanie",cursive;transform:rotate(-4deg);box-shadow:0 10px 20px rgba(0,0,0,.45)}
+html[lang="th"] .dn{font:400 1rem/1.4 "Sriracha",cursive}
+.dn small{display:block;font:500 .55rem var(--mono);letter-spacing:.1em;color:#6a604f;margin-top:6px}
+/* owners' wall: luggage tags strung on a line */
+.own{position:relative;z-index:3;margin:56px auto 0;width:min(1000px,calc(100% - 20px));text-align:center}
+.own h2{margin:0;font:700 2rem var(--ink-hand)}
+html[lang="th"] .own h2{font:400 1.6rem "Sriracha",cursive}
+.own p{margin:2px 0 14px;font-size:13.5px;color:var(--ink2)}
+.line2{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:16px 14px;padding-top:16px}
+.line2:before{content:"";position:absolute;left:4%;right:4%;top:8px;height:1px;background:rgba(236,231,220,.3)}
+.ot{position:relative;background:var(--paper);color:var(--pi);padding:10px 12px 8px 22px;clip-path:polygon(12px 0,100% 0,100% 100%,12px 100%,0 50%);transform:rotate(var(--r));box-shadow:0 8px 16px rgba(0,0,0,.4);text-align:left}
+.ot:before{content:"";position:absolute;left:10px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#0b1028}
+.ot b{display:block;font:700 1.15rem/1 var(--ink-hand)}.ot span{font:500 .58rem var(--mono);letter-spacing:.08em;color:var(--pm)}
+.own .none{color:var(--ink3);font:400 1.4rem "Reenie Beanie",cursive}
+.foot{position:relative;z-index:3;max-width:640px;margin:34px auto 0;padding:0 18px;text-align:center;color:var(--ink3);font-size:12.5px;line-height:1.5}
+#toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);z-index:70;background:#ece6d6;color:#2a2620;font:500 .74rem var(--mono);padding:9px 14px;border-radius:4px;box-shadow:0 10px 24px rgba(0,0,0,.5);opacity:0;transition:opacity .3s;pointer-events:none}
+#toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.fr,#toast{transition:none}}
+</style>
+<style>/* r10c (Dell: empty frames first, pictures later): the registry appears once, with its pictures already in the frames */
+html:not(.reg-ready) #content{opacity:0}html.reg-ready #content{transition:opacity .4s ease}</style>
+<script>function regReady(){document.documentElement.classList.add("reg-ready");window.lhReady&&lhReady();}</script>
+<link rel="stylesheet" href="../assets/head.css">
+<style>/* r12c (Dell: the registry had cut edges on desktop): the gallery box clipped its hill and fog at 1180px · now they run the full width of the screen */
+.gal{overflow-x:visible!important}html,body{overflow-x:clip}
+.gal>.hill,.gal>.fog{left:50%!important;right:auto!important;width:100vw!important;margin-left:-50vw!important}
+.gal>.hill{border-radius:50% 50% 0 0/100% 100% 0 0}</style>
 </head>
 <body>
+<div class="grain" aria-hidden="true"></div>
 <main class="wrap">
-  <div class="top">
-    <a class="brand" href="../">littlehill</a>
-    <nav class="lh-nav" aria-label="littlehill"><a data-k="traveller" href="../traveller/001/">Traveller No.001</a><a data-k="auction" href="../auction/">Auction</a><a data-k="rules" href="../rules/">Boarding rules</a><a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a></nav>
-    <span class="langsw" role="group" aria-label="Language"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="th" aria-pressed="false">ไทย</button></span>
+  <div class="top lh-head">
+    <a class="brand lh-logo" href="../">littlehill</a>
+    <nav class="lh-nav" aria-label="littlehill"><a data-k="traveller" href="../traveller/001/">Travellers</a><a data-k="auction" href="../auction/">Auction</a><a data-k="rules" href="../rules/">Boarding rules</a><a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a></nav>
+    <span class="lh-tr"><button type="button" class="lh-snd" aria-label="Sound" aria-pressed="false"></button><span class="langsw lh-lang" role="group" aria-label="Language"><button type="button" data-set="en" aria-pressed="true">EN</button><button type="button" data-set="th" aria-pressed="false">ไทย</button></span></span>
   </div>
-
   <p class="preview-bar" id="previewbar" hidden></p>
   <section class="closed" id="closed" hidden></section>
-
   <div id="content" hidden>
-    <header>
-      <span class="kicker" id="kicker">littlehill · station register</span>
-      <h1 id="title">Traveller registry</h1>
-      <p class="lede" id="lede"></p>
-    </header>
-    <ul class="grid" id="grid" style="margin-top:22px"></ul>
-    <footer id="foot" style="margin-top:28px"></footer>
+    <div class="ttl"><h1 id="title">Traveller registry</h1><p id="lede"></p><div class="sum mono" id="sum"></div></div>
+    <section class="gal" id="gal" aria-label="Travellers"></section>
+    <section class="own" id="owners" aria-labelledby="ownT"><h2 id="ownT"></h2><p id="ownP"></p><div class="line2" id="own"></div></section>
+    <footer class="foot" id="foot"></footer>
   </div>
-  <noscript><p class="lede">This page needs JavaScript. <a href="../">littlehill →</a></p></noscript>
+  <noscript><p class="ttl">This page needs JavaScript. <a href="../">littlehill →</a></p></noscript>
 </main>
+<div id="toast" role="status" aria-live="polite"></div>
 
 <!-- used only when the JSON files can't be fetched (e.g. opened straight from the computer) -->
 <script type="application/json" id="fb-reg">{"slots":12,"travellers":[{"no":"001","page":"traveller/001/","data":"traveller/001/data.json","img":"traveller/001/img/hero.webp","stage":"preview","liveFromState":true,"firstSeenEp":4,"owner":null,"ownerOptIn":false,"ownerSince":null,"history":[]}]}</script>
 <script type="application/json" id="fb-001">{"no":"001","name":{"en":"No.001","th":"No.001"},"epithet":{"en":"[epithet — to be written]","th":"[ฉายา — รอเขียน]"},"facts":[{"k":{"en":"First seen","th":"พบครั้งแรก"},"v":{"en":"Stop 04 · The Living House (Episode 4)","th":"Stop 04 · บ้านมีชีวิต (ตอน 4)"}}]}</script>
+
 <script src="../assets/future.js"></script>
 <script>
 (function(){
   var TX={
-    en:{kicker:'littlehill · station register',title:'Traveller registry',lede:'Every traveller who has passed through littlehill, where they were first seen, and who they travel with now.',
-        seen:'First seen',with:'Travelling with',open:'Open page →',empty:'Not yet boarded',
-        st:{preview:'Arriving soon',open:'Looking for a home',extended:'Looking for a home',closed:'Bidding closed',sold:'Found a home'},
-        foot:'Owners are shown by the handle they choose, and only if they ask to be. Earlier owners appear as "previous holder" unless they agreed to be named.',prev:'previous holder',earlier:'Earlier'},
-    th:{kicker:'littlehill · ทะเบียนสถานี',title:'ทะเบียนนักเดินทาง',lede:'นักเดินทางทุกคนที่ผ่าน littlehill พบครั้งแรกที่ไหน และตอนนี้เดินทางกับใคร',
-        seen:'พบครั้งแรก',with:'เดินทางกับ',open:'เปิดหน้า →',empty:'ยังไม่ขึ้นรถไฟ',
-        st:{preview:'กำลังจะมาถึง',open:'กำลังหาบ้าน',extended:'กำลังหาบ้าน',closed:'ปิดรับบิดแล้ว',sold:'ได้บ้านแล้ว'},
-        foot:'เจ้าของแสดงด้วยชื่อเล่นที่เขาเลือกเอง และเฉพาะเมื่อเขาขอให้แสดง · เจ้าของคนก่อนแสดงเป็น "เจ้าของก่อนหน้า" ถ้าไม่ได้ตกลงให้ใส่ชื่อ',prev:'เจ้าของก่อนหน้า',earlier:'ก่อนหน้านี้'}};
+    en:{title:'Traveller registry',lede:'Every traveller who has boarded the night line hangs here, in the order they got on. A warm light means they found a home.',
+        seen:'TRAVELLERS SEEN',seen1:'TRAVELLER SEEN',home:'FOUND A HOME',left:'STILL TO BOARD',fog:'STILL IN THE FOG',
+        st:{preview:'ARRIVING · STOP {s}',open:'LOOKING FOR A HOME',extended:'LOOKING FOR A HOME',closed:'BIDDING CLOSED',sold:'HOME · STOP {s}'},
+        empty:'NOT YET BOARDED',flagOpen:'TONIGHT · STOP {s}',flagSoon:'SOON · STOP {s}',
+        dn1:'One aboard. {n} frames waiting. I dusted them anyway.',dnN:'{a} aboard so far. {h} found a home. I keep the lights on for the rest.',dnH0:'{a} aboard so far. None home yet. I keep the lights on.',
+        ownT:'Owners’ wall',ownP:'Only owners who said yes, by the name they chose.',ownNone:'Nobody on the wall yet.',with:'WITH NO.{n}',
+        fogT:'Still in the fog · this frame fills when a traveller boards',
+        foot:'Owners are shown by the handle they choose, and only if they ask to be. Earlier owners stay private unless they agreed to be named.'},
+    th:{title:'ทะเบียนนักเดินทาง',lede:'นักเดินทางทุกคนที่ขึ้นรถไฟสายกลางคืนแขวนอยู่ที่นี่ เรียงตามลำดับที่ขึ้นรถ · ไฟอุ่นหมายความว่าได้บ้านแล้ว',
+        seen:'นักเดินทางที่พบแล้ว',seen1:'นักเดินทางที่พบแล้ว',home:'ได้บ้านแล้ว',left:'ยังไม่ขึ้นรถ',fog:'ยังอยู่ในหมอก',
+        st:{preview:'กำลังมาถึง · STOP {s}',open:'กำลังหาบ้าน',extended:'กำลังหาบ้าน',closed:'ปิดรับบิดแล้ว',sold:'ได้บ้าน · STOP {s}'},
+        empty:'ยังไม่ขึ้นรถไฟ',flagOpen:'คืนนี้ · STOP {s}',flagSoon:'เร็ว ๆ นี้ · STOP {s}',
+        dn1:'ขึ้นรถมาหนึ่งคน · กรอบรออีก {n} อัน · ฉันปัดฝุ่นไว้ก่อนแล้ว',dnN:'ขึ้นรถมาแล้ว {a} คน · ได้บ้าน {h} คน · ฉันเปิดไฟรอคนที่เหลือ',dnH0:'ขึ้นรถมาแล้ว {a} คน · ยังไม่มีใครได้บ้าน · ฉันเปิดไฟรอไว้',
+        ownT:'กำแพงเจ้าของ',ownP:'เฉพาะเจ้าของที่ตอบตกลง ด้วยชื่อที่เขาเลือกเอง',ownNone:'ยังไม่มีใครบนกำแพง',with:'กับ NO.{n}',
+        fogT:'ยังอยู่ในหมอก · กรอบนี้จะเต็มเมื่อมีนักเดินทางขึ้นรถ',
+        foot:'เจ้าของแสดงด้วยชื่อเล่นที่เขาเลือกเอง และเฉพาะเมื่อเขาขอให้แสดง · เจ้าของคนก่อนไม่แสดงชื่อ เว้นแต่เขาตกลง'}};
+  var COL=['#f59a3e','#e07a9a','#6fb3d9','#e8b04a','#8cc37a','#c77ad1','#5fc9b0','#ff8d6b','#9fa8d8','#d9a06f','#7fc7c0','#c9b26a'];
+  /* salon hang templates · [x %, y px, width %, shape, tilt] · shape: o = round · v = oval · 3/4 / 4/5 = rectangle · first entry of EARLY / LATE_BIG = the big frame */
+  var LATE=[[2,90,13,'o',0],[17,10,10,'v',0],[16.5,240,12,'3/4',-1],[29.5,70,13,'o',0],[3,340,11,'v',0],[16.5,460,11,'o',0],[29.5,330,11,'v',0],[66,30,10,'v',0],[78,70,11,'o',0],[66,320,11,'o',0],[78.5,290,12,'3/4',-2],[88,470,9,'o',0]],
+      LATE_BIG=[43,20,20,'3/4',-1],
+      EARLY=[[38,40,24,'3/4',-1],[8,60,8,'o',0],[19,20,7,'v',0],[18,250,8,'o',0],[6,300,7,'v',0],[29,470,7,'o',0],[66,30,7,'v',0],[76,90,8,'o',0],[88,40,7,'v',0],[67,280,8,'o',0],[80,330,7,'v',0],[63,470,7,'o',0]],
+      PH=[[54,20,38,'v',0],[4,10,42,'o',0],[4,250,40,'4/5',-1],[52,300,44,'o',0],[6,520,38,'v',0],[52,560,40,'o',0],[4,800,40,'v',0],[52,800,40,'v',0],[4,1060,40,'o',0],[52,1090,40,'o',0],[28,1300,44,'3/4',-2],[6,1300,0,0,0]],
+      PH_EARLY=[[6,0,26,'o',0],[38,30,22,'v',0],[68,0,26,'o',0],[6,170,22,'v',0],[36,190,26,'o',0],[68,170,24,'v',0],[8,340,24,'o',0],[40,350,22,'v',0],[70,340,24,'o',0],[6,500,22,'v',0],[38,520,26,'o',0]];
   var REG=LH.inline('fb-reg')||{slots:12,travellers:[]};
-  var DATA={'001':LH.inline('fb-001')};
-  var $=function(id){return document.getElementById(id);};
+  var DATA={};try{var f1=LH.inline('fb-001');if(f1)DATA['001']=f1;}catch(e){}
+  var $=function(id){return document.getElementById(id);},E=LH.esc;
   function pad(n){n=String(n);while(n.length<3)n='0'+n;return n;}
+  function fill(s,o){return String(s).replace(/\{(\w)\}/g,function(_,k){return o[k]==null?'':o[k];});}
   function stageOf(t){var st=t.stage||'teaser',S=LH.state;
     if(t.liveFromState&&S){var s=(S.traveller||{}).stage,a=(S.auction||{}).status;if(s)st=s;if(a==='sold')st='sold';}
     return st;}
-  function firstSeen(d){var f=(d&&d.facts||[]).filter(function(x){return x&&x.k&&x.k.en==='First seen';})[0];return f?LH.loc(f.v):'';}
-  function card(t){
-    var L=TX[LH.lang],E=LH.esc,d=DATA[t.no]||{},st=stageOf(t),home=st==='sold';
-    var name=LH.loc(d.name)||('No.'+t.no),epi=LH.loc(d.epithet),seen=firstSeen(d);
-    var owner=home&&t.ownerOptIn===true&&t.owner?'<p class="with"><span class="k">'+L.with+'</span>'+E(t.owner)+'</p>':'';
-    var hist=(t.history||[]).length?'<p class="with"><span class="k">'+L.earlier+'</span>'+t.history.map(function(h){return h&&h.optIn===true&&h.owner?E(h.owner):L.prev;}).join(' · ')+'</p>':'';
-    return '<li><a class="card paper lift" href="../'+E(t.page)+'"><div class="pic"><img alt="" loading="lazy" decoding="async" data-src="../'+E(t.img)+'"><span>No.'+E(t.no)+'</span></div>'+
-      '<div class="body"><h2>'+E(name)+'</h2>'+(epi?'<p class="epi">'+E(epi)+'</p>':'')+
-      (seen?'<p class="seen"><span class="k">'+L.seen+'</span>'+E(seen)+'</p>':'')+
-      '<span class="status'+(home?' home':'')+'">'+E(L.st[st]||'')+'</span>'+owner+hist+'<span class="go">'+L.open+'</span></div></a></li>';}
-  function slot(no){return '<li><div class="ghost" aria-label="No.'+no+' · '+LH.esc(TX[LH.lang].empty)+'"><span class="mono">No.'+no+'</span><span class="hand">'+LH.esc(TX[LH.lang].empty)+'</span></div></li>';}
+  function stopOf(t){var d=DATA[t.no]||{},s=t.stop||t.firstSeenEp;if(!s){var f=(d.facts||[]).filter(function(x){return x&&x.k&&x.k.en==='First seen';})[0];var m=f&&/Stop\s*(\d+)/.exec(f.v&&f.v.en||'');if(m)s=+m[1];}return s?(+s<10?'0':'')+(+s):'';}
+  function cls(st){return st==='sold'?'home':(st==='open'||st==='extended')?'look':st==='preview'?'soon':st==='closed'?'closed':'empty';}
+  function shapeOf(t,slotShape){var f=t&&t.frame;if(f==='round')return 'o';if(f==='oval')return 'v';if(f==='rect')return slotShape==='o'||slotShape==='v'?'3/4':slotShape;return slotShape;}
+  var gw=0;
+  function frame(t,no,p,big,L,cents,cc){
+    var shape=t?shapeOf(t,p.ar):p.ar,round=shape==='o',oval=shape==='v',ar=round?'1/1':oval?'3/4':shape;
+    var st=t?stageOf(t):'none',c=t?cls(st):'empty',s=t?stopOf(t):'',dir=t?'../'+String(t.page||('traveller/'+no+'/')).replace(/\/?$/,'/'):'';
+    var img=t&&st!=='teaser'?(big?'hero':round?'g2-face':oval?'g3-34':'g1-front'):'';
+    var wpx=gw*p.w/100,hpx=wpx*(+ar.split('/')[1])/(+ar.split('/')[0]);
+    cents.push({x:gw*p.x/100+wpx/2,y:p.y+12,on:!!t});
+    var tagTxt=t?fill(L.st[st]||'',{s:s}):L.empty;
+    var flag=big&&t?(st==='open'||st==='extended'?fill(L.flagOpen,{s:s}):st==='preview'?fill(L.flagSoon,{s:s}):''):'';
+    var style='left:'+p.x+'%;top:'+p.y+'px;width:'+p.w+'%;--r:'+p.r+'deg;--ar:'+ar+';--cc:'+cc+';--ccg:'+cc+'8c'+(t?';--mat:url('+dir+'img/blanket-tile.webp)':'');
+    var inner=(flag?'<span class="flag">'+E(flag)+'</span>':'')+'<span class="lt"></span><div class="box"><div class="mat"><div class="pic">'+
+      (img?'<img alt="" decoding="async" src="'+E(dir+'img/'+img+'.webp')+'">':'')+'</div></div></div>'+
+      '<div class="tag"><b>'+(t?'No.'+E(no):E(no))+'</b><span>'+E(tagTxt)+'</span></div>';
+    var k='fr '+c+(round?' round':'')+(oval?' round oval':'')+(big?' big':'');
+    return t?'<a class="'+k+'" href="'+E(dir)+'" style="'+style+'" aria-label="No.'+E(no)+' · '+E(tagTxt)+'">'+inner+'</a>'
+            :'<div class="'+k+'" style="'+style+'" tabindex="0" role="button" aria-label="No.'+E(no)+' · '+E(L.empty)+'" data-fog="1">'+inner+'</div>';}
   function render(){
-    var L=TX[LH.lang];
-    $('kicker').textContent=L.kicker;$('title').textContent=L.title;$('lede').textContent=L.lede;$('foot').textContent=L.foot;
-    var by={};(REG.travellers||[]).forEach(function(t){if(t&&t.no&&stageOf(t)!=='teaser')by[pad(t.no)]=t;});   /* teaser stage = still hidden in the fog */
-    var n=Math.max(+REG.slots||12,1),html=[];
-    Object.keys(by).forEach(function(k){if(+k>n)n=+k;});
-    for(var i=1;i<=n;i++){var no=pad(i);html.push(by[no]?card(by[no]):slot(no));}
-    $('grid').innerHTML=html.join('');
-    [].forEach.call($('grid').querySelectorAll('img[data-src]'),function(im){im.addEventListener('error',function(){im.remove();});im.src=im.getAttribute('data-src');});
+    var L=TX[LH.lang]||TX.en;document.documentElement.lang=LH.lang;
+    $('title').textContent=L.title;$('lede').textContent=L.lede;$('foot').textContent=L.foot;$('ownT').textContent=L.ownT;$('ownP').textContent=L.ownP;
+    var by={},list=[],order=[];(REG.travellers||[]).forEach(function(t){if(t&&t.no&&stageOf(t)!=='teaser'){by[pad(t.no)]=t;}});
+    var n=Math.max(+REG.slots||12,1);Object.keys(by).forEach(function(k){if(+k>n)n=+k;});
+    var boarded=Object.keys(by).sort(),home=boarded.filter(function(k){return stageOf(by[k])==='sold';}).length;
+    var cur=boarded.filter(function(k){var s=stageOf(by[k]);return s==='preview'||s==='open'||s==='extended'||s==='closed';})[0]||boarded[boarded.length-1]||'001';
+    var early=boarded.length<=3;document.body.classList.toggle('early',early);
+    $('sum').innerHTML='<span><b>'+boarded.length+'</b>'+E(boarded.length===1?L.seen1:L.seen)+'</span><span><b>'+home+'</b>'+E(L.home)+'</span><span><b>'+(n-boarded.length)+'</b>'+E(early?L.fog:L.left)+'</span>';
+    var gal=$('gal');gw=gal.clientWidth||Math.min(1180,innerWidth);var narrow=innerWidth<760,o='',cents=[];
+    var nos=[];for(var i=1;i<=n;i++)nos.push(pad(i));
+    var rest=nos.filter(function(x){return x!==cur;});
+    function slotAt(T,i,dy){var b=T[i%T.length];return {x:b[0],y:b[1]+Math.floor(i/T.length)*dy,w:b[2],ar:b[3],r:b[4]};}
+    var gh;
+    if(narrow){var bigW=84,off=(innerWidth*.84)*4/3+70;
+      o+=frame(by[cur],cur,{x:8,y:0,w:bigW,ar:'3/4',r:-1},true,L,cents,COL[(+cur-1)%COL.length]);
+      var T=early?PH_EARLY:PH.filter(function(m){return m[2]>0;}),dy=early?680:1460;
+      rest.forEach(function(no,i){var p=slotAt(T,i,dy);p.y=p.y*1.12+off;o+=frame(by[no],no,p,false,L,cents,COL[(+no-1)%COL.length]);});
+      var last=cents.reduce(function(m,c){return Math.max(m,c.y);},0);gh=last+innerWidth*.6+120;
+    }else{
+      var BIG=early?EARLY[0]:LATE_BIG,TS=early?EARLY.slice(1):LATE;
+      o+=frame(by[cur],cur,{x:BIG[0],y:BIG[1],w:BIG[2],ar:BIG[3],r:BIG[4]},true,L,cents,COL[(+cur-1)%COL.length]);
+      rest.forEach(function(no,i){var p=slotAt(TS,i,560);o+=frame(by[no],no,p,false,L,cents,COL[(+no-1)%COL.length]);});
+      gh=Math.max(720,cents.reduce(function(m,c){return Math.max(m,c.y);},0)+260);
+      var dn=boarded.length<=1?fill(L.dn1,{n:n-boarded.length}):home?fill(L.dnN,{a:boarded.length,h:home}):fill(L.dnH0,{a:boarded.length});
+      o+='<div class="dn" style="left:84%;top:'+(early?520:500)+'px">'+E(dn)+'<small>— DELTA</small></div>';
+    }
+    gal.style.setProperty('--gh',Math.round(gh)+'px');
+    /* the night line: a dotted golden line through the boarded frames, in boarding order */
+    var pos={};var all=[cur].concat(rest);all.forEach(function(no,i){pos[no]=cents[i];});
+    var pts=boarded.map(function(no){return pos[no];}).filter(Boolean);
+    var svg='<svg class="line" viewBox="0 0 '+gw+' '+Math.round(gh)+'" preserveAspectRatio="none" aria-hidden="true">';
+    if(pts.length>1)svg+='<polyline points="'+pts.map(function(c){return c.x.toFixed(1)+','+(c.y-16).toFixed(1);}).join(' ')+'" fill="none" stroke="rgba(242,180,90,.45)" stroke-width="1.2" stroke-dasharray="2 6"/>';
+    pts.forEach(function(c){svg+='<circle cx="'+c.x.toFixed(1)+'" cy="'+(c.y-16).toFixed(1)+'" r="2.4" fill="#ffd38a"/>';});
+    svg+='</svg>';
+    gal.innerHTML=svg+o+'<div class="hill"></div>'+(early?'<div class="fog"></div>':'');
+    var mb=0;[].forEach.call(gal.querySelectorAll('.fr'),function(f){mb=Math.max(mb,f.offsetTop+f.offsetHeight);});if(mb)gal.style.setProperty('--gh',Math.round(mb+(narrow?110:160))+'px');
+    [].forEach.call(gal.querySelectorAll('.pic img'),function(im){im.addEventListener('error',function(){im.parentNode.classList.add('noimg');im.remove();});});
+    [].forEach.call(gal.querySelectorAll('[data-fog]'),function(f){function go(){toast(L.fogT);}f.addEventListener('click',go);f.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});});
+    /* owners' wall: current owners who opted in (and only once the traveller has found a home) */
+    var ow=boarded.filter(function(k){var t=by[k];return stageOf(t)==='sold'&&t.ownerOptIn===true&&t.owner;});
+    $('own').innerHTML=ow.length?ow.map(function(k,i){return '<div class="ot" style="--r:'+[-3,2,-1,3,-2][i%5]+'deg"><b>'+E(by[k].owner)+'</b><span>'+E(fill(L.with,{n:k}))+'</span></div>';}).join(''):'<p class="none">'+E(L.ownNone)+'</p>';
   }
+  var tt;function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('on');},2200);}
+  /* grain: drawn once (no live filter, no blend over moving things) */
+  try{var c=document.createElement('canvas');c.width=c.height=160;var x=c.getContext('2d'),d=x.createImageData(160,160),s=7;function r(){s=(s*16807)%2147483647;return s/2147483647;}
+    for(var i=0;i<d.data.length;i+=4){var v=r()<.5?255:0;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=Math.round(r()*r()*12);}
+    x.putImageData(d,0,0);document.documentElement.style.setProperty('--grain','url('+c.toDataURL()+')');}catch(e){}
+  (function(w){addEventListener('resize',function(){if(innerWidth!==w){w=innerWidth;if(LH.visible())render();}});})(innerWidth);
   LH.start({key:'travellers',root:'../',render:render}).then(function(show){
-    if(!show)return;
+    if(!show){regReady();return;}
     LH.get('travellers.json').then(function(j){REG=j;},function(){}).then(function(){
       return Promise.all((REG.travellers||[]).map(function(t){if(!t||!t.data)return null;
         return LH.get('../'+t.data).then(function(d){DATA[t.no]=d;},function(){});}));
-    }).then(function(){LH.redraw();});
+    }).then(function(){LH.redraw();var im=[].slice.call(document.querySelectorAll('#gal img'));Promise.race([Promise.all(im.map(function(i){return i.decode?i.decode().catch(function(){}):null;})),new Promise(function(r){setTimeout(r,1500);})]).then(regReady);});
   });
 })();
 </script>

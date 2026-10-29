@@ -1,105 +1,498 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<html lang="en" data-veil-wait><head><script src="assets/veil.js"></script><script src="assets/sound.js"></script><meta charset="utf-8"><meta name="color-scheme" content="dark"><style>html{background:#0b1028}</style><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>littlehill · the night line</title>
+<!-- LAND (H3 · 28 Oct 2026): the homepage is the night-line map (the teaser lives here now) -->
 <meta name="robots" content="noindex,nofollow">
-<title>littlehill</title>
-<meta name="description" content="A small world of sleepy travellers, one station at a time.">
-<meta property="og:site_name" content="littlehill">
-<meta property="og:type" content="website">
-<meta property="og:title" content="littlehill">
-<meta property="og:description" content="A small world of sleepy travellers, one station at a time.">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="@little_hill01">
+<meta name="description" content="littlehill · a tiny anime series, one stop at a time. Every stop leaves a traveller looking for a home.">
+<meta property="og:site_name" content="littlehill"><meta property="og:type" content="website"><meta property="og:title" content="littlehill · the night line">
+<meta name="twitter:card" content="summary"><meta name="twitter:site" content="@little_hill01">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23141c30%27/%3E%3Crect x=%2712%27 y=%279%27 width=%278%27 height=%2713%27 rx=%272%27 fill=%27%23f2b45a%27/%3E%3Crect x=%2714%27 y=%276%27 width=%274%27 height=%273%27 fill=%27%23e8e4da%27/%3E%3Crect x=%2711%27 y=%2722%27 width=%2710%27 height=%272%27 fill=%27%23e8e4da%27/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400&family=Karla:wght@400&family=IBM+Plex+Mono:wght@500&display=swap">
-<link rel="stylesheet" href="assets/site.css">
-<link rel="stylesheet" href="assets/scene.css">
-<link rel="stylesheet" href="assets/tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&family=Special+Elite&family=Karla:wght@500;600&family=Sriracha&family=IBM+Plex+Sans+Thai:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-/* the hill's front door: reads state.json and walks you to the page for tonight. Links stay visible if anything fails. */
-:root{color-scheme:dark}
+:root{--ink:#ece7dc;--ink2:rgba(236,231,220,.55);--ink3:rgba(236,231,220,.4);--paper:#ece6d6;--paperInk:#2a2620;--amber:#f59a3e;--gold:#f2b45a;--glow:#ffd38a;--stamp:#8c2a33;--night:#0a0f1e}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:grid;place-items:center;background:linear-gradient(180deg,var(--lh-night) 0%,var(--lh-night-low) 70%,var(--lh-sky-gate-hz) 100%);color:var(--lh-ink);font:16px/1.6 "Karla","IBM Plex Sans Thai",system-ui,sans-serif;text-align:center;padding:24px 16px}
-.door{max-width:520px;display:grid;gap:14px;justify-items:center}
-.lamp{width:14px;height:18px;border-radius:50% 50% 45% 45%;background:var(--lh-lantern);box-shadow:0 0 22px 8px rgba(var(--lh-lantern-rgb),.35)}
-h1{margin:0;font:700 2.6rem/1 "Caveat","Sriracha",cursive}
-p{margin:0;color:var(--lh-muted)}
-.lh-nav{justify-content:center;font-size:.78rem}
-@media (prefers-reduced-motion:no-preference){.lamp{animation:glow 2.4s ease-in-out infinite alternate}}@keyframes glow{from{opacity:.7}to{opacity:1}}
-.door{width:100%}
-/* P10 · the front door gets one scene: the same 2.5D platform as the teaser, lantern lit and still */
-.scene{width:100%;height:clamp(200px,38vh,320px)}
-.scene svg{position:absolute;inset:0;width:100%;height:100%}
-.slamp{position:absolute;left:50%;top:34%;width:20px;height:20px;margin-left:-10px;border-radius:50%;background:var(--lh-lantern);box-shadow:0 0 22px 8px rgba(var(--lh-lantern-rgb),.45),0 0 70px 24px rgba(var(--lh-lantern-rgb),.15)}
-.fog{position:absolute;left:-10%;right:-10%;bottom:-6%;height:45%;background:radial-gradient(60% 70% at 30% 70%,rgba(var(--lh-fog-rgb),.4),transparent 70%),radial-gradient(50% 60% at 75% 80%,rgba(var(--lh-fog-rgb),.32),transparent 70%)}
-@media (prefers-reduced-motion:no-preference){.slamp{animation:glow 2.4s ease-in-out infinite alternate}.fog{animation:lhdrift 80s linear infinite alternate}}
+html,body{margin:0;height:100%;background:var(--night);color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:Karla,system-ui,sans-serif}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+#stage{position:fixed;inset:0}
+#thread,#knot{transition:opacity .5s}.rest #thread{opacity:.22}.rest #knot{opacity:.5}.rest.pt #thread,.rest.pt #knot{opacity:1}
+#sky,#sv,#fx{position:absolute;inset:0;width:100%;height:100%;display:block}
+#sky{will-change:transform}#fx{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+#fx i{position:absolute;display:block;border-radius:50%}
+#fx .tw{background:#ece7dc}
+#fx .fogc{background:radial-gradient(closest-side,rgba(143,161,184,.26),rgba(143,161,184,0))}
+#fx #lamp,#fx #train{position:absolute;left:0;top:0;width:0;height:0;border-radius:0}
+#fx .glo{background:radial-gradient(closest-side,rgba(255,217,160,.9),rgba(245,154,62,.35) 30%,rgba(245,154,62,0))}
+#fx .core{background:#ffd38a}#fx .core.sq{border-radius:1.5px}#fx .tcore{background:#fff3d6}
+#fx .ringa,#fx .ringb{left:-44px;top:-44px;width:88px;height:88px;border:1.8px solid rgba(255,211,138,.6);transform:scale(.386)}
+#fx .ringb{border-color:rgba(255,211,138,.25);transform:scale(.66)}
+.grain{position:absolute;inset:0;pointer-events:none;background-image:var(--grain,none);background-size:160px 160px;will-change:transform}
+.hand{font-family:"Reenie Beanie",cursive}.type{font-family:"Special Elite",monospace}
+/* brand */
+.mark{position:absolute;left:clamp(20px,3vw,40px);top:clamp(14px,2.6vh,26px);font:400 clamp(2.6rem,4.4vw,3.5rem)/1 "Reenie Beanie",cursive;color:var(--ink)}
+.cap{position:absolute;left:clamp(23px,3.2vw,44px);top:calc(clamp(14px,2.6vh,26px) + clamp(2.7rem,4.5vw,3.6rem));font:400 .56rem/1 "Special Elite",monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--ink3)}
+/* stop labels + past-stop buttons */
+.lbl{position:absolute;transform:translate(14px,-50%);white-space:nowrap;pointer-events:none;color:rgba(236,231,220,.75);font:400 1.05rem/1 "Reenie Beanie",cursive;transition:opacity .5s}
+.lbl small{display:block;font:400 .5rem "Special Elite",monospace;letter-spacing:.2em;color:var(--ink3);margin-bottom:2px}
+.lbl.cur{color:#ffd9a0;font-size:1.4rem}
+.lbl.up{transform:translate(-14px,calc(-100% - 12px))}.lbl.cur small{color:var(--amber)}
+.hit{position:absolute;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;outline-offset:-6px}
+.hit:hover+.lbl,.hit:focus-visible+.lbl{color:var(--ink)}
+.hit:focus-visible{outline:2px solid var(--gold)}
+.hit::after{content:"";position:absolute;inset:12px;border-radius:50%;border:1px solid rgba(236,231,220,0);transition:border-color .3s,inset .3s}
+.hit:hover::after,.hit:focus-visible::after{border-color:rgba(236,231,220,.6);inset:9px}
+/* tonight tag */
+.card{position:absolute;width:min(290px,calc(100vw - 44px));padding:13px 16px 15px 28px;background:var(--paper);color:var(--paperInk);box-shadow:0 18px 40px rgba(0,0,0,.55);clip-path:polygon(12px 0,100% 0,100% 100%,12px 100%,0 calc(100% - 12px),0 12px);transform-origin:50% 0;transition:opacity .5s,transform .7s cubic-bezier(.3,1.5,.5,1)}
+.card .k{font:400 .54rem "Special Elite",monospace;letter-spacing:.2em;color:var(--stamp);padding-right:74px}
+.card h2{margin:3px 0 0;font:400 1.9rem/1 "Reenie Beanie",cursive}
+.card .ep{font:400 1.15rem/1.1 "Reenie Beanie",cursive;color:#665c4b}
+.card p{margin:5px 0 0;font:400 .68rem/1.5 "Special Elite",monospace}
+.card .btn{display:inline-block;margin-top:9px;background:var(--gold);color:#241a0d;font:600 .78rem/1 Karla,sans-serif;border-radius:999px;padding:10px 14px;transition:transform .2s,box-shadow .2s}
+.card .btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(242,180,90,.45)}
+.stamp{position:absolute;right:14px;top:14px;font:400 .62rem "Special Elite",monospace;letter-spacing:.2em;color:var(--stamp);border:1.5px solid var(--stamp);border-radius:3px;padding:4px 7px;transform:rotate(-8deg);opacity:.85}
+.live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--amber);margin-right:6px;vertical-align:1px;position:relative}.live::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid rgba(245,154,62,.3);animation:live 2.4s ease-in-out infinite}
+@keyframes live{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.85);opacity:0}}
+.card.pre{opacity:0;transform:translateY(-26px) rotate(-6deg)}
+.card.on{opacity:1;transform:rotate(-1deg)}
+/* bottom menu = a short straight rail */
+nav{position:absolute;left:0;right:0;bottom:0;height:calc(70px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:linear-gradient(transparent,rgba(5,8,18,.8) 45%);transition:opacity .8s}
+nav .rail{position:absolute;left:8%;right:8%;top:22px;height:1.2px;background:rgba(242,180,90,.45)}
+nav ul{list-style:none;margin:0;padding:0;position:absolute;left:14%;right:14%;top:0;display:flex;justify-content:space-between}
+@media (orientation:portrait){nav ul{left:2%!important;right:2%!important;justify-content:space-around}nav li{width:auto}nav a{position:relative;padding:14px 4px 6px}nav b{letter-spacing:.08em;font-size:min(.66rem,2.7vw)}nav .rail{left:8%;right:8%}}
+nav li{position:relative;width:0;display:flex;justify-content:center}
+nav a{position:absolute;top:0;display:flex;flex-direction:column;align-items:center;padding:14px 10px 6px;white-space:nowrap}
+nav a::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ink);margin-top:1.5px;transition:box-shadow .3s,background .3s}
+nav a.lit::before{background:var(--glow);box-shadow:0 0 0 4px rgba(245,154,62,.25),0 0 18px 6px rgba(245,154,62,.45)}
+nav b{font:400 .66rem "Special Elite",monospace;letter-spacing:.2em;margin-top:9px}
+nav i{display:none!important} /* r13 (Dell: one menu on every page): the small grey hints under the words are gone, so home matches the other pages */
+nav a:hover b,nav a:focus-visible b{color:#ffd9a0}
+nav a:hover::before{background:var(--glow)}
+@media (orientation:portrait){nav i{display:none}nav ul{left:16%;right:16%}}
+@media (orientation:landscape){nav ul{left:30%;right:30%}nav .rail{left:26%;right:26%}}
+/* opening */
+#hello{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:22vh;text-align:center;pointer-events:none;transition:opacity .8s}
+#hello .t{font:400 clamp(2rem,4vw,2.8rem)/1.1 "Reenie Beanie",cursive;color:var(--ink)}
+#hello .s{font:400 .6rem "Special Elite",monospace;letter-spacing:.24em;color:var(--ink2);margin-top:12px}
+#skip{position:absolute;right:18px;bottom:18px;font:400 .56rem "Special Elite",monospace;letter-spacing:.2em;color:var(--ink3);padding:8px;transition:opacity .4s}
+.fade{opacity:0}
+/* LAND · rail: four fixed columns (same spots on every page) */
+nav#menu ul{left:max(6vw,calc(50% - 280px))!important;right:max(6vw,calc(50% - 280px))!important;display:grid!important;grid-template-columns:repeat(5,1fr)}
+nav#menu li{width:auto!important}
+nav#menu li:has(a[hidden]){display:none}
+nav#menu a{padding-top:17.5px!important}nav#menu b{font-size:.62rem!important;letter-spacing:.16em!important}
 
+/* LAND r8: icons on the rail (same as every page) · words small under them */
+nav#menu a::before{display:none!important}
+nav#menu .ic{width:22px;height:22px;margin-top:-9px;padding:2px;box-sizing:content-box;border-radius:50%;background:#0b1028;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;color:var(--ink);transition:transform .15s}
+nav#menu a.lit .ic,nav#menu a[aria-current=page] .ic{color:#ffb860;filter:drop-shadow(0 0 6px rgba(245,154,62,.75))}
+nav#menu a.tap .ic{transform:scale(1.15);color:#ffd9a0}
+nav#menu b{font-size:9px!important;letter-spacing:.08em!important;margin-top:3px!important}
+html[lang=th] nav#menu b{font-size:10px!important;letter-spacing:0!important}
+@media (max-width:600px){nav#menu a:not([aria-current=page]) b{display:none!important}}
+nav#menu a.quiet{opacity:.5}nav#menu a.quiet:hover{opacity:1}
+nav#menu a.tap b{color:#ffd9a0}nav#menu a.tap::before{background:var(--glow);box-shadow:0 0 0 5px rgba(245,154,62,.3),0 0 18px 6px rgba(245,154,62,.5);transform:scale(1.25)}
+/* nothing of tonight's scene shows before the opening starts (no spoiler while data/fonts load) */
+html:not(.lh-go) #sky,html:not(.lh-go) #sv,html:not(.lh-go) #fx,html:not(.lh-go) #ov,html:not(.lh-go) .mark,html:not(.lh-go) .cap,html:not(.lh-go) #chan,html:not(.lh-go) #tools,html:not(.lh-go) #menu,html:not(.lh-go) #card,html:not(.lh-go) #behind{opacity:0!important;transition:none!important}
+html.lh-go #sky{animation:lhskyin .45s ease}@keyframes lhskyin{from{opacity:0}} /* r10b: the circle waited for the data too (it showed first, then jumped) */
+#chan{transition:opacity .6s}#chan.fade,#menu.fade,#tools.fade,.mark.fade,#card.pre{pointer-events:none}
+/* r10b (Dell): no button — the whole screen skips · a quiet line at the bottom centre says so */
+#skip{left:50%!important;right:auto!important;transform:translateX(-50%);bottom:calc(30px + env(safe-area-inset-bottom,0px))!important;z-index:30;padding:6px 10px!important;border:0!important;background:none!important;font:400 .62rem "Special Elite",monospace!important;letter-spacing:.18em!important;text-transform:uppercase;color:rgba(236,231,220,.42)!important;white-space:nowrap;pointer-events:none}
+html[lang="th"] #skip{font-family:"IBM Plex Sans Thai",sans-serif!important;letter-spacing:.04em!important;text-transform:none}
+.hide{display:none!important}
+/* notebook page */
+#nb{position:absolute;inset:0;background:rgba(5,8,16,.66);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;transition:opacity .35s;backdrop-filter:blur(1px)}
+#nb.on{opacity:1}
+#nb .pw{position:relative;width:min(560px,100%);transform:translateY(16px) rotate(-1deg);transition:transform .45s cubic-bezier(.3,1.3,.5,1)}
+#nb.on .pw{transform:translateY(0) rotate(-.6deg)}
+#nb .page{position:relative;width:100%;max-height:86vh;overflow:auto;background-color:var(--paper);background-image:repeating-linear-gradient(180deg,transparent 0 27px,rgba(70,90,140,.15) 27px 28px);color:var(--paperInk);box-shadow:0 30px 70px rgba(0,0,0,.65);padding:26px 24px 22px 44px;transform:translateY(16px) rotate(-1deg);transition:transform .45s cubic-bezier(.3,1.3,.5,1)}
+#nb .page{transform:none!important}
+#nb .sketch{position:absolute;z-index:2;right:-50px;top:-70px;width:190px;padding:10px 10px 6px;background:#f4efe2;box-shadow:0 14px 30px rgba(0,0,0,.5);transform:rotate(6deg) scale(.6);opacity:0;transition:transform .55s cubic-bezier(.3,1.6,.5,1) .15s,opacity .3s .15s}
+#nb.on .sketch{transform:rotate(6deg);opacity:1}
+#nb .sketch::before{content:"";position:absolute;left:50%;top:-9px;width:62px;height:18px;margin-left:-31px;background:rgba(236,220,170,.6);transform:rotate(-4deg)}
+#nb .sketch svg{display:block;width:100%;height:auto}
+#nb .sketch .cap2{font:400 1.05rem/1 "Reenie Beanie",cursive;color:#4a4236;text-align:center;margin-top:2px}
+#nb .yt{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font:600 .78rem/1 Karla,sans-serif;color:var(--stamp);border:1.5px solid var(--stamp);border-radius:999px;padding:9px 13px}
+#nb .yt:hover{background:var(--stamp);color:var(--paper)}
+#nb .yt svg{width:14px;height:14px}
+@media (max-width:640px){#nb .sketch{right:-4px;top:-84px;width:128px}#nb .pw{margin-top:60px}#nb h3{max-width:62%}}
+#nb .page::before{content:"";position:absolute;left:28px;top:0;bottom:0;width:1px;background:rgba(140,42,51,.3)}
+#nb .k{font:400 .56rem "Special Elite",monospace;letter-spacing:.22em;color:#665c4b}
+#nb h3{margin:6px 0 0;font:400 2.1rem/1 "Reenie Beanie",cursive}
+#nb .body{font:400 1.55rem/1.12 "Reenie Beanie",cursive;margin-top:10px}
+#nb .q{font:400 .72rem/1.6 "Special Elite",monospace;margin-top:14px;color:#4a4236}
+#nb .x{position:absolute;left:-4px;top:-40px;color:var(--ink);font:400 .62rem "Special Elite",monospace;letter-spacing:.2em;padding:8px}
+#nb .nav2{display:flex;justify-content:space-between;margin-top:16px;font:400 1.3rem "Reenie Beanie",cursive;color:var(--stamp)}
+#nb .nav2 button:disabled{opacity:.25;cursor:default}
+#nb .sample{font:400 .5rem "Special Elite",monospace;letter-spacing:.2em;color:#9a8f7b;margin-top:12px}
+/* idle life */
+@keyframes flick{0%,100%{opacity:1}23%{opacity:.86}41%{opacity:.97}67%{opacity:.9}}
+@keyframes drift{0%,100%{transform:translate(0,0)}50%{transform:translate(var(--dx),var(--dy))}}
+@keyframes tw{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes ring{0%{transform:scale(.27);opacity:.6}100%{transform:scale(1);opacity:0}}
+.idle .lamp{animation:lampb 4.6s ease-in-out infinite}
+/* LAND r3 (Dell: "after the opening it's too still"): tonight's lantern breathes visibly, a soft ring calls from it, a ghost light re-runs the line now and then */
+@keyframes lampb{0%,100%{opacity:.72;transform:scale(.92)}45%{opacity:1;transform:scale(1.12)}55%{opacity:.95;transform:scale(1.08)}}
+#lamp::after{content:"";position:absolute;left:-34px;top:-34px;width:68px;height:68px;border-radius:50%;border:1.5px solid rgba(255,211,138,.55);opacity:0;pointer-events:none}
+.idle #lamp::after{animation:ring 4.6s ease-out 1.2s infinite}
+#ghost{position:absolute;left:0;top:0;width:0;height:0;pointer-events:none}
+#ghost i{position:absolute;left:-12px;top:-12px;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle,rgba(255,236,196,.9),rgba(255,211,138,.35) 40%,transparent 70%)}
+.idle .fogc{animation:drift var(--t) ease-in-out infinite}
+.idle .tw{animation:tw var(--t) ease-in-out infinite}
+.idle .ringa{animation:ring 3.2s ease-out infinite}
+.idle .ringb{animation:ring 3.2s ease-out 1.6s infinite}
+/* sound + demo controls */
+#snd{position:absolute;right:clamp(16px,3vw,40px);top:clamp(16px,2.8vh,28px);width:34px;height:34px;border-radius:50%;border:1px solid rgba(236,231,220,.25);display:grid;place-items:center;color:var(--ink2);font:400 .7rem "Special Elite",monospace;transition:opacity .6s}
+#snd:hover{color:var(--ink);border-color:rgba(236,231,220,.5)}
+#snd svg{width:16px;height:16px}
+#demo{position:fixed;left:10px;top:50%;transform:translateY(-50%);z-index:20;font:400 .62rem "Special Elite",monospace;letter-spacing:.08em;color:#d8d2c4}
+#demo>button{background:rgba(10,14,30,.85);border:1px dashed rgba(236,231,220,.35);border-radius:6px;padding:6px 8px}
+#demo .pn{margin-top:6px;background:rgba(10,14,30,.94);border:1px dashed rgba(236,231,220,.35);border-radius:8px;padding:10px;width:200px}
+#demo .pn b{display:block;font-weight:400;color:#9aa3b5;margin:8px 0 4px;letter-spacing:.16em}
+#demo .pn b:first-child{margin-top:0}
+#demo .row{display:flex;flex-wrap:wrap;gap:4px}
+#demo .row button{border:1px solid rgba(236,231,220,.25);border-radius:4px;padding:4px 6px}
+#demo .row button.on{border-color:var(--gold);color:var(--gold)}
+#demo input{width:100%}
+@media (prefers-reduced-motion:reduce){.idle *{animation:none!important}.card{transition:none}}
+</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap">
+<style>
+#tools #lang{order:3}#tools{position:absolute;right:clamp(16px,3vw,40px);top:clamp(16px,2.8vh,28px);display:flex;align-items:center;gap:8px;z-index:6;transition:opacity .6s}
+#tools #snd{position:static}
+#tools .fade{opacity:0}
+.langsw{display:flex;border:1px solid rgba(236,231,220,.25);border-radius:999px;padding:2px}
+.langsw button{font:600 .66rem Karla,"IBM Plex Sans Thai",sans-serif;color:var(--ink);border-radius:999px;padding:5px 8px}
+.langsw button[aria-pressed="true"]{background:var(--ink);color:#141a30}
+#xl{display:none!important;place-items:center;width:34px;height:34px;border-radius:50%;border:1px solid rgba(236,231,220,.25);font:500 .72rem "IBM Plex Mono",monospace;color:var(--ink2)}
+#xl:hover{color:var(--ink);border-color:rgba(236,231,220,.5)}
+nav a[hidden]{display:none}
+html[lang="th"] .card .k,html[lang="th"] .lbl small,html[lang="th"] nav b,html[lang="th"] #nb .k{font-family:"IBM Plex Sans Thai","IBM Plex Mono",monospace;letter-spacing:.04em}
+html[lang="th"] .card p{font-family:"IBM Plex Sans Thai",Karla,sans-serif}
+html[lang="th"] .lbl,html[lang="th"] #nb h3,html[lang="th"] #hello .t{font-family:"Sriracha",cursive}
+html[lang="th"] .lbl.cur{font-size:1.05rem}
+#nb .sketch img{display:block;width:100%;height:auto}
+#nb .sketch.none{display:none}
 </style>
+<style id="ink-rule">.card h2{font:700 1.75rem/1 "Caveat","Sriracha",cursive!important}.card .ep{font:700 1.05rem/1.15 "Caveat","Sriracha",cursive!important}</style>
+<noscript><style>html #sv,html #fx,html #ov,html .mark,html .cap,html #menu,html #card{opacity:1!important}</style></noscript>
+<link rel="stylesheet" href="assets/head.css">
 </head>
 <body>
-<main class="door">
-    <div class="scene lh-scene" id="scene" aria-hidden="true">
-      <div class="ly wide" style="--d:2"><svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMax slice">
-        <path d="M0 280 C70 258 120 264 180 270 C250 246 320 252 380 264 C450 248 520 244 600 258 L600 400 L0 400Z" fill="var(--lh-hill-far)"/></svg></div>
-      <div class="ly wide" style="--d:4"><div class="fogband far"></div></div>
-      <div class="ly wide" style="--d:6"><svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMax slice">
-        <path d="M0 306 C90 292 150 298 210 301 C290 288 360 295 420 299 C500 290 550 293 600 296 L600 400 L0 400Z" fill="var(--lh-hill-near)"/></svg></div>
-      <div class="ly" style="--d:9">
-        <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMax slice">
-          <path d="M0 330 L600 330 L600 400 L0 400Z" fill="var(--lh-rail)"/>
-          <path d="M0 318 L600 318 L600 330 L0 330Z" fill="var(--lh-train)"/>
-          <g stroke="var(--lh-rail-line)" stroke-width="3"><line x1="0" y1="352" x2="600" y2="352"/><line x1="0" y1="372" x2="600" y2="372"/></g>
-          <g fill="var(--lh-rail)"><rect x="160" y="150" width="8" height="170"/><rect x="432" y="150" width="8" height="170"/><rect x="150" y="146" width="300" height="7"/>
-            <rect x="250" y="292" width="100" height="6"/><rect x="258" y="298" width="5" height="20"/><rect x="337" y="298" width="5" height="20"/>
-            <rect x="380" y="230" width="4" height="88"/><rect x="368" y="222" width="28" height="12" rx="2"/></g>
-          <line x1="392" y1="234" x2="392" y2="262" stroke="var(--lh-rail-line)" stroke-width="1.5"/>
-        </svg>
-        <span class="slamp"></span>
-      </div>
-      <div class="ly" style="--d:12"><svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMax slice">
-        <g class="train" transform="translate(-1400 0)">
-          <g fill="var(--lh-train)"><rect x="0" y="300" width="190" height="62" rx="6"/><rect x="198" y="300" width="190" height="62" rx="6"/><rect x="396" y="300" width="204" height="62" rx="12"/></g>
-          <g fill="var(--lh-lantern-soft)" opacity=".9"><rect x="16" y="312" width="26" height="16"/><rect x="58" y="312" width="26" height="16"/><rect x="100" y="312" width="26" height="16"/><rect x="142" y="312" width="26" height="16"/>
-            <rect x="214" y="312" width="26" height="16"/><rect x="256" y="312" width="26" height="16"/><rect x="298" y="312" width="26" height="16"/><rect x="340" y="312" width="26" height="16"/>
-            <rect x="412" y="312" width="26" height="16"/><rect x="454" y="312" width="26" height="16"/><rect x="496" y="312" width="26" height="16"/></g>
-          <circle cx="598" cy="340" r="30" fill="url(#lh-hl)"/>
-        </g>
-        <defs><radialGradient id="lh-hl"><stop offset="0" stop-color="#ffe2b0"/><stop offset=".3" stop-color="rgba(242,180,90,.5)"/><stop offset="1" stop-color="rgba(242,180,90,0)"/></radialGradient></defs>
-      </svg></div>
-      <div class="ly" style="--d:15"><div class="fog"></div></div>
-    </div>
-  <h1>littlehill</h1>
-  <p id="msg">Walking you to tonight's page…</p>
-  <nav class="lh-nav" aria-label="littlehill">
-    <a data-k="teaser" href="teaser/">The lantern</a>
-    <a data-k="traveller" href="traveller/001/">Traveller No.001</a>
-    <a data-k="auction" href="auction/">Auction</a>
-    <a data-k="rules" href="rules/">Boarding rules</a>
-    <a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a>
+<div id="stage" aria-live="polite">
+  <svg id="sky" aria-hidden="true"></svg><svg id="sv" aria-hidden="true"></svg><div id="fx" aria-hidden="true"></div>
+  <div class="grain"></div>
+  <div id="ov"></div>
+  <div class="mark lh-logo" id="mark">littlehill</div>
+  <div class="cap" id="cap">the night line · season one</div>
+  <div id="tools" class="lh-tr"><span class="langsw lh-lang" id="lang" role="group" aria-label="Language"><button type="button" data-set="en">EN</button><button type="button" data-set="th">ไทย</button></span><a id="xl" href="https://x.com/little_hill01" target="_blank" rel="noopener" aria-label="littlehill on X">X</a><button id="snd" aria-label="Sound off. Turn on the lantern sound" title="Sound"></button></div>
+  <nav id="menu" aria-label="Main">
+    <div class="rail"></div>
+    <ul>
+      <li><a href="./" id="navHome" class="lit" aria-current="page"><b>HOME</b><i>tonight</i></a></li>
+      <li><a href="traveller/001/" id="navTrav"><b>TRAVELLERS</b><i>who’s aboard</i></a></li>
+      <li><a href="timetable/" id="navTime"><b>TIMETABLE</b><i>when’s next</i></a></li>
+      <li><a href="auction/" id="navAuction"><b>AUCTION</b><i>how to bid</i></a></li>
+      <li><a href="rules/" id="navRules"><b>RULES</b><i>read first</i></a></li>
+    </ul>
   </nav>
-  <noscript><p>Pick a page above.</p></noscript>
-</main>
+  <div id="hello" class="fade"><div class="t" id="helloT"></div><div class="s" id="helloS">LET’S SEE WHAT’S ON THE HILL</div></div>
+  <button id="skip" class="hide">SKIP ›</button>
+  <div id="nb" class="hide" role="dialog" aria-modal="true" aria-labelledby="nbH"><div class="pw"><button class="x" id="nbX">CLOSE ✕</button><div class="sketch" id="nbS" aria-hidden="true"></div><div class="page"><div class="k" id="nbK"></div><h3 id="nbH"></h3><div class="body" id="nbB"></div><a class="yt" id="nbY" href="#" target="_blank" rel="noopener"></a><div class="q" id="nbQ"></div><div class="nav2"><button id="nbP">← earlier</button><button id="nbN">later →</button></div><div class="sample">SAMPLE NOTE · DELTA WRITES THE REAL ONE</div></div></div></div>
+</div>
 <script src="assets/live.js"></script>
+<script src="assets/edge.js"></script>
+<script>document.addEventListener('pointerdown',function(e){var a=e.target.closest&&e.target.closest('nav#menu a');if(a&&!a.classList.contains('lit'))a.classList.add('tap');},true);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('nav#menu a');if(a&&!a.classList.contains('lit')){a.classList.add('tap');document.documentElement.classList.add('leaving');}},true);addEventListener('pageshow',function(){document.documentElement.classList.remove('leaving');[].forEach.call(document.querySelectorAll('nav#menu a.tap'),function(a){a.classList.remove('tap');});});</script>
+<script>/* LAND · official channels under the caption (Linktree on the homepage) */lhEdge.sign("cap");(function(e){if(e)e.id="chan";})(document.querySelector(".lh-edge.sign"));</script>
 <script>
 (function(){
-  /* stage → page: teaser → teaser/ · preview → traveller/001/ · open/extended/closed → auction/ · sold → traveller/001/ (registry) */
-  var th=false;try{th=(localStorage.getItem("lh-lang")||navigator.language||"").toLowerCase().indexOf("th")===0;}catch(e){}
-  if(th){document.documentElement.lang="th";document.getElementById("msg").textContent="กำลังพาไปหน้าของคืนนี้…";}
-  function pick(j){var st=(j.traveller||{}).stage||"teaser",as=(j.auction||{}).status||"";
-    if(as==="sold"||st==="sold")return"traveller/"+(window.lhLive&&lhLive.no?lhLive.no(j):"001")+"/";
-    if(st==="open"||st==="extended"||st==="closed")return"auction/";
-    if(st==="preview")return"traveller/"+(window.lhLive&&lhLive.no?lhLive.no(j):"001")+"/";
-    return"teaser/";}
-  function stay(){document.getElementById("msg").textContent=th?"เลือกหน้าที่อยากไปได้เลย":"Pick a page below.";}
-  var done=false;setTimeout(function(){if(!done)stay();},4000);
-  (window.lhLive?lhLive.get("state.json?t="+Date.now()):fetch("state.json?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}))
-    .then(function(j){done=true;location.replace(pick(j));}).catch(function(){done=true;stay();});
+var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var N=16,ep=1,A='arriving';
+/* ===== LAND: real data ===== */
+var LIVE=null,ATLAS=null,REG=null,TD={},HOMES={},NO='001',LANG='en',X='https://x.com/little_hill01';
+try{LANG=localStorage.getItem('lh-lang')||'';}catch(e){}if(LANG!=='th'&&LANG!=='en')LANG=(navigator.language||'').toLowerCase().indexOf('th')===0?'th':'en';
+document.documentElement.lang=LANG;
+var TX={en:{cap:'the night line · season one',hello:'It’s {t} where you are.',helloS:'LET’S SEE WHAT’S ON THE HILL',skip:'tap anywhere to skip',outK:'NEW · STOP {s}',outH:'Episode {n} is out',outP:'Tonight’s stop is on YouTube{x}.',outB:'Watch ▶',outS:'NEW',nav:['TRAVELLERS','AUCTION','RULES','TIMETABLE','HOME'],navI:['who’s aboard','how to bid','read first','when’s next','tonight'],
+  arrK:'STOP {s} · ARRIVING',arrH:'Something is coming',arrP:'Arrives {d} · {t} your time',arrP0:'Watch the lantern on X',arrB:'Follow on X →',
+  tonight:'TONIGHT · STOP {s}',stop:'STOP {s}',pvP:'Bidding opens {d} · {t} your time',pvP0:'Bidding opens soon',meet:'Meet No.{n} →',
+  bidP:'{c}{v} · {b} · ends {d}, {t} your time',bids1:'1 bid',bidsN:'{n} bids',waitP:'Bidding is open · starts at {c}{v} · the clock starts with the first bid',chkP:'Checking last-minute bids',office:'Go to the ticket office →',
+  clP:'Bidding closed · packing for the trip home',clB:'See how it ended',homeH:'No.{n} went home',homeP:'Thank you, everyone. The next stop is in the fog.',visit:'Visit No.{n} →',
+  nbK:'DELTA’S NOTEBOOK · STOP {s}',yt:'Watch Stop {s} on YouTube',drawn:'drawn from memory',found:'No.{n} found a home here.',foundGo:'visit',noNote:'Delta hasn’t written this page yet.',close:'CLOSE ✕',prev:'← earlier',next:'later →',
+  st:{SOON:'SOON',OPEN:'OPEN',CLOSED:'CLOSED',HOME:'HOME'}},
+ th:{cap:'รถไฟสายกลางคืน · ซีซันหนึ่ง',hello:'ตอนนี้ที่คุณอยู่ {t}',helloS:'มาดูกันว่าบนเนินมีอะไร',skip:'แตะตรงไหนก็ได้เพื่อข้าม',outK:'ใหม่ · สถานี {s}',outH:'ตอนที่ {n} มาแล้ว',outP:'สถานีคืนนี้ดูได้บน YouTube{x}',outB:'ดูเลย ▶',outS:'ใหม่',nav:['นักเดินทาง','ประมูล','กติกา','ตารางเดินรถ','หน้าแรก'],navI:['','','','',''],
+  arrK:'STOP {s} · กำลังมาถึง',arrH:'มีบางอย่างกำลังมา',arrP:'มาถึง {d} · {t} เวลาของคุณ',arrP0:'ดูตะเกียงได้ใน X',arrB:'ติดตามใน X →',
+  tonight:'คืนนี้ · STOP {s}',stop:'STOP {s}',pvP:'เปิดบิด {d} · {t} เวลาของคุณ',pvP0:'เปิดบิดเร็ว ๆ นี้',meet:'รู้จัก No.{n} →',
+  bidP:'{c}{v} · {b} · ปิด {d} {t} เวลาของคุณ',bids1:'1 บิด',bidsN:'{n} บิด',waitP:'เปิดบิดแล้ว · เริ่ม {c}{v} · นาฬิกาเริ่มเดินเมื่อมีบิดแรก',chkP:'กำลังตรวจบิดนาทีสุดท้าย',office:'ไปห้องขายตั๋ว →',
+  clP:'ปิดรับบิดแล้ว · กำลังเก็บของเตรียมกลับบ้าน',clB:'ดูว่าจบอย่างไร',homeH:'No.{n} ได้บ้านแล้ว',homeP:'ขอบคุณทุกคน · สถานีถัดไปยังอยู่ในหมอก',visit:'ไปหา No.{n} →',
+  nbK:'สมุดของ DELTA · STOP {s}',yt:'ดู Stop {s} บน YouTube',drawn:'วาดจากความจำ',found:'No.{n} ได้บ้านที่นี่',foundGo:'ไปหา',noNote:'Delta ยังไม่ได้เขียนหน้านี้',close:'ปิด ✕',prev:'← ก่อนหน้า',next:'ถัดไป →',
+  st:{SOON:'SOON',OPEN:'OPEN',CLOSED:'CLOSED',HOME:'HOME'}}};
+function TL(){return TX[LANG]||TX.en;}
+function F(str,o){return String(str).replace(/\{(\w)\}/g,function(_,k){return o[k]==null?'':o[k];});}
+function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function loc(v){var t=v&&typeof v==='object'?(v[LANG]||v.en||''):(v||'');return /^\s*\[/.test(t)?'':String(t);}
+function getJ(u){return fetch(u+(u.indexOf('?')<0?'?':'&')+'t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();});}
+function tz(iso,o){var d=new Date(iso);if(!iso||isNaN(d))return '';try{return new Intl.DateTimeFormat(LANG==='th'?'th-TH':'en-GB',o).format(d);}catch(e){return d.toLocaleString();}}
+function dd(iso){return tz(iso,{weekday:'short',day:'numeric',month:'short'});}
+function tt(iso){var d=new Date(iso);if(!iso||isNaN(d))return '';return d.toLocaleTimeString(LANG==='th'?'th-TH':[],{hour:'numeric',minute:'2-digit'}).toLowerCase();}
+function stopInfo(i){var a=(ATLAS&&ATLAS.stops||[])[i-1]||{},out=a.outAt&&new Date(a.outAt)<=new Date();
+  return {name:out||i<=cur?loc(a.title):'',note:loc(a.note),yt:a.url||'',sketch:a.sketch||'',aired:!!out};}
+var demo=new URLSearchParams(location.search).get('demo')==='1';
+function stageFrom(st){var T=st&&st.traveller||{},Au=st&&st.auction||{},s=T.stage||'teaser';
+  if(Au.status==='sold'||s==='sold')return 'home';if(s==='teaser')return 'arriving';if(s==='preview')return 'preview';
+  if(s==='closed'||Au.status==='closed')return 'closed';if(s==='open'||s==='extended')return 'bidding';return 'preview';}
+function epFrom(st){var Au=st&&st.auction||{},n=parseInt(Au.stop,10);if(n>0)return n;
+  var t=(REG&&REG.travellers||[]).filter(function(x){return x&&String(x.no)===NO;})[0];if(t&&+t.firstSeenEp>0)return +t.firstSeenEp;
+  var last=0;(ATLAS&&ATLAS.stops||[]).forEach(function(a,i){if(a.outAt&&new Date(a.outAt)<=new Date())last=i+1;});return Math.max(1,last);}
+function applyState(st){LIVE=st||LIVE;if(!LIVE)return;if(window.lhEdge)lhEdge.set(LIVE);NO=window.lhLive?lhLive.no(LIVE):String(((LIVE.auction||{}).no)||((LIVE.traveller||{}).no)||'001');
+  if(!demo){A=stageFrom(LIVE);ep=epFrom(LIVE);}
+  HOMES={};(REG&&REG.travellers||[]).forEach(function(t){var s=t.liveFromState&&LIVE?((LIVE.auction||{}).status==='sold'?'sold':(LIVE.traveller||{}).stage):t.stage;if(s==='sold'&&+t.firstSeenEp>0)HOMES[+t.firstSeenEp]=String(t.no);});}
+function travUrl(n){return 'traveller/'+(n||NO)+'/';}
+function setNav(){var l=TL(),reg=LIVE&&LIVE.pages&&LIVE.pages.travellers===true;
+  var tr=document.getElementById('navTrav'),au=document.getElementById('navAuction'),ru=document.getElementById('navRules'),tt=document.getElementById('navTime'),hm=document.getElementById('navHome');
+  var IC={navHome:'<path d="M4 11.5 12 4.5l8 7V20H4z"/><path d="M10 20v-5h4v5"/>',navTrav:'<circle cx="12" cy="8.5" r="3.6"/><path d="M5 20c.8-3.9 3.7-6.2 7-6.2s6.2 2.3 7 6.2"/>',navTime:'<rect x="6" y="3.5" width="12" height="13" rx="2.5"/><path d="M6 10.5h12M8.5 20.5l2-3.5M15.5 20.5l-2-3.5"/><circle cx="9" cy="13.5" r=".9"/><circle cx="15" cy="13.5" r=".9"/>',navAuction:'<path d="M3.5 11.5V4h7.5l9 9-7.5 7.5z"/><circle cx="7.8" cy="8.2" r="1.5"/>',navRules:'<path d="M6.5 3.5h8.5l3.5 3.5v13.5h-12z"/><path d="M15 3.5V7h3.5M9.5 11.5h6M9.5 15h6"/>'};
+  [tr,au,ru,tt,hm].forEach(function(a,i){if(!a.querySelector('svg'))a.insertAdjacentHTML('afterbegin','<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+IC[a.id]+'</svg>');a.querySelector('b').textContent=l.nav[i];a.querySelector('i').textContent=l.navI[i];a.setAttribute('aria-label',l.nav[i]);});
+  tr.href=reg?'travellers/':travUrl();au.hidden=false;au.classList.toggle('quiet',!(A==='bidding'||A==='closed'));
+  document.getElementById('cap').textContent=l.cap;document.getElementById('helloS').textContent=l.helloS;document.getElementById('skip').textContent=l.skip;
+  document.getElementById('nbX').textContent=l.close;
+  [].forEach.call(document.querySelectorAll('#lang button'),function(b){b.setAttribute('aria-pressed',String(b.dataset.set===LANG));});}
+var S=['arriving','preview','bidding','closed','home'];
+function stopName(i){var n=stopInfo(i).name;if(!n&&i===ep&&LIVE&&(LIVE.auction||{}).place)n=String(LIVE.auction.place);return n||'';}
+function pad(n){return String(n).padStart(2,'0')}
+function trav(){var d=TD[NO]||{};return {no:'No.'+NO,epi:loc(d.epithet)};}
+function cardData(){var t=trav(),l=TL(),Au=LIVE&&LIVE.auction||{},T=LIVE&&LIVE.teaser||{},c=Au.currency||'$',S2=pad(ep),now=Date.now();
+ var k=A==='arriving'?F(l.arrK,{s:S2}):(A==='preview'||A==='bidding')?F(l.tonight,{s:S2}):F(l.stop,{s:S2});
+ /* LAND r7 (Dell: give people a reason to come back): the night a stop airs, the card says so (bidding still wins on its own night) */
+ if(A!=='bidding'&&A!=='closed'){var st=(ATLAS&&ATLAS.stops||[]),nw=null;st.forEach(function(a){if(a.outAt&&a.url&&new Date(a.outAt).getTime()<=now&&now-new Date(a.outAt).getTime()<30*36e5)nw=a;});
+   if(nw){var ttl=nw.title?(nw.title[LANG]||nw.title.en):'';return [esc(F(l.outK,{s:pad(nw.ep)})),esc(F(l.outH,{n:nw.ep})),esc(ttl),esc(F(l.outP,{x:nw.len?' · '+nw.len:''})),esc(l.outB),l.outS,nw.url];}}
+ if(A==='arriving')return [k,esc(l.arrH),'',T.opensAt?esc(F(l.arrP,{d:dd(T.opensAt),t:tt(T.opensAt)})):esc(l.arrP0),esc(l.arrB),'',X];
+ if(A==='preview')return [k,esc(t.no),esc(t.epi),Au.opensAt?esc(F(l.pvP,{d:dd(Au.opensAt),t:tt(Au.opensAt)})):esc(l.pvP0),esc(F(l.meet,{n:NO})),l.st.SOON,travUrl()];
+ if(A==='bidding'){var p,ca=Au.closeAt?new Date(Au.closeAt).getTime():NaN,n=+Au.bidCount||0;
+   if(!Au.firstBidAt&&!n)p=esc(F(l.waitP,{c:c,v:Au.currentBid||''}));
+   else if(!isNaN(ca)&&now>=ca)p='<span class="live"></span>'+esc(l.chkP);
+   else p='<span class="live"></span>'+F(esc(l.bidP),{c:'<b style="font-size:.95rem">'+esc(c),v:esc(Au.currentBid)+'</b>',b:esc(n===1?l.bids1:F(l.bidsN,{n:n})),d:esc(dd(Au.closeAt)),t:esc(tt(Au.closeAt))});
+   return [k,esc(t.no),esc(t.epi),p,esc(l.office),l.st.OPEN,'auction/'];}
+ if(A==='closed')return [k,esc(t.no),esc(t.epi),esc(l.clP),esc(l.clB),l.st.CLOSED,'auction/'];
+ return [k,esc(F(l.homeH,{n:NO})),esc(t.epi),esc(l.homeP),esc(F(l.visit,{n:NO})),l.st.HOME,travUrl()];}
+function fmt(h,m){var d=new Date();d.setHours(h,m,0,0);return d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}).toLowerCase()}
+/* geometry */
+var W,H,wide,P,L,at,LAY=(new URLSearchParams(location.search).get('lay')||'a'),__ch=0,__rb=0;if(LAY==='old')LAY='';
+function R(seed){var s=seed;return function(){s=(s*16807)%2147483647;return s/2147483647}}
+function geo(){W=innerWidth;H=innerHeight;wide=W>H*1.05;var nh=70;
+ var fit=LAY==='a'&&!wide,ch=__ch||Math.round(H*.3),top=Math.max(92,H*.12),bot=Math.max(top+180,H-70-ch-(wide?26:16)-30),
+  Y=function(f){return fit?top+(f-.12)/(.62-.12)*(bot-top):H*f};
+ var d=wide?
+ 'M'+(W*.06)+' '+(H*.74)+' C'+(W*.2)+' '+(H*.86)+' '+(W*.3)+' '+(H*.52)+' '+(W*.42)+' '+(H*.58)+' S'+(W*.6)+' '+(H*.8)+' '+(W*.66)+' '+(H*.56)+' S'+(W*.6)+' '+(H*.26)+' '+(W*.74)+' '+(H*.22)+' S'+(W*.96)+' '+(H*.34)+' '+(W*.95)+' '+(H*.11):
+ 'M'+(W*.12)+' '+Y(.62)+' C'+(W*.02)+' '+Y(.53)+' '+(W*.3)+' '+Y(.5)+' '+(W*.62)+' '+Y(.49)+' S'+(W*.98)+' '+Y(.4)+' '+(W*.7)+' '+Y(.35)+' S'+(W*.12)+' '+Y(.3)+' '+(W*.2)+' '+Y(.24)+' S'+(W*.8)+' '+Y(.19)+' '+(W*.86)+' '+Y(.12);
+ return {d:d,hill:{x:wide?W*.47:W*.5,y:wide?H*.49:Y(.37),r:wide?H*.13:(fit?Math.min(W*.17,(bot-top)*.2):W*.17)}}}
+var sv=document.getElementById('sv'),ov=document.getElementById('ov'),sky=document.getElementById('sky'),fx=document.getElementById('fx');
+(function(){try{var c=document.createElement('canvas');c.width=c.height=160;var x=c.getContext('2d'),d=x.createImageData(160,160),s=7;function r(){s=(s*16807)%2147483647;return s/2147483647}
+  for(var i=0;i<d.data.length;i+=4){var v=r()<.5?255:0;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=Math.round(r()*r()*12)}
+  x.putImageData(d,0,0);document.documentElement.style.setProperty('--grain','url('+c.toDataURL()+')')}catch(e){}})();
+function build(){
+ var g=geo(),hill=g.hill,r=R(5),st='',n=Math.round(W*H/3800);
+ var tws='';for(var i=0;i<n;i++){var o=(.08+r()*.4).toFixed(2),tw=r()<.18,cs='<circle cx="'+(r()*W).toFixed(1)+'" cy="'+(r()*H).toFixed(1)+'" r="'+(r()*.9+.2).toFixed(2)+'" fill="#ece7dc" opacity="'+o+'"'+'/>';if(tw){var rr=+cs.match(/ r="([\d.]+)"/)[1],cx=+cs.match(/cx="([\d.]+)"/)[1],cy=+cs.match(/cy="([\d.]+)"/)[1];tws+='<i class="tw" style="left:'+(cx-rr).toFixed(1)+'px;top:'+(cy-rr).toFixed(1)+'px;width:'+(2*rr).toFixed(2)+'px;height:'+(2*rr).toFixed(2)+'px;background:rgba(236,231,220,'+o+');--t:'+(3+r()*5).toFixed(1)+'s"></i>'}else st+=cs}
+ [sky,sv,fx].forEach(function(e){e.setAttribute('viewBox','0 0 '+W+' '+H)});
+ sky.innerHTML='<defs><radialGradient id="bg" cx="'+(hill.x/W)+'" cy="'+(hill.y/H)+'" r="1"><stop offset="0" stop-color="#16204a"/><stop offset=".5" stop-color="#0e1530"/><stop offset="1" stop-color="#070b18"/></radialGradient>'+
+ '<linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a3468" stop-opacity=".85"/><stop offset=".35" stop-color="#3a2f60" stop-opacity=".35"/><stop offset=".6" stop-color="#2a2a5a" stop-opacity="0"/></linearGradient>'+
+ '<radialGradient id="gl"><stop offset="0" stop-color="#ffd9a0" stop-opacity=".9"/><stop offset=".3" stop-color="#f59a3e" stop-opacity=".35"/><stop offset="1" stop-color="#f59a3e" stop-opacity="0"/></radialGradient>'+
+ '<radialGradient id="fog"><stop offset="0" stop-color="#8fa1b8" stop-opacity=".26"/><stop offset="1" stop-color="#8fa1b8" stop-opacity="0"/></radialGradient>'+
+ '<radialGradient id="hl" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#2c3466"/><stop offset=".75" stop-color="#1a1f48"/><stop offset="1" stop-color="#0f1330"/></radialGradient></defs>'+
+ '<rect width="100%" height="100%" fill="url(#bg)"/><rect width="100%" height="100%" fill="url(#dusk)"/>'+st+
+ '<g stroke="rgba(236,231,220,.04)" fill="none">'+Array.from({length:8},function(_,i){return '<circle cx="'+hill.x+'" cy="'+hill.y+'" r="'+(hill.r*(1.6+i*.9))+'"/>'}).join('')+'</g>'+
+ '<circle cx="'+hill.x+'" cy="'+hill.y+'" r="'+hill.r+'" fill="url(#hl)" stroke="#0a0d24" stroke-width="2"/>';
+ sv.innerHTML='<path id="railG" d="'+g.d+'" fill="none" stroke="rgba(242,180,90,.16)" stroke-width="7" stroke-linecap="round" opacity=".5"/>'+
+ '<path id="rail" d="'+g.d+'" fill="none" stroke="rgba(242,180,90,.5)" stroke-width="1.6"/>'+
+ '<g id="behind"></g>'+
+ '<path id="thread" fill="none" stroke="rgba(236,231,220,.5)" stroke-width="1" stroke-dasharray="3 4"/><circle id="knot" r="3" fill="#ece6d6" opacity="0"/>'+
+ '<g id="stops"></g>';
+ fx.innerHTML=tws+'<div id="fogs"></div><div id="fxlamp"></div><div id="train"></div>';
+ P=document.getElementById('rail');L=P.getTotalLength();at=function(i){return P.getPointAtLength(L*(i-.5)/N)};
+ /* where the line crosses the hill more than once, the far passes go behind it (faded); the nearest pass (lowest on screen) stays in front.
+    a single pass stays on top as before. */
+ var runs=[],run=null;for(var t=0;t<=L;t+=L/500){var q=P.getPointAtLength(t),ins=Math.hypot(q.x-hill.x,q.y-hill.y)<hill.r;
+   if(ins){if(!run){run=[];runs.push(run)}run.push(q)}else run=null}
+ if(runs.length>1){var avg=function(r){return r.reduce(function(a,q){return a+q.y},0)/r.length},front=runs.reduce(function(b,r){return avg(r)>avg(b)?r:b});
+   var md=runs.filter(function(r){return r!==front}).map(function(r){return 'M'+r.map(function(q){return q.x.toFixed(1)+' '+q.y.toFixed(1)}).join(' L')}).join(' ');
+   document.getElementById('behind').innerHTML='<mask id="bm" maskUnits="userSpaceOnUse" x="0" y="0" width="'+W+'" height="'+H+'"><path d="'+md+'" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round"/></mask>'+
+    '<g mask="url(#bm)"><circle cx="'+hill.x+'" cy="'+hill.y+'" r="'+hill.r+'" fill="url(#hl)" opacity=".8"/></g>'}
+}
+var cur,lampEl;
+function paint(){ /* draws stops, fog, labels, card for the current ep + stage. Returns handles for the opening. */
+ cur=A==='arriving'?ep-1:ep;
+ var s='',f='',o='',l='',fr=R(11);
+ for(var i=1;i<=N;i++){var pt=at(i),aired=i<=cur,isC=i===ep&&A!=='arriving';
+  if(aired){
+   if(isC){var gr={bidding:66,closed:30,home:26}[A]||48,go={closed:.6,home:.5}[A]||1;
+     var I=function(c,r,st){return '<i class="'+c+'" style="left:'+(-r)+'px;top:'+(-r)+'px;width:'+2*r+'px;height:'+2*r+'px;'+(st||'')+'"></i>'};
+     l+='<div id="lamp" data-x="0" data-y="0" style="left:'+pt.x+'px;top:'+pt.y+'px">'+I('glo'+(go<1?'':' lamp'),gr,'opacity:'+go)+
+     (A==='bidding'?'<i class="ringa"></i><i class="ringb"></i>':'')+
+     (A==='home'?I('core sq',5):I('core',7))+'</div>'}
+   else if(HOMES[i]&&i!==ep)s+='<g class="dot win" data-i="'+i+'"><circle cx="'+pt.x+'" cy="'+pt.y+'" r="11" fill="url(#gl)" opacity=".45"/><rect x="'+(pt.x-3.5)+'" y="'+(pt.y-3.5)+'" width="7" height="7" rx="1" fill="#ffcf86"/></g>';
+   else s+='<circle class="dot" data-i="'+i+'" cx="'+pt.x+'" cy="'+pt.y+'" r="4.5" fill="#ece7dc"/>';
+   /* houses: travellers who found a home stay on the map (sample: every traveller from stop 04 on) */
+   var housed=(HOMES[i]&&i!==ep)||(i===ep&&A==='home');
+
+   if(!isC)o+='<button class="hit" data-i="'+i+'" style="left:'+pt.x+'px;top:'+pt.y+'px" aria-label="Stop '+pad(i)+(stopName(i)?', '+esc(stopName(i)):'')+'. Open Delta’s note"></button>';
+   if(isC||(i<ep&&ep<=6))o+='<div class="lbl'+(isC?' cur':'')+'" data-i="'+i+'" style="left:'+pt.x+'px;top:'+pt.y+'px"><small>STOP '+pad(i)+'</small>'+(isC?esc(A==='home'?(LANG==='th'?'ได้บ้านแล้ว':'home now'):stopName(i)):'')+'</div>';
+  }else{
+   s+='<circle cx="'+pt.x+'" cy="'+pt.y+'" r="3" fill="#ece7dc" opacity=".14"/>';
+   var big=wide?58:42;f+='<i class="fogc" style="left:'+(pt.x-big)+'px;top:'+(pt.y-big)+'px;width:'+2*big+'px;height:'+2*big+'px;--dx:'+((fr()-.5)*24).toFixed(0)+'px;--dy:'+((fr()-.5)*14).toFixed(0)+'px;--t:'+(9+fr()*8).toFixed(1)+'s"></i>';
+   if(A==='arriving'&&i===ep)l+='<i class="glo lamp arr" style="left:'+(pt.x-22)+'px;top:'+(pt.y-22)+'px;width:44px;height:44px;opacity:.22"></i>';
+  }}
+ document.getElementById('stops').innerHTML=s;document.getElementById('fogs').innerHTML=f;document.getElementById('fxlamp').innerHTML=l;
+ var c=cardData();
+ o+='<div class="card" id="card"><div class="k">'+c[0]+'</div>'+(c[5]?'<span class="stamp">'+c[5]+'</span>':'')+'<h2>'+c[1]+'</h2>'+(c[2]?'<div class="ep">'+c[2]+'</div>':'')+'<p>'+c[3]+'</p><a class="btn" href="'+esc(c[6])+'"'+(/^https?:/.test(c[6])?' target="_blank" rel="noopener"':'')+'>'+c[4]+'</a></div>';
+ ov.innerHTML=o;
+ var card=document.getElementById('card'),cw=card.offsetWidth,ch=card.offsetHeight;
+ card.style.left=(wide?W-cw-44:(W-cw)/2)+'px';card.style.top=(H-70-ch-(wide?26:16))+'px';
+ document.getElementById('navAuction').classList.toggle('lit',A==='bidding');
+ ov.querySelectorAll('.hit').forEach(function(b){b.onclick=function(){openNote(+b.dataset.i)}});
+ thread();
+ if(LAY==='a'&&!wide&&!__rb&&Math.abs(card.offsetHeight-__ch)>6){__ch=card.offsetHeight;__rb=1;build();paint();__rb=0;return}
+ if(LAY)dodge();fitNav();
+}
+function fitNav(){var bs=[].slice.call(document.querySelectorAll('nav b'));bs.forEach(function(b){b.style.letterSpacing='';b.style.fontSize=''});
+ function hit(){var vs=bs.filter(function(b){return b.getBoundingClientRect().width>0});for(var i=0;i<vs.length;i++){var r=vs[i].getBoundingClientRect();if(r.left<2||r.right>innerWidth-2)return true;if(i&&r.left<vs[i-1].getBoundingClientRect().right+6)return true}return false}
+ var k=0;while(hit()&&k<40){k++;bs.forEach(function(b){var cs=getComputedStyle(b),ls=parseFloat(cs.letterSpacing)||0,fs=parseFloat(cs.fontSize);if(ls>0.5)b.style.letterSpacing=Math.max(0,ls-1)+'px';else b.style.fontSize=(fs-.5)+'px'})}}
+function dodge(){var c=document.getElementById('card');if(!c)return;var cl=c.offsetLeft-6,ct=c.offsetTop-6,cr=cl+c.offsetWidth+12,cb=ct+c.offsetHeight+12;
+ ov.querySelectorAll('.lbl').forEach(function(lb){lb.classList.remove('up');lb.style.marginLeft='';var r=lb.getBoundingClientRect();
+  if(r.right>cl&&r.left<cr&&r.bottom>ct&&r.top<cb){lb.classList.add('up');r=lb.getBoundingClientRect();if(r.right>W-8)lb.style.marginLeft=(W-8-r.right)+'px';if(r.left<8)lb.style.marginLeft=(8-r.left)+'px'}})}
+function thread(draw){
+ var card=document.getElementById('card'),th=document.getElementById('thread'),kn=document.getElementById('knot');
+ var target=at(ep),cx=card.offsetLeft+card.offsetWidth*(wide?.5:.62),cy=card.offsetTop+4;
+ var mx=(target.x+cx)/2+(wide?40:-30),my=Math.max(target.y,cy)+(wide?30:10);
+ th.setAttribute('d','M'+target.x+' '+(target.y+8)+' Q'+mx+' '+my+' '+cx+' '+cy);
+ kn.setAttribute('cx',cx);kn.setAttribute('cy',cy);
+ return th;
+}
+/* ---------- opening: your time → lights sprout + train runs → lantern lights → tag drops ---------- */
+var running=false,timers=[];
+function T(fn,ms){timers.push(setTimeout(fn,ms))}
+var GH=null;function ghost(){clearTimeout(GH);if(RM)return;GH=setTimeout(function run(){var fx=document.getElementById('fx');if(!fx||running||document.hidden||!P){GH=setTimeout(run,9000);return;}
+  var g=document.getElementById('ghost');if(!g){g=document.createElement('div');g.id='ghost';g.innerHTML='<i></i>';fx.appendChild(g);}
+  var end=L*(ep-.5)/N,ms=Math.min(900+ep*160,2600),t0=performance.now();g.style.opacity=0;
+  (function st(now){var k=Math.min(1,(now-t0)/ms),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2,pt=P.getPointAtLength(end*e);
+    g.style.transform='translate('+pt.x.toFixed(1)+'px,'+pt.y.toFixed(1)+'px)';g.style.opacity=(k<.15?k/.15:k>.85?(1-k)/.15:1)*.8;
+    if(k<1&&!running)requestAnimationFrame(st);else{g.style.opacity=0;GH=setTimeout(run,11000+Math.random()*5000);}})(t0);},6000);}
+var T2;function finish(){clearTimeout(T2);ghost();document.getElementById('stage').classList.remove('rest','pt'); /* final, still state */
+ timers.forEach(clearTimeout);timers=[];running=false;
+ document.getElementById('hello').classList.add('fade');document.getElementById('skip').classList.add('hide');
+ ['mark','cap','menu','tools','chan'].forEach(function(id){document.getElementById(id).classList.remove('fade')});
+ var rail=document.getElementById('rail'),railG=document.getElementById('railG');rail.style.strokeDasharray='';rail.style.strokeDashoffset='';railG.style.opacity='';
+ document.querySelectorAll('#stops > *,#fogs > *,#fxlamp > i').forEach(function(e){e.style.opacity='';e.style.transition=''});
+ ov.querySelectorAll('.lbl').forEach(function(e){e.style.opacity=''});
+ var lamp=document.getElementById('lamp');if(lamp){lamp.style.transform='';lamp.style.opacity=''}
+ document.getElementById('train').innerHTML='';
+ var th=thread();th.style.strokeDashoffset='';th.style.strokeDasharray='3 4';document.getElementById('knot').setAttribute('opacity',1);
+ var card=document.getElementById('card');card.classList.remove('pre');card.classList.add('on');
+ var stg=document.getElementById('stage');stg.classList.toggle('idle',!RM);T2=setTimeout(function(){stg.classList.add('rest')},running===false?1800:0);
+ card.onmouseenter=card.onfocusin=function(){stg.classList.add('pt')};card.onmouseleave=card.onfocusout=function(){stg.classList.remove('pt')};
+}
+function opening(full){
+ if(RM){finish();return}
+ running=true;document.getElementById('stage').classList.remove('idle');
+ var hello=document.getElementById('hello'),skip=document.getElementById('skip');
+ ['mark','cap','menu','tools','chan'].forEach(function(id){document.getElementById(id).classList.add('fade')});
+ var rail=document.getElementById('rail'),railG=document.getElementById('railG');
+ rail.style.transition='none';rail.style.strokeDasharray=L;rail.style.strokeDashoffset=L;railG.style.opacity=0;
+ var dots=[].slice.call(document.querySelectorAll('#stops .dot')),fogs=[].slice.call(document.querySelectorAll('#fogs > *,#stops > circle:not(.dot),#fxlamp > i')),lamp=document.getElementById('lamp');
+ dots.concat(fogs).forEach(function(e){e.style.transition='none';e.style.opacity=0});
+ ov.querySelectorAll('.lbl').forEach(function(e){e.style.transition='none';e.style.opacity=0;void e.offsetWidth;e.style.transition=''}); /* r10: no fade-out on start (it flashed the stop names before the line on refresh) */
+ if(lamp){lamp.style.transformOrigin=lamp.dataset.x+'px '+lamp.dataset.y+'px';lamp.style.transition='none';lamp.style.transform='scale(0)'}
+ var th=thread();var tl=th.getTotalLength();th.style.transition='none';th.style.strokeDasharray=tl;th.style.strokeDashoffset=tl;document.getElementById('knot').setAttribute('opacity',0);
+ var card=document.getElementById('card');card.classList.remove('on');card.classList.add('pre');
+ skip.classList.remove('hide');
+ var t0=0;
+ if(full){document.getElementById('helloT').textContent=F(TL().hello,{t:new Date().toLocaleTimeString(LANG==='th'?'th-TH':[],{hour:'numeric',minute:'2-digit'}).toLowerCase()});
+   hello.classList.remove('fade');t0=1300;T(function(){hello.classList.add('fade')},t0-380)}
+ /* 1 · the line draws itself and the fog rolls in */
+ T(function(){void rail.offsetWidth;rail.style.transition='stroke-dashoffset 1.2s cubic-bezier(.45,0,.2,1)';rail.style.strokeDashoffset=0;
+   railG.style.transition='opacity 1.6s';railG.style.opacity=.5;
+   fogs.forEach(function(e,k){e.style.transition='opacity 1.4s '+(.4+k*.05)+'s';e.style.opacity=''});
+   ['mark','cap'].forEach(function(id){document.getElementById(id).classList.remove('fade')})},t0);
+ /* 2 · the train runs from the start to tonight's stop; each stop it passes lights up */
+ var runMs=Math.min(500+ep*140,2000),tEnd=L*(ep-.5)/N,t1=t0+700,trn=document.getElementById('train');
+ T(function(){var start=performance.now();if(window.lhSound)lhSound.play('rumble',{d:runMs/1000+.5});
+   trn.style.transition='none';trn.style.opacity='';trn.innerHTML='<i class="glo" style="left:-14px;top:-14px;width:28px;height:28px"></i><i class="tcore" style="left:-4.5px;top:-4.5px;width:9px;height:9px"></i>';
+   (function step(now){if(!running)return;var k=Math.min(1,(now-start)/runMs),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2,pt=P.getPointAtLength(tEnd*e);
+     trn.style.transform='translate('+pt.x.toFixed(1)+'px,'+pt.y.toFixed(1)+'px)';
+     var passed=Math.floor(e*(ep-.5)+.5);
+     dots.forEach(function(d){var di=+d.getAttribute('data-i')||houseIndex(d);if(di&&di<=passed&&d.style.opacity==='0'){d.style.transition='opacity .4s';d.style.opacity=''}});
+     ov.querySelectorAll('.lbl:not(.cur)').forEach(function(lb){if(+lb.dataset.i<=passed)lb.style.opacity=''});
+     if(k<1)requestAnimationFrame(step);else{trn.style.transition='opacity .4s';trn.style.opacity=0;ignite()}})(start)},t1);
+ function ignite(){ /* 3 · the lantern lights: the one peak */
+   if(lamp){void lamp.offsetWidth;lamp.style.transition='transform .9s cubic-bezier(.2,1.6,.4,1),opacity .9s';lamp.style.transform='scale(1)';chime()}
+   dots.forEach(function(d){d.style.transition='opacity .4s';d.style.opacity=''});
+   T(function(){ov.querySelectorAll('.lbl').forEach(function(e){e.style.opacity=''})},300);
+   /* 4 · the thread runs down and the tag drops */
+   T(function(){void th.offsetWidth;th.style.transition='stroke-dashoffset .7s ease-out';th.style.strokeDashoffset=0},300);
+   T(function(){th.style.transition='none';th.style.strokeDasharray='3 4';th.style.strokeDashoffset=0;document.getElementById('knot').setAttribute('opacity',1);card.classList.remove('pre');card.classList.add('on')},800);
+   T(function(){['menu','tools','chan'].forEach(function(id){document.getElementById(id).classList.remove('fade')});skip.classList.add('hide')},800);
+   T(finish,1600);
+ }
+}
+function houseIndex(d){return 0}
+/* full opening once a day; a short one on reload (same rule as the No.001 page) */
+function introKind(){var k='lh-home-intro-day',day=new Date().toDateString(),seen=null;
+ var inSite=false;try{inSite=!!document.referrer&&new URL(document.referrer).origin===location.origin&&new URL(document.referrer).pathname!==location.pathname;}catch(e){}
+ try{seen=localStorage.getItem(k);localStorage.setItem(k,day)}catch(e){}
+ if(seen==null){try{seen=sessionStorage.getItem(k);sessionStorage.setItem(k,day)}catch(e){}}
+ if(seen==null){seen=(window.name.indexOf(k+'='+day)>=0)?day:null;try{if(!seen)window.name=(window.name||'')+' '+k+'='+day;}catch(e){}}
+ /* LAND r8 (Dell: coming back felt long): back from another page = no opening · same day reload = short · first visit of the day = full */
+ if(inSite)return 'none';return seen===day?'short':'full'}
+['click','keydown','touchstart'].forEach(function(ev){addEventListener(ev,function(e){if(running&&!(e.target.closest&&e.target.closest('#demo'))){finish()}},{passive:true})});
+/* ---------- sound: off by default, one soft chime when the lantern lights ---------- */
+function memo(k,v){try{if(v===undefined){var x=localStorage.getItem(k);if(x!=null)return x;}else localStorage.setItem(k,v);}catch(e){}
+  try{if(v===undefined){var y=sessionStorage.getItem(k);if(y!=null)return y;}else sessionStorage.setItem(k,v);}catch(e){}
+  var m=(window.name||'').match(new RegExp(k+'=(\\S+)'));if(v===undefined)return m?m[1]:null;try{window.name=(window.name||'').replace(new RegExp('\\s?'+k+'=\\S+','g'),'')+' '+k+'='+v;}catch(e){}return null;}
+var sound=memo('lh-sound')==='1',ac=null,snd=document.getElementById('snd');
+/* a remembered "sound on" wakes the audio at the first touch (browsers need one) */
+['pointerdown','keydown'].forEach(function(ev){addEventListener(ev,function w(){if(sound){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();ac.resume&&ac.resume();}catch(e){}}removeEventListener(ev,w,true);},true);});
+function sndIcon(){snd.innerHTML='<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M2 6h3l4-3v10l-4-3H2z"/>'+(sound?'<path d="M11 5.5c1 1.4 1 3.6 0 5M13 4c1.8 2.3 1.8 5.7 0 8"/>':'<path d="M11 6l4 4M15 6l-4 4"/>')+'</svg>';snd.setAttribute('aria-label',sound?'Sound on. Turn off':'Sound off. Turn on the lantern sound')}
+snd.onclick=function(){sound=!sound;memo('lh-sound',sound?'1':'0');sndIcon();if(sound)chime()};
+function chime(){if(!sound)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();var t=ac.currentTime;
+ [[784,0],[1175,.09]].forEach(function(n){var o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=n[0];g.gain.setValueAtTime(0,t+n[1]);g.gain.linearRampToValueAtTime(.12,t+n[1]+.02);g.gain.exponentialRampToValueAtTime(.0001,t+n[1]+1.6);o.connect(g);g.connect(ac.destination);o.start(t+n[1]);o.stop(t+n[1]+1.7)})}catch(e){}}
+sndIcon();
+/* ---------- Delta's notebook: tap a stop that has passed ---------- */
+var nb=document.getElementById('nb'),nbI=1,lastFocus=null;
+var PEN='fill="none" stroke="#3b3a52" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#wob)"';
+var DOOD={1:'<path d="M10 92 H130" '+PEN+'/><path d="M40 92 V44 M100 92 V44" '+PEN+'/><rect x="34" y="30" width="72" height="22" rx="2" '+PEN+'/><path d="M112 70 v-8 M108 62 h8" '+PEN+'/><rect x="107" y="70" width="10" height="13" rx="2" fill="#f2b45a" opacity=".8" '+PEN+'/><path d="M50 41 h4 M70 41 h3" stroke="#3b3a52" stroke-width="1" opacity=".3"/>',
+ 2:['#e2725b','#5aa0c8','#9bc46a','#c58fd0','#f2b45a'].map(function(c,k){return '<path d="M'+(6+k*26)+' 80 q13 -'+(22+k%2*10)+' 26 0" fill="none" stroke="'+c+'" stroke-width="5" stroke-linecap="round" opacity=".85" filter="url(#wob)"/>'}).join('')+'<path d="M6 92 H134" '+PEN+'/><path d="M24 30 l4 -4 l4 4 M90 22 l3 -3 l3 3" '+PEN+'/>',
+ 3:'<path d="M8 96 l4 -12 M18 96 l2 -14 M30 96 l-3 -10 M60 96 l3 -12 M90 96 l2 -13 M118 96 l-2 -12 M128 96 l3 -10" '+PEN+'/>'+[[34,46],[78,30],[104,62]].map(function(f){return '<path d="M'+f[0]+' '+f[1]+' q12 -10 24 0 q-12 10 -24 0 Z M'+(f[0]+24)+' '+f[1]+' l8 -6 v12 Z" fill="#9fc3d8" fill-opacity=".55" '+PEN+'/><circle cx="'+(f[0]+6)+'" cy="'+(f[1]-1)+'" r="1.2" fill="#3b3a52"/>'}).join(''),
+ 4:'<path d="M30 96 V52 L70 22 L110 52 V96 Z" '+PEN+'/><rect x="42" y="56" width="20" height="18" rx="2" fill="#f2b45a" fill-opacity=".75" '+PEN+'/><rect x="78" y="56" width="20" height="18" rx="2" fill="#5a6a9c" fill-opacity=".55" '+PEN+'/><path d="M84 62 l1 0 M92 68 l1 0" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M60 96 v-12 h20 v12" '+PEN+'/><path d="M58 96 h24" stroke="#e2725b" stroke-width="3" stroke-linecap="round" opacity=".7"/>'};
+function doodle(i){var d=DOOD[i]||'<path d="M20 80 H120" '+PEN+'/><rect x="44" y="56" width="52" height="22" rx="5" '+PEN+'/><circle cx="56" cy="82" r="5" '+PEN+'/><circle cx="84" cy="82" r="5" '+PEN+'/><path d="M66 40 q4 -14 12 -6 q6 6 -4 12 v6" '+PEN+'/>';
+ return '<svg viewBox="0 0 140 110"><defs><filter id="wob"><feTurbulence baseFrequency=".05" numOctaves="2" seed="'+i+'"/><feDisplacementMap in="SourceGraphic" scale="2.4"/></filter></defs>'+d+'</svg><div class="cap2">'+(DOOD[i]?'drawn from memory':'(sample sketch)')+'</div>'}
+function openNote(i){nbI=i;var si=stopInfo(i),l=TL(),d=[si.name||('Stop '+pad(i)),si.note||l.noNote,'Stop '+pad(i)];
+ document.getElementById('nbK').textContent=F(l.nbK,{s:pad(i)});
+ document.getElementById('nbH').textContent=d[0];var sk=document.getElementById('nbS');sk.classList.toggle('none',!si.sketch);sk.innerHTML=si.sketch?'<img src="'+esc(si.sketch)+'" alt=""><div class="cap2">'+esc(l.drawn)+'</div>':'';var y=document.getElementById('nbY');y.innerHTML='<svg viewBox="0 0 16 16"><rect x=".5" y="3" width="15" height="10" rx="3" fill="currentColor"/><path d="M6.5 5.6v4.8L10.6 8z" fill="#ece6d6"/></svg>'+esc(F(l.yt,{s:pad(i)}));y.href=si.yt||'#';y.hidden=!si.yt;document.getElementById('nbB').textContent=d[1];
+ var hn=HOMES[i]||(i===ep&&A==='home'?NO:'');document.getElementById('nbQ').innerHTML=hn?esc(F(l.found,{n:hn}))+' → <a href="'+esc(travUrl(hn))+'" style="text-decoration:underline">'+esc(l.foundGo)+'</a>':'';
+ document.getElementById('nbP').disabled=i<=1;document.getElementById('nbN').disabled=i>=ep-1;
+ if(nb.classList.contains('hide')){lastFocus=document.activeElement;nb.classList.remove('hide');void nb.offsetWidth;nb.classList.add('on');document.getElementById('nbX').focus()}}
+function closeNote(){nb.classList.remove('on');setTimeout(function(){nb.classList.add('hide')},300);if(lastFocus)lastFocus.focus()}
+document.getElementById('nbX').onclick=closeNote;nb.onclick=function(e){if(e.target===nb)closeNote()};
+document.getElementById('nbP').onclick=function(){openNote(nbI-1)};document.getElementById('nbN').onclick=function(){openNote(nbI+1)};
+addEventListener('keydown',function(e){if(e.key==='Escape'&&!nb.classList.contains('hide'))closeNote()});
+function redraw(play,kind){finish();build();paint();setNav();if(play)opening(kind==='full');else finish()}
+var q=new URLSearchParams(location.search);if(demo){if(q.get('ep'))ep=Math.max(1,Math.min(16,+q.get('ep')));if(S.indexOf(q.get('a'))>=0)A=q.get('a');}
+var rz,rw=innerWidth,rh=innerHeight;addEventListener('resize',function(){if(innerWidth===rw&&Math.abs(innerHeight-rh)<90)return;rw=innerWidth;rh=innerHeight;clearTimeout(rz);rz=setTimeout(function(){redraw(false)},150)});
+[].forEach.call(document.querySelectorAll('#lang button'),function(b){b.onclick=function(){LANG=b.dataset.set;try{localStorage.setItem('lh-lang',LANG)}catch(e){}document.documentElement.lang=LANG;redraw(false);}});
+function getState(){return window.lhLive?lhLive.get('state.json?t='+Date.now()):getJ('state.json');}
+var pre1=getJ('traveller/001/data.json').catch(function(){return null;}); /* r10b: fetched in parallel (it used to wait for state.json first) */
+var ready=Promise.all([getJ('state.json?t='+Date.now()).catch(function(){return getState().catch(function(){return null;});}),getJ('atlas/atlas.json').catch(function(){return null;}),getJ('travellers/travellers.json').catch(function(){return null;})])
+ .then(function(r){ATLAS=r[1];REG=r[2];applyState(r[0]);return (travUrl()==='traveller/001/'?pre1:getJ(travUrl()+'data.json')).then(function(d){if(d)TD[NO]=d;},function(){});});
+build();setNav();
+var kind=q.get('intro')||(q.get('in')?'none':introKind());if(q.get('in')){try{history.replaceState(null,'',location.pathname+location.hash);}catch(e){}}setTimeout(function(){if(!document.documentElement.classList.contains('lh-go')){build();paint();setNav();finish();document.documentElement.classList.add('lh-go');window.lhReady&&lhReady();}},9000);
+ready.then(function(){return document.fonts&&document.fonts.ready?Promise.race([document.fonts.ready,new Promise(function(r){setTimeout(r,450);})]):null;}).then(function(){
+ /* r10c (Dell asked for a recommendation): the full opening means "a train arrived" — first visit ever, or the first visit after a new episode lights a new stop · first visit of another day = short · everything else (reloads, coming back from a page) = straight to the hill */
+ if(!q.get('intro')&&kind!=='none'){var fe=memo('lh-home-full'),le=+(memo('lh-home-ep')||0);kind=(fe==null||ep>le)?'full':(kind==='full'?'short':'none');}
+ if(kind==='full'){memo('lh-home-full','1');memo('lh-home-ep',String(ep));}
+ build();paint();setNav();if(kind==='none'||document.documentElement.classList.contains('lh-go'))finish();else opening(kind==='full');document.documentElement.classList.add('lh-go');window.lhReady&&lhReady();
+ /* live: the desk's bids arrive in ~1 s (same Firebase stream as the auction page) · otherwise state.json every minute */
+ function upd(st){var a0=A,e0=ep,n0=NO;applyState(st);if(running)return;if(A!==a0||ep!==e0||NO!==n0){var go=TD[NO]?Promise.resolve():getJ(travUrl()+'data.json').then(function(d){TD[NO]=d;},function(){});go.then(function(){redraw(false);});}else{paint();finish();}}
+ if(window.lhLive)getState().then(upd,function(){});
+ var streaming=window.lhLive&&lhLive.stream?lhLive.stream(function(st){getState().then(upd,function(){});}):false;
+ setInterval(function(){getState().then(upd,function(){});},60000);
+});
 })();
 </script>
-<script src="assets/scene.js"></script>
-<script>LHScene.init(document.getElementById("scene"));</script>
-</body>
-</html>
+</body></html>

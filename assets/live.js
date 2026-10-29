@@ -10,7 +10,7 @@
   function timeout(ms){return new Promise(function(_,no){setTimeout(function(){no(new Error("timeout"));},ms);});}
   function fromDb(){
     if(!URL_)return Promise.reject(new Error("off"));
-    return Promise.race([fetch(URL_+"?t="+Date.now(),{cache:"no-store"}),timeout(6000)])
+    return Promise.race([fetch(URL_+"?t="+Date.now(),{cache:"no-store"}),timeout(2500)])
       .then(function(r){if(!r.ok)throw new Error("http "+r.status);return r.json();})
       .then(function(j){if(!j||typeof j!=="object")throw new Error("empty");return j;});
   }
