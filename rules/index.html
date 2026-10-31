@@ -10,7 +10,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Boarding rules · littlehill">
 <meta property="og:description" content="How the auction works, what each ticket includes, and what you can do with your traveller.">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://littlehill.page/rules/"><meta property="og:image" content="https://littlehill.page/assets/og/og-rules.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="How the auction works, what each ticket includes, and what is yours.">
 <meta name="twitter:site" content="@little_hill01">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23141c30%27/%3E%3Crect x=%2712%27 y=%279%27 width=%278%27 height=%2713%27 rx=%272%27 fill=%27%23f2b45a%27/%3E%3Crect x=%2714%27 y=%276%27 width=%274%27 height=%273%27 fill=%27%23e8e4da%27/%3E%3Crect x=%2711%27 y=%2722%27 width=%2710%27 height=%272%27 fill=%27%23e8e4da%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -458,6 +459,254 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap">
 <style id="ink-rule">[data-lang="en"] h1{font:700 clamp(2.6rem,9vw,3.8rem)/1 "Caveat","Sriracha",cursive!important}.lhb .h{font:700 1.75rem/1.05 "Caveat","Sriracha",cursive!important}.lhb .tk .n,.t-title{font-family:"Caveat","Sriracha",cursive!important;font-weight:700!important}.lhb .tk .n{font-size:1.35rem!important}.lhb .card .l{font:700 1.12rem/1.3 "Caveat","Sriracha",cursive!important}.lhb .pol .cap{font:700 1.05rem/1.1 "Caveat","Sriracha",cursive!important}.lhb-fold .fh,.lhb-sheet h2{font-family:"Caveat","Sriracha",cursive!important;font-weight:700!important}[data-lang="th"] .lhb .h,[data-lang="th"] .lhb-sheet h2{font-family:"Sriracha",cursive!important;font-weight:400!important}</style>
 <link rel="stylesheet" href="../assets/head.css">
+<style>/* r18 · tickets as a train (Dell chose A, 30 Oct): each ticket is a carriage you swipe through · the windows are what you get · each carriage couples to the ones before it ("everything in …, plus") · wording/prices unchanged */
+html.lhtrain .tickets{display:flex!important;gap:16px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+  padding:26px 9% 44px;margin:0 -16px;align-items:stretch;position:relative;
+  background:linear-gradient(transparent calc(100% - 22px),rgba(232,228,218,.0) calc(100% - 22px)),repeating-linear-gradient(90deg,rgba(150,140,170,.55) 0 16px,transparent 16px 26px) left calc(100% - 20px)/100% 2px no-repeat}
+html.lhtrain .tickets::-webkit-scrollbar{display:none}
+html.lhtrain details.tk{flex:0 0 min(82%,400px);scroll-snap-align:center;position:relative;border-radius:20px 20px 9px 9px!important;background:var(--car,#e9e1cd);color:#2a2620;
+  box-shadow:inset 0 -12px 0 rgba(0,0,0,.18),0 26px 34px -18px rgba(0,0,0,.85);padding-bottom:18px;transform:none!important;transition:transform .35s cubic-bezier(.3,.7,.2,1),opacity .35s}
+html.lhtrain details.tk:nth-child(1){--car:#dcd5c3}html.lhtrain details.tk:nth-child(2){--car:#d3dfcb}html.lhtrain details.tk:nth-child(3){--car:#f0e1c4}html.lhtrain details.tk:nth-child(4){--car:#e8cc93}
+html.lhtrain details.tk::before{content:"";position:absolute;left:12px;right:12px;top:-11px;height:14px;border-radius:14px 14px 0 0;background:rgba(0,0,0,.28)}
+html.lhtrain details.tk::after{content:"";position:absolute;left:30px;right:30px;bottom:-15px;height:28px;background:radial-gradient(circle 13px at 13px 50%,#1b1a26 0 8px,#3b3748 8.5px 13px,transparent 13.5px),radial-gradient(circle 13px at calc(100% - 13px) 50%,#1b1a26 0 8px,#3b3748 8.5px 13px,transparent 13.5px)}
+html.lhtrain details.tk:not(:first-child) .inside h4::before{content:"⟵ ";letter-spacing:0}
+html.lhtrain .tk .coupler{position:absolute;left:-18px;bottom:22px;width:20px;height:6px;border-radius:3px;background:#3b3748}
+html.lhtrain details.tk>summary{cursor:default;background:none!important;box-shadow:none!important;border:0!important;display:block!important;position:relative;padding:18px 16px 4px!important}
+html.lhtrain details.tk .t-stub{position:absolute!important;right:16px;top:16px;width:auto!important;display:block!important}html.lhtrain details.tk .t-main>.t-class{display:block;padding-right:96px}html.lhtrain details.tk .t-main .t-title{margin-top:4px}html.lhtrain details.tk .t-stub .t-class{margin-right:5px}
+html.lhtrain details.tk>summary .t-main,html.lhtrain details.tk>summary .t-stub{background:none!important;border:0!important;padding:0!important;box-shadow:none!important}
+html.lhtrain details.tk .t-open{display:none!important}
+html.lhtrain details.tk>summary .t-main{order:1;min-width:0}html.lhtrain details.tk>summary .t-stub{order:2}
+html.lhtrain details.tk>summary::before,html.lhtrain details.tk>summary::after,html.lhtrain details.tk .t-stub::before,html.lhtrain details.tk .t-stub::after{display:none!important}
+html.lhtrain details.tk>summary{flex-direction:row!important}
+html.lhtrain details.tk .t-stub{text-align:right;align-self:start}
+html.lhtrain details.tk .t-main p{font-size:13.5px;line-height:1.45;margin:6px 0 0;color:rgba(42,38,32,.82)}
+html.lhtrain details.tk .inside{background:none!important;box-shadow:none!important;border:0!important;margin:0!important;padding:8px 14px 10px!important;color:#2a2620!important;animation:none!important}
+html.lhtrain details.tk .inside h4{display:inline-block;margin:4px 0 10px!important;padding:4px 10px;border-radius:999px;background:rgba(42,38,32,.08);color:rgba(42,38,32,.7)!important}
+html.lhtrain details.tk .inside p{color:rgba(42,38,32,.85)!important}
+html.lhtrain details.tk .inside .ex{color:rgba(42,38,32,.5)!important}
+/* the windows: every picture block becomes a lit carriage window */
+html.lhtrain details.tk .items{display:grid!important;grid-template-columns:1fr 1fr;gap:9px}
+html.lhtrain details.tk .it{background:linear-gradient(180deg,#2e3458,#1d2244);color:#ffe7c2;border-radius:14px 14px 5px 5px;padding:7px 7px 9px;font:500 10.5px/1.3 "IBM Plex Mono",monospace;box-shadow:inset 0 0 0 3px rgba(0,0,0,.25),0 0 16px rgba(242,180,90,.18)}
+html.lhtrain details.tk .it .mk{border-radius:10px 10px 3px 3px!important;margin-bottom:6px;overflow:hidden}
+html.lhtrain details.tk .inside>.two,html.lhtrain details.tk .inside>figure{background:linear-gradient(180deg,#2e3458,#1d2244);border-radius:16px 16px 6px 6px;padding:9px;box-shadow:inset 0 0 0 3px rgba(0,0,0,.25),0 0 22px rgba(242,180,90,.35);color:#ffe7c2}
+html.lhtrain details.tk .inside>.two p,html.lhtrain details.tk .inside>figure figcaption{color:#ffe7c2!important}
+html.lhtrain details.tk .inside .mk{border-radius:10px 10px 3px 3px}
+html.lhtrain details.tk.dim{opacity:.62;transform:scale(.94)!important;transform-origin:50% 100%}
+/* the little train map + caption */
+.lhtrain-map{display:flex;gap:6px;justify-content:center;margin:6px 0 0}
+.lhtrain-map button{appearance:none;border:0;cursor:pointer;height:30px;min-width:0;flex:0 1 74px;border-radius:8px 8px 3px 3px;background:rgba(236,231,220,.12);color:rgba(236,231,220,.7);font:500 10px "IBM Plex Mono",monospace;letter-spacing:.06em;padding:0 6px;position:relative}
+.lhtrain-map button.on{background:#f2b45a;color:#1d1508}
+.lhtrain-map button+button::before{content:"";position:absolute;left:-6px;top:50%;width:6px;height:2px;background:rgba(236,231,220,.25)}
+.lhtrain-cap{text-align:center;font-size:13px;line-height:1.5;margin:10px 0 0;color:inherit;opacity:.85}
+.lhtrain-cap b{color:#f2b45a;font-weight:600}
+/* on the cream notice-board paper */
+.lhb-sheet .lhtrain-map button{background:rgba(42,38,32,.08);color:rgba(42,38,32,.72)}.lhb-sheet .lhtrain-map button.on{background:#2a2620;color:#f2e6cf}.lhb-sheet .lhtrain-map button+button::before{background:rgba(42,38,32,.25)}.lhb-sheet .lhtrain-cap b{color:#8c2a33}
+html[lang=th] .lhtrain-map button{font-family:"IBM Plex Sans Thai",sans-serif}
+@media (min-width:900px){html.lhtrain .tickets{padding-left:calc(50% - 200px);padding-right:calc(50% - 200px)}}
+</style>
+<style>/* r20 · J+ "the bid is the train" (Dell 30 Oct) · the tickets become stations on one line; the light is the bid */
+html.lhline .tickets.lhj{position:relative;display:block!important;padding:4px 0 2px 42px}
+.lhj>.lhj-rail{position:absolute;left:16px;top:var(--y0,24px);height:var(--h,0);width:4px;border-radius:2px;background:repeating-linear-gradient(currentColor 0 8px,transparent 8px 13px);opacity:.28}
+.lhj>.lhj-fill{position:absolute;left:16px;top:var(--y0,24px);width:4px;height:0;border-radius:2px;background:#f2b45a;transition:height .12s linear}
+.lhj>.lhj-end{position:absolute;left:12px;width:12px;height:12px;margin-top:-6px;border-radius:2px;background:currentColor;opacity:.35}
+.lhj-win{display:flex;align-items:center;gap:7px;margin:0 0 4px;font:500 11px "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.lhj-win i{width:13px;height:17px;border-radius:7px 7px 2px 2px;background:#3a3550;box-shadow:inset 0 0 0 2px #2a2620}
+.lhj details.won .lhj-win i{background:linear-gradient(#ffd58e,#f2a33a);box-shadow:inset 0 0 0 2px #2a2620,0 0 10px rgba(242,163,58,.75)}.lhj details.won .lhj-win{color:#9a5a0c;opacity:1}
+.lhj-th .lhj-win{font-family:"IBM Plex Sans Thai",sans-serif;letter-spacing:0;text-transform:none;font-size:12px}
+.lhj-strip{display:flex;gap:8px;margin:10px 0 2px;align-items:flex-end;overflow:hidden;padding:4px 2px}
+.lhj-strip .mk.img:only-child{width:150px!important;height:96px!important;transform:rotate(-1.5deg)} /* Homeward: a whole new picture gets a bigger frame */
+.lhj-strip .mk{flex:0 0 auto;width:62px!important;height:62px!important;min-height:0!important;margin:0!important;border-radius:6px!important;overflow:hidden;box-shadow:0 6px 12px -6px rgba(0,0,0,.5);transform:rotate(-2deg);background:#2e3458}
+.lhj-strip .mk:nth-child(2n){transform:rotate(2.5deg)}.lhj-strip .mk img{width:100%!important;height:100%!important;object-fit:cover}.lhj-strip .mk img.contain{object-fit:contain}
+.lhj-strip .mk.wide{width:78px!important}.lhj-strip .mk .phones{transform:scale(.7)}.lhj-strip .mk.name{font-size:16px!important;display:flex;align-items:center;justify-content:center;background:#f4efe2;color:#2a2620}
+.lhj .inside>.lhj-moved{margin:0 0 12px!important;font-size:14px;line-height:1.5}
+.lhj>.lhj-mark{position:absolute;left:9px;z-index:4;padding:6px 2px;border-radius:999px;background:#f2b45a;color:#1d1508;font:500 10px/1.3 "IBM Plex Mono",monospace;white-space:nowrap;writing-mode:vertical-rl;rotate:180deg;transform:translate(0,-50%)}
+.lhj-bar{margin:0 0 12px;font-size:12.5px;line-height:1.45;opacity:.85}
+.lhj-bar.pin{position:sticky;top:0;z-index:4;opacity:1;padding:7px 12px;border-radius:999px;background:var(--ground,#f2ece0);box-shadow:0 0 0 1px rgba(242,180,90,.6),0 8px 16px -10px rgba(0,0,0,.4);font:500 12px/1.3 "IBM Plex Mono",monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lhj-th .lhj-bar.pin,.lhj-bar.lhj-th.pin{font-family:"IBM Plex Sans Thai",sans-serif}
+.lhj-bar .h{font:700 22px/1.1 Caveat,cursive;color:#9a5a0c}.lhj-bar .b{font-size:12.5px;opacity:.85}
+.lhj-th .lhj-bar .h,.lhj-bar.lhj-th .h{font:400 17px/1.3 Sriracha,cursive}
+.lhj>.lhj-lamp{position:absolute;left:18px;top:0;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;z-index:3;pointer-events:none;transition:transform .12s linear;will-change:transform}
+.lhj>.lhj-lamp::before{content:"";position:absolute;left:9px;top:9px;width:26px;height:26px;border-radius:50%;background:#ffd38a;box-shadow:0 0 0 5px rgba(245,154,62,.25),0 0 26px 10px rgba(245,154,62,.45)}
+.lhj>.lhj-lamp.drag{transition:none;cursor:grabbing}.lhj>.lhj-lamp:focus-visible{outline:2px solid #f2b45a;outline-offset:2px}
+.lhj details.tk{position:relative;margin:0 0 14px!important;transition:opacity .3s}
+.lhj details.tk:not(.lit){opacity:.62}
+.lhj>.lhj-dot{position:absolute;left:10px;top:0;z-index:2;width:16px;height:16px;border-radius:50%;background:var(--ground,#0b1028);border:2px solid currentColor;opacity:.6;pointer-events:none}
+.lhj details.cur>summary{box-shadow:0 0 0 2px #f2b45a,0 12px 24px -14px rgba(42,38,32,.6)!important}
+.lhj>.lhj-dot.won{background:#f2b45a;border-color:#f2b45a;opacity:1}
+.lhj-life{display:flex;align-items:center;gap:10px;margin:8px 0 0!important;font:400 21px/1.05 "Reenie Beanie",cursive!important;color:inherit!important}
+html[lang=th] .lhj-life,[data-lang=th] .lhj-life,.lhj-th .lhj-life{font:400 15px/1.3 Sriracha,cursive!important}
+.lhj-pic{flex:0 0 46px;height:36px;border-radius:7px;position:relative;overflow:hidden;background:#1d2450}
+.lhj-pic.p0::after{content:"";position:absolute;left:17px;top:5px;width:12px;height:24px;border-radius:3px;border:2px solid #ece6d6}
+.lhj-pic.p1::before{content:"";position:absolute;left:7px;top:10px;width:14px;height:14px;border-radius:50%;background:#e3a13a}.lhj-pic.p1::after{content:"";position:absolute;left:25px;top:11px;width:14px;height:18px;border-radius:3px;background:#ece6d6}
+.lhj-pic.p2{background:linear-gradient(#2a2244,#171230)}.lhj-pic.p2::after{content:"";position:absolute;left:5px;right:5px;bottom:5px;height:11px;border-radius:8px 8px 3px 3px;background:#8c6fb0}.lhj-pic.p2::before{content:"";position:absolute;left:9px;bottom:13px;width:8px;height:8px;border-radius:50%;background:#ffd38a;box-shadow:0 0 8px #ffd38a}
+.lhj-pic.p3::after{content:"";position:absolute;left:6px;right:6px;top:5px;bottom:8px;border:2px solid #ece6d6;border-radius:4px}.lhj-pic.p3::before{content:"";position:absolute;left:18px;top:12px;width:10px;height:10px;border-radius:50%;background:#e36a6a}
+.lhj-one{display:flex;gap:12px;align-items:center;border:1px solid rgba(242,180,90,.45);border-radius:12px;padding:10px 14px;margin:6px 0 14px;font-size:13.5px;line-height:1.45}
+.lhj-one b{font:700 30px/1 Caveat,cursive;color:#f2b45a;white-space:nowrap;font-weight:700}
+.lhj-meter{margin:0 0 16px;padding:12px 14px 10px;border-radius:12px;background:rgba(242,180,90,.08)}
+.lhj-read{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.lhj-read .k{font:500 11px "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;opacity:.75;flex-basis:100%}
+.lhj-read .v{font:400 28px/1 "Special Elite",monospace;color:#f2b45a}.lhj-read .v small{font:500 12px "IBM Plex Mono",monospace;opacity:.7;margin-left:6px;color:inherit}
+.lhj-read .t{font:500 14px "IBM Plex Mono",monospace}
+.lhj-read .nx{flex-basis:100%;font-size:12.5px;opacity:.8}
+html[lang=th] .lhj-read .k,html[lang=th] .lhj-read .t,[data-lang=th] .lhj-read .k,[data-lang=th] .lhj-read .t,.lhj-th .lhj-read .k,.lhj-th .lhj-read .t{font-family:"IBM Plex Sans Thai",sans-serif;letter-spacing:0;text-transform:none}
+.lhj-r{width:100%;margin:12px 0 4px;accent-color:#f2b45a;height:28px}
+.lhj-hint{font-size:12px;opacity:.75;margin:2px 0 0!important}
+.lhj-back{appearance:none;border:1px solid rgba(242,180,90,.6);background:none;color:inherit;border-radius:999px;padding:5px 12px;font:500 12px "IBM Plex Mono",monospace;cursor:pointer;margin-top:8px}
+.lhb-sheet .lhj-pic{background:#2e3458}.lhb-sheet .lhj-read .v{color:#9a5a0c}.lhb-sheet .lhj-one b{color:#9a5a0c}.lhb-sheet .lhj-one{border-color:rgba(154,90,12,.45)}.lhb-sheet .lhj-meter{background:rgba(154,90,12,.08)}.lhb-sheet .lhj-back{border-color:rgba(154,90,12,.6)}
+@media (prefers-reduced-motion:reduce){.lhj>.lhj-lamp,.lhj>.lhj-fill{transition:none}}
+/* r23 · objects drawn like the No.001 house (sample art) · tap one to see it close */
+.lhj-objs{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:8px;margin:10px 0 2px;align-items:start}
+.lhj-objs.solo{grid-template-columns:minmax(0,1fr)}.lhj-objs.solo .sg{max-width:190px}
+.lhj-objs .rest{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 6px}
+button.lo{display:grid;gap:4px;justify-items:center;align-content:start;min-width:0;background:none;border:0;padding:0;margin:0;color:inherit;cursor:zoom-in;text-align:center;font:500 9.5px/1.25 "IBM Plex Mono",monospace;-webkit-tap-highlight-color:transparent}
+.lhj-th button.lo{font-family:"IBM Plex Sans Thai",sans-serif;font-size:10.5px}
+button.lo .o{position:relative;width:100%;aspect-ratio:1;display:grid;place-items:center}
+button.lo .lo-n{opacity:.75;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+button.lo.sg .lo-n{opacity:.95;font-size:10.5px}
+.lhj-objs .rest .lo-n{display:none} /* small objects: the name is in the close-up (tap) · narrow columns can't hold it */
+@media (min-width:560px){.lhj-objs .rest .lo-n{display:-webkit-box}}
+button.lo:focus-visible{outline:2px solid #f2b45a;outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:no-preference){button.lo .o{transition:transform .4s cubic-bezier(.22,.61,.24,1)}button.lo:hover .o{transform:translateY(-3px)}}
+.lhj details.tk:not(.won) button.lo .o>*{filter:saturate(.55) brightness(.85)}
+.lo-sh{box-shadow:0 1px 1px rgba(0,0,0,.3),0 10px 18px -4px rgba(0,0,0,.45)}
+.lo-paper{position:relative;background:#f4efe2;color:#2a2620;box-shadow:0 1px 1px rgba(0,0,0,.2),0 10px 18px -6px rgba(0,0,0,.4)}
+.lo-print{width:78%;aspect-ratio:4/5;background:#fff;padding:6%;transform:rotate(-2deg)}
+.lo-print img,.lo-sheet img,.lo-frame img,.lo-phone img,.lo-pass img{width:100%;height:100%;object-fit:cover;display:block}
+.lo-png{width:78%;aspect-ratio:4/5;background:repeating-conic-gradient(#d9d4c8 0 25%,#f4f1ea 0 50%) 50%/12px 12px;transform:rotate(2deg);display:grid;place-items:end center;overflow:hidden}
+.lo-png img{width:120%;max-width:none;-webkit-mask-image:radial-gradient(closest-side,#000 70%,transparent);mask-image:radial-gradient(closest-side,#000 70%,transparent);transform:translateY(12%)}
+.lo-pass{width:94%;aspect-ratio:1200/750;border-radius:5px;overflow:hidden;transform:rotate(-4deg)}
+.lo-phone{width:46%;aspect-ratio:9/19;border-radius:10px;background:#0b0d14;padding:4%;box-shadow:0 10px 18px rgba(0,0,0,.45),inset 0 0 0 1.5px #2b3040}.lo-phone img{border-radius:6px}
+.lo-slip{width:84%;padding:12% 6%;font:400 clamp(1.1rem,5vw,2rem)/1 "Reenie Beanie","Sriracha",cursive;white-space:nowrap;transform:rotate(-3deg);text-align:center}
+.lo-layers{width:66%;aspect-ratio:4/5;position:relative}
+.lo-layers i{position:absolute;inset:0;border-radius:3px;box-shadow:0 8px 14px rgba(0,0,0,.3);background-size:cover;background-position:50% 30%}
+.lo-layers i:nth-child(1){transform:translate(-14%,10%) rotate(-6deg);background-color:#f4f1ea;filter:grayscale(1) contrast(3) brightness(1.4);opacity:.9}
+.lo-layers i:nth-child(2){transform:translate(-5%,4%) rotate(-2deg);filter:saturate(.3) brightness(1.2);opacity:.9}
+.lo-layers i:nth-child(3){transform:translate(4%,-2%) rotate(2deg);filter:brightness(.7)}.lo-layers i:nth-child(4){transform:translate(12%,-8%) rotate(6deg)}
+.lo-doc{width:70%;aspect-ratio:3/4;transform:rotate(3deg);padding:12% 10%;display:grid;align-content:start;gap:7%}
+.lo-doc i{display:block;height:5%;min-height:3px;background:rgba(42,38,32,.2);border-radius:2px}
+.lo-doc i:nth-child(1){width:60%;background:rgba(42,38,32,.45)}.lo-doc i:nth-child(3){width:85%}.lo-doc i:nth-child(5){width:70%}
+.lo-doc b{position:absolute;right:10%;bottom:9%;width:30%;aspect-ratio:1;border:1.5px solid #8c2a33;border-radius:50%;color:#8c2a33;display:grid;place-items:center;font:400 .8rem "Special Elite",monospace;transform:rotate(-12deg)}
+.lo-frame{width:86%;aspect-ratio:4/5;background:linear-gradient(135deg,#3a2a1c,#21170f);padding:7%;transform:rotate(-1deg)}
+.lo-frame div{width:100%;height:100%;background:#efe9db;padding:7%}
+.lo-sheet{width:92%;aspect-ratio:4/3;background:#fff;padding:4%;transform:rotate(2deg)}
+.lo-faces{width:84%;aspect-ratio:4/3;transform:rotate(-2deg);display:grid;grid-template-columns:1fr 1fr;gap:8%;padding:9%}
+.lo-faces i{background:#2a2620;border-radius:3px}
+dialog.lhj-lb{border:0;padding:0;background:none;color:#ece7dc;max-width:none;max-height:none;width:100%;height:100%;margin:0;inset:0}
+dialog.lhj-lb::backdrop{background:rgba(6,9,18,.9)}
+dialog.lhj-lb .in{position:relative;height:100%;display:grid;place-items:center;align-content:center;gap:20px;padding:60px 20px 30px}
+dialog.lhj-lb .o{width:min(80vw,56svh,500px);aspect-ratio:1;display:grid;place-items:center}
+dialog.lhj-lb .o .lo-slip{font-size:clamp(2.4rem,12vw,4.5rem)}
+dialog.lhj-lb .t{display:grid;gap:4px;justify-items:center;text-align:center;max-width:36ch;font-family:"IBM Plex Mono","IBM Plex Sans Thai",monospace}
+dialog.lhj-lb small{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#f2b45a}dialog.lhj-lb b{font:400 1.05rem/1.4 "Special Elite","IBM Plex Sans Thai",monospace}
+dialog.lhj-lb .t span{font-size:12px;opacity:.7}dialog.lhj-lb em{font-style:normal;font-size:11px;opacity:.5}
+dialog.lhj-lb .x{position:absolute;right:12px;top:12px;width:44px;height:44px;border:0;background:none;color:inherit;font-size:1.1rem;cursor:pointer}
+dialog.lhj-lb .nav{display:flex;align-items:center;gap:16px;font:500 12px "IBM Plex Mono",monospace;opacity:.8}dialog.lhj-lb .nav button{width:44px;height:44px;border:1px solid rgba(236,231,220,.25);border-radius:50%;background:none;color:inherit;cursor:pointer}
+@media (prefers-reduced-motion:no-preference){dialog.lhj-lb[open] .o{animation:lhjin .6s cubic-bezier(.22,.61,.24,1)}}@keyframes lhjin{from{opacity:0;transform:scale(.94)}}
+
+</style>
+<script src="../assets/live.js"></script>
+<script>/* r21 · J+ (Dell 30 Oct: "the bid is the train" → 19:18 "dragging the price is fiddly — let the light follow my scrolling")
+   runs on the page and again on the paper opened from the notice board · the tickets keep the same words (no JS = the plain list)
+   · the yellow light rides the line at the reader's eye level as they scroll: every ticket it has passed lights up (each includes the ones before)
+   · the real bid is a fixed mark on the line ("$120 now") while bidding is open · closed = the final bid · after she goes home no price is shown
+   · a small bar stays at the top of the paper: where the light is + the real bid · boxes open only when tapped (keeps the line short) */
+(function(){
+ var TX={en:{one:"<b>1 of 1</b><span>Each design is sold once, to one owner. littlehill never sells merch of your traveller. Everything you can get is on this line: no hidden bonuses, no random extras.</span>",
+   here:"{t} · from {p}",bid:"Bid now {v} → {t}",fbid:"Final bid {v} → {t}",nx:" · {t} in {d}",start:"Bidding starts at {v}. Each window lights up when the bid reaches it.",door:"always open",litw:"lit",unlit:"lights at {p}",
+   life:["On your phone, and on your wall.","On the things you sell.","Waking up under their own blanket.","On your stream, or in your game."]},
+  th:{one:"<b>1 of 1</b><span>แต่ละดีไซน์ขายครั้งเดียว ให้เจ้าของคนเดียว · littlehill ไม่ขายสินค้าที่มีตัวละครของคุณ · ของทุกอย่างที่ได้อยู่บนเส้นนี้ ไม่มีของแถมซ่อน ไม่มีสุ่ม</span>",
+   here:"{t} · เริ่ม {p}",bid:"บิดตอนนี้ {v} → ตั๋ว {t}",fbid:"ราคาปิด {v} → ตั๋ว {t}",nx:" · อีก {d} ถึง {t}",start:"บิดเริ่มที่ {v} · หน้าต่างของแต่ละตั๋วติดไฟเมื่อราคาบิดไปถึง",door:"เปิดเสมอ",litw:"ติดไฟแล้ว",unlit:"ไฟติดที่ {p}",
+   life:["อยู่บนมือถือ และบนผนังห้องคุณ","อยู่บนของที่คุณขาย","ตื่นขึ้นใต้ผ้าห่มของตัวเอง","อยู่บนสตรีม หรือในเกมของคุณ"]}};
+ var LIVE=null,BOXES=[];
+ function lang(el){var h=el.closest("[data-lang]");if(h)return h.getAttribute("data-lang")==="th"?"th":"en";return /[฀-๿]/.test(el.textContent)?"th":"en";} /* the board paper is a copy outside the language wrapper: read the words */
+ function nameOf(d){var t=d.querySelector(".t-title");if(!t)return "";var n=t.firstChild;return ((n&&n.nodeType===3?n.textContent:t.textContent)||"").trim();}
+ function priceOf(d){var p=d.querySelector(".t-price");return p?+(p.textContent.replace(/[^\d]/g,""))||0:0;}
+ function mk(t,c,h){var e=document.createElement(t);e.className=c;if(h!=null)e.innerHTML=h;return e;}
+ function money(v){return "$"+v.toLocaleString("en-US");}
+ var IMG="../traveller/001/img/",KINDS=[["print","png","pass","phone","slip"],["licence","psd"],["homeward"],["sheet","faces","vt"]];
+ var ITEMS=[[["Full-size PNG / JPEG + colour palette","PNG / JPEG เต็ม + พาเลตสี","PNG · JPEG · within 48 h"],["Transparent PNG","PNG พื้นใส","PNG · within 48 h"],["Traveller's Pass, front + back","Traveller's Pass หน้า + หลัง","PNG 2400×1500 · within 48 h"],["Wallpapers (phone + desktop)","วอลเปเปอร์ (มือถือ + คอม)","PNG · within 48 h"],["Hand-lettered name","ชื่อเขียนมือ","PNG · within 48 h"]],
+   [["Commercial use","สิทธิ์เชิงพาณิชย์","licence text · on payment"],["Layered PSD","PSD แยกชั้น","PSD · within 48 h"]],
+   [["Homeward illustration","ภาพ Homeward","PNG · 4:5 · within 14 days"]],
+   [["Front / back character sheet","ชีตตัวละคร หน้า / หลัง","PNG · within 21 days"],["Expression sheet, 3–4 faces","ชีตสีหน้า 3–4 แบบ","PNG · within 21 days"],["VTuber & game use","ใช้ทำ VTuber / เกมได้","licence text · on payment"]]];
+ var LBX={en:{x:"Close",p:"Previous",n:"Next",s:"sample art · comes with No.001"},th:{x:"ปิด",p:"ก่อนหน้า",n:"ถัดไป",s:"ภาพตัวอย่าง · ภาพจริงมากับ No.001"}};
+ function obj(k){var im=function(f){return '<img src="'+IMG+f+'" alt="" loading="lazy" decoding="async">';};switch(k){
+  case "print":return '<div class="lo-print lo-sh">'+im("g1-front.webp")+'</div>';
+  case "png":return '<div class="lo-png lo-sh">'+im("hero.webp")+'</div>';
+  case "pass":return '<div class="lo-pass lo-sh">'+im("pass-front.webp")+'</div>';
+  case "phone":return '<div class="lo-phone">'+im("g2-face.webp")+'</div>';
+  case "slip":return '<div class="lo-slip lo-paper">Name</div>';
+  case "licence":return '<div class="lo-doc lo-paper"><i></i><i></i><i></i><i></i><i></i><b>§</b></div>';
+  case "psd":return '<div class="lo-layers">'+[1,2,3,4].map(function(){return '<i style="background-image:url('+IMG+'hero.webp)"></i>';}).join("")+'</div>';
+  case "homeward":return '<div class="lo-frame lo-sh"><div>'+im("b-homeward-crop.webp")+'</div></div>';
+  case "sheet":return '<div class="lo-sheet lo-sh">'+im("b-sheet-crop.webp")+'</div>';
+  case "faces":return '<div class="lo-faces lo-paper"><i></i><i></i><i></i><i></i></div>';
+  case "vt":return '<div class="lo-doc lo-paper"><i></i><i></i><i></i><i></i><i></i><b>▶</b></div>';}return "";}
+ function objs(i,lg){var ks=KINDS[i],it=ITEMS[i];if(!ks)return null;var w=mk("div","lhj-objs"+(ks.length<2?" solo":"")),li=lg==="th"?1:0;
+  function b(j,c){return '<button type="button" class="lo'+(c?" "+c:"")+'" data-j="'+j+'"><span class="o" aria-hidden="true">'+obj(ks[j])+'</span><span class="lo-n">'+it[j][li]+'</span></button>';}
+  w.innerHTML=b(0,"sg")+(ks.length>1?'<div class="rest">'+ks.slice(1).map(function(_,k){return b(k+1);}).join("")+'</div>':"");
+  w.addEventListener("click",function(e){var x=e.target.closest("button.lo");if(!x)return;e.preventDefault();e.stopPropagation();lb(i,+x.dataset.j,lg);});
+  return w;}
+ var LB=null,LBS={i:0,j:0,lg:"en"};
+ function lb(i,j,lg){LBS={i:i,j:j,lg:lg};if(!LB){LB=document.createElement("dialog");LB.className="lhj-lb";LB.innerHTML='<div class="in"><button type="button" class="x"></button><div class="o" aria-hidden="true"></div><div class="t"><small></small><b></b><span></span><em></em></div><div class="nav"><button type="button" class="p">←</button><span class="c"></span><button type="button" class="n">→</button></div></div>';document.body.appendChild(LB);
+    LB.querySelector(".x").onclick=function(){LB.close();};LB.querySelector(".p").onclick=function(){step(-1);};LB.querySelector(".n").onclick=function(){step(1);};
+    LB.addEventListener("click",function(e){if(e.target===LB||e.target.classList.contains("in"))LB.close();});LB.addEventListener("keydown",function(e){if(e.key==="ArrowRight")step(1);if(e.key==="ArrowLeft")step(-1);});}
+  show();if(LB.showModal&&!LB.open)LB.showModal();if(window.lhSound)lhSound.play("paper");}
+ function step(k){var n=KINDS[LBS.i].length;LBS.j=(LBS.j+k+n)%n;show();}
+ function show(){var it=ITEMS[LBS.i][LBS.j],li=LBS.lg==="th"?1:0,T=LBX[LBS.lg],n=KINDS[LBS.i].length;var o=LB.querySelector(".o");o.innerHTML=obj(KINDS[LBS.i][LBS.j]).replace(/ loading="lazy"/g,"");
+  LB.querySelector("small").textContent=["Traveller","Trader","Homeward","Stage"][LBS.i]+" · "+money([45,350,600,1200][LBS.i]);LB.querySelector("b").textContent=it[li];LB.querySelector(".t span").textContent=it[2];LB.querySelector("em").textContent=T.s;
+  LB.querySelector(".c").textContent=(LBS.j+1)+" / "+n;LB.querySelector(".nav").hidden=n<2;LB.querySelector(".x").textContent="✕";LB.querySelector(".x").setAttribute("aria-label",T.x);LB.querySelector(".p").setAttribute("aria-label",T.p);LB.querySelector(".n").setAttribute("aria-label",T.n);
+  o.style.animation="none";void o.offsetWidth;o.style.animation="";}
+ function scroller(el){for(var e=el.parentElement;e&&e!==document.body;e=e.parentElement){var o=getComputedStyle(e).overflowY;if((o==="auto"||o==="scroll")&&e.scrollHeight>e.clientHeight+4)return e;}return window;}
+ function build(box){if(box.dataset.line||!box.parentNode||!box.isConnected)return; /* a copy that was already taken off the page: nothing to do */var st=[].slice.call(box.querySelectorAll(":scope>details.tk"));if(st.length<2)return;box.dataset.line=1;
+  var L=TX[lang(box)],P=st.map(priceOf),N=st.length,at=-1;
+  box.classList.add("lhj");
+  var rail=mk("i","lhj-rail"),fill=mk("i","lhj-fill"),lamp=mk("i","lhj-end");[rail,fill,lamp].forEach(function(e){e.setAttribute("aria-hidden","true");});
+  box.insertBefore(lamp,box.firstChild);box.insertBefore(fill,lamp);box.insertBefore(rail,fill); /* r22: no roaming light ball (one warm light per screen) — the gold line grows as you read */
+  var dots=st.map(function(){var dot=mk("i","lhj-dot");dot.setAttribute("aria-hidden","true");box.insertBefore(dot,lamp);return dot;}); /* dots live on the line itself (a closed <details> hides its other children) */
+  st.forEach(function(d,i){d.open=false;
+    var tt=d.querySelector(".t-title");if(tt&&L.life[i]){var lf=mk("p","lhj-life",'<span class="lhj-pic p'+i+'" aria-hidden="true"></span><span></span>');lf.lastChild.textContent=L.life[i];tt.parentNode.insertBefore(lf,tt.nextSibling);}
+    /* r22 (from the No.001 house): a window that lights when the real bid reaches this ticket + the things in the box shown as objects on the ticket */
+    var cl=d.querySelector(".t-class");if(cl){var wl=mk("span","lhj-win",'<i aria-hidden="true"></i><span></span>');cl.parentNode.insertBefore(wl,cl);}
+    var ins=d.querySelector(".inside"),tp=d.querySelector(".t-main>p:not(.lhj-life)");if(ins&&tp){tp.classList.add("lhj-moved");ins.insertBefore(tp,ins.firstChild);} /* the long list moves into the box: same words, one tap away */
+    var ob=objs(i,lang(box));if(ob)(lf||tt).parentNode.insertBefore(ob,(lf||tt).nextSibling); /* r23: the things in each ticket drawn the way the No.001 house draws them · tap one to see it close */
+    d.addEventListener("toggle",function(){if(d.open)st.forEach(function(x){if(x!==d)x.open=false;});requestAnimationFrame(follow);});});
+  var one=mk("p","lhj-one",L.one),bar=mk("div","lhj-bar",'<span class="b" aria-live="polite"></span>'); /* r23: one slim line · it only stays pinned while there is a real bid */
+  if(lang(box)==="th")[box,bar,one].forEach(function(e){e.classList.add("lhj-th");});
+  box.parentNode.insertBefore(bar,box);box.parentNode.insertBefore(one,box.nextSibling);
+  var bb=bar.querySelector(".b");
+  function ys(){return st.map(function(d){return d.offsetTop+26;});}
+  function v2y(v,y){if(v<=P[0])return y[0];for(var i=0;i<N-1;i++)if(v<P[i+1])return y[i]+(v-P[i])/(P[i+1]-P[i])*(y[i+1]-y[i]);return y[N-1];}
+  function tierOf(v){var c=0;P.forEach(function(p,i){if(p<=v)c=i;});return c;}
+  var SC=null,tk=0;
+  function follow(){tk=0;var y=ys();box.style.setProperty("--y0",y[0]+"px");box.style.setProperty("--h",(y[N-1]-y[0])+"px");
+    dots.forEach(function(e,k){e.style.top=(y[k]-8)+"px";});
+    /* the reader's eye: 42% down the visible part of the paper (or the window) */
+    var vt=SC===window?0:SC.getBoundingClientRect().top,vh=SC===window?innerHeight:SC.clientHeight,eye=vt+vh*.42-box.getBoundingClientRect().top;
+    var ly=Math.max(y[0],Math.min(y[N-1],eye)),k=0;y.forEach(function(yy,i){if(yy<=ly+1)k=i;});
+    fill.style.height=(ly-y[0])+"px";lamp.style.transform="translate3d(0,"+ly.toFixed(1)+"px,0)";
+    dots.forEach(function(e,i){e.classList.toggle("on",i<=k);});st.forEach(function(d,i){d.classList.toggle("lit",i<=k);d.classList.toggle("cur",i===k);});
+    if(k!==at){if(at>=0&&window.lhSound&&box.dataset.ready)lhSound.play("tick");at=k;}
+    lamp.style.top=y[N-1]+"px";}
+  function wins(){var v=LIVE?LIVE.v:0;st.forEach(function(d,i){var on=i===0||v>=P[i],w=d.querySelector(".lhj-win");d.classList.toggle("won",on);dots[i].classList.toggle("won",on);if(w)w.lastChild.textContent=i===0?L.door:(on?L.litw:L.unlit.replace("{p}",money(P[i])));});}
+  function words(){wins();bar.classList.toggle("pin",!!LIVE);if(!LIVE){bb.textContent=L.start.replace("{v}",money(P[0]));return;}var k=tierOf(LIVE.v);
+    bb.textContent=(LIVE.kind==="fin"?L.fbid:L.bid).replace("{v}",money(LIVE.v)).replace("{t}",nameOf(st[k]))+(LIVE.kind!=="fin"&&k<N-1?L.nx.replace("{t}",nameOf(st[k+1])).replace("{d}",money(P[k+1]-LIVE.v)):"");}
+  function kick(){if(!tk)tk=requestAnimationFrame(follow);}
+  function attach(){var s=scroller(box);if(s!==SC){if(SC)SC.removeEventListener("scroll",kick);SC=s;SC.addEventListener("scroll",kick,{passive:true});}kick();}
+  attach();setTimeout(attach,400);setTimeout(attach,1200); /* the paper may only become scrollable after it opens */
+  if(window.ResizeObserver)new ResizeObserver(kick).observe(box);addEventListener("resize",kick);
+  BOXES.push({live:function(){words();kick();}});words();follow();setTimeout(function(){box.dataset.ready=1;},500);}
+ function all(root){if(root){[].forEach.call(root.querySelectorAll(".lhj-one,.lhj-bar,.lhj-meter,.lhj-rail,.lhj-fill,.lhj-lamp,.lhj-end,.lhj-dot,.lhj-mark,.lhj-life,.lhj-win,.lhj-strip,.lhj-objs"),function(e){e.remove();});[].forEach.call(root.querySelectorAll(".lhj-moved"),function(p){var d=p.closest("details"),m=d&&d.querySelector(".t-main .t-open");p.classList.remove("lhj-moved");if(m)m.parentNode.insertBefore(p,m);});[].forEach.call(root.querySelectorAll(".tickets"),function(b){delete b.dataset.line;delete b.dataset.ready;b.classList.remove("lhj","lhj-th");});[].forEach.call(root.querySelectorAll("details.tk"),function(d){d.classList.remove("lit","cur","won");});}
+  [].forEach.call((root||document).querySelectorAll(".tickets"),build);}
+ document.documentElement.classList.add("lhline");
+ if(document.readyState==="loading")addEventListener("DOMContentLoaded",function(){all();});else all();
+ new MutationObserver(function(ms){ms.forEach(function(m){[].forEach.call(m.addedNodes,function(n){if(n.nodeType===1&&n.isConnected&&n.querySelector&&n.querySelector(".tickets"))try{all(n);}catch(e){}});});}).observe(document.documentElement,{childList:true,subtree:true});
+ /* the real bid (one read, no live connection kept open on this page) */
+ function useState(s){var a=s&&s.auction;if(!a)return;var b=+a.currentBid||0;
+   if(a.status==="open"&&b)LIVE={v:b,kind:"now"};else if(a.status==="closed"&&b)LIVE={v:b,kind:"fin"};else LIVE=null;
+   BOXES.forEach(function(x){x.live();});}
+ function load(){var u="../state.json?t="+Date.now();(window.lhLive?lhLive.get(u):fetch(u).then(function(r){return r.json();})).then(useState,function(){});}
+ if(document.readyState==="complete")load();else addEventListener("load",load);
+})();</script>
 </head>
 <body>
 <div class="lh-bar lh-head"><a class="lh-home lh-logo" href="../">littlehill</a><nav class="lh-nav" aria-label="littlehill"><a data-k="traveller" href="../traveller/001/">Traveller No.001</a><a data-k="auction" href="../auction/">Auction</a><a data-k="rules" href="../rules/">Boarding rules</a><a data-k="x" class="lh-x" href="https://x.com/little_hill01" target="_blank" rel="noopener">X</a></nav></div>
@@ -567,7 +816,7 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
 </div><p style="margin:10px 0 0;font-size:14px">Sheets arrive within 21 days of full payment. Please tell me before you use them in a stream or game.</p><p class="ex">example layout · sample art comes with No.001</p></div>
       </details>
     </div>
-    <p class="note">The Homeward illustration comes with the $600 ticket. If your bid ends lower, you can upgrade later by paying the difference.<br>Every ticket includes the Inspiration card. No hidden bonuses: everything you get is listed on these tickets.<br>What you see is what you get: design changes after purchase aren't included. Extra poses or outfits are not included.</p>
+    <p class="note">The Homeward illustration comes with the $600 ticket. Whatever your bid, you can move up to a higher ticket later by paying the difference, within 90 days of the auction ending.<br>Every ticket includes the Inspiration card. No hidden bonuses: everything you get is listed on these tickets.<br>What you see is what you get: design changes after purchase aren't included. Extra poses or outfits are not included.</p>
     <button class="lhpass" type="button" aria-label="Turn the Pass over"><span class="in"><span class="pf"><img src="../traveller/001/img/pass-front.webp" alt="" decoding="async"></span><span class="pb"><img src="../traveller/001/img/pass-back.webp" alt="" decoding="async"></span></span></button><span class="lhpass-hint" aria-hidden="true">TAP TO TURN IT OVER</span>
     <div class="pass passtxt" aria-label="Example Traveller's Pass">
       <div class="h">TRAVELLER'S PASS</div>
@@ -608,7 +857,9 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
         <li>Cards, Apple Pay and Google Pay go through a Stripe payment link I send you. Thai buyers can pay by bank transfer (a PromptPay QR I send only to the winner). Prefer PayPal? Tell me, and I'll send a PayPal invoice instead.</li>
         <li>If you don't pay within 48 hours, the next highest bidder gets 48 hours to buy at their own highest bid. I offer it to the third bidder at most. You may not be able to join my future auctions.</li>
         <li>Paying in Thai baht? This auction uses a fixed rate of $1 = ฿34. It's set before bidding opens and doesn't change during the auction.</li>
+        <li>No extra fees: you pay the final bid, nothing more.</li>
         <li><b>Watch for fakes:</b> I only contact winners from @little_hill01 (X), mkioldell (DeviantArt), the littlehill Facebook page and home@littlehill.page, and payment links and bank details only come from me. If someone else messages you, it isn't me.</li>
+        <li>I don't post the winner's name unless you say yes.</li>
         <li><b>Payment plan</b> for winning bids of $350 or more: 50% within 48 hours, the rest within 30 days. From $1,200 you can also pay in three parts: 50% within 48 hours, 25% within 30 days, 25% within 60 days. Files are sent once payment is complete. I'll remind you before each due date. If a part isn't paid by its date, what you've paid isn't refunded and the character returns to littlehill.</li>
       </ul>
     </div>
@@ -641,9 +892,9 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
       <h3>littlehill may</h3>
       <ul>
         <li>Show the design in my portfolio and posts.</li>
-        <li>Bring your traveller back as a small cameo in a later episode, under the name you give them and drawn from your latest reference (e.g. Toyhouse). If you'd rather they didn't, just tell me.</li>
+        <li>Bring your traveller back as a small cameo in a later episode, under the name you give them and drawn from your latest reference (e.g. Toyhouse). If you'd rather they didn't, just tell me (episodes already out stay as they are).</li>
         <li>If your traveller appears in an episode, I can credit you as their owner by the name or handle you choose. This is optional: tell me if you'd like it. If the character changes owners later, earlier credits stay as they were.</li>
-        <li>Make its own merchandise using your blanket pattern.</li>
+        <li>Make its own merchandise using your blanket pattern (just the pattern, never your traveller).</li>
       </ul>
     </div>
     <div class="box">
@@ -651,6 +902,7 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
       <ul>
         <li>The character is yours: you can name them, write their story and use them as listed above.</li>
         <li>I keep the copyright of the artwork I drew.</li>
+        <li>littlehill will never sell merchandise of your traveller. A season keepsake with many travellers together (a group print or an artbook) includes yours only if you say yes first.</li>
         <li>If you trade or gift the character, these rights go with them. Please pass these terms on.</li>
       </ul>
       <h3>Changing owner</h3>
@@ -712,10 +964,12 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
    able to join my future auctions.
    Paying in Thai baht: a fixed rate of $1 = 34 baht for this auction,
    set before bidding opens and unchanged during the auction.
+   No extra fees: you pay the final bid, nothing more.
    I only contact winners from @little_hill01 (X), mkioldell
    (DeviantArt), the littlehill Facebook page and
    home@littlehill.page, and payment links and bank details only
    come from me. If someone else messages you, it isn't me.
+   I don't post the winner's name unless you say yes.
    Payment plan for winning bids of $350 or more: 50% within 48 hours,
    the rest within 30 days. From $1,200 you can also pay in three
    parts: 50% within 48 hours, 25% within 30 days, 25% within 60 days.
@@ -734,7 +988,8 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
            blanket.
    $1,200+ VTuber / game use (please tell me before you use it)
            + full front/back character sheet + expression sheet (3-4 faces).
-   Below $600, you can upgrade later by paying the difference.
+   Whatever your bid, you can move up to a higher ticket later by paying
+   the difference, within 90 days of the auction ending.
    Every level includes the Inspiration card. No hidden bonuses:
    everything you get is listed here.
    What you see is what you get. Not included: design changes after
@@ -755,17 +1010,20 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
    If you post my original art with your edits, please say it's edited.
    Don't resell for more than you paid (plus what you spent on extra art).
    Commercial use only from the $350 level; VTuber / game use only from
-   the $1,200 level. You can upgrade later by paying the difference.
+   the $1,200 level. You can move up to a higher ticket later by paying
+   the difference, within 90 days of the auction ending.
 
 6. littlehill may
    Show the design in portfolio and posts.
    Your traveller may return as a small cameo in a later episode, under
    the name you give them and drawn from your latest reference
-   (e.g. Toyhouse). If you'd rather they didn't, just tell me.
+   (e.g. Toyhouse). If you'd rather they didn't, just tell me
+   (episodes already out stay as they are).
    If your traveller appears in an episode, the current owner can be
    credited by the name or handle they choose (optional, on request).
    If the character changes owners, earlier credits stay as they were.
-   littlehill may make its own merchandise using your blanket pattern.
+   littlehill may make its own merchandise using your blanket pattern
+   (just the pattern, never your traveller).
 
 7. Fan works
    Fan works follow the littlehill Fan Works Guidelines.
@@ -789,6 +1047,9 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
    The character is yours: you can name them, write their story and
    use them as listed above.
    I keep the copyright of the artwork I drew.
+   littlehill will never sell merchandise of your traveller. A season
+   keepsake with many travellers together (a group print or an artbook)
+   includes yours only if you say yes first.
    If you trade or gift the character, these rights go with them.
    Please pass these terms on.
 
@@ -808,7 +1069,7 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
   <footer>
     <p class="hand">Questions before you board?</p>
     <p>Message <b>@little_hill01</b> on X, send a note to <b>mkioldell</b> on DeviantArt, message the <b>littlehill</b> Facebook page, or email <b><a href="mailto:home@littlehill.page">home@littlehill.page</a></b>.<br>
-    Terms v3 · last updated 28 Oct 2026 · bidding means you agree to these rules.</p>
+    Terms v3 · last updated 30 Oct 2026 · bidding means you agree to these rules.</p>
   </footer>
 </main>
 </div>
@@ -916,7 +1177,7 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
 </div><p style="margin:10px 0 0;font-size:14px">ชีตส่งภายใน 21 วันหลังจ่ายครบ · บอกผมก่อนเอาไปใช้ในสตรีมหรือเกม</p><p class="ex">ตัวอย่างเลย์เอาต์ · ภาพจริงมาพร้อม No.001</p></div>
       </details>
     </div>
-    <p class="note">ภาพ Homeward มากับตั๋ว $600 · ถ้าบิดจบต่ำกว่านั้น อัปเกรดทีหลังได้ด้วยการจ่ายส่วนต่าง<br>ทุกตั๋วได้ Inspiration card · ไม่มีของแถมซ่อน: ของที่ได้ทั้งหมดเขียนไว้ในตั๋วแล้ว<br>ได้ตามที่เห็น: ไม่รวมการแก้ดีไซน์หลังซื้อ · ท่าหรือชุดเพิ่มไม่รวมในตั๋ว</p>
+    <p class="note">ภาพ Homeward มากับตั๋ว $600 · ไม่ว่าบิดจบที่เท่าไร อัปเป็นตั๋วที่สูงกว่าได้ทีหลังโดยจ่ายส่วนต่าง ภายใน 90 วันหลังปิดประมูล<br>ทุกตั๋วได้ Inspiration card · ไม่มีของแถมซ่อน: ของที่ได้ทั้งหมดเขียนไว้ในตั๋วแล้ว<br>ได้ตามที่เห็น: ไม่รวมการแก้ดีไซน์หลังซื้อ · ท่าหรือชุดเพิ่มไม่รวมในตั๋ว</p>
     <button class="lhpass" type="button" aria-label="พลิกบัตร"><span class="in"><span class="pf"><img src="../traveller/001/img/pass-front.webp" alt="" decoding="async"></span><span class="pb"><img src="../traveller/001/img/pass-back.webp" alt="" decoding="async"></span></span></button><span class="lhpass-hint" aria-hidden="true">แตะเพื่อพลิกบัตร</span>
     <div class="pass passtxt" aria-label="ตัวอย่าง Traveller's Pass">
       <div class="h">TRAVELLER'S PASS</div>
@@ -957,7 +1218,9 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
         <li>บัตร Apple Pay และ Google Pay จ่ายผ่านลิงก์ Stripe ที่ผมส่งให้ · คนไทยโอนผ่านแอปธนาคารได้ (QR พร้อมเพย์ ผมส่งให้ผู้ชนะทางแชตเท่านั้น) · อยากจ่ายผ่าน PayPal บอกได้ ผมจะส่งใบแจ้งหนี้ PayPal ให้แทน</li>
         <li>ถ้าไม่จ่ายภายใน 48 ชม. ผู้บิดสูงสุดถัดไปจะได้สิทธิ์ซื้อในราคาบิดสูงสุดของเขาเอง ภายใน 48 ชม. (เสนอได้ถึงคนที่ 3) และคุณอาจเข้าร่วมประมูลครั้งหน้าไม่ได้</li>
         <li>จ่ายเป็นบาท: รอบนี้ใช้เรตตายตัว $1 = ฿34 ประกาศก่อนเปิดบิด และไม่เปลี่ยนระหว่างประมูล</li>
+        <li>ไม่มีค่าธรรมเนียมเพิ่ม: จ่ายเท่าราคาปิด ไม่มีบวกเพิ่ม</li>
         <li><b>ระวังบัญชีปลอม:</b> ผมติดต่อผู้ชนะจาก @little_hill01 (X) · mkioldell (DeviantArt) · เพจ Facebook littlehill และอีเมล home@littlehill.page เท่านั้น ลิงก์จ่ายเงินและเลขบัญชีมาจากผมคนเดียว ถ้ามีคนอื่นทักมา ไม่ใช่ผมนะ</li>
+        <li>ผมไม่ประกาศชื่อผู้ชนะ เว้นแต่คุณตอบตกลง</li>
         <li><b>แบ่งจ่าย</b> สำหรับบิดปิดตั้งแต่ $350: 50% ภายใน 48 ชม. ที่เหลือภายใน 30 วัน · ปิดตั้งแต่ $1,200 เลือกแบ่ง 3 งวดได้: 50% ภายใน 48 ชม. · 25% ภายใน 30 วัน · 25% ภายใน 60 วัน · ส่งไฟล์เมื่อจ่ายครบ · ผมจะเตือนก่อนครบทุกงวด · ถ้างวดไหนไม่จ่ายภายในกำหนด ที่จ่ายแล้วไม่คืน และตัวละครกลับมาที่ littlehill</li>
       </ul>
     </div>
@@ -990,9 +1253,9 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
       <h3>littlehill ทำได้</h3>
       <ul>
         <li>โชว์ดีไซน์ในพอร์ตและโพสต์</li>
-        <li>ให้ตัวละครของคุณกลับมาโผล่สั้น ๆ ในตอนหลัง ด้วยชื่อที่คุณตั้ง วาดจากเรฟล่าสุดของคุณ (เช่น Toyhouse) · ถ้าไม่อยากให้โผล่ บอกได้เลย</li>
+        <li>ให้ตัวละครของคุณกลับมาโผล่สั้น ๆ ในตอนหลัง ด้วยชื่อที่คุณตั้ง วาดจากเรฟล่าสุดของคุณ (เช่น Toyhouse) · ถ้าไม่อยากให้โผล่ บอกได้เลย (ตอนที่ออกไปแล้วยังคงอยู่ตามเดิม)</li>
         <li>ถ้าตัวละครของคุณได้โผล่ในตอน ผมใส่เครดิตคุณในฐานะเจ้าของได้ ด้วยชื่อหรือแฮนเดิลที่คุณเลือก · ไม่บังคับ บอกผมถ้าอยากให้ใส่ · ถ้าตัวละครเปลี่ยนเจ้าของภายหลัง เครดิตที่ใส่ไปแล้วคงไว้ตามเดิม</li>
-        <li>ทำสินค้าของ littlehill เองจากลายผ้าห่มของตัวคุณ</li>
+        <li>ทำสินค้าของ littlehill เองจากลายผ้าห่มของตัวคุณ (เฉพาะลาย ไม่มีตัวละครของคุณ)</li>
       </ul>
     </div>
     <div class="box">
@@ -1000,6 +1263,7 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
       <ul>
         <li>ตัวละครเป็นของคุณ: ตั้งชื่อ เขียนเรื่อง และใช้ได้ตามที่เขียนไว้ข้างบน</li>
         <li>ผมเก็บลิขสิทธิ์ของภาพที่ผมวาด</li>
+        <li>littlehill จะไม่ขายสินค้าที่มีตัวละครของคุณ · งานรวมตัวละครหลายตัวท้ายซีซัน (ภาพรวมหรือ artbook) จะใส่ตัวของคุณเฉพาะเมื่อคุณตอบตกลงก่อน</li>
         <li>ถ้าแลกหรือให้ตัวละครต่อ สิทธิ์เหล่านี้ไปด้วย · กรุณาส่งกติกานี้ต่อ</li>
       </ul>
       <h3>เปลี่ยนเจ้าของ</h3>
@@ -1034,7 +1298,7 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
   <footer>
     <p class="hand">มีคำถามก่อนขึ้นรถไฟ?</p>
     <p>ทักมาที่ <b>@little_hill01</b> บน X · ส่ง note ถึง <b>mkioldell</b> บน DeviantArt ทักเพจ Facebook <b>littlehill</b> หรืออีเมล <b><a href="mailto:home@littlehill.page">home@littlehill.page</a></b><br>
-    กติกา v3 · อัปเดต 28 ต.ค. 2569 · การบิดถือว่ายอมรับกติกานี้</p>
+    กติกา v3 · อัปเดต 30 ต.ค. 2569 · การบิดถือว่ายอมรับกติกานี้</p>
   </footer>
 </main>
 
@@ -1121,5 +1385,6 @@ html[lang="th"] .lhb-sheet .box h3{font-family:"IBM Plex Sans Thai","IBM Plex Mo
 (function(){[].forEach.call(document.querySelectorAll('details.tk'),function(d){d.addEventListener('toggle',function(){if(!d.open)return;window.lhSound&&lhSound.play('punch');var sc=d.closest('.lhb-sheet,.sheet,[data-sheet]')||null;setTimeout(function(){var sm=d.querySelector('summary')||d;sm.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});},60);});});
  [].forEach.call(document.querySelectorAll('details.tk img'),function(i){i.loading='eager';});})();</script>
 <style>details.tk[open] .inside{animation:lhopen .3s ease-out!important}@keyframes lhopen{from{opacity:0}}details.tk>summary{scroll-margin-top:72px}</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a5e8331a247b4f51a929a584b0bb5838"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

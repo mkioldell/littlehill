@@ -11,7 +11,8 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Traveller No.001 · littlehill">
 <meta property="og:description" content="Traveller No.001 from littlehill: viewing days, tickets and the Traveller's Pass.">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://littlehill.page/traveller/001/"><meta property="og:image" content="https://littlehill.page/assets/og/og-no001.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Traveller No.001 from littlehill. First seen at Stop 04.">
 <meta name="twitter:site" content="@little_hill01">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%23141c30%27/%3E%3Crect x=%2712%27 y=%279%27 width=%278%27 height=%2713%27 rx=%272%27 fill=%27%23f2b45a%27/%3E%3Crect x=%2714%27 y=%276%27 width=%274%27 height=%273%27 fill=%27%23e8e4da%27/%3E%3Crect x=%2711%27 y=%2722%27 width=%2710%27 height=%272%27 fill=%27%23e8e4da%27/%3E%3C/svg%3E">
 <link rel="stylesheet" href="../../assets/tokens.css">
@@ -164,7 +165,7 @@ html[lang="th"] .srail{letter-spacing:0;font-size:.74rem}
 .tag .val{font:400 2.7rem/1 var(--f-type);letter-spacing:-.02em;margin-top:4px}
 @media (min-width:900px){.tag .val{font-size:3.1rem}}
 .tag .when{font:400 .76rem/1.35 var(--f-type);color:#4f483c;margin-top:6px}
-.tag .seal{position:absolute;right:14px;top:14px;z-index:2;font:400 1.35rem/1 var(--f-hand);color:var(--stamp);border:1.5px solid var(--stamp);border-radius:4px;padding:3px 8px;transform:rotate(-7deg);opacity:.9;mix-blend-mode:multiply}
+.tag .seal{position:absolute;right:12px;top:8px;z-index:2;font:400 1.12rem/1 var(--f-hand);color:var(--stamp);border:1.5px solid var(--stamp);border-radius:4px;padding:3px 8px;transform:rotate(-7deg);opacity:.9;mix-blend-mode:multiply}
 html[lang="th"] .tag .seal{font:400 .85rem/1.2 "Sriracha",cursive}
 .tag .seal.home{color:var(--home);border-color:var(--home)}
 .tag .live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);margin-right:6px;vertical-align:1px}
@@ -457,7 +458,9 @@ html[lang="th"] .regline .st,html[lang="th"] .regline .with small{font-family:"I
 main{padding-bottom:150px}
 html body .lh-nav.lh-rail{transform:none!important}
 </style>
-<style id="ink-rule">.sechead h2{font-family:"Caveat","Sriracha",cursive!important;font-weight:700!important;font-size:clamp(2.4rem,9vw,3.6rem)!important}.tier h3{font-family:"Caveat","Sriracha",cursive!important;font-weight:700!important}html[lang="th"] .sechead h2,html[lang="th"] .tier h3{font-family:"Sriracha",cursive!important;font-weight:400!important}</style>
+<style id="ink-rule">.sechead h2{font-family:"Caveat","Sriracha",cursive!important;font-weight:700!important;font-size:clamp(2.4rem,9vw,3.6rem)!important}.tier h3{font-family:"Caveat","Sriracha",cursive!important;font-weight:700!important}html[lang="th"] .sechead h2,html[lang="th"] .tier h3{font-family:"Sriracha",cursive!important;font-weight:400!important}
+/* r24: the stamp no longer sits on a 3–4 digit price */@media (min-width:700px){.tag{min-width:380px}}.tag .val.long{font-size:2.55rem}
+</style>
 <link rel="stylesheet" href="../../assets/head.css">
 </head>
 <body>
@@ -836,11 +839,12 @@ function renderState(flare){
   var lbl,val,when;
   if(st==='teaser'){lbl='';val='';when=t('whenTeaser')}
   else if(st==='preview'){lbl=t('start');val=money(D.tiers[0].price);when=t('whenPreview').replace('{t}',fmt(S.opensAt))}
+  else if(open&&b==null){lbl=t('start');val=money(D.tiers[0].price);when=t('whenWait')} /* open, no bid yet: show the starting bid (was "$0") */
   else if(open){lbl=t('cur');val=money(b);when=t('whenOpen').replace('{t}',fmt(S.closeAt))}
   else {lbl=t('fin');val=money(b);when=st==='closed'?t('whenClosed'):t('whenSold').replace('{t}',fmt(S.soldAt))}
   $('#tLbl').innerHTML=(open?'<span class="live" aria-hidden="true"></span>':'')+esc(lbl);
   if(REG){lbl='';val=''}
-  var v=$('#tVal');if(flare&&!reduce&&v.textContent!==val&&v.animate){v.textContent=val;v.animate([{opacity:0,transform:'translateY(-30%)'},{opacity:1,transform:'none'}],{duration:900,easing:'cubic-bezier(.22,.61,.24,1)'})}else v.textContent=val;
+  var v=$('#tVal');v.classList.toggle('long',String(val).length>5); /* $1,250: a little smaller so the stamp has room */if(flare&&!reduce&&v.textContent!==val&&v.animate){v.textContent=val;v.animate([{opacity:0,transform:'translateY(-30%)'},{opacity:1,transform:'none'}],{duration:900,easing:'cubic-bezier(.22,.61,.24,1)'})}else v.textContent=val;
   var chk=checking(),a=SS&&SS.auction||{},tz=SS&&SS.teaser||{};
   if(st==='teaser')when=tz.opensAt?t('whenArr').replace('{t}',fmt(tz.opensAt)):t('whenTeaser');
   else if(st==='preview')when=S.opensAt?t('whenPreview').replace('{t}',fmt(S.opensAt)):t('whenSoon');
@@ -980,7 +984,7 @@ function placeLamp(){var p=lampXY();if(!p)return;var a=$('#artbtn');a.style.setP
 (function(){if(reduce)return;var c=$('#motes'),x=c.getContext('2d'),P=[],on=true,raf=0,W=0,H=0,dpr=1,lastT=0,scrolling=0;addEventListener('scroll',function(){clearTimeout(scrolling);scrolling=setTimeout(function(){scrolling=0},180)},{passive:true});
   function rs(){var r=c.getBoundingClientRect();W=c.width=r.width*dpr;H=c.height=r.height*dpr}
   function spawn(){var p=lampXY();var lx=p?p.x*dpr:W*.8,ly=p?p.y*dpr:H*.68;return{x:lx+(Math.random()-.5)*W*.22,y:ly+(Math.random()-.3)*H*.16,vx:(Math.random()-.5)*.12*dpr,vy:-(.08+Math.random()*.22)*dpr,r:(.6+Math.random()*1.5)*dpr,a:0,life:0,max:260+Math.random()*320}}
-  function tick(t){if(scrolling||t-lastT<32){raf=on?requestAnimationFrame(tick):0;return}lastT=t;x.clearRect(0,0,W,H);while(P.length<22)P.push(spawn());
+  function tick(t){if(scrolling||window.lhOpening||t-lastT<32){raf=on?requestAnimationFrame(tick):0;return}lastT=t;x.clearRect(0,0,W,H);while(P.length<22)P.push(spawn());
     P.forEach(function(p,i){p.life++;p.x+=p.vx+Math.sin(p.life/40)*.08*dpr;p.y+=p.vy;var k=p.life/p.max;p.a=k<.2?k/.2:k>.7?(1-k)/.3:1;
       x.fillStyle='rgba(255,214,150,'+(p.a*.55).toFixed(3)+')';x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill();if(p.life>=p.max)P[i]=spawn()});
     raf=on?requestAnimationFrame(tick):0}
@@ -1019,5 +1023,6 @@ fetch('data.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)th
 <script>/* r15 (Dell: a light kept looping on an empty patch): the lantern glow + dust belong around her picture · no picture (not uploaded yet / failed) → no glow */
 (function(){var i=document.getElementById('heroimg'),st=document.getElementById('stage');if(!i||!st)return;function chk(){st.classList.toggle('noart',!(i.complete&&i.naturalWidth>0));}i.addEventListener('error',chk);i.addEventListener('load',chk);if(i.complete)chk();})();</script>
 <style>.noart .art .glow,.noart .art .motes,.noart .art .breath{display:none!important}</style>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a5e8331a247b4f51a929a584b0bb5838"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

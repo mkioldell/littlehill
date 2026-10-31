@@ -2,7 +2,7 @@
    all sounds are drawn in code (no files yet): short, quiet, warm. Browsers only allow sound after a tap on the page. */
 (function(){var KEY='lh-sound',AC=null,DST=null;
 /* r16 (Dell: "make every sound sit right") · measured offline and balanced by job: small taps ≈ -22 dB peak · moments ≈ -17 · the big bells ≈ -14 (same as the home chime and the delivery page) · the far train and the pen are lifted into the range phone speakers can play */
-var LV={tick:1.5,lamp:1.8,paper:1.7,flap:1.5,punch:1.1,bell:1.7,closebell:1.9,rumble:1.6,pen:2.8};
+var LV={tick:1.75,lamp:2.45,paper:2.7,flap:1.45,punch:.8,bell:2.5,closebell:2,rumble:1.7,pen:5,run:3.2};
 function memo(v){try{if(v===undefined){var x=localStorage.getItem(KEY);if(x!=null)return x;}else localStorage.setItem(KEY,v);}catch(e){}
   try{if(v===undefined){var y=sessionStorage.getItem(KEY);if(y!=null)return y;}else sessionStorage.setItem(KEY,v);}catch(e){}
   var m=(window.name||'').match(/(?:^|\s)lh-sound=(\S+)/);if(v===undefined)return m?m[1]:null;try{window.name=(window.name||'').replace(/\s?lh-sound=\S+/g,'')+' lh-sound='+v;}catch(e){}return null;}
@@ -23,6 +23,8 @@ var S={
  lamp:function(c,t){nz(c,t,.02,'bandpass',3000,4,.06);tone(c,t+.01,660,.5,.03);tone(c,t+.01,990,.35,.015);}, /* a lamp switching on */
  rumble:function(c,t,o){var d=(o&&o.d)||1.4,s=noise(c,d+.1),fl=c.createBiquadFilter(),g=c.createGain();fl.type='lowpass';fl.frequency.value=420;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.16,t+d*.35);g.gain.linearRampToValueAtTime(0,t+d);s.connect(fl);fl.connect(g);g.connect(DST);s.start(t);s.stop(t+d+.1);
    for(var k=0;k<d/.36;k++){nz(c,t+.15+k*.36,.03,'bandpass',900,3,.05);}},                            /* the train passing far away */
+ run:function(c,t,o){var d=(o&&o.d)||.4,s=noise(c,d+.1),fl=c.createBiquadFilter(),g=c.createGain();fl.type='bandpass';fl.frequency.setValueAtTime(500,t);fl.frequency.linearRampToValueAtTime(1300,t+d);fl.Q.value=.7;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.05,t+d*.5);g.gain.linearRampToValueAtTime(0,t+d+.05);s.connect(fl);fl.connect(g);g.connect(DST);s.start(t);s.stop(t+d+.12);
+   var n=Math.max(2,Math.round(d/.12));for(var k=0;k<n;k++){nz(c,t+.03+k*(d/n),.022,'bandpass',k%2?1100:850,3,.045);}},   /* the little light running along the rail: soft whoosh + wheel clacks */
  pen:function(c,t,o){var d=(o&&o.d)||1,s=noise(c,d+.05),fl=c.createBiquadFilter(),g=c.createGain(),lf=c.createOscillator(),lg=c.createGain();fl.type='bandpass';fl.frequency.value=3600;fl.Q.value=1.2;
    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.012,t+.05);g.gain.setValueAtTime(.012,t+d-.08);g.gain.linearRampToValueAtTime(0,t+d);lf.frequency.value=7;lg.gain.value=.007;lf.connect(lg);lg.connect(g.gain);
    s.connect(fl);fl.connect(g);g.connect(DST);s.start(t);s.stop(t+d+.05);lf.start(t);lf.stop(t+d+.05);}  /* a nib on paper */

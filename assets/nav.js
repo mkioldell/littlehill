@@ -127,3 +127,13 @@
   if(!cfg.state)setInterval(load,60000);
   window.LH_NAV_RENDER=render;
 })();
+/* r24 · the season-end page gives each visitor a ticket for the stops they rode: remember (in this browser only) when they first boarded · nothing is sent anywhere */
+try{if(!localStorage.getItem('lh-boarded'))localStorage.setItem('lh-boarded',JSON.stringify({at:new Date().toISOString()}));}catch(e){}
+/* … and how many different nights they came back (one count per calendar day) */
+try{var lhD=new Date().toDateString(),lhN=JSON.parse(localStorage.getItem('lh-nights')||'{"n":0}');if(lhN.last!==lhD){lhN={n:(lhN.n||0)+1,last:lhD};localStorage.setItem('lh-nights',JSON.stringify(lhN));}}catch(e){}
+/* r24 · a picture that is not on the site yet (art still being drawn) leaves its frame empty instead of a broken-image icon */
+(function(){var st=document.createElement("style");st.textContent="img.lh-noimg{visibility:hidden!important}";document.head.appendChild(st);
+  function mark(i){if(i&&i.tagName==="IMG")i.classList.add("lh-noimg");}
+  document.addEventListener("error",function(e){mark(e.target);},true);
+  function sweep(){[].forEach.call(document.images,function(i){if(i.complete&&i.getAttribute("src")&&!i.naturalWidth)mark(i);});}
+  sweep();addEventListener("load",sweep);})();
